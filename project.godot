@@ -10,6 +10,11 @@ config_version=5
 
 [application]
 
-config/name="新建游戏项目"
+config/name="Demo"
+run/main_scene="uid://bpkdfkxoa4u4p"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

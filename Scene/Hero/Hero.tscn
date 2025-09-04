@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://dsspae73jd8a6"]
+
+[ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/Hero.gd" id="1_6pkku"]
+[ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pkku"]
+size = Vector2(5, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7f62"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(0, 0, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkylc"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(50, 0, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wke7e"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(100, 0, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87t37"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(150, 0, 50, 37)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ay60v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7f62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jkylc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wke7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87t37")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 4.0
+}]
+
+[node name="Hero" type="CharacterBody2D"]
+position = Vector2(353, 189)
+script = ExtResource("1_6pkku")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 3.5)
+shape = SubResource("RectangleShape2D_6pkku")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ay60v")
+animation = &"Idle"
+frame_progress = 0.33105
+
+[node name="State" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="State"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
