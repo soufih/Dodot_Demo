@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	for i in get_children():
+	for i in get_children(): #对在“Chr”组中的对象施加重力
 		if i.is_in_group("Chr"):
 			i.velocity.y += gravity*delta
 			i.move_and_slide()
