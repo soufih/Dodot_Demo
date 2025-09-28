@@ -220,8 +220,8 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="Animation" id="Animation_6pkku"]
-resource_name = "Idle"
+[sub_resource type="Animation" id="Animation_o8uxl"]
+resource_name = "Attack"
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -232,7 +232,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [&"Idle", 1.0, false],
+"args": [&"Attack", 1.0, false],
 "method": &"play"
 }]
 }
@@ -254,8 +254,8 @@ tracks/0/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_73oc2"]
-resource_name = "Run"
+[sub_resource type="Animation" id="Animation_6pkku"]
+resource_name = "Idle"
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -266,7 +266,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [&"Run", 1.0, false],
+"args": [&"Idle", 1.0, false],
 "method": &"play"
 }]
 }
@@ -288,23 +288,6 @@ tracks/0/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_o8uxl"]
-resource_name = "Attack"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"Attack", 1.0, false],
-"method": &"play"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_8705s"]
 resource_name = "Prejump"
 tracks/0/type = "method"
@@ -318,6 +301,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [&"Prejump", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_73oc2"]
+resource_name = "Run"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Run", 1.0, false],
 "method": &"play"
 }]
 }
@@ -342,7 +342,7 @@ shape = SubResource("RectangleShape2D_6pkku")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ay60v")
-animation = &"Run"
+animation = &"Idle"
 
 [node name="State" type="Node" parent="."]
 script = ExtResource("3_b7f62")
@@ -368,5 +368,10 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Weapon" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Weapon"]
+position = Vector2(368, 192)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State" method="_on_animated_sprite_2d_animation_finished"]
