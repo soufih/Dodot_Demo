@@ -7,6 +7,8 @@ extends BaseCharacter
 func _ready() -> void:
 	super.beginning()
 	add_to_group("Hero")
+	var weapon = preload("res://Scene/Weapon/Sword.tscn").instantiate()
+	$Weapon/Area2D.add_child(weapon)
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
