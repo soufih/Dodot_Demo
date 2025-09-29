@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=3 uid="uid://dsspae73jd8a6"]
 
-[ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/Hero.gd" id="1_6pkku"]
+[ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/HeroProperty.gd" id="1_6pkku"]
 [ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
 [ext_resource type="Script" uid="uid://ve64hqqjbjjt" path="res://Script/Hero/FSM/StateManager.gd" id="3_b7f62"]
 [ext_resource type="Script" uid="uid://dcdupyefvr2cl" path="res://Script/Hero/FSM/Idle.gd" id="4_qqiuq"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://ckib84dd2mngj" path="res://Script/Hero/FSM/Attack.gd" id="8_v1ih1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pkku"]
-size = Vector2(5, 27)
+size = Vector2(16, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fqamf"]
 atlas = ExtResource("1_uv5e3")
@@ -333,14 +333,16 @@ _data = {
 }
 
 [node name="Hero" type="CharacterBody2D"]
-position = Vector2(353, 189)
+position = Vector2(600, 408)
 script = ExtResource("1_6pkku")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 3.5)
+position = Vector2(24, -20)
 shape = SubResource("RectangleShape2D_6pkku")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(23.999989, -24)
+scale = Vector2(1.581081, 1.581081)
 sprite_frames = SubResource("SpriteFrames_ay60v")
 animation = &"Idle"
 
@@ -368,10 +370,9 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 
-[node name="Weapon" type="Node" parent="."]
-
-[node name="Area2D" type="Area2D" parent="Weapon"]
-position = Vector2(368, 192)
+[node name="WeaponPosition" type="Marker2D" parent="."]
+position = Vector2(24, -24)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State" method="_on_animated_sprite_2d_animation_finished"]

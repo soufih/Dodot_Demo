@@ -5,6 +5,10 @@ extends BaseState
 var HitBox: Area2D
 
 func enter():
+	if $"../../WeaponPosition".get_child(0) == null:
+		print(0)
+		return
 	get_parent().attacking = true
 	Hero.velocity = Vector2(0, Hero.velocity.y) 
 	ani.play("Attack")
+	$"../../WeaponPosition".get_child(0).excute_attack()
