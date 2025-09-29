@@ -1,0 +1,88 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj557uye5f0gc"]
+
+[ext_resource type="Script" uid="uid://dl0w6awd7fnup" path="res://UI/MainScene_UI/gamestart.gd" id="1_o1w0f"]
+[ext_resource type="Script" uid="uid://dwqtsunh66ani" path="res://UI/MainScene_UI/setting.gd" id="2_qn7se"]
+[ext_resource type="Script" uid="uid://rjqe6qktcac1" path="res://UI/MainScene_UI/quit.gd" id="3_jlv17"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 325)
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Camera2D/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -324.0
+offset_right = 400.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Camera2D/TextureRect/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+theme_override_font_sizes/font_size = 200
+text = "xxxx"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/TextureRect/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="gamestart" type="Button" parent="Camera2D/TextureRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "开始游戏"
+script = ExtResource("1_o1w0f")
+
+[node name="setting" type="Button" parent="Camera2D/TextureRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "设置"
+script = ExtResource("2_qn7se")
+
+[node name="quit" type="Button" parent="Camera2D/TextureRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "退出游戏"
+script = ExtResource("3_jlv17")
+
+[node name="blank" type="Control" parent="Camera2D/TextureRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="Camera2D/TextureRect/VBoxContainer2/VBoxContainer/gamestart" to="Camera2D/TextureRect/VBoxContainer2/VBoxContainer/gamestart" method="_on_pressed"]
+[connection signal="pressed" from="Camera2D/TextureRect/VBoxContainer2/VBoxContainer/setting" to="Camera2D/TextureRect/VBoxContainer2/VBoxContainer/setting" method="_on_pressed"]
+[connection signal="pressed" from="Camera2D/TextureRect/VBoxContainer2/VBoxContainer/quit" to="Camera2D/TextureRect/VBoxContainer2/VBoxContainer/quit" method="_on_pressed"]
