@@ -5,16 +5,16 @@ var Health: int = 100
 var SpecialStateResist: Array
 
 
-func Beginning():
+func beginning():
 	add_to_group("Chr")
 	
-func Running():
+func running():
 	pass
 	
-func TakeHit(AniPlayer: AnimationPlayer):
+func take_hit(AniPlayer: AnimationPlayer):
 	AniPlayer.play("TakeHit")
 #	添加其他受击逻辑
 	
-func Death(AniPlayer: AnimationPlayer):
+func death(AniPlayer: AnimationPlayer):
 	AniPlayer.play("Death")
 #	添加其他死亡逻辑
