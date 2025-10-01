@@ -8,7 +8,7 @@ class_name HeroProperty
 func _ready() -> void:
 	super.beginning()
 	add_to_group("Hero")
-	change_weapon("res://Scene/Weapon/Sword.tscn")
+	ResourceManager.instantiate_item(0, $WeaponPosition)
 
 
 @warning_ignore("unused_parameter")
