@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6fop6llbymm1"
-path="res://.godot/imported/weapons_new2_sword_swing1.png-33708b4913ea4984e53a4e37e1ec9fee.ctex"
+path="res://.godot/imported/weapons_new2_sword_swing1.png-7fc1b6d9ff0b3040260e880707024a25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Static/TestWeapon/weapons_new2_sword_swing1.png"
-dest_files=["res://.godot/imported/weapons_new2_sword_swing1.png-33708b4913ea4984e53a4e37e1ec9fee.ctex"]
+source_file="res://Rescource/Static/TestWeapon/weapons_new2_sword_swing1.png"
+dest_files=["res://.godot/imported/weapons_new2_sword_swing1.png-7fc1b6d9ff0b3040260e880707024a25.ctex"]
 
 [params]
 

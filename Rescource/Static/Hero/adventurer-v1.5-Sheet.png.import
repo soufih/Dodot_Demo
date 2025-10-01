@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy27p41obchom"
-path="res://.godot/imported/weapons_new2_sword_swing2.png-5bfcf6e74326b6370463ae3ac7de6e8b.ctex"
+uid="uid://dwahxlfumrnjk"
+path="res://.godot/imported/adventurer-v1.5-Sheet.png-9e55f06f9be0c07d80b6e53924ab4fb1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Static/TestWeapon/weapons_new2_sword_swing2.png"
-dest_files=["res://.godot/imported/weapons_new2_sword_swing2.png-5bfcf6e74326b6370463ae3ac7de6e8b.ctex"]
+source_file="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png"
+dest_files=["res://.godot/imported/adventurer-v1.5-Sheet.png-9e55f06f9be0c07d80b6e53924ab4fb1.ctex"]
 
 [params]
 

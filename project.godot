@@ -15,6 +15,10 @@ run/main_scene="uid://bpkdfkxoa4u4p"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ResourceManager="*res://Script/ResourceManager/ResourceManager.gd"
+
 [input]
 
 MoveRight={

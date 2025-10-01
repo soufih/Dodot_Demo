@@ -1,7 +1,7 @@
 [gd_scene load_steps=43 format=3 uid="uid://dsspae73jd8a6"]
 
 [ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/HeroProperty.gd" id="1_6pkku"]
-[ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
+[ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
 [ext_resource type="Script" uid="uid://ve64hqqjbjjt" path="res://Script/Hero/FSM/StateManager.gd" id="3_b7f62"]
 [ext_resource type="Script" uid="uid://dcdupyefvr2cl" path="res://Script/Hero/FSM/Idle.gd" id="4_qqiuq"]
 [ext_resource type="Script" uid="uid://de3556wyijsh0" path="res://Script/Hero/FSM/Run.gd" id="5_iuq1t"]

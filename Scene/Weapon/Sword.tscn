@@ -1,8 +1,8 @@
 [gd_scene load_steps=32 format=3 uid="uid://dt0bj2ejimup4"]
 
-[ext_resource type="Texture2D" uid="uid://c6fop6llbymm1" path="res://Static/TestWeapon/weapons_new2_sword_swing1.png" id="1_i543r"]
-[ext_resource type="Texture2D" uid="uid://dy27p41obchom" path="res://Static/TestWeapon/weapons_new2_sword_swing2.png" id="2_wmhkq"]
-[ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Static/TestWeapon/weapons_new2_sword.png" id="3_gfkto"]
+[ext_resource type="Texture2D" uid="uid://c6fop6llbymm1" path="res://Rescource/Static/TestWeapon/weapons_new2_sword_swing1.png" id="1_i543r"]
+[ext_resource type="Texture2D" uid="uid://dy27p41obchom" path="res://Rescource/Static/TestWeapon/weapons_new2_sword_swing2.png" id="2_wmhkq"]
+[ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Rescource/Static/TestWeapon/weapons_new2_sword.png" id="3_gfkto"]
 [ext_resource type="Script" uid="uid://bgffv3aj8akhd" path="res://Script/Weapon/Sword/Sword.gd" id="4_wmhkq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ydr8a"]
