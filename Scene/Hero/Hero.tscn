@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dsspae73jd8a6"]
+[gd_scene load_steps=44 format=3 uid="uid://dsspae73jd8a6"]
 
 [ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/HeroProperty.gd" id="1_6pkku"]
 [ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dvbqh7m28bfnn" path="res://Script/Hero/FSM/Jumping.gd" id="6_o2ky4"]
 [ext_resource type="Script" uid="uid://xlpd0upl7t7p" path="res://Script/Hero/FSM/Falling.gd" id="7_pwso0"]
 [ext_resource type="Script" uid="uid://ckib84dd2mngj" path="res://Script/Hero/FSM/Attack.gd" id="8_v1ih1"]
+[ext_resource type="Script" uid="uid://b05lqsb3afh4j" path="res://Script/Hero/FSM/SwitchWeapon.gd" id="9_iuq1t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pkku"]
 size = Vector2(16, 40)
@@ -335,6 +336,7 @@ _data = {
 [node name="Hero" type="CharacterBody2D"]
 position = Vector2(600, 408)
 script = ExtResource("1_6pkku")
+WeaponSlot = [0, 1]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(24, -20)
@@ -363,6 +365,9 @@ script = ExtResource("7_pwso0")
 
 [node name="Attack" type="Node" parent="State"]
 script = ExtResource("8_v1ih1")
+
+[node name="SwitchWeapon" type="Node" parent="State"]
+script = ExtResource("9_iuq1t")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

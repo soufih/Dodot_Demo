@@ -26,7 +26,6 @@ func get_item_config(id: int)->ItemConfig:
 				ItemConfigCache[id] = item
 				
 				return item
-	push_error("ID", id, "NOT FOUND")
 	
 	return null
 	

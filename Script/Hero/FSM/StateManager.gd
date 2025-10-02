@@ -2,6 +2,7 @@ extends Node
 
 @onready var Hero: CharacterBody2D = $".."
 @onready var Current: BaseState = $Idle
+@onready var Sprite:AnimatedSprite2D = $"../AnimatedSprite2D"
 var StateArray: Array = []
 var jumping:bool
 var attacking:bool
@@ -32,10 +33,13 @@ func check():
 			change_state(0)
 		elif !Hero.is_on_floor():
 			change_state(3)
+	if !attacking:
+		if Input.is_action_just_pressed("SwitchWeapon"):
+			$SwitchWeapon.switch_weapon()
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if $"../AnimatedSprite2D".animation == "Jump":
+	if Sprite.animation == "Jump":
 		change_state(1)
 		jumping = false
-	if $"../AnimatedSprite2D".animation == "Attack":
+	if Sprite.animation == "Attack":
 		attacking = false
