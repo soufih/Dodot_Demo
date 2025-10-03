@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://di38xxftqwhae"]
+
+[node name="SettingPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.20784314)
+
+[node name="Title" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24100001
+anchor_top = 0.19700001
+anchor_right = 0.75900006
+anchor_bottom = 0.804
+offset_left = 278.36798
+offset_top = -36.656006
+offset_right = -278.36804
+offset_bottom = -401.992
+grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "设置"
+
+[node name="Panel" type="PanelContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24000001
+anchor_top = 0.19100001
+anchor_right = 0.76000005
+anchor_bottom = 0.809
+offset_left = -0.480011
+offset_top = 0.231987
+offset_right = 0.47991943
+offset_bottom = -0.23199463
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tabs" type="TabContainer" parent="Background/Panel"]
+layout_mode = 2
+current_tab = 0
+
+[node name="视频设置" type="VBoxContainer" parent="Background/Panel/Tabs"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="音频设置" type="VBoxContainer" parent="Background/Panel/Tabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Margin" type="MarginContainer" parent="Background/Panel"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 40
+
+[node name="Buttons" type="HBoxContainer" parent="Background/Panel/Margin"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="Background/Panel/Margin/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+text = "保存"
+
+[node name="blank" type="Control" parent="Background/Panel/Margin/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BackButton" type="Button" parent="Background/Panel/Margin/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+text = "关闭"
