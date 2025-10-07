@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://di38xxftqwhae"]
+[gd_scene load_steps=2 format=3 uid="uid://di38xxftqwhae"]
+
+[ext_resource type="Script" uid="uid://dglcuq5r3dpk2" path="res://Script/UI_Script/视频设置.gd" id="1_rj7q4"]
 
 [node name="SettingPanel" type="Control"]
 layout_mode = 3
@@ -52,14 +54,55 @@ grow_vertical = 2
 layout_mode = 2
 current_tab = 0
 
-[node name="视频设置" type="VBoxContainer" parent="Background/Panel/Tabs"]
+[node name="视频设置" type="PanelContainer" parent="Background/Panel/Tabs"]
 layout_mode = 2
+script = ExtResource("1_rj7q4")
 metadata/_tab_index = 0
 
-[node name="音频设置" type="VBoxContainer" parent="Background/Panel/Tabs"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/Panel/Tabs/视频设置"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+
+[node name="Video" type="VBoxContainer" parent="Background/Panel/Tabs/视频设置/MarginContainer"]
+layout_mode = 2
+
+[node name="Resolution" type="Label" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
+layout_mode = 2
+text = "分辨率"
+
+[node name="Resolution_OptionButton" type="OptionButton" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="DisplayMode" type="Label" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
+layout_mode = 2
+text = "显示模式"
+
+[node name="DisplayMode_OptionButton" type="OptionButton" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Fps" type="Label" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
+layout_mode = 2
+text = "帧率限制"
+
+[node name="Fps_OptionButton" type="OptionButton" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="音频设置" type="PanelContainer" parent="Background/Panel/Tabs"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/Panel/Tabs/音频设置"]
+layout_mode = 2
+
+[node name="Sound" type="VBoxContainer" parent="Background/Panel/Tabs/音频设置/MarginContainer"]
+visible = false
+layout_mode = 2
 
 [node name="Margin" type="MarginContainer" parent="Background/Panel"]
 layout_mode = 2
