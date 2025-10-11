@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 ResourceManager="*res://Script/ResourceManager/ResourceManager.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 MoveRight={

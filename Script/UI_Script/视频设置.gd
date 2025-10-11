@@ -36,6 +36,18 @@ func _init_dropdowns():
 
 func _load_saved_settings():
 	var config = ConfigFile.new()
+	if FileAccess.file_exists("user://settings.cfg"):
+		config.load("user://settings.cfg")
+	
+	# 写入视频设置
+	config.set_value("Video", "resolution", video_settings.resolution)
+	config.set_value("Video", "display_mode", video_settings.display_mode)
+	config.set_value("Video", "fps_limit", video_settings.fps_limit)
+	config.set_value("Video", "quality_level", video_settings.quality_level)
+	
+	# 保存文件
+	config.save("user://settings.cfg")
+	print("视频设置已保存")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
