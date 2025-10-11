@@ -2,7 +2,7 @@ extends BaseState
 
 @onready var Hero: CharacterBody2D    = $"../.."
 @onready var ani: AnimationPlayer     = $"../../AnimationPlayer"
-@export var JumpSpeed: int = -300
+@export var JumpSpeed: int = -450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func enter():
@@ -12,5 +12,3 @@ func enter():
 	Hero.move_and_slide()
 	ani.play("Jump")
 	
-func do():
-	pass

@@ -33,3 +33,4 @@ func equip_weapon(WeaponId: int):
 		WeaponPosition.get_child(0).queue_free()
 	
 	ResourceManager.instantiate_item(WeaponId, WeaponPosition)
+	WeaponPosition.get_child(0).z_index=-1

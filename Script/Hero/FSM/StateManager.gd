@@ -14,7 +14,7 @@ func _ready() -> void:
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	check()
-	Current.do()
+	Current.do(delta)
 	
 func change_state(id: int):
 	Current.exit()

@@ -8,7 +8,7 @@ var direct_x
 func enter():
 	ani.play("Run")
 	
-func do():
+func do(delta):
 	direct_x = Input.get_action_strength("MoveRight")-Input.get_action_strength("MoveLeft")
 
 	Hero.velocity = Vector2(direct_x*SPEED, Hero.velocity.y)

@@ -4,7 +4,8 @@ extends BaseState
 
 func enter():
 	ani.play("Falling")
-	Hero.velocity = Vector2(0, Hero.velocity.y) 
 	
-func do():
-	pass
+	
+func do(delta):
+	Hero.velocity = lerp(Hero.velocity, Vector2(0, Hero.velocity.y), delta*10)
+	

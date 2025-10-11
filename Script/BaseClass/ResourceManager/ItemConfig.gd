@@ -14,3 +14,4 @@ class_name ItemConfig
 
 #物品属性
 @export var MaxStack: int = 1
+@export var By: String=''
