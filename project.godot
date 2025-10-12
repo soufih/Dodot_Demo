@@ -21,7 +21,9 @@ ResourceManager="*res://Script/ResourceManager/ResourceManager.gd"
 
 [display]
 
+window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
+window/per_pixel_transparency/allowed=true
 
 [input]
 
