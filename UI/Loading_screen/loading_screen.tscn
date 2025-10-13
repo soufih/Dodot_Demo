@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwe0xfiykgcu0"]
+
+[ext_resource type="Script" uid="uid://i185qf6yvofm" path="res://Script/UI_Script/loading_screen.gd" id="1_poetl"]
+
+[node name="Loading_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_poetl")
+
+[node name="progress_titiel_Lb" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 365.0
+offset_top = 120.0
+offset_right = -390.0
+offset_bottom = -422.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "请输入文本"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="progress_number_Lb" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 492.0
+offset_top = 314.0
+offset_right = -508.0
+offset_bottom = -311.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 340.0
+offset_top = 351.0
+offset_right = -359.0
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 2

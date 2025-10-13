@@ -12,8 +12,10 @@ func _ready() -> void:
 	pass 
 
 func on_start_pressed():
-	pass
-	
+	SceneLoader.next_scene = "res://Scene/MainScene/MainScene.tscn"
+	get_tree().change_scene_to_packed(SceneLoader.loading_scene)
+
+
 func on_setting_pressed():
 	pass
 	
