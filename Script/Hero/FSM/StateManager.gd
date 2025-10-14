@@ -1,25 +1,10 @@
-extends Node
+extends BaseStateManager
 
 @onready var Hero: CharacterBody2D = $".."
-@onready var Current: BaseState = $Idle
 @onready var Sprite:AnimatedSprite2D = $"../AnimatedSprite2D"
-var StateArray: Array = []
 var jumping:bool
 var attacking:bool
 
-func _ready() -> void:
-	StateArray = get_children()
-	Current.enter()
-
-@warning_ignore("unused_parameter")
-func _physics_process(delta: float) -> void:
-	check()
-	Current.do(delta)
-	
-func change_state(id: int):
-	Current.exit()
-	Current = StateArray[id]
-	Current.enter()
 
 func check():
 	if !jumping && !attacking:

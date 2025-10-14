@@ -349,8 +349,9 @@ scale = Vector2(1.581081, 1.581081)
 sprite_frames = SubResource("SpriteFrames_ay60v")
 animation = &"Idle"
 
-[node name="State" type="Node" parent="."]
+[node name="State" type="Node" parent="." node_paths=PackedStringArray("Current")]
 script = ExtResource("3_b7f62")
+Current = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="State"]
 script = ExtResource("4_qqiuq")

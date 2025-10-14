@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=3 uid="uid://cmuk84c173g6p"]
+
+[ext_resource type="Texture2D" uid="uid://dpqq1wq2sqigh" path="res://Rescource/Static/Bullet/Red Effect Bullet Impact Explosion 32x32.png" id="1_gntb5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lffvr"]
+atlas = ExtResource("1_gntb5")
+region = Rect2(512, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kubfh"]
+atlas = ExtResource("1_gntb5")
+region = Rect2(544, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqx58"]
+atlas = ExtResource("1_gntb5")
+region = Rect2(576, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehult"]
+atlas = ExtResource("1_gntb5")
+region = Rect2(608, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f53m"]
+atlas = ExtResource("1_gntb5")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpqty"]
+atlas = ExtResource("1_gntb5")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8jiq"]
+atlas = ExtResource("1_gntb5")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yb4rl"]
+atlas = ExtResource("1_gntb5")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_btey2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lffvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kubfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqx58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehult")
+}],
+"loop": false,
+"name": &"Boom",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f53m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpqty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8jiq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yb4rl")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qks0g"]
+radius = 9.0
+
+[node name="Bullet" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_btey2")
+animation = &"Move"
+autoplay = "Move"
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+position = Vector2(-3, -1)
+shape = SubResource("CircleShape2D_qks0g")
