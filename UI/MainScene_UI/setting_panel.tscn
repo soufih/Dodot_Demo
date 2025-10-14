@@ -53,9 +53,10 @@ grow_vertical = 2
 
 [node name="Tabs" type="TabContainer" parent="Background/Panel"]
 layout_mode = 2
-current_tab = 0
+current_tab = 1
 
 [node name="视频设置" type="PanelContainer" parent="Background/Panel/Tabs"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -75,11 +76,11 @@ text = "分辨率"
 [node name="Resolution_OptionButton" type="OptionButton" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
 layout_mode = 2
 item_count = 3
-popup/item_0/text = "1080"
+popup/item_0/text = "2k"
 popup/item_0/id = 0
-popup/item_1/text = "720"
+popup/item_1/text = "1080p"
 popup/item_1/id = 1
-popup/item_2/text = "540"
+popup/item_2/text = "720p"
 popup/item_2/id = 2
 
 [node name="DisplayMode" type="Label" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
@@ -111,16 +112,26 @@ popup/item_2/text = "无限制"
 popup/item_2/id = 2
 
 [node name="音频设置" type="PanelContainer" parent="Background/Panel/Tabs"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/Panel/Tabs/音频设置"]
 layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
 
 [node name="Sound" type="VBoxContainer" parent="Background/Panel/Tabs/音频设置/MarginContainer"]
-visible = false
 layout_mode = 2
+
+[node name="Main_music_Lb" type="Label" parent="Background/Panel/Tabs/音频设置/MarginContainer/Sound"]
+layout_mode = 2
+text = "主音量"
+
+[node name="Main_music_HS" type="HSlider" parent="Background/Panel/Tabs/音频设置/MarginContainer/Sound"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
 
 [node name="Margin" type="MarginContainer" parent="Background/Panel"]
 layout_mode = 2
