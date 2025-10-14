@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5btmj4x5ov78"]
+
+[ext_resource type="Texture2D" uid="uid://y7fo1dja65qf" path="res://Rescource/Static/TileSet/TileSet.png" id="1_umq35"]
+[ext_resource type="Script" uid="uid://coj4te80mudld" path="res://Script/Map/Template/TemplateGenerator.gd" id="2_uh4ea"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xv1x0"]
+texture = ExtResource("1_umq35")
+0:0/0 = 0
+0:0/0/custom_data_0 = &"Start"
+1:0/0 = 0
+1:0/0/custom_data_0 = &"Room"
+2:0/0 = 0
+2:0/0/custom_data_0 = &"Corridor"
+3:0/0 = 0
+3:0/0/custom_data_0 = &"End"
+
+[sub_resource type="TileSet" id="TileSet_nkhwc"]
+custom_data_layer_0/name = "RoomType"
+custom_data_layer_0/type = 21
+sources/0 = SubResource("TileSetAtlasSource_xv1x0")
+
+[node name="TileMapLayer" type="TileMapLayer"]
+tile_set = SubResource("TileSet_nkhwc")
+script = ExtResource("2_uh4ea")
