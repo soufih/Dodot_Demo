@@ -5,7 +5,6 @@ extends BaseStateManager
 var jumping:bool
 var attacking:bool
 
-
 func check():
 	if !jumping && !attacking:
 		if Input.is_action_just_pressed("Attack") && Hero.is_on_floor():

@@ -1,8 +1,8 @@
 class_name BaseCharacter
 extends CharacterBody2D
 
-@export var CurrentHealth: int = 100
 @export var MaxHealth: int = 100
+var CurrentHealth: int = MaxHealth
 var SpecialStateResist: Array
 
 

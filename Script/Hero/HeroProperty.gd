@@ -14,7 +14,6 @@ func _ready() -> void:
 	add_to_group("Hero")
 	equip_weapon(CurrentWeapon)
 
-
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	super.running()
@@ -31,6 +30,4 @@ func _physics_process(delta: float) -> void:
 func equip_weapon(WeaponId: int):
 	if WeaponPosition.get_children().size() != 0:
 		WeaponPosition.get_child(0).queue_free()
-	
 	ResourceManager.instantiate_item(WeaponId, WeaponPosition)
-	WeaponPosition.get_child(0).z_index=-1

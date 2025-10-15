@@ -335,9 +335,11 @@ _data = {
 }
 
 [node name="Hero" type="CharacterBody2D"]
-position = Vector2(288, 56)
+collision_layer = 2
 script = ExtResource("1_6pkku")
 WeaponSlot = [0, 1]
+
+[node name="WeaponPosition" type="Marker2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
@@ -358,6 +360,7 @@ script = ExtResource("4_qqiuq")
 
 [node name="Run" type="Node" parent="State"]
 script = ExtResource("5_iuq1t")
+SPEED = 70
 
 [node name="Jumping" type="Node" parent="State"]
 script = ExtResource("6_o2ky4")
@@ -377,7 +380,5 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="WeaponPosition" type="Marker2D" parent="."]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State" method="_on_animated_sprite_2d_animation_finished"]

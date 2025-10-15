@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://debrsbk4rnn23"]
+[gd_scene load_steps=61 format=3 uid="uid://debrsbk4rnn23"]
 
 [ext_resource type="Script" uid="uid://ocfx2nhbnlcf" path="res://Script/Enemy/Enemy2/Enemy2Porperty.gd" id="1_1gu6a"]
 [ext_resource type="Texture2D" uid="uid://j0hnta4uuuai" path="res://Rescource/Static/Enemy/Necromancer_creativekind-Sheet.png" id="1_ii2va"]
@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://c1y4hslxphe2a" path="res://Script/Enemy/Enemy2/FSM/Attack.gd" id="6_2y6po"]
 [ext_resource type="Script" uid="uid://c7pghxaq86cmr" path="res://Script/Enemy/Enemy2/FSM/TakeHit.gd" id="7_pkr4r"]
 [ext_resource type="Script" uid="uid://dew354e7oqa3" path="res://Script/Enemy/Enemy2/FSM/Death.gd" id="8_mk86p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_biwwt"]
+size = Vector2(20, 61.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1gu6a"]
 atlas = ExtResource("1_ii2va")
@@ -331,35 +334,150 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_biwwt"]
-size = Vector2(20, 48.5)
+[sub_resource type="Animation" id="Animation_6ml7p"]
+resource_name = "Attack"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Attack", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../FSM/Attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_bullet"
+}]
+}
 
-[node name="Enemy2" type="Node2D"]
+[sub_resource type="Animation" id="Animation_pkr4r"]
+resource_name = "Death"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Death", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_usd1x"]
+resource_name = "Idle"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Idle", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_6rl24"]
+resource_name = "Move"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Move", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2y6po"]
+resource_name = "TakeHit"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"TakeHit", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mk86p"]
+_data = {
+&"Attack": SubResource("Animation_6ml7p"),
+&"Death": SubResource("Animation_pkr4r"),
+&"Idle": SubResource("Animation_usd1x"),
+&"Move": SubResource("Animation_6rl24"),
+&"TakeHit": SubResource("Animation_2y6po")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qm5lr"]
+size = Vector2(20.136261, 62)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_usd1x"]
+radius = 181.04419
+
+[node name="Enemy2" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_1gu6a")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -25)
-sprite_frames = SubResource("SpriteFrames_mxw6e")
-animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.9083569
+[node name="BulletSpawn" type="Marker2D" parent="."]
+position = Vector2(19, -47)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="AnimatedSprite2D"]
-visible = false
-position = Vector2(0, 25)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/CharacterBody2D"]
-position = Vector2(0, 3.75)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10.25)
 shape = SubResource("RectangleShape2D_biwwt")
 
-[node name="FSM" type="Node" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -29)
+scale = Vector2(1.18125, 1.1640625)
+sprite_frames = SubResource("SpriteFrames_mxw6e")
+animation = &"Attack"
+autoplay = "Idle"
+frame = 8
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("Current")]
 script = ExtResource("3_usd1x")
+Current = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="FSM"]
 script = ExtResource("4_6rl24")
 
 [node name="Move" type="Node" parent="FSM"]
 script = ExtResource("5_6ml7p")
+Speed = 50
 
 [node name="Attack" type="Node" parent="FSM"]
 script = ExtResource("6_2y6po")
@@ -369,3 +487,27 @@ script = ExtResource("7_pkr4r")
 
 [node name="Death" type="Node" parent="FSM"]
 script = ExtResource("8_mk86p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_mk86p")
+}
+
+[node name="BarrierDetect" type="Area2D" parent="."]
+position = Vector2(0, -25)
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetect"]
+position = Vector2(20.06813, 35)
+shape = SubResource("RectangleShape2D_qm5lr")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_usd1x")
+
+[connection signal="body_exited" from="Hitbox" to="FSM/Attack" method="_on_hitbox_body_exited"]

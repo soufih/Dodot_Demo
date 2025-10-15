@@ -235,12 +235,16 @@ script = ExtResource("4_wmhkq")
 [node name="Area1" type="Area2D" parent="HitboxsTransform"]
 visible = false
 rotation = -1.5707964
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxsTransform/Area1"]
 rotation = 1.5707964
 polygon = PackedVector2Array(-3.496911e-07, 8, 16.000002, -32, 24.000002, -23.999998, 32, -7.9999986, 32, 8.000001, 23.999998, 24.000002, 7.999998, 40, -32, 40)
 
 [node name="Area2" type="Area2D" parent="HitboxsTransform"]
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxsTransform/Area2"]
 rotation = 1.5707964
