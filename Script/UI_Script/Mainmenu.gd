@@ -14,10 +14,10 @@ func _ready() -> void:
 func on_start_pressed():
 	SceneLoader.next_scene = "res://Scene/MainScene/MainScene.tscn"
 	get_tree().change_scene_to_packed(SceneLoader.loading_scene)
-
+#跳转游戏界面
 
 func on_setting_pressed():
-	pass
+	get_tree().change_scene_to_packed(preload("res://UI/MainScene_UI/setting_panel.tscn"))
 	
 func on_quit_pressed():
 	get_tree().quit()

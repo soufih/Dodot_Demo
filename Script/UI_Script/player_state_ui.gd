@@ -10,3 +10,4 @@ func _ready() ->void:
 
 func update_health() ->void:
 	health_bar.value = states.CurrentHealth
+#血条显示更新
