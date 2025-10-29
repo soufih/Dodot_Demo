@@ -16,7 +16,7 @@ func _ready() -> void:
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
-	super.running()
+	super.physics_running(delta)
 	if Input.get_action_strength("MoveRight"):
 		if WeaponPosition.get_children().size() != 0:
 			WeaponPosition.get_child(0).scale.x=1

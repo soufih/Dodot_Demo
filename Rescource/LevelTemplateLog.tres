@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LevelTemplateLog" load_steps=4 format=3 uid="uid://imcee336yrsx"]
+
+[ext_resource type="Script" uid="uid://cov56ybr8a1ls" path="res://Script/BaseClass/LevelTemplateManager/TemplateConfig.gd" id="1_5ipdd"]
+[ext_resource type="Script" uid="uid://byxpdesq7ei0h" path="res://Script/BaseClass/LevelTemplateManager/LevelTemplateConfig.gd" id="1_x8v2j"]
+
+[sub_resource type="Resource" id="Resource_x8v2j"]
+script = ExtResource("1_5ipdd")
+TempaltePath = Array[String](["", ""])
+metadata/_custom_type_script = "uid://cov56ybr8a1ls"
+
+[resource]
+script = ExtResource("1_x8v2j")
+LevelLog = Array[ExtResource("1_5ipdd")]([SubResource("Resource_x8v2j")])
+metadata/_custom_type_script = "uid://byxpdesq7ei0h"

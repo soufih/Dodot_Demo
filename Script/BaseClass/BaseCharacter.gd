@@ -9,7 +9,10 @@ var SpecialStateResist: Array
 func beginning():
 	add_to_group("Chr")
 	
-func running():
+func running(delta: float):
+	pass
+	
+func physics_running(delta: float):
 	pass
 	
 func take_hit(AniPlayer: AnimationPlayer):

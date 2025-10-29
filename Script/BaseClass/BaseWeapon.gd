@@ -1,5 +1,5 @@
 class_name BaseWeapon
-extends Node
+extends AnimatedSprite2D
 
 var Damage: int
 var Kinds: String
