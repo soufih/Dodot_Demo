@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd2erf76jvubl"]
+
+[ext_resource type="Script" uid="uid://d1vdkqejq3msk" path="res://Script/UI_Script/player_state_ui.gd" id="1_hf3bv"]
+[ext_resource type="Texture2D" uid="uid://fgbi2k6cqxax" path="res://Rescource/UI/Base-01.png" id="2_kfmsa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y32wq"]
+atlas = ExtResource("2_kfmsa")
+region = Rect2(307, 21, 58, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bobcw"]
+atlas = ExtResource("2_kfmsa")
+region = Rect2(308, 118, 56, 4)
+
+[node name="Player_State_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hf3bv")
+
+[node name="HP" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 114.0
+offset_bottom = 52.0
+
+[node name="PanelContainer" type="PanelContainer" parent="HP"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="HP/PanelContainer"]
+layout_mode = 2
+
+[node name="Health_bar" type="TextureProgressBar" parent="HP"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 0.0
+value = 100.0
+texture_over = SubResource("AtlasTexture_y32wq")
+texture_progress = SubResource("AtlasTexture_bobcw")

@@ -3,7 +3,7 @@ extends Control
 
 func _ready() -> void:
 	ResourceLoader.load_threaded_request(SceneLoader.next_scene)
-
+#加载资源
 
 func _process(delta: float) -> void:
 	var progress = []
@@ -14,5 +14,5 @@ func _process(delta: float) -> void:
 	if progress[0] == 1:
 		var packed_scene = ResourceLoader.load_threaded_get(SceneLoader.next_scene)
 		get_tree().change_scene_to_packed(packed_scene)
-	
+#	加载完成后跳转下一个界面
 	

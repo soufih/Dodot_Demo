@@ -1,6 +1,8 @@
 class_name BaseCharacter
 extends CharacterBody2D
 
+signal health_changed
+
 @export var MaxHealth: int = 100
 var CurrentHealth: int = MaxHealth
 var SpecialStateResist: Array
@@ -17,6 +19,7 @@ func physics_running(delta: float):
 	
 func take_hit(AniPlayer: AnimationPlayer):
 	AniPlayer.play("TakeHit")
+	health_changed.emit()
 #	添加其他受击逻辑
 	
 func death(AniPlayer: AnimationPlayer):

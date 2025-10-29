@@ -53,10 +53,9 @@ grow_vertical = 2
 
 [node name="Tabs" type="TabContainer" parent="Background/Panel"]
 layout_mode = 2
-current_tab = 1
+current_tab = 0
 
 [node name="视频设置" type="PanelContainer" parent="Background/Panel/Tabs"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -112,6 +111,7 @@ popup/item_2/text = "无限制"
 popup/item_2/id = 2
 
 [node name="音频设置" type="PanelContainer" parent="Background/Panel/Tabs"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
