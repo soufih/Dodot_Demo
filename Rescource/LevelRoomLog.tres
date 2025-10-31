@@ -4,16 +4,16 @@
 [ext_resource type="Script" uid="uid://dxvktdhmsuboy" path="res://Script/BaseClass/LevelTemplateManager/RoomConfig.gd" id="2_cqset"]
 [ext_resource type="Script" uid="uid://bgc6n7osdvkgt" path="res://Script/BaseClass/LevelTemplateManager/LevelRoomLog.gd" id="2_xqdc7"]
 
-[sub_resource type="Resource" id="Resource_jll86"]
+[sub_resource type="Resource" id="Resource_xqdc7"]
 script = ExtResource("2_cqset")
 metadata/_custom_type_script = "uid://dxvktdhmsuboy"
 
 [sub_resource type="Resource" id="Resource_glhl0"]
 script = ExtResource("1_2ypun")
-RoomLog = Array[ExtResource("2_cqset")]([SubResource("Resource_jll86")])
+RoomLog = Array[ExtResource("2_cqset")]([SubResource("Resource_xqdc7")])
 metadata/_custom_type_script = "uid://cwo4e54lv8500"
 
 [resource]
 script = ExtResource("2_xqdc7")
-LevelLog = Array[ExtResource("1_2ypun")]([SubResource("Resource_glhl0"), null, null])
+LevelLog = Array[ExtResource("1_2ypun")]([SubResource("Resource_glhl0")])
 metadata/_custom_type_script = "uid://bgc6n7osdvkgt"

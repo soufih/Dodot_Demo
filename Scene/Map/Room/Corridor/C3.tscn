@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=4 uid="uid://bx6og5tjba7lp"]
+
+[ext_resource type="PackedScene" uid="uid://b1icj01t6yj82" path="res://Scene/Map/Room/BaseRoom.tscn" id="1_3olq3"]
+
+[node name="Entrance" instance=ExtResource("1_3olq3")]
+
+[node name="TileMapLayer" parent="." index="0"]
+position = Vector2(-8, 32)
+tile_map_data = PackedByteArray("AAD+//7/AAA8AAkAAAD+////AAA8AAkAAAD+/wAAAAA8AAkAAAD+/wEAAAA8AAkAAAD+/wIAAAA8AAkAAAD+/wMAAAA8AAkAAAD+/wQAAAA8AAkAAAACAP7/AAA+AAkAAAACAP//AAA+AAkAAAACAAAAAAA+AAkAAAACAAEAAAA+AAkAAAACAAIAAAA+AAkAAAACAAMAAAA+AAkAAAACAAQAAAA+AAkAAAACAAUAAAA+AAkAAAD+/wUAAAA8AAkAAAA=")
+
+[node name="BOTTOM" type="Marker2D" parent="." index="1"]
+position = Vector2(0, 128)

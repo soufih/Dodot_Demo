@@ -2,7 +2,7 @@ extends Resource
 class_name RoomConfig
 
 #房间属性
-enum Type {Start, Corridor, Other, End}
+enum Type {Start, Corridor, Room, End}
 @export var RoomType: Type
 
 enum Location {LEFT,RIGHT,TOP,BOTTOM}

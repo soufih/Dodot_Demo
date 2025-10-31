@@ -1,10 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://vc4v0c4ketm6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3b6ej"]
-size = Vector2(919, 20)
+[ext_resource type="Script" uid="uid://bp2w26nctj7d6" path="res://Script/Map/LevelGenerator.gd" id="1_xqt6b"]
 
-[node name="TestMap" type="StaticBody2D"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(606.5, 497)
-shape = SubResource("RectangleShape2D_3b6ej")
+[node name="Node" type="Node"]
+script = ExtResource("1_xqt6b")

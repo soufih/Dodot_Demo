@@ -7,11 +7,11 @@ var LevelPorperty:Array
 func _ready() -> void:
 	traverse_map(Vector2i(-1,0), Vector2i(0, 0), "LEFT", 0)
 	save_level_template()
-	var File = FileAccess.open("res://Rescource/LevelTemplate/"+Level+$".".name, FileAccess.READ)
+	var File = FileAccess.open("res://Rescource/LevelTemplate/"+$".".name+Level, FileAccess.READ)
 	print(JSON.parse_string(File.get_line())[0])
 
 func save_level_template():
-	var File = FileAccess.open("res://Rescource/LevelTemplate/"+Level+$".".name, FileAccess.WRITE)
+	var File = FileAccess.open("res://Rescource/LevelTemplate/"+$".".name+Level, FileAccess.WRITE)
 
 	File.store_line(JSON.stringify(LevelPorperty))
 
@@ -27,10 +27,12 @@ func traverse_map(Last: Vector2i, Now: Vector2i,Direct: String, Index:int):
 	RoomPorperty.append(Direct)
 	
 	#计算添加房间出口位置
-	RoomPorperty.append(Vector2i(Now.x+1,Now.y)	!= Last and get_cell_tile_data(Vector2i(Now.x+1,Now.y)) != null)
-	RoomPorperty.append(Vector2i(Now.x,Now.y+1) != Last and get_cell_tile_data(Vector2i(Now.x,Now.y+1)) != null)
-	RoomPorperty.append(Vector2i(Now.x-1,Now.y) != Last and get_cell_tile_data(Vector2i(Now.x-1,Now.y)) != null)
-	RoomPorperty.append(Vector2i(Now.x,Now.y-1) != Last and get_cell_tile_data(Vector2i(Now.x,Now.y-1)) != null)
+	var Right = Vector2i(Now.x+1,Now.y)	!= Last and get_cell_tile_data(Vector2i(Now.x+1,Now.y)) != null
+	var Bottom = Vector2i(Now.x,Now.y+1) != Last and get_cell_tile_data(Vector2i(Now.x,Now.y+1)) != null
+	var Left = Vector2i(Now.x-1,Now.y) != Last and get_cell_tile_data(Vector2i(Now.x-1,Now.y)) != null
+	var Top = Vector2i(Now.x,Now.y-1) != Last and get_cell_tile_data(Vector2i(Now.x,Now.y-1)) != null
+	var Exit:Array[bool] = [Left, Top, Right, Bottom]
+	RoomPorperty.append(Exit)
 	
 	#添加房间序号
 	RoomPorperty.append(Index)

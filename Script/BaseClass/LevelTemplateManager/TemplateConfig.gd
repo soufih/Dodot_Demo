@@ -1,4 +1,4 @@
 extends Resource
 class_name TemplateConfig
 
-@export var TempaltePath:Array[String]
+@export var TemplatePath:Array[String]
