@@ -5,6 +5,7 @@ var InforLevelTemplateLog:LevelTemplateLog
 
 
 func _ready() -> void:
+	randomize()
 	prepare_generating()
 
 func prepare_generating():
@@ -118,7 +119,7 @@ func assemble_room(Level:int):
 		add_child(TargetRoom)
 		
 		#拼接房间
-		TargetRoom.global_postion = Neighbour.get_node(Exit).global_postion
+		TargetRoom.global_position = Neighbour.get_node(Exit).global_position
 		print("Done!")
 	
 	SelectedRooms.clear()
