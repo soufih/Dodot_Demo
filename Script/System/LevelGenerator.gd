@@ -17,12 +17,12 @@ func load_level_room_log():
 	InforLevelRoomLog = load("res://Rescource/LevelRoomLog.tres") as LevelRoomLog
 	if !InforLevelRoomLog:
 		push_error("ERRO!WHEN LOAD ROOMS OF LEVEL")
-		
+
 func load_level_template_log():
 	InforLevelTemplateLog = load("res://Rescource/LevelTemplateLog.tres") as LevelTemplateLog
 	if !InforLevelTemplateLog:
 		push_error("ERRO!WHEN LOAD LEVEL TEMPLATE")
-	
+
 func get_level_rooms(Level:int)->LevelRoomConfig:
 	if InforLevelRoomLog:
 		return InforLevelRoomLog.LevelLog[Level]
@@ -32,7 +32,7 @@ func get_level_template(Level:int)->TemplateConfig:
 	if InforLevelTemplateLog:
 		return InforLevelTemplateLog.LevelLog[Level]
 	return null
-	
+
 func random_select_level_template(Level:int)->Array:
 	var CurrentLevelTemplates:Array = get_level_template(Level).TemplatePath
 	var Size = CurrentLevelTemplates.size()
@@ -41,7 +41,7 @@ func random_select_level_template(Level:int)->Array:
 	if Result == null:
 		push_error("ERRO!WHEN ACCESS TEMPLATE FILE", FileAccess.get_open_error())
 	return JSON.parse_string(Result.get_line())
-	
+
 func select_room(Level:int)->Array:
 	var Template = random_select_level_template(Level)
 	var Rooms =  get_level_rooms(Level)	
@@ -120,7 +120,7 @@ func assemble_room(Level:int):
 		
 		#拼接房间
 		TargetRoom.global_position = Neighbour.get_node(Exit).global_position
-		print("Done!")
+	print("Done!")
 	
 	SelectedRooms.clear()
 	RoomCache.clear()

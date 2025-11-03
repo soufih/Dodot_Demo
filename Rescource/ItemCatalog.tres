@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ItemCatalog" load_steps=6 format=3 uid="uid://crd3nj0t7e4d6"]
 
-[ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/BaseClass/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
+[ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Base/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
 [ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Rescource/Static/TestWeapon/weapons_new2_sword.png" id="2_brj21"]
-[ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/BaseClass/ResourceManager/ItemCatalog.gd" id="2_hcisg"]
+[ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Base/ResourceManager/ItemCatalog.gd" id="2_hcisg"]
 
 [sub_resource type="Resource" id="Resource_brj21"]
 script = ExtResource("1_h6kmf")

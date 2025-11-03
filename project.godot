@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-ResourceManager="*res://Script/ResourceManager/ResourceManager.gd"
+ResourceManager="*res://Script/System/ResourceManager.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
 SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
 
