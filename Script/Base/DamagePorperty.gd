@@ -3,6 +3,6 @@ class_name DamagePorperty
 
 var Damage: float
 var DamageType: ENUM.DamageType
-var ImpactForce: int
-var AbnormalDamage: Array[float]
+var ImpactForce: float
+var AbnormalDamage: Array[ENUM.AbnormalType]
 var CriticalHit: float

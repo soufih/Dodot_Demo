@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemCatalog" load_steps=6 format=3 uid="uid://crd3nj0t7e4d6"]
+[gd_resource type="Resource" script_class="ItemCatalog" load_steps=8 format=3 uid="uid://crd3nj0t7e4d6"]
 
 [ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Base/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
 [ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Rescource/Static/TestWeapon/weapons_new2_sword.png" id="2_brj21"]
@@ -17,7 +17,17 @@ script = ExtResource("1_h6kmf")
 ItemID = 1
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
+[sub_resource type="Resource" id="Resource_hcisg"]
+script = ExtResource("1_h6kmf")
+ItemID = 2
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_r6x5k"]
+script = ExtResource("1_h6kmf")
+ItemID = 3
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
 [resource]
 script = ExtResource("2_hcisg")
-Item = Array[ExtResource("1_h6kmf")]([SubResource("Resource_brj21"), SubResource("Resource_h5cvd")])
+Item = Array[ExtResource("1_h6kmf")]([SubResource("Resource_brj21"), SubResource("Resource_h5cvd"), SubResource("Resource_hcisg"), SubResource("Resource_r6x5k")])
 metadata/_custom_type_script = "uid://tr7wkpbk1gtd"

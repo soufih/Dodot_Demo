@@ -8,6 +8,19 @@
 
 config_version=5
 
+[addons]
+
+resources_spreadsheet_view/array_color_tint=100.0
+resources_spreadsheet_view/color_rows=true
+resources_spreadsheet_view/array_min_width=128.0
+resources_spreadsheet_view/resource_preview_size=32.0
+resources_spreadsheet_view/clip_headers=false
+resources_spreadsheet_view/dupe_arrays=true
+resources_spreadsheet_view/context_menu_on_leftclick=false
+resources_spreadsheet_view/fold_docks=true
+resources_spreadsheet_view/resource_cell_label_mode=1
+resources_spreadsheet_view/freeze_first_column=true
+
 [application]
 
 config/name="Demo"
@@ -20,12 +33,19 @@ config/icon="res://icon.svg"
 ResourceManager="*res://Script/System/ResourceManager.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
 SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
+ENUM="*res://Script/Base/Enum.gd"
+BUFF="*res://Script/System/Buff.gd"
+DEBUFF="*res://Script/System/Debuff.gd"
 
 [display]
 
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
 window/per_pixel_transparency/allowed=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
 
 [input]
 

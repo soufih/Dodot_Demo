@@ -444,7 +444,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qm5lr"]
-size = Vector2(20.136261, 62)
+size = Vector2(24.06813, 62)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_usd1x"]
 radius = 181.04419
@@ -500,7 +500,7 @@ collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetect"]
-position = Vector2(20.06813, 35)
+position = Vector2(22, 34)
 shape = SubResource("RectangleShape2D_qm5lr")
 
 [node name="Hitbox" type="Area2D" parent="."]
