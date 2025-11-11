@@ -3,12 +3,12 @@ extends BaseState
 @onready var FSM = $".."
 @onready var Spirte = $"../../AnimatedSprite2D"
 
-var Target:Vector2
+var Hero
 
 func enter():
 	FSM.SelfBody.velocity.x=0
 	FSM.Attacking = true
-
+	Hero = get_tree().get_first_node_in_group("Hero")
 
 func do(delta: int):
 	#追踪玩家
@@ -25,24 +25,29 @@ func do(delta: int):
 				$"../Move".Direct = 1
 			else:
 				$"../Move".Direct = -1
-
+#
 	#获取玩家位置
-	for body in FSM.Hitbox.get_overlapping_bodies():
-		if body.is_in_group("Hero"):
-			if body.global_position != Vector2(0, 0):
-				Target = body.global_position
+	if Hero:
+		Target = Hero.global_position
 
 	FSM.ani.play("Attack")
 	await Spirte.animation_finished
- 
+
+var Target:Vector2
+
 func spawn_bullet():
 	#生成弹幕攻击玩家
 	var Bullet = $"../..".BulletPreload.instantiate()
-	Bullet.set_bullet_porperty("Hero")
-	$"../../BulletSpawn".add_child(Bullet)
-	
-		
-	
+	if Bullet:
+		Bullet.set_bullet_porperty("Hero",FSM.SelfBody, Target)
+		$"../../BulletSpawn".add_child(Bullet)
+	Bullet = null
+
+#func get_postion():
+	#for body in FSM.Hitbox.get_overlapping_bodies():
+		#if body.is_in_group("Hero"):
+			#if body.global_position != Vector2(0, 0):
+				#Target = body.global_position
 
 func _on_hitbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Hero"):

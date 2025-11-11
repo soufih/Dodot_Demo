@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dsspae73jd8a6"]
+[gd_scene load_steps=57 format=3 uid="uid://dsspae73jd8a6"]
 
 [ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/HeroProperty.gd" id="1_6pkku"]
 [ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://xlpd0upl7t7p" path="res://Script/Hero/FSM/Falling.gd" id="7_pwso0"]
 [ext_resource type="Script" uid="uid://ckib84dd2mngj" path="res://Script/Hero/FSM/Attack.gd" id="8_v1ih1"]
 [ext_resource type="Script" uid="uid://b05lqsb3afh4j" path="res://Script/Hero/FSM/SwitchWeapon.gd" id="9_iuq1t"]
+[ext_resource type="Script" uid="uid://c7qfa1oryeryk" path="res://Script/Hero/FSM/Death.gd" id="10_pwso0"]
+[ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Hero/FSM/Break.gd" id="11_v1ih1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iuq1t"]
 radius = 8.0
@@ -41,6 +43,42 @@ region = Rect2(250, 222, 50, 37)
 [sub_resource type="AtlasTexture" id="AtlasTexture_bg86d"]
 atlas = ExtResource("1_uv5e3")
 region = Rect2(300, 222, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w1ju"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(150, 296, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8uxl"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(200, 296, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8705s"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(250, 296, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1mej"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(300, 296, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mmtr"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(0, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfi7m"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(100, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms1qk"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(150, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lf6g"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(200, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn2wi"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(250, 333, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6pkku"]
 atlas = ExtResource("1_uv5e3")
@@ -141,6 +179,43 @@ animations = [{
 "loop": false,
 "name": &"Attack",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w1ju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8uxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8705s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1mej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mmtr")
+}],
+"loop": false,
+"name": &"Break",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfi7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ms1qk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lf6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn2wi")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -324,9 +399,45 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_0gp4r"]
+resource_name = "Death"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Death", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_b035h"]
+resource_name = "Break"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Break", 1.0, false],
+"method": &"play"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b7f62"]
 _data = {
 &"Attack": SubResource("Animation_o8uxl"),
+&"Break": SubResource("Animation_b035h"),
+&"Death": SubResource("Animation_0gp4r"),
 &"Falling": SubResource("Animation_fqamf"),
 &"Idle": SubResource("Animation_6pkku"),
 &"Jump": SubResource("Animation_6w1ju"),
@@ -338,6 +449,11 @@ _data = {
 collision_layer = 2
 script = ExtResource("1_6pkku")
 WeaponSlot = [0, 1]
+MaxHealth = 100.0
+MaxMana = 100.0
+MaxToughness = 30.0
+DamageResist = Array[float]([0.1, 0.1, 0.1])
+ToughnessRecover = 5.0
 
 [node name="WeaponPosition" type="Marker2D" parent="."]
 
@@ -349,7 +465,9 @@ shape = SubResource("CapsuleShape2D_iuq1t")
 position = Vector2(2.2737368e-13, -1.364242e-12)
 scale = Vector2(1.581081, 1.581081)
 sprite_frames = SubResource("SpriteFrames_ay60v")
-animation = &"Idle"
+animation = &"Break"
+frame = 4
+frame_progress = 1.0
 
 [node name="State" type="Node" parent="." node_paths=PackedStringArray("Current")]
 script = ExtResource("3_b7f62")
@@ -374,6 +492,12 @@ script = ExtResource("8_v1ih1")
 [node name="SwitchWeapon" type="Node" parent="State"]
 script = ExtResource("9_iuq1t")
 
+[node name="Death" type="Node" parent="State"]
+script = ExtResource("10_pwso0")
+
+[node name="Break" type="Node" parent="State"]
+script = ExtResource("11_v1ih1")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_b7f62")
@@ -381,4 +505,12 @@ libraries = {
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="RecoverTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Godmod" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="god_mod" from="." to="." method="_on_god_mod"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State" method="_on_animated_sprite_2d_animation_finished"]

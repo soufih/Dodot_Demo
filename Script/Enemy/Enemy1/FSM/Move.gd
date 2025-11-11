@@ -13,11 +13,10 @@ func enter():
 	FSM.ani.play("Move")
 	
 func do(delta: int):
-	
 	if BarrierDetect.has_overlapping_areas():
 		FSM.SelfBody.scale.x= -FSM.SelfBody.scale.x
 		Direct= -Direct
-		
+
 	FSM.SelfBody.velocity.x = Direct*Speed
-	
+
 	FSM.SelfBody.move_and_slide()

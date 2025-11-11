@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://c8onr7xsildnp" path="res://Script/Enemy/Enemy1/FSM/Idle.gd" id="4_1pyv3"]
 [ext_resource type="Script" uid="uid://c1uqydw17l1px" path="res://Script/Enemy/Enemy1/FSM/Move.gd" id="5_8lps2"]
 [ext_resource type="Script" uid="uid://doyomx8e7wqj0" path="res://Script/Enemy/Enemy1/FSM/Attack.gd" id="6_hxmcx"]
-[ext_resource type="Script" uid="uid://djyrwshmv14ha" path="res://Script/Enemy/Enemy1/FSM/TakeHit.gd" id="7_jwua4"]
+[ext_resource type="Script" uid="uid://djyrwshmv14ha" path="res://Script/Enemy/Enemy1/FSM/Break.gd" id="7_jwua4"]
 [ext_resource type="Script" uid="uid://c8ks632g6ayhg" path="res://Script/Enemy/Enemy1/FSM/Death.gd" id="8_la8gj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmcel"]
@@ -59,6 +59,26 @@ region = Rect2(800, 160, 80, 80)
 [sub_resource type="AtlasTexture" id="AtlasTexture_la8gj"]
 atlas = ExtResource("1_vf83f")
 region = Rect2(880, 160, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpnn7"]
+atlas = ExtResource("1_vf83f")
+region = Rect2(0, 240, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iugv3"]
+atlas = ExtResource("1_vf83f")
+region = Rect2(80, 240, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44w0r"]
+atlas = ExtResource("1_vf83f")
+region = Rect2(160, 240, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlafy"]
+atlas = ExtResource("1_vf83f")
+region = Rect2(240, 240, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i6no"]
+atlas = ExtResource("1_vf83f")
+region = Rect2(320, 240, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wdqic"]
 atlas = ExtResource("1_vf83f")
@@ -212,26 +232,6 @@ region = Rect2(320, 80, 80, 80)
 atlas = ExtResource("1_vf83f")
 region = Rect2(400, 80, 80, 80)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mpnn7"]
-atlas = ExtResource("1_vf83f")
-region = Rect2(0, 240, 80, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iugv3"]
-atlas = ExtResource("1_vf83f")
-region = Rect2(80, 240, 80, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_44w0r"]
-atlas = ExtResource("1_vf83f")
-region = Rect2(160, 240, 80, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nlafy"]
-atlas = ExtResource("1_vf83f")
-region = Rect2(240, 240, 80, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3i6no"]
-atlas = ExtResource("1_vf83f")
-region = Rect2(320, 240, 80, 80)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_1rp2h"]
 animations = [{
 "frames": [{
@@ -273,6 +273,26 @@ animations = [{
 }],
 "loop": false,
 "name": &"Attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpnn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iugv3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44w0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlafy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3i6no")
+}],
+"loop": false,
+"name": &"Break",
 "speed": 10.0
 }, {
 "frames": [{
@@ -347,7 +367,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Death",
-"speed": 0.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -403,26 +423,6 @@ animations = [{
 "loop": true,
 "name": &"Move",
 "speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mpnn7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iugv3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_44w0r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nlafy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3i6no")
-}],
-"loop": false,
-"name": &"TakeHit",
-"speed": 10.0
 }]
 
 [sub_resource type="Animation" id="Animation_8lps2"]
@@ -439,6 +439,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [&"Attack", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hxmcx"]
+resource_name = "Break"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Break", 1.0, false],
 "method": &"play"
 }]
 }
@@ -494,23 +511,6 @@ tracks/0/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_hxmcx"]
-resource_name = "Break"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"TakeHit", 1.0, false],
-"method": &"play"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_la8gj"]
 _data = {
 &"Attack": SubResource("Animation_8lps2"),
@@ -527,7 +527,11 @@ size = Vector2(20.27252, 46.33719)
 scale = Vector2(1.0358851, 1.0358851)
 collision_layer = 2
 script = ExtResource("1_sm4r0")
-MaxHealth = 50
+MaxHealth = 100.0
+MaxMana = 100.0
+MaxToughness = 100.0
+DamageResist = Array[float]([0.1, 0.1, 0.1])
+ToughnessRecover = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(5.7228656, -2.9676678)
@@ -539,6 +543,7 @@ scale = Vector2(1.7151884, 1.7151884)
 sprite_frames = SubResource("SpriteFrames_1rp2h")
 animation = &"Idle"
 autoplay = "Idle"
+frame_progress = 0.44360554
 
 [node name="Hitbox" type="Area2D" parent="AnimatedSprite2D"]
 collision_layer = 4
@@ -562,7 +567,7 @@ Speed = 40
 [node name="Attack" type="Node" parent="FSM"]
 script = ExtResource("6_hxmcx")
 
-[node name="TakeHit" type="Node" parent="FSM"]
+[node name="Break" type="Node" parent="FSM"]
 script = ExtResource("7_jwua4")
 
 [node name="Death" type="Node" parent="FSM"]
@@ -580,5 +585,8 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetect"]
 position = Vector2(25.581991, -3.450346)
 shape = SubResource("RectangleShape2D_i6n7o")
+
+[node name="RecoverTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="body_exited" from="AnimatedSprite2D/Hitbox" to="FSM/Attack" method="_on_hitbox_body_exited"]

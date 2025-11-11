@@ -4,9 +4,9 @@ var InforLevelRoomLog:LevelRoomLog
 var InforLevelTemplateLog:LevelTemplateLog
 
 
-func _ready() -> void:
-	randomize()
-	prepare_generating()
+#func _ready() -> void:
+	#randomize()
+	#prepare_generating()
 
 func prepare_generating():
 	load_level_room_log()

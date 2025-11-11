@@ -1,6 +1,9 @@
 extends BaseCharacter
 class_name HeroProperty
 
+@warning_ignore("unused_signal")
+signal god_mod
+
 @onready var ani: AnimationPlayer = $AnimationPlayer
 @onready var Spirte: AnimatedSprite2D = $AnimatedSprite2D
 @onready var WeaponPosition: Marker2D = $WeaponPosition
@@ -31,3 +34,13 @@ func equip_weapon(WeaponId: int):
 	if WeaponPosition.get_children().size() != 0:
 		WeaponPosition.get_child(0).queue_free()
 	ResourceManager.instantiate_item(WeaponId, WeaponPosition)
+	WeaponPosition.get_child(0).set_self_owner(self)
+
+
+func _on_god_mod() -> void:
+	set_collision_layer_value(2,false)
+	set_collision_layer_value(7,true)
+	$Godmod.start(1.5)
+	await $Godmod.timeout
+	set_collision_layer_value(2,true)
+	set_collision_layer_value(7,false)

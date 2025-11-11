@@ -36,6 +36,8 @@ SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
 ENUM="*res://Script/Base/Enum.gd"
 BUFF="*res://Script/System/Buff.gd"
 DEBUFF="*res://Script/System/Debuff.gd"
+DamageSystem="*res://Script/System/DamageSystem.gd"
+LevelGenerator="*res://Script/System/LevelGenerator.gd"
 
 [display]
 
@@ -84,6 +86,7 @@ SwitchWeapon={
 2d_physics/layer_4="Barrier"
 2d_physics/layer_5="BarrierDetect"
 2d_physics/layer_6="Bullet"
+2d_physics/layer_7="GodMod"
 
 [rendering]
 

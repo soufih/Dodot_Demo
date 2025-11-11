@@ -1,21 +1,23 @@
 class_name BaseCharacter
 extends CharacterBody2D
 
-#signal health_changed
+signal health_changed
 
-@export var MaxHealth: float = 100
-@export var MaxMana:float = 100
+@export var MaxHealth: float
+@export var MaxMana:float
 @export var MaxToughness: float
 @export var DamageResist: Array[float]
 @export var AbnormalConditionResist: Array[float]
 @export var ToughnessRecover: float
 
-var CurrentHealth: float = MaxHealth
-var CurrentMana:float = MaxMana
-var Toughness: float = MaxToughness
+@onready var RecoverTimer:Timer = get_node("RecoverTimer")
+@onready var CurrentHealth: float = MaxHealth
+@onready var CurrentMana:float = MaxMana
+@onready var Toughness: float = MaxToughness
+
 var DamageEnhance:Array
 var DamageReduce:Array
-var RecoverTimer = Timer.new()
+
 
 func beginning():
 	add_to_group("Chr")
@@ -27,25 +29,28 @@ func running(delta: float):
 func physics_running(delta: float):
 	pass
 	
-func breaked():
-	if get_node("AnimationPlayer"):
-		get_node("AnimationPlayer").play("Break")
-	#health_changed.emit()
-#	添加其他共同的破防逻辑
+#func breaked():
+	#if get_node("AnimationPlayer"):
+		#get_node("AnimationPlayer").play("Break")
+	##health_changed.emit()
+##	添加其他共同的破防逻辑
 
 func take_damage():
-	pass
+	health_changed.emit()
+	print(self.name," CurrentHealth:",CurrentHealth)
 
-func death():
-	if get_node("AnimationPlayer"):
-		get_node("AnimationPlayer").play("Break")
-#	添加其他共用的死亡逻辑
+#func death():
+	#if get_node("AnimationPlayer"):
+		#get_node("AnimationPlayer").play("Death")
+		#await get_node("AnimationPlayer").animation_finished
+##	添加其他共用的死亡逻辑
 
 func toughness_reduced():
-	RecoverTimer.start(ToughnessRecover)
-	if RecoverTimer.is_stopped():
-		Toughness = MaxToughness
-
+	print(self.name," Toughness:",Toughness)
+	RecoverTimer.start(5)
+	await RecoverTimer.timeout
+	Toughness = MaxToughness
+	
 func sum_damage_enhance()->float:
 	var Sum:float
 	for i in DamageEnhance:

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bee6fj240hy1m" path="res://Script/Enemy/Enemy2/FSM/Idle.gd" id="4_6rl24"]
 [ext_resource type="Script" uid="uid://g661b20ngwc" path="res://Script/Enemy/Enemy2/FSM/Move.gd" id="5_6ml7p"]
 [ext_resource type="Script" uid="uid://c1y4hslxphe2a" path="res://Script/Enemy/Enemy2/FSM/Attack.gd" id="6_2y6po"]
-[ext_resource type="Script" uid="uid://c7pghxaq86cmr" path="res://Script/Enemy/Enemy2/FSM/TakeHit.gd" id="7_pkr4r"]
+[ext_resource type="Script" uid="uid://c7pghxaq86cmr" path="res://Script/Enemy/Enemy2/FSM/Break.gd" id="7_pkr4r"]
 [ext_resource type="Script" uid="uid://dew354e7oqa3" path="res://Script/Enemy/Enemy2/FSM/Death.gd" id="8_mk86p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_biwwt"]
@@ -418,7 +418,8 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_2y6po"]
-resource_name = "TakeHit"
+resource_name = "Break"
+length = 0.625
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -437,10 +438,10 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mk86p"]
 _data = {
 &"Attack": SubResource("Animation_6ml7p"),
+&"Break": SubResource("Animation_2y6po"),
 &"Death": SubResource("Animation_pkr4r"),
 &"Idle": SubResource("Animation_usd1x"),
-&"Move": SubResource("Animation_6rl24"),
-&"TakeHit": SubResource("Animation_2y6po")
+&"Move": SubResource("Animation_6rl24")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qm5lr"]
@@ -452,6 +453,11 @@ radius = 181.04419
 [node name="Enemy2" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_1gu6a")
+MaxHealth = 100.0
+MaxMana = 100.0
+MaxToughness = 100.0
+DamageResist = Array[float]([0.1, 0.1, 0.1])
+ToughnessRecover = 10.0
 
 [node name="BulletSpawn" type="Marker2D" parent="."]
 position = Vector2(19, -47)
@@ -464,9 +470,8 @@ shape = SubResource("RectangleShape2D_biwwt")
 position = Vector2(-1, -29)
 scale = Vector2(1.18125, 1.1640625)
 sprite_frames = SubResource("SpriteFrames_mxw6e")
-animation = &"Attack"
+animation = &"TakeHit"
 autoplay = "Idle"
-frame = 8
 
 [node name="FSM" type="Node" parent="." node_paths=PackedStringArray("Current")]
 script = ExtResource("3_usd1x")
@@ -482,7 +487,7 @@ Speed = 50
 [node name="Attack" type="Node" parent="FSM"]
 script = ExtResource("6_2y6po")
 
-[node name="TakeHit" type="Node" parent="FSM"]
+[node name="Break" type="Node" parent="FSM"]
 script = ExtResource("7_pkr4r")
 
 [node name="Death" type="Node" parent="FSM"]
@@ -505,9 +510,12 @@ shape = SubResource("RectangleShape2D_qm5lr")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 66
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_usd1x")
+
+[node name="RecoverTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="body_exited" from="Hitbox" to="FSM/Attack" method="_on_hitbox_body_exited"]
