@@ -1,33 +1,60 @@
-[gd_resource type="Resource" script_class="ItemCatalog" load_steps=8 format=3 uid="uid://crd3nj0t7e4d6"]
+[gd_resource type="Resource" script_class="ItemCatalog" load_steps=13 format=3 uid="uid://crd3nj0t7e4d6"]
 
 [ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Base/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
 [ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Rescource/Static/TestWeapon/weapons_new2_sword.png" id="2_brj21"]
 [ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Base/ResourceManager/ItemCatalog.gd" id="2_hcisg"]
+[ext_resource type="Texture2D" uid="uid://7mko7pt3q7qq" path="res://Rescource/Static/Material/item296.png" id="3_r6x5k"]
+[ext_resource type="Texture2D" uid="uid://b4acdgasrsxit" path="res://Rescource/Static/Material/item320.png" id="4_hl4hp"]
+[ext_resource type="Texture2D" uid="uid://bquqvbrvlfr62" path="res://Rescource/Static/Material/item341.png" id="5_n3iav"]
+[ext_resource type="Texture2D" uid="uid://cdymq4vhnj0cu" path="res://Rescource/Static/Material/item329.png" id="6_hl4hp"]
 
 [sub_resource type="Resource" id="Resource_brj21"]
 script = ExtResource("1_h6kmf")
 ItemName = "Sword1"
-ItemType = "weapon"
+ItemType = Array[int]([0, 1])
 IconTexture = ExtResource("2_brj21")
 ScenePath = "uid://dt0bj2ejimup4"
+Source = Array[int]([1, 2, 0])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_h5cvd"]
 script = ExtResource("1_h6kmf")
 ItemID = 1
+ItemName = "Material1"
+ItemType = Array[int]([1])
+IconTexture = ExtResource("3_r6x5k")
+MaxStack = 99
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
-[sub_resource type="Resource" id="Resource_hcisg"]
+[sub_resource type="Resource" id="Resource_n3iav"]
 script = ExtResource("1_h6kmf")
 ItemID = 2
+ItemName = "Material2"
+ItemType = Array[int]([1])
+IconTexture = ExtResource("4_hl4hp")
+MaxStack = 99
+Source = Array[int]([3, 4])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_r6x5k"]
 script = ExtResource("1_h6kmf")
 ItemID = 3
+ItemName = "Material3"
+ItemType = Array[int]([1])
+IconTexture = ExtResource("5_n3iav")
+MaxStack = 99
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_hl4hp"]
+script = ExtResource("1_h6kmf")
+ItemID = 4
+ItemName = "Material4"
+ItemType = Array[int]([1])
+IconTexture = ExtResource("6_hl4hp")
+MaxStack = 99
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [resource]
 script = ExtResource("2_hcisg")
-Item = Array[ExtResource("1_h6kmf")]([SubResource("Resource_brj21"), SubResource("Resource_h5cvd"), SubResource("Resource_hcisg"), SubResource("Resource_r6x5k")])
+Item = Array[ExtResource("1_h6kmf")]([SubResource("Resource_brj21"), SubResource("Resource_h5cvd"), SubResource("Resource_n3iav"), SubResource("Resource_r6x5k"), SubResource("Resource_hl4hp")])
 metadata/_custom_type_script = "uid://tr7wkpbk1gtd"

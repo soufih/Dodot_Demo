@@ -45,6 +45,9 @@
       }
     },
     "res://Rescource::LevelLog/": {
+      "RoomLog": {
+        "visibility": 0
+      },
       "metadata/_custom_type_script": {
         "visibility": 0.0
       },
@@ -69,7 +72,8 @@
   },
   "recent_paths": [
     "res://Rescource/",
-    "res://Rescource::Item/"
+    "res://Rescource::Item/",
+    "res://Rescource::LevelLog/"
   ],
   "table_functions": {
     "filter": [

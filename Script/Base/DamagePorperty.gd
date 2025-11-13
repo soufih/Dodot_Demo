@@ -1,8 +1,8 @@
-extends Node
+extends Resource
 class_name DamagePorperty
 
-var Damage: float
-var DamageType: ENUM.DamageType
-var ImpactForce: float
-var AbnormalDamage: Array[ENUM.AbnormalType]
-var CriticalHit: float
+@export var Damage: float
+@export var DamageType: ENUM.DamageType
+@export var ImpactForce: float
+@export var AbnormalDamage: Array[ENUM.AbnormalType]
+@export var CriticalHit: float

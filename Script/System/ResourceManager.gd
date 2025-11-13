@@ -6,16 +6,18 @@ var loadedTextures: Dictionary = {}
 
 var InforItemCatalog: ItemCatalog
 
+
 func _ready() -> void:
 	load_item_catalog()
-	
+
+
 func load_item_catalog():
 	InforItemCatalog = load("res://Rescource/ItemCatalog.tres") as ItemCatalog
 	if !InforItemCatalog:
 		push_error("ERRO!WHEN LOADING ITEMCATALOG")
 
+
 func get_item_config(id: int)->ItemConfig:
-	
 	if ItemConfigCache.has(id):
 		return ItemConfigCache[id]
 	
@@ -28,7 +30,8 @@ func get_item_config(id: int)->ItemConfig:
 				return item
 	
 	return null
-	
+
+
 func get_item_scene(id: int)->PackedScene:
 	if LoadedScenes.has(id):
 		return LoadedScenes[id]
@@ -42,7 +45,8 @@ func get_item_scene(id: int)->PackedScene:
 				return LoadedScenes[id]
 	
 	return null
-	
+
+
 func get_item_icon(id: int)->Texture2D:
 	if loadedTextures[id]:
 		return loadedTextures[id]
@@ -55,7 +59,48 @@ func get_item_icon(id: int)->Texture2D:
 				return loadedTextures[id]
 				
 	return null
+
+
+func get_item_item_type(id: int)->Array:
+	var Config = get_item_config(id)
 	
+	if Config:
+		if Config.ItemType:
+			return Config.ItemType
+
+	return []
+
+
+func get_item_max_stack(id:int)->int:
+	var Config = get_item_config(id)
+
+	if Config:
+		if Config.MaxStack:
+			return Config.MaxStack
+
+	return -1
+
+
+func get_item_source(id: int)->Array:
+	var Config = get_item_config(id)
+	
+	if Config:
+		if Config.Source:
+			return Config.Source
+
+	return []
+
+
+func get_item_source_discription(id: int)->String:
+	var Config = get_item_config(id)
+
+	if Config:
+		if Config.SourceDiscription:
+			return Config.SourceDiscription
+
+	return ""
+
+
 func instantiate_item(id: int, parent: Node = null) -> Node:
 	var Item = get_item_scene(id)
 	if Item:
@@ -64,7 +109,8 @@ func instantiate_item(id: int, parent: Node = null) -> Node:
 			parent.add_child(Scene)
 		return Scene
 	return null
-	
+
+
 func clear():
 	LoadedScenes.clear()
 	loadedTextures.clear()

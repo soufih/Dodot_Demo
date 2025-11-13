@@ -1,8 +1,10 @@
 class_name BaseWeapon
 extends AnimatedSprite2D
 
-var Damage: int
-var Kinds: String
+var Porperty:DamagePorperty
+
+func _ready() -> void:
+	pass
 
 func excute_attack():
 	before_attack()

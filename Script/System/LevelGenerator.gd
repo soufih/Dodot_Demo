@@ -4,14 +4,14 @@ var InforLevelRoomLog:LevelRoomLog
 var InforLevelTemplateLog:LevelTemplateLog
 
 
-#func _ready() -> void:
-	#randomize()
-	#prepare_generating()
+func _ready() -> void:
+	randomize()
+	prepare_generating()
 
 func prepare_generating():
 	load_level_room_log()
 	load_level_template_log()
-	assemble_room(0)
+
 
 func load_level_room_log():
 	InforLevelRoomLog = load("res://Rescource/LevelRoomLog.tres") as LevelRoomLog
