@@ -32,13 +32,14 @@ config/icon="res://icon.svg"
 
 ResourceManager="*res://Script/System/ResourceManager.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
+LevelGenerator="*res://Script/System/LevelGenerator.gd"
+BackpackSystem="*res://Script/System/BackpackSystem.gd"
+DamageSystem="*res://Script/System/DamageSystem.gd"
+DataLoader="*res://Script/System/DataLoader.gd"
 SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
 ENUM="*res://Script/Base/Enum.gd"
 BUFF="*res://Script/System/Buff.gd"
 DEBUFF="*res://Script/System/Debuff.gd"
-DamageSystem="*res://Script/System/DamageSystem.gd"
-LevelGenerator="*res://Script/System/LevelGenerator.gd"
-DataLoader="*res://Script/System/DataLoader.gd"
 
 [display]
 
