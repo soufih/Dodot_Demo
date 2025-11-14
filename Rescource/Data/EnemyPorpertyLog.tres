@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyPorperty" load_steps=5 format=3 uid="uid://2srf8bdj186"]
+
+[ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Base/DamagePorperty.gd" id="1_h6kre"]
+[ext_resource type="Script" uid="uid://baodf2c00ykd8" path="res://Script/Base/EnemyPorperty.gd" id="2_usd80"]
+
+[sub_resource type="Resource" id="Resource_h6kre"]
+script = ExtResource("1_h6kre")
+Damage = 1.0
+ImpactForce = 10.0
+CriticalHit = 10.0
+metadata/_custom_type_script = "uid://db328o465i0bl"
+
+[sub_resource type="Resource" id="Resource_usd80"]
+script = ExtResource("1_h6kre")
+metadata/_custom_type_script = "uid://db328o465i0bl"
+
+[resource]
+script = ExtResource("2_usd80")
+Enemy = Dictionary[String, ExtResource("1_h6kre")]({
+"Enemy1": SubResource("Resource_h6kre"),
+"Enemy2": SubResource("Resource_usd80")
+})
+metadata/_custom_type_script = "uid://baodf2c00ykd8"

@@ -7,6 +7,7 @@ var InforLevelTemplateLog:LevelTemplateLog
 func _ready() -> void:
 	randomize()
 	prepare_generating()
+	assemble_room(0)
 
 func prepare_generating():
 	load_level_room_log()
@@ -14,12 +15,12 @@ func prepare_generating():
 
 
 func load_level_room_log():
-	InforLevelRoomLog = load("res://Rescource/LevelRoomLog.tres") as LevelRoomLog
+	InforLevelRoomLog = load("uid://dh3a2qfk263s4") as LevelRoomLog
 	if !InforLevelRoomLog:
 		push_error("ERRO!WHEN LOAD ROOMS OF LEVEL")
 
 func load_level_template_log():
-	InforLevelTemplateLog = load("res://Rescource/LevelTemplateLog.tres") as LevelTemplateLog
+	InforLevelTemplateLog = load("uid://imcee336yrsx") as LevelTemplateLog
 	if !InforLevelTemplateLog:
 		push_error("ERRO!WHEN LOAD LEVEL TEMPLATE")
 

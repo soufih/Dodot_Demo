@@ -38,6 +38,7 @@ BUFF="*res://Script/System/Buff.gd"
 DEBUFF="*res://Script/System/Debuff.gd"
 DamageSystem="*res://Script/System/DamageSystem.gd"
 LevelGenerator="*res://Script/System/LevelGenerator.gd"
+DataLoader="*res://Script/System/DataLoader.gd"
 
 [display]
 

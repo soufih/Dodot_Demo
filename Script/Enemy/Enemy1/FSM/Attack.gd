@@ -12,6 +12,7 @@ func enter():
 func do(delta: int):
 	FSM.ani.play("Attack")
 	await Spirte.animation_finished
+	
 	for body in FSM.Hitbox.get_overlapping_bodies():
 		if body.is_in_group("Hero"):
 			var HeroPos = body.global_position
@@ -29,7 +30,7 @@ func do(delta: int):
 func apply_damage():
 	for body in FSM.Hitbox.get_overlapping_bodies():
 		if body.is_in_group("Hero"):
-			pass#添加伤害函数
+			DamageSystem.damage_assess(FSM.SelfBody, body, FSM.SelfBody.Porperty)
 
 
 func _on_hitbox_body_exited(body: Node2D) -> void:

@@ -9,6 +9,20 @@
       },
       "resource_name": {
         "visibility": 0.0
+      },
+      "resource_path": {
+        "visibility": 0.0
+      }
+    },
+    "::RoomLog/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
       }
     },
     "res://Rescource/": {
@@ -19,6 +33,54 @@
         "visibility": 0.0
       },
       "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Rescource/Data/": {
+      "Item": {
+        "visibility": 1.0
+      },
+      "LevelLog": {
+        "visibility": 1.0
+      },
+      "Weapon": {
+        "visibility": 1.0
+      },
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      },
+      "resource_path": {
+        "visibility": 1.0
+      }
+    },
+    "res://Rescource/Data::LevelLog/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Rescource/Data::LevelLog::RoomLog/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      },
+      "resource_path": {
         "visibility": 0.0
       }
     },
@@ -46,7 +108,7 @@
     },
     "res://Rescource::LevelLog/": {
       "RoomLog": {
-        "visibility": 0
+        "visibility": 0.0
       },
       "metadata/_custom_type_script": {
         "visibility": 0.0
@@ -73,7 +135,10 @@
   "recent_paths": [
     "res://Rescource/",
     "res://Rescource::Item/",
-    "res://Rescource::LevelLog/"
+    "res://Rescource::LevelLog/",
+    "res://Rescource/Data/",
+    "res://Rescource/Data::LevelLog/",
+    "res://Rescource/Data::LevelLog::RoomLog/"
   ],
   "table_functions": {
     "filter": [

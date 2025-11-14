@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func load_item_catalog():
-	InforItemCatalog = load("res://Rescource/ItemCatalog.tres") as ItemCatalog
+	InforItemCatalog = load("uid://crd3nj0t7e4d6") as ItemCatalog
 	if !InforItemCatalog:
 		push_error("ERRO!WHEN LOADING ITEMCATALOG")
 

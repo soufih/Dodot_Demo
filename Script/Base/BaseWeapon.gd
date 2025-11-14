@@ -4,7 +4,7 @@ extends AnimatedSprite2D
 var Porperty:DamagePorperty
 
 func _ready() -> void:
-	pass
+	Porperty =  DataLoader.get_weapon_porperty(self.name)
 
 func excute_attack():
 	before_attack()

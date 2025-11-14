@@ -4,3 +4,4 @@ extends BaseState
 
 func enter():
 	FSM.ani.play("Idle")
+	FSM.SelfBody.velocity.x = 0

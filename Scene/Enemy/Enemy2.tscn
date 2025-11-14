@@ -366,6 +366,24 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_2y6po"]
+resource_name = "Break"
+length = 0.625
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"TakeHit", 1.0, false],
+"method": &"play"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_pkr4r"]
 resource_name = "Death"
 tracks/0/type = "method"
@@ -413,24 +431,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [&"Move", 1.0, false],
-"method": &"play"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_2y6po"]
-resource_name = "Break"
-length = 0.625
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"TakeHit", 1.0, false],
 "method": &"play"
 }]
 }
