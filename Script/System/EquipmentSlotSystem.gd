@@ -23,8 +23,8 @@ func _on_equipment_slot_changed():
 	WeaponCurrentContianer = WeaponSlot.size()
 	RelicCurrentContianer  = RelicSlot.size()
 
-
-func add_equipment(id: int, Postion: int, arr:Array)->int:
+#其他栏位装备与装备栏交互时使用，如背包中装备与装备栏交互
+func interact_with_equipment_slot(id: int, Postion: int, arr:Array)->int:
 	#判断合法性
 	if ResourceManager.get_item_item_type(id) != arr[0]:
 		return id
