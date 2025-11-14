@@ -40,6 +40,7 @@ SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
 ENUM="*res://Script/Base/Enum.gd"
 BUFF="*res://Script/System/Buff.gd"
 DEBUFF="*res://Script/System/Debuff.gd"
+EquipmentSlotSystem="*res://Script/System/EquipmentSlotSystem.gd"
 
 [display]
 

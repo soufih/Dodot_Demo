@@ -448,7 +448,6 @@ _data = {
 [node name="Hero" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_6pkku")
-WeaponSlot = [0, 1]
 MaxHealth = 100.0
 MaxMana = 100.0
 MaxToughness = 30.0
@@ -508,9 +507,8 @@ libraries = {
 [node name="RecoverTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Godmod" type="Timer" parent="."]
+[node name="Godmode" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
 
-[connection signal="god_mod" from="." to="." method="_on_god_mod"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State" method="_on_animated_sprite_2d_animation_finished"]

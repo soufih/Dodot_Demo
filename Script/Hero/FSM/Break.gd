@@ -4,7 +4,7 @@ extends BaseState
 
 func enter():
 	FSM.breaked = true
-	FSM.Hero.god_mod.emit()
+	FSM.Hero.god_mode.emit()
 	FSM.Hero.velocity.x = 0
 	FSM.attacking = false
 	FSM.ani.play("Break")

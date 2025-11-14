@@ -2,22 +2,21 @@ extends BaseCharacter
 class_name HeroProperty
 
 @warning_ignore("unused_signal")
-signal god_mod
+signal god_mode
 
 @onready var ani: AnimationPlayer = $AnimationPlayer
 @onready var Spirte: AnimatedSprite2D = $AnimatedSprite2D
 @onready var WeaponPosition: Marker2D = $WeaponPosition
 
-@export var WeaponSlot:Array
-@export var RelicSlot:Array
 @export var CurrentWeapon:int = 0
+
 
 func _ready() -> void:
 	super.beginning()
 	add_to_group("Hero")
 	equip_weapon(CurrentWeapon)
 
-@warning_ignore("unused_parameter")
+
 func _physics_process(delta: float) -> void:
 	super.physics_running(delta)
 	if Input.get_action_strength("MoveRight"):
@@ -37,10 +36,10 @@ func equip_weapon(WeaponId: int):
 	WeaponPosition.get_child(0).set_self_owner(self)
 
 
-func _on_god_mod() -> void:
+func _on_god_mode() -> void:
 	set_collision_layer_value(2,false)
 	set_collision_layer_value(7,true)
-	$Godmod.start(1.5)
-	await $Godmod.timeout
+	$Godmode.start(1.5)
+	await $Godmode.timeout
 	set_collision_layer_value(2,true)
 	set_collision_layer_value(7,false)

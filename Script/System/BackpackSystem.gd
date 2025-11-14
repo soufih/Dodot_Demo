@@ -1,5 +1,7 @@
 extends Node
 
+signal backpack_changed#释放信号后更新UI
+
 var Backpack: Dictionary[Vector2i, Vector2i]#[(id, index), postion]， 记录各物品位置
 var Amounts:Dictionary[Vector2i, int]#[(id, index), amount]， 记录各物品数量
 
@@ -53,29 +55,35 @@ func direct_add_item(id: int, amount: int)->Vector2i:
 		Backpack[Vector2i(id, TargetIndex)] = TargetPostion
 		Amounts[Vector2i(id, TargetIndex)] = amount
 		CurrentContianer += 1
+		backpack_changed.emit()
 
 	return Vector2i(id, 0)
 
 #其他栏位物品与背包物品交互时使用，如仓库中物品与背包物品交互
 func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i:
+	var remain:Vector2i = Vector2i(-1, 0)
+	var TargetItem = Backpack.find_key(TargetPostion)
 	#检测合法性
 	if TargetPostion.x > ContianerX ||  TargetPostion.y > ContianerY:
+		erase_item(TargetItem)
 		return Vector2i(id, amount)
 
 	#检测合法性
 	if ResourceManager.get_item_config(id) == null:
+		erase_item(TargetItem)
 		return Vector2i(id, amount)
 
 	if !Backpack.values().has(TargetPostion):#若不存在则添加目标物品
 		add_item(id, amount, TargetPostion)
-		return Vector2i(id, 0)
+		remain = Vector2i(id, 0)
 	else:
-		var TargetItem = Backpack.find_key(TargetPostion)
 		if TargetItem.x == id:#若背包格子中物品类型与目标相同则堆叠，反之交换
-			return stack_item(id, amount, TargetItem)
+			remain = stack_item(id, amount, TargetItem)
 		else:
-			return exchange_item(id, amount, TargetItem)
-
+			remain = exchange_item(id, amount, TargetItem)
+			
+	backpack_changed.emit()
+	return remain
 
 func add_item(id: int, amount: int, TargetPostion: Vector2i):
 	var TargetIndex:int
@@ -104,20 +112,29 @@ func exchange_item(id: int, amount: int, TargetItem: Vector2i)->Vector2i:
 	var ID: int = TargetItem.x
 	var AMOUNT: int = Amounts[TargetItem]
 
-	erase_item(TargetItem)
 	add_item(id, amount, Backpack[TargetItem])
 
 	return Vector2i(ID, AMOUNT)
 
 #移除目标物品
-func erase_item(item: Vector2i):
-	if Backpack.has(item):
-		Backpack.erase(item)
+func erase_item(TargetItem: Vector2i):
+	if Backpack.has(TargetItem):
+		Backpack.erase(TargetItem)
 	
-	if Amounts.has(item):
-		Amounts.erase(item)
+	if Amounts.has(TargetItem):
+		Amounts.erase(TargetItem)
 		
 	CurrentContianer-=1
+	backpack_changed.emit()
+
+#获取目标物品
+func get_item(TargetItem: Vector2i)->Vector2i:
+	#检测合法性
+	if ResourceManager.get_item_config(TargetItem.x) == null:
+		erase_item(TargetItem)
+		return Vector2i(-1, -1)
+
+	return Vector2i(TargetItem.x, Amounts[TargetItem])
 
 
 func get_contianer_x()->int:
@@ -138,15 +155,17 @@ func get_max_contianer()->int:
 
 func set_contianer_x(newContianerX: int):
 	ContianerX = newContianerX
-
+	backpack_changed.emit()
 
 func set_contianer_y(newContianerY: int):
 	ContianerY = newContianerY
-
+	backpack_changed.emit()
 
 func set_current_contianer(newCurrentContianer: int):
 	CurrentContianer = newCurrentContianer
+	backpack_changed.emit()
 
 
 func set_max_contianer(newMaxContianer: int):
 	MaxContianer = newMaxContianer
+	backpack_changed.emit()
