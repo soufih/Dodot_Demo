@@ -41,13 +41,6 @@ func interact_with_equipment_slot(id: int, Postion: int, arr:Array)->int:
 
 	return -1
 
-#移除装备
-func erase_equipment(TargetPostion: int, arr: Array):
-	if arr && TargetPostion:
-		if arr.get(TargetPostion):
-			arr.remove_at(TargetPostion)
-			equipment_slot_changed.emit()
-
 
 func exchange_equipment(id: int, TargetPostion: int, arr: Array)->int:
 	var TargetItem = arr[TargetPostion]
@@ -56,6 +49,20 @@ func exchange_equipment(id: int, TargetPostion: int, arr: Array)->int:
 	
 	equipment_slot_changed.emit()
 	return TargetItem
+
+#移除装备
+func erase_equipment(TargetPostion: int, arr: Array):
+	if arr && TargetPostion:
+		if arr.get(TargetPostion):
+			arr.remove_at(TargetPostion)
+			equipment_slot_changed.emit()
+
+#获取指定位置的装备
+func get_equipment(TargetPostion: int, arr: Array)->int:
+	if arr:
+		if TargetPostion != 0 && arr.get(TargetPostion):
+			return arr[TargetPostion]
+	return -1
 
 
 func get_weapon_slot()->Array:
