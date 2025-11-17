@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://6oby8ergpaw7"]
+
+[ext_resource type="Texture2D" uid="uid://mulibc6w686r" path="res://Rescource/UI/Fantasy-UI.png" id="1_ypyr3"]
+[ext_resource type="Script" uid="uid://uennhv0xsk13" path="res://Script/UI_Script/slot.gd" id="2_2purt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2purt"]
+atlas = ExtResource("1_ypyr3")
+region = Rect2(128.40524, 160.00008, 31.594757, 31.999924)
+
+[node name="TextureRect" type="TextureRect"]
+texture = SubResource("AtlasTexture_2purt")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 29.0
+offset_bottom = 29.0
+toggle_mode = true
+script = ExtResource("2_2purt")
+
+[connection signal="button_down" from="Button" to="Button" method="_on_button_down"]
+[connection signal="button_up" from="Button" to="Button" method="_on_button_up"]

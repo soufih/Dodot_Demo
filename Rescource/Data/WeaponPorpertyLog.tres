@@ -3,6 +3,12 @@
 [ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Base/DamagePorperty.gd" id="1_mucyj"]
 [ext_resource type="Script" uid="uid://cpt8u300mfdw0" path="res://Script/Base/WeaponPorperty.gd" id="2_3sl5b"]
 
+[sub_resource type="Resource" id="Resource_5gcyl"]
+script = ExtResource("1_mucyj")
+Damage = 20.0
+ImpactForce = 10.0
+metadata/_custom_type_script = "uid://db328o465i0bl"
+
 [sub_resource type="Resource" id="Resource_mucyj"]
 script = ExtResource("1_mucyj")
 metadata/_custom_type_script = "uid://db328o465i0bl"
@@ -15,18 +21,12 @@ metadata/_custom_type_script = "uid://db328o465i0bl"
 script = ExtResource("1_mucyj")
 metadata/_custom_type_script = "uid://db328o465i0bl"
 
-[sub_resource type="Resource" id="Resource_5gcyl"]
-script = ExtResource("1_mucyj")
-Damage = 20.0
-ImpactForce = 10.0
-metadata/_custom_type_script = "uid://db328o465i0bl"
-
 [resource]
 script = ExtResource("2_3sl5b")
-Weapon = {
+Weapon = Dictionary[String, ExtResource("1_mucyj")]({
 "Sword": SubResource("Resource_5gcyl"),
 "a": SubResource("Resource_mucyj"),
 "b": SubResource("Resource_k2vi8"),
 "c": SubResource("Resource_qviqq")
-}
+})
 metadata/_custom_type_script = "uid://cpt8u300mfdw0"

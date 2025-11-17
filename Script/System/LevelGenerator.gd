@@ -7,7 +7,7 @@ var InforLevelTemplateLog:LevelTemplateLog
 func _ready() -> void:
 	randomize()
 	prepare_generating()
-	assemble_room(0)
+
 
 func prepare_generating():
 	load_level_room_log()
