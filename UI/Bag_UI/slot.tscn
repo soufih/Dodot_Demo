@@ -19,5 +19,16 @@ offset_bottom = 29.0
 toggle_mode = true
 script = ExtResource("2_2purt")
 
+[node name="Label_item_amount" type="Label" parent="Button"]
+visible = false
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 26.0
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 9
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 2
+
 [connection signal="button_down" from="Button" to="Button" method="_on_button_down"]
 [connection signal="button_up" from="Button" to="Button" method="_on_button_up"]

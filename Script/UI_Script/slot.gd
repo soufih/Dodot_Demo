@@ -3,6 +3,7 @@ extends Button
 #var temporary_item_position:Vector2i = Vector2i(0,0)
 #var temporary_item_amount:Vector2i = Vector2i(0,0)
 #var temporary_item_texture:Texture2D = get_button_icon()
+@onready var label_item_amount: Label = $Label_item_amount
 
 var button_down_sign = false
 var self_position:Vector2i
@@ -30,6 +31,11 @@ func init():
 	self_amount = item.y
 	self_icon = ResourceManager.get_item_icon(self_id)
 	set_button_icon(ResourceManager.get_item_icon(self_id))
+	if self_amount > 1:
+		label_item_amount.text = "%s" % self_amount
+		label_item_amount.show()
+	else:
+		label_item_amount.hide()
 
 
 func get_self_position()->Vector2i:
