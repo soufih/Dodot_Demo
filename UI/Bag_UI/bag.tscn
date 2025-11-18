@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b12ujb2p2b4v"]
+[gd_scene load_steps=7 format=3 uid="uid://b12ujb2p2b4v"]
 
 [ext_resource type="Script" uid="uid://4jhmk7fxlbu0" path="res://UI/Bag_UI/bag.gd" id="1_1285k"]
 [ext_resource type="Texture2D" uid="uid://mulibc6w686r" path="res://Rescource/UI/Fantasy-UI.png" id="1_d2dm1"]
+[ext_resource type="PackedScene" uid="uid://bb4quhyltqxmu" path="res://UI/Bag_UI/TmpItem.tscn" id="3_rmgxi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1285k"]
 atlas = ExtResource("1_d2dm1")
@@ -21,6 +22,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 2.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1285k")
@@ -45,6 +48,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
+
+[node name="tmp_item" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_rmgxi")]
+position = Vector2(-697, 106)
 
 [node name="Equipment_Bag" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

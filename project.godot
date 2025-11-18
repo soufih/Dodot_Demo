@@ -30,10 +30,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+BackpackSystem="*res://Script/System/BackpackSystem.gd"
 ResourceManager="*res://Script/System/ResourceManager.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
 LevelGenerator="*res://Script/System/LevelGenerator.gd"
-BackpackSystem="*res://Script/System/BackpackSystem.gd"
 DamageSystem="*res://Script/System/DamageSystem.gd"
 DataLoader="*res://Script/System/DataLoader.gd"
 SceneLoader="*res://Script/UI_Script/SceneLoader.gd"

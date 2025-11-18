@@ -6,9 +6,16 @@ var Backpack: Dictionary[Vector2i, Vector2i]#[(id, index), postion]， 记录各
 var Amounts:Dictionary[Vector2i, int]#[(id, index), amount]， 记录各物品数量
 
 var ContianerX: int = 4
-var ContianerY: int = 10
+var ContianerY: int = 4
 @onready var MaxContianer: int = ContianerX *ContianerY
 var CurrentContianer: int = 0
+
+func _ready() -> void:
+	Backpack[Vector2i(1, 1)] = Vector2i(1,1)
+	Amounts[Vector2i(1, 1)] = 99
+	
+	Backpack[Vector2i(2, 1)] = Vector2i(4,4)
+	Amounts[Vector2i(2, 1)] = 99
 
 #直接添加物品到背包中,返回溢出的物品id和数量
 func direct_add_item(id: int, amount: int)->Vector2i:
@@ -18,7 +25,7 @@ func direct_add_item(id: int, amount: int)->Vector2i:
 		
 	var MaxStack: int = ResourceManager.get_item_max_stack(id)
 	var TargetIndex:int = MaxContianer
-	var TargetPostion:Vector2i = Vector2i(0, 0)
+	var TargetPostion:Vector2i = Vector2i(-1, 0)
 	
 	#尝试在已有的物品堆中堆叠
 	for index in range(1, MaxContianer):
@@ -49,7 +56,7 @@ func direct_add_item(id: int, amount: int)->Vector2i:
 					TargetPostion = Vector2i(x, y)
 					break
 		
-		if TargetPostion == Vector2i(0, 0):
+		if TargetPostion == Vector2i(-1, 0):
 			return Vector2i(id, amount)
 		
 		Backpack[Vector2i(id, TargetIndex)] = TargetPostion
@@ -65,12 +72,10 @@ func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i
 	var TargetItem = Backpack.find_key(TargetPostion)
 	#检测合法性
 	if TargetPostion.x > ContianerX ||  TargetPostion.y > ContianerY:
-		erase_item(TargetItem)
 		return Vector2i(id, amount)
 
 	#检测合法性
 	if ResourceManager.get_item_config(id) == null:
-		erase_item(TargetItem)
 		return Vector2i(id, amount)
 
 	if !Backpack.values().has(TargetPostion):#若不存在则添加目标物品
@@ -81,7 +86,8 @@ func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i
 			remain = stack_item(id, amount, TargetItem)
 		else:
 			remain = exchange_item(id, amount, TargetItem)
-			
+
+
 	backpack_changed.emit()
 	return remain
 
@@ -129,12 +135,26 @@ func erase_item(TargetItem: Vector2i):
 	backpack_changed.emit()
 
 #获取目标物品
-func get_item(TargetItem: Vector2i)->Vector2i:
+func get_item_by_id_index(TargetItem: Vector2i)->Vector2i:
 	#检测合法性
 	if ResourceManager.get_item_config(TargetItem.x) == null:
 		return Vector2i(-1, -1)
 
-	return Vector2i(TargetItem.x, Amounts[TargetItem])
+	if !Amounts.get(TargetItem):
+		return Vector2i(-1, -1)
+
+	return Vector2i(TargetItem.x, Amounts.get(TargetItem))
+
+
+func get_item_by_postion(TargetPostion: Vector2i)->Vector2i:
+	if !Backpack.values().has(TargetPostion):
+		return Vector2i(-1, -1)
+
+	var item = Backpack.find_key(TargetPostion)
+	var id = item.x
+	var amount = Amounts[item]
+
+	return Vector2i(id, amount)
 
 
 func get_backpack()->Dictionary:
