@@ -12,7 +12,7 @@ var Direct = Vector2i.RIGHT.x
 func enter():
 	FSM.ani.play("Move")
 	
-func do(delta: int):
+func do(delta):
 
 	if BarrierDetect.has_overlapping_areas():
 		FSM.SelfBody.scale.x= -FSM.SelfBody.scale.x

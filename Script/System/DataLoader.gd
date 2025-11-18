@@ -8,14 +8,14 @@ func _ready() -> void:
 	WeaponPorpertyLog = preload("uid://cpjcvujytunnw")
 	EnemyPorpertyLog = preload("uid://2srf8bdj186")
 	
-	#var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
-	#var Hero = preload("res://Scene/Hero/Hero.tscn").instantiate()
-	#var Enemy1 = preload("res://Scene/Enemy/Enemy1.tscn").instantiate()
-	#var Enemy2 = preload("res://Scene/Enemy/Enemy2.tscn").instantiate()
-	#get_tree().current_scene.add_child(TestMap)
-	#get_tree().current_scene.add_child(Hero)
-	#self.add_child(Enemy1)
-	#self.add_child(Enemy2)
+	var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
+	var Hero = preload("res://Scene/Hero/Hero.tscn").instantiate()
+	var Enemy1 = preload("res://Scene/Enemy/Enemy1.tscn").instantiate()
+	var Enemy2 = preload("res://Scene/Enemy/Enemy2.tscn").instantiate()
+	add_child(TestMap)
+	add_child(Hero)
+	self.add_child(Enemy1)
+	self.add_child(Enemy2)
 	
 	LevelGenerator.prepare_generating()
 

@@ -17,7 +17,6 @@ func do(delta: float):
 	else:
 		Hero.velocity.y = 0
 		get_parent().jumping = false
-	print(Hero.velocity.y)
 	
 	var direct_x = Input.get_action_strength("MoveRight")-Input.get_action_strength("MoveLeft")
 	Hero.velocity.x = direct_x*Hero.Speed

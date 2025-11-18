@@ -6,11 +6,10 @@ extends BaseState
 var Hero
 
 func enter():
-	FSM.SelfBody.velocity.x=0
 	FSM.Attacking = true
 	Hero = get_tree().get_first_node_in_group("Hero")
 
-func do(delta: int):
+func do(delta):
 	#追踪玩家
 	for body in FSM.Hitbox.get_overlapping_bodies():
 		if body.is_in_group("Hero"):

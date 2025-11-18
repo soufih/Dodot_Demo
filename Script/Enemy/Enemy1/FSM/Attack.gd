@@ -5,11 +5,10 @@ extends BaseState
 
 
 func enter():
-	FSM.SelfBody.velocity.x=0
 	FSM.Attacking = true
 
 
-func do(delta: int):
+func do(delta):
 	FSM.ani.play("Attack")
 	await Spirte.animation_finished
 	
