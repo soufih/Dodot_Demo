@@ -85,6 +85,7 @@ func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i
 	backpack_changed.emit()
 	return remain
 
+
 func add_item(id: int, amount: int, TargetPostion: Vector2i):
 	var TargetIndex:int
 	#记录最早查找到的未使用过的索引，以防上溢
@@ -131,10 +132,17 @@ func erase_item(TargetItem: Vector2i):
 func get_item(TargetItem: Vector2i)->Vector2i:
 	#检测合法性
 	if ResourceManager.get_item_config(TargetItem.x) == null:
-		erase_item(TargetItem)
 		return Vector2i(-1, -1)
 
 	return Vector2i(TargetItem.x, Amounts[TargetItem])
+
+
+func get_backpack()->Dictionary:
+	return Backpack
+
+
+func get_amounts()->Dictionary:
+	return Amounts
 
 
 func get_contianer_x()->int:

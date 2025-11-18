@@ -258,7 +258,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q22w6")
 }],
-"loop": false,
+"loop": true,
 "name": &"Jump",
 "speed": 6.0
 }, {
@@ -384,6 +384,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_6w1ju"]
 resource_name = "Jump"
+length = 0.6
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -401,6 +402,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8705s"]
 resource_name = "Prejump"
+length = 0.25
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -464,9 +466,7 @@ shape = SubResource("CapsuleShape2D_iuq1t")
 position = Vector2(2.2737368e-13, -1.364242e-12)
 scale = Vector2(1.581081, 1.581081)
 sprite_frames = SubResource("SpriteFrames_ay60v")
-animation = &"Break"
-frame = 4
-frame_progress = 1.0
+animation = &"Jump"
 
 [node name="State" type="Node" parent="." node_paths=PackedStringArray("Current")]
 script = ExtResource("3_b7f62")
@@ -477,7 +477,6 @@ script = ExtResource("4_qqiuq")
 
 [node name="Run" type="Node" parent="State"]
 script = ExtResource("5_iuq1t")
-SPEED = 70
 
 [node name="Jumping" type="Node" parent="State"]
 script = ExtResource("6_o2ky4")
@@ -510,5 +509,3 @@ one_shot = true
 [node name="Godmode" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
-
-[connection signal="animation_finished" from="AnimatedSprite2D" to="State" method="_on_animated_sprite_2d_animation_finished"]

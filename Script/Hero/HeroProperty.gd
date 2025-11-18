@@ -9,7 +9,7 @@ signal god_mode
 @onready var WeaponPosition: Marker2D = $WeaponPosition
 
 @export var CurrentWeapon:int = 0
-
+@export var Speed:int = 200
 
 func _ready() -> void:
 	super.beginning()

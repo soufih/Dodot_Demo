@@ -2,10 +2,15 @@ extends BaseState
 @onready var ani: AnimationPlayer     = $"../../AnimationPlayer"
 @onready var Hero: CharacterBody2D = $"../.."
 
+
 func enter():
 	ani.play("Falling")
-	
-	
+
+
 func do(delta):
-	Hero.velocity = lerp(Hero.velocity, Vector2(0, Hero.velocity.y), delta*10)
+	var direct_x = Input.get_action_strength("MoveRight")-Input.get_action_strength("MoveLeft")
+	Hero.velocity.x = direct_x*Hero.Speed
 	
+	if !Hero.is_on_floor():
+		Hero.velocity.y += delta*DataLoader.gravity
+	Hero.move_and_slide()

@@ -48,7 +48,7 @@ func get_item_scene(id: int)->PackedScene:
 
 
 func get_item_icon(id: int)->Texture2D:
-	if loadedTextures[id]:
+	if loadedTextures.has(id):
 		return loadedTextures[id]
 		
 	if InforItemCatalog:
