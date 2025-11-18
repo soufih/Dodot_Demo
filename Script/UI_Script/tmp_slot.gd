@@ -1,9 +1,13 @@
 extends Marker2D
-class_name TmpItem
+class_name TmpSlot
 
 @onready var Icon:Sprite2D = $Sprite2D
 var TmpID: int = -1
 var TmpAmount: int = 0
+
+
+func _ready() -> void:
+	z_index = 10
 
 
 func set_icon(id:int):

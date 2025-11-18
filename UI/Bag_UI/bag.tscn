@@ -49,7 +49,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="tmp_item" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_rmgxi")]
+[node name="tmp_slot" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_rmgxi")]
 position = Vector2(-697, 106)
 
 [node name="Equipment_Bag" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]

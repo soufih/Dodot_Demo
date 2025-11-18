@@ -2,22 +2,24 @@ extends Button
 
 #var temporary_item_position:Vector2i = Vector2i(0,0)
 #var temporary_item_amount:Vector2i = Vector2i(0,0)
-var temporary_item_texture:Texture2D = get_button_icon()
+#var temporary_item_texture:Texture2D = get_button_icon()
+
 var button_down_sign = false
 var self_position:Vector2i
 var self_icon:Texture2D
 var self_id:int
 var self_amount:int
-var tmp_item:TmpItem
+var self_index:int
+var tmp_slot:TmpSlot
 
 func _ready() -> void:
 	init()
-	BackpackSystem.backpack_changed.connect(refresh)
+	BackpackSystem.backpack_changed.connect(init)
 
 
 func _process(delta: float) -> void:
 	if button_down_sign:
-		tmp_item.global_position = get_global_mouse_position()
+		tmp_slot.global_position = get_global_mouse_position()
 
 
 func init():
@@ -38,25 +40,18 @@ func get_self_position()->Vector2i:
 	return Vector2i(x,y)
 
 
-func get_mouse_position()->Vector2i:
-	return get_self_position()
-
-
 func _on_button_down() -> void:
-	tmp_item = get_parent().get_parent().get_parent().get_parent().get_parent().get_node("tmp_item")
-	var result:Vector2i = BackpackSystem.interact_with_slot(tmp_item.get_tmp_item().x, tmp_item.get_tmp_item().y, self_position)
-	tmp_item.z_index = 10
-	tmp_item.set_icon(result.x)
-	tmp_item.set_tmp_item(result.x, result.y)
+	tmp_slot = get_parent().get_parent().get_parent().get_parent().get_parent().get_node("tmp_slot")
+	var result:Vector2i = BackpackSystem.interact_with_slot(tmp_slot.get_tmp_item().x, tmp_slot.get_tmp_item().y, self_position)
+	print(result)
+	
+	tmp_slot.set_icon(result.x)
+	tmp_slot.set_tmp_item(result.x, result.y)
 	button_down_sign = true
 
 
-func _on_button_up() -> void:
-	pass
-
-
-func refresh():
-	init()
+#func _on_button_up() -> void:
+	#pass
 
 
 #func get_item():
@@ -68,8 +63,6 @@ func refresh():
 	##存储信息
 	#restore_item(target_position,target_amount,target_texture)
 	##print(temporary_item_position)
-
-
 
 
 #func restore_item(target_postion:Vector2i,target_amount:Vector2i,target_texture:Texture2D):
