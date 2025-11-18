@@ -1,6 +1,6 @@
 extends Control
 
-class_name Backpack
+class_name Bag
 
 
 @onready var grid_container = $PanelContainer/VBoxContainer/HBoxContainer/Item_Bag/ScrollContainer/GridContainer
