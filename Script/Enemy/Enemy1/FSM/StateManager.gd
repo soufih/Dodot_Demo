@@ -6,8 +6,8 @@ extends BaseStateManager
 
 var Dead:bool = false
 var Moving:bool = false
-var Attacking:bool = false
 var Breaked:bool = false
+var Attacking:bool = false
 
 func check():
 	if !Dead:

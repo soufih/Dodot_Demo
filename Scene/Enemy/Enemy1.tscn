@@ -425,38 +425,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_8lps2"]
-resource_name = "Attack"
-length = 1.1
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"Attack", 1.0, false],
-"method": &"play"
-}]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FSM/Attack")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.9),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"apply_damage"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_hxmcx"]
 resource_name = "Break"
 tracks/0/type = "method"
@@ -525,6 +493,38 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_8lps2"]
+resource_name = "Attack"
+length = 1.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Attack", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FSM/Attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"apply_damage"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_la8gj"]
 _data = {
 &"Attack": SubResource("Animation_8lps2"),
@@ -555,9 +555,10 @@ shape = SubResource("RectangleShape2D_kmcel")
 position = Vector2(5.7921486, -20.82679)
 scale = Vector2(1.7151884, 1.7151884)
 sprite_frames = SubResource("SpriteFrames_1rp2h")
-animation = &"Attack"
+animation = &"Idle"
 autoplay = "Idle"
-frame = 9
+frame = 6
+frame_progress = 0.22222881
 
 [node name="Hitbox" type="Area2D" parent="AnimatedSprite2D"]
 collision_layer = 4

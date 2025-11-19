@@ -509,3 +509,5 @@ one_shot = true
 [node name="Godmode" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
+
+[connection signal="god_mode" from="." to="." method="_on_god_mode"]

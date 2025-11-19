@@ -9,16 +9,23 @@ func _ready() -> void:
 	EnemyPorpertyLog = preload("uid://2srf8bdj186")
 	
 	var PlayerStateUI = preload("uid://bd2erf76jvubl").instantiate()
-	var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
-	var Hero = preload("res://Scene/Hero/Hero.tscn").instantiate()
-	#var Enemy1 = preload("res://Scene/Enemy/Enemy1.tscn").instantiate()
-	var Enemy2 = preload("res://Scene/Enemy/Enemy2.tscn").instantiate()
 	
+	var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
 	add_child(TestMap)
+	
+	var Hero = preload("res://Scene/Hero/Hero.tscn").instantiate()
 	add_child(Hero)
+	
+	var Enemy1 = preload("res://Scene/Enemy/Enemy1.tscn").instantiate()
+	add_child(Enemy1)
+	
+	#var Enemy2 = preload("res://Scene/Enemy/Enemy2.tscn").instantiate()
+	#add_child(Enemy2)
+	
+	
 	Hero.add_child(PlayerStateUI)
-	#self.add_child(Enemy1)
-	self.add_child(Enemy2)
+	
+	
 	
 	LevelGenerator.prepare_generating()
 

@@ -3,7 +3,6 @@ extends BaseState
 @onready var FSM = $".."
 @onready var Spirte = $"../../AnimatedSprite2D"
 
-
 func enter():
 	FSM.Attacking = true
 
@@ -26,9 +25,11 @@ func do(delta):
 			else:
 				$"../Move".Direct = -1
 
+
 func apply_damage():
 	for body in FSM.Hitbox.get_overlapping_bodies():
-		if body.is_in_group("Hero"):
+		if body.is_in_group("Hero") && Spirte.frame == 9:
+			print(Spirte.frame)
 			DamageSystem.damage_assess(FSM.SelfBody, body, FSM.SelfBody.Porperty)
 
 

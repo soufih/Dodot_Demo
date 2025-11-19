@@ -1,7 +1,6 @@
 extends BaseCharacter
 class_name HeroProperty
 
-@warning_ignore("unused_signal")
 signal god_mode
 
 @onready var ani: AnimationPlayer = $AnimationPlayer
