@@ -52,7 +52,6 @@ func _on_button_down() -> void:
 	tmp_slot = get_parent().get_parent().get_parent().get_parent().get_parent().get_node("tmp_slot")
 	var result:Vector2i = BackpackSystem.interact_with_slot(tmp_slot.get_tmp_item().x, tmp_slot.get_tmp_item().y, self_position)
 	print(result)
-	print(self_position)
 	
 	tmp_slot.set_icon(result.x)
 	tmp_slot.set_tmp_item(result.x, result.y)

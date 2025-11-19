@@ -5,8 +5,8 @@ signal backpack_changed#释放信号后更新UI
 var Backpack: Dictionary[Vector2i, Vector2i]#[(id, index), postion]， 记录各物品位置
 var Amounts:Dictionary[Vector2i, int]#[(id, index), amount]， 记录各物品数量
 
-var ContianerX: int = 4
-var ContianerY: int = 6
+var ContianerX: int = 6 #垂直为x
+var ContianerY: int = 4#水平为y
 @onready var MaxContianer: int = ContianerX *ContianerY
 var CurrentContianer: int = 0
 
@@ -78,6 +78,7 @@ func direct_add_item(id: int, amount: int)->Vector2i:
 func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i:
 	var remain:Vector2i = Vector2i(-1, 0)
 	var TargetItem = Backpack.find_key(TargetPostion)
+	print(TargetPostion)
 	#检测合法性
 	if TargetPostion.x > ContianerX ||  TargetPostion.y > ContianerY:
 		return Vector2i(id, amount)
