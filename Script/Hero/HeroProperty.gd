@@ -39,7 +39,7 @@ func equip_weapon(WeaponId: int):
 func _on_god_mode() -> void:
 	set_collision_layer_value(2,false)
 	set_collision_layer_value(7,true)
-	$Godmode.start(1.5)
+	$Godmode.start(5)
 	await $Godmode.timeout
 	set_collision_layer_value(2,true)
 	set_collision_layer_value(7,false)
