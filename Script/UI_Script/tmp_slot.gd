@@ -3,13 +3,13 @@ class_name TmpSlot
 
 @onready var Icon:Sprite2D = $Sprite2D
 var TmpID: int = -1
-var TmpAmount: int = 0
+var TmpAmount: int = 1
 
 
 func _ready() -> void:
 	#鼠标拖动物品图标显示于最上层
 	z_index = 10
-	
+
 
 	#设置临时物品图标
 func set_icon(id:int):

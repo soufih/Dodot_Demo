@@ -19,6 +19,9 @@ func _ready() -> void:
 	
 	Backpack[Vector2i(2, 1)] = Vector2i(4,4)
 	Amounts[Vector2i(2, 1)] = 99
+	
+	Backpack[Vector2i(0, 1)] = Vector2i(5,4)
+	Amounts[Vector2i(0, 1)] = 1
 
 
 func _on_backpack_changed():
@@ -79,8 +82,8 @@ func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i
 	var remain:Vector2i = Vector2i(-1, 0)
 	var TargetItem = Backpack.find_key(TargetPostion)
 	#检测合法性
-	if TargetPostion.x > ContianerX ||  TargetPostion.y > ContianerY:
-		return Vector2i(id, amount)
+	#if TargetPostion.x > ContianerX ||  TargetPostion.y > ContianerY:
+		#return Vector2i(id, amount)
 
 	if !Backpack.values().has(TargetPostion):#若不存在则添加目标物品
 		add_item(id, amount, TargetPostion)

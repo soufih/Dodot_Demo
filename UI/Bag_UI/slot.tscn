@@ -7,15 +7,18 @@
 atlas = ExtResource("1_ypyr3")
 region = Rect2(128.40524, 160.00008, 31.594757, 31.999924)
 
-[node name="TextureRect" type="TextureRect"]
+[node name="Slot" type="TextureRect"]
 texture = SubResource("AtlasTexture_2purt")
 
 [node name="Button" type="Button" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 3.0
 offset_top = 3.0
-offset_right = 29.0
-offset_bottom = 29.0
+offset_right = -2.0
+offset_bottom = -2.0
 toggle_mode = true
 script = ExtResource("2_2purt")
 

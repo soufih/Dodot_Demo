@@ -17,6 +17,13 @@ func _ready() -> void:
 	RelicSlot.append(ENUM.ItemType.Relic)
 	
 	equipment_slot_changed.connect(_on_equipment_slot_changed)
+	
+	for i in range(0, WeaponMaxContianer):
+		WeaponSlot.push_back(0)
+	
+	for i in range(0, RelicMaxContianer):
+		RelicSlot.push_back(-1)
+
 
 #更新长度数值
 func _on_equipment_slot_changed():
@@ -24,22 +31,22 @@ func _on_equipment_slot_changed():
 	RelicCurrentContianer  = RelicSlot.size()
 
 #其他栏位装备与装备栏交互时使用，如背包中装备与装备栏交互
-func interact_with_equipment_slot(id: int, Postion: int, arr:Array)->int:
-	#判断合法性
-	if ResourceManager.get_item_item_type(id) != arr[0]:
-		return id
-		
-	#判断合法性
-	if ResourceManager.get_item_config(id) == null:
-		return -1
+func interact_with_equipment_slot(id: int,amount: int,Postion: int, arr:Array)->Vector2i:
+		#判断合法性
+	if ResourceManager.get_item_config(id) == null && id != -1:
+		return Vector2i(-1, 0)
 
-	if arr.get(Postion) && Postion: #若当前位置已存在装备，则进行交换
-		return exchange_equipment(id, Postion, arr)
+	#判断合法性
+	if !ResourceManager.get_item_item_type(id).has(arr[0]) && id != -1:
+		return Vector2i(id, amount)
+
+	if (arr.get(Postion) != -1 && Postion )|| id == -1: #若当前位置已存在装备，则进行交换
+		return Vector2i(exchange_equipment(id, Postion, arr), 1)
 	else:#不存在装备，放入物装备
 		arr[Postion] = id
 		equipment_slot_changed.emit()
 
-	return -1
+	return Vector2i(-1, 0)
 
 
 func exchange_equipment(id: int, TargetPostion: int, arr: Array)->int:
@@ -57,11 +64,11 @@ func erase_equipment(TargetPostion: int, arr: Array):
 			arr.remove_at(TargetPostion)
 			equipment_slot_changed.emit()
 
-#获取指定位置的装备
+#获取指定位置的装备id
 func get_equipment(TargetPostion: int, arr: Array)->int:
 	if arr:
-		if TargetPostion != 0 && arr.get(TargetPostion):
 			return arr[TargetPostion]
+
 	return -1
 
 

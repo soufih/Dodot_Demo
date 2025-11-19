@@ -16,6 +16,7 @@ var tmp_slot:TmpSlot
 func _ready() -> void:
 	init()
 	BackpackSystem.backpack_changed.connect(init)
+	tmp_slot = get_parent().get_parent().get_parent().get_parent().get_parent().get_node("tmp_slot")
 
 
 func _process(delta: float) -> void:
@@ -31,7 +32,7 @@ func init():
 	self_id = item.x
 	self_amount = item.y
 	self_icon = ResourceManager.get_item_icon(self_id)
-	set_button_icon(ResourceManager.get_item_icon(self_id))
+	set_button_icon(self_icon)
 	#显示物品数量
 	if self_amount > 1:
 		label_item_amount.text = "%s" % self_amount
@@ -49,11 +50,9 @@ func get_self_position()->Vector2i:
 
 
 func _on_button_down() -> void:
-	tmp_slot = get_parent().get_parent().get_parent().get_parent().get_parent().get_node("tmp_slot")
 	var result:Vector2i = BackpackSystem.interact_with_slot(tmp_slot.get_tmp_item().x, tmp_slot.get_tmp_item().y, self_position)
-	print(result)
-	print(self_position)
 	
+	print(result)
 	tmp_slot.set_icon(result.x)
 	tmp_slot.set_tmp_item(result.x, result.y)
 	button_down_sign = true
