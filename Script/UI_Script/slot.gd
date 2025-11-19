@@ -19,6 +19,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	#临时物品图标跟随鼠标移动
 	if button_down_sign:
 		tmp_slot.global_position = get_global_mouse_position()
 
@@ -31,6 +32,7 @@ func init():
 	self_amount = item.y
 	self_icon = ResourceManager.get_item_icon(self_id)
 	set_button_icon(ResourceManager.get_item_icon(self_id))
+	#显示物品数量
 	if self_amount > 1:
 		label_item_amount.text = "%s" % self_amount
 		label_item_amount.show()
@@ -50,6 +52,7 @@ func _on_button_down() -> void:
 	tmp_slot = get_parent().get_parent().get_parent().get_parent().get_parent().get_node("tmp_slot")
 	var result:Vector2i = BackpackSystem.interact_with_slot(tmp_slot.get_tmp_item().x, tmp_slot.get_tmp_item().y, self_position)
 	print(result)
+	print(self_position)
 	
 	tmp_slot.set_icon(result.x)
 	tmp_slot.set_tmp_item(result.x, result.y)

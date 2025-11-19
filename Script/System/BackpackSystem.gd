@@ -6,7 +6,7 @@ var Backpack: Dictionary[Vector2i, Vector2i]#[(id, index), postion]， 记录各
 var Amounts:Dictionary[Vector2i, int]#[(id, index), amount]， 记录各物品数量
 
 var ContianerX: int = 4
-var ContianerY: int = 4
+var ContianerY: int = 6
 @onready var MaxContianer: int = ContianerX *ContianerY
 var CurrentContianer: int = 0
 
