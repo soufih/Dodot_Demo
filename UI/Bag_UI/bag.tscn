@@ -56,6 +56,17 @@ position = Vector2(-697, 106)
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/Equipment_Bag"]
+layout_mode = 2
+
+[node name="Weapon_Container" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/Equipment_Bag/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Relic_Container" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/Equipment_Bag/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="Item_Bag" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
