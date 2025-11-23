@@ -4,7 +4,7 @@ var ItemConfigCache: Dictionary = {}
 var LoadedScenes: Dictionary = {}        
 var loadedTextures: Dictionary = {}
 
-var InforItemCatalog: ItemCatalog
+var ReferItemCatalog: ItemCatalog
 
 
 func _ready() -> void:
@@ -12,8 +12,8 @@ func _ready() -> void:
 
 
 func load_item_catalog():
-	InforItemCatalog = load("uid://crd3nj0t7e4d6") as ItemCatalog
-	if !InforItemCatalog:
+	ReferItemCatalog = load("uid://crd3nj0t7e4d6") as ItemCatalog
+	if !ReferItemCatalog:
 		push_error("ERRO!WHEN LOADING ITEMCATALOG")
 
 
@@ -21,12 +21,10 @@ func get_item_config(id: int)->ItemConfig:
 	if ItemConfigCache.has(id):
 		return ItemConfigCache[id]
 	
-	if InforItemCatalog:
-		for item in InforItemCatalog.Item:
-			
+	if ReferItemCatalog:
+		for item in ReferItemCatalog.Item:
 			if item.ItemID == id:
 				ItemConfigCache[id] = item
-				
 				return item
 	
 	return null
@@ -36,7 +34,7 @@ func get_item_scene(id: int)->PackedScene:
 	if LoadedScenes.has(id):
 		return LoadedScenes[id]
 
-	if InforItemCatalog:
+	if ReferItemCatalog:
 		var Item = get_item_config(id)
 		if Item:
 			
@@ -51,7 +49,7 @@ func get_item_icon(id: int)->Texture2D:
 	if loadedTextures.has(id):
 		return loadedTextures[id]
 		
-	if InforItemCatalog:
+	if ReferItemCatalog:
 		var item = get_item_config(id)
 		if item:
 			if item.IconTexture:
@@ -73,7 +71,6 @@ func get_item_item_type(id: int)->Array:
 
 func get_item_max_stack(id:int)->int:
 	var Config = get_item_config(id)
-
 	if Config:
 		if Config.MaxStack:
 			return Config.MaxStack

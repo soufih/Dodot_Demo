@@ -23,7 +23,7 @@ ItemID = 1
 ItemName = "Material1"
 ItemType = Array[int]([1])
 IconTexture = ExtResource("3_r6x5k")
-MaxStack = 99
+MaxStack = 100
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_n3iav"]
@@ -32,7 +32,7 @@ ItemID = 2
 ItemName = "Material2"
 ItemType = Array[int]([1])
 IconTexture = ExtResource("4_hl4hp")
-MaxStack = 99
+MaxStack = 100
 Source = Array[int]([3, 4])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
@@ -42,7 +42,7 @@ ItemID = 3
 ItemName = "Material3"
 ItemType = Array[int]([1])
 IconTexture = ExtResource("5_n3iav")
-MaxStack = 99
+MaxStack = 100
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_hl4hp"]
@@ -51,7 +51,7 @@ ItemID = 4
 ItemName = "Material4"
 ItemType = Array[int]([1])
 IconTexture = ExtResource("6_hl4hp")
-MaxStack = 99
+MaxStack = 100
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [resource]

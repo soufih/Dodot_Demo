@@ -5,44 +5,38 @@ signal backpack_changed#释放信号后更新UI
 var Backpack: Dictionary[Vector2i, Vector2i]#[(id, index), postion]， 记录各物品位置
 var Amounts:Dictionary[Vector2i, int]#[(id, index), amount]， 记录各物品数量
 
-var ContianerX: int = 6 #垂直为x
+var ContianerX: int = 4 #垂直为x
 var ContianerY: int = 4#水平为y
 @onready var MaxContianer: int = ContianerX *ContianerY
 var CurrentContianer: int = 0
 
 func _ready() -> void:
-	Backpack[Vector2i(1, 1)] = Vector2i(1,1)
-	Amounts[Vector2i(1, 1)] = 50
+	Backpack[Vector2i(3,1)] = Vector2i(1,2)
+	Amounts[Vector2i(3,1)] = 3
+	_on_backpack_changed()
 	
-	Backpack[Vector2i(1, 2)] = Vector2i(1,2)
-	Amounts[Vector2i(1, 2)] = 50
-	
-	Backpack[Vector2i(2, 1)] = Vector2i(4,4)
-	Amounts[Vector2i(2, 1)] = 99
-	
-	Backpack[Vector2i(0, 1)] = Vector2i(5,4)
-	Amounts[Vector2i(0, 1)] = 1
-
+	quick_add_item(2,1000)
 
 func _on_backpack_changed():
 	CurrentContianer = Backpack.size()
 
-
-#直接添加物品到背包中,返回溢出的物品id和数量
-func direct_add_item(id: int, amount: int)->Vector2i:
+##直接添加物品到背包中,返回溢出的物品id和数量
+func quick_add_item(id: int, amount: int)->Vector2i:
 	#检测合法性
 	if ResourceManager.get_item_config(id) == null:
 		return Vector2i(id, amount)
-		
+
 	var MaxStack: int = ResourceManager.get_item_max_stack(id)
 	var TargetIndex:int = MaxContianer
 	var TargetPostion:Vector2i = Vector2i(-1, 0)
 	
 	#尝试在已有的物品堆中堆叠
-	for index in range(1, MaxContianer):
+	for index in range(1, MaxContianer+1):
 		if Backpack.has(Vector2i(id, index)):
+			
 			var CurrentItemAmount =  Amounts[Vector2i(id, index)]
 			if CurrentItemAmount < MaxStack:
+				
 				Amounts[Vector2i(id, index)] = min((amount+CurrentItemAmount), MaxStack)
 				amount = (amount+CurrentItemAmount) - MaxStack
 				
@@ -51,33 +45,42 @@ func direct_add_item(id: int, amount: int)->Vector2i:
 				break
 				
 		#记录最早查找到的未使用过的索引，以防上溢
-		else:
-			TargetIndex = min(index, TargetIndex)
-	
+		#else:
+			#TargetIndex = min(index, TargetIndex)
+
 	#如果物品在堆叠后仍有剩余
-	if amount > 0:
+	while amount > 0:
 		#若背包已满则直接返回
 		if CurrentContianer+1 > MaxContianer:
 			return Vector2i(id, amount)
 		
+		#记录最早查找到的未使用过的索引，以防上溢
+		for index in range(1, MaxContianer):
+			if !Backpack.has(Vector2i(id, index)):
+				TargetIndex = index
+				break
+		
 		#查找背包未被使用过的格子
-		for y in range(1, ContianerY):
-			for x in range(1, ContianerX):
+		for x in range(1, ContianerY+1):
+			var LastPostion = TargetPostion
+			for y in range(1, ContianerX+1):
 				if !Backpack.values().has(Vector2i(x, y)):
 					TargetPostion = Vector2i(x, y)
 					break
-		
+			if TargetPostion != LastPostion:
+				break
+
 		if TargetPostion == Vector2i(-1, 0):
 			return Vector2i(id, amount)
 		
 		Backpack[Vector2i(id, TargetIndex)] = TargetPostion
-		Amounts[Vector2i(id, TargetIndex)] = amount
+		Amounts[Vector2i(id, TargetIndex)] = min(MaxStack, amount)
+		amount -= MaxStack
 		CurrentContianer += 1
 		backpack_changed.emit()
-
 	return Vector2i(id, 0)
 
-#其他栏位物品与背包物品交互时使用，如仓库中物品与背包物品交互
+##其他栏位物品与背包物品交互时使用，如仓库中物品与背包物品交互
 func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i:
 	var remain:Vector2i = Vector2i(-1, 0)
 	var TargetItem = Backpack.find_key(TargetPostion)
@@ -115,7 +118,6 @@ func add_item(id: int, amount: int, TargetPostion: Vector2i):
 	Amounts[Vector2i(id, TargetIndex)] = amount
 
 
-
 func stack_item(id: int, amount: int, TargetItem: Vector2i)->Vector2i:
 	var MaxStack: int = ResourceManager.get_item_max_stack(id)
 	var CurrentItemAmount =  Amounts[TargetItem]
@@ -140,7 +142,7 @@ func exchange_item(id: int, amount: int, TargetItem: Vector2i)->Vector2i:
 
 	return Vector2i(ID, AMOUNT)
 
-#移除目标物品
+##移除目标物品
 func erase_item_by_item(TargetItem: Vector2i):
 	if Backpack.has(TargetItem):
 		Backpack.erase(TargetItem)
@@ -150,7 +152,7 @@ func erase_item_by_item(TargetItem: Vector2i):
 
 	backpack_changed.emit()
 
-#移除目标物品
+##移除目标物品
 func erase_item_by_position(TargetPosition: Vector2i):
 	if !Backpack.values().has(TargetPosition):
 		return
@@ -161,7 +163,7 @@ func erase_item_by_position(TargetPosition: Vector2i):
 	Backpack.erase(TargetItem) 
 	Amounts.erase(TargetItem)
 
-#根据索引获取目标物品
+##根据索引获取目标物品
 func get_item_by_id_index(TargetItem: Vector2i)->Vector2i:
 	#检测合法性
 	if ResourceManager.get_item_config(TargetItem.x) == null:
@@ -172,7 +174,7 @@ func get_item_by_id_index(TargetItem: Vector2i)->Vector2i:
 
 	return Vector2i(TargetItem.x, Amounts.get(TargetItem))
 
-#根据位置获取目标物品
+##根据位置获取目标物品
 func get_item_by_postion(TargetPostion: Vector2i)->Vector2i:
 	if !Backpack.values().has(TargetPostion):
 		return Vector2i(-1, -1)

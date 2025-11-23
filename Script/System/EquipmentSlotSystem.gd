@@ -19,7 +19,7 @@ func _ready() -> void:
 	equipment_slot_changed.connect(_on_equipment_slot_changed)
 	
 	for i in range(0, WeaponMaxContianer):
-		WeaponSlot.push_back(0)
+		WeaponSlot.push_back(-1)
 	
 	for i in range(0, RelicMaxContianer):
 		RelicSlot.push_back(-1)

@@ -7,23 +7,21 @@ var EnemyPorpertyLog:EnemyPorperty
 func _ready() -> void:
 	WeaponPorpertyLog = preload("uid://cpjcvujytunnw")
 	EnemyPorpertyLog = preload("uid://2srf8bdj186")
-	
-	var PlayerStateUI = preload("uid://bd2erf76jvubl").instantiate()
-	
+
 	var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
 	add_child(TestMap)
-	
+
 	var Hero = preload("res://Scene/Hero/Hero.tscn").instantiate()
 	add_child(Hero)
-	
+
 	var Enemy1 = preload("res://Scene/Enemy/Enemy1.tscn").instantiate()
 	add_child(Enemy1)
-	
+
 	#var Enemy2 = preload("res://Scene/Enemy/Enemy2.tscn").instantiate()
 	#add_child(Enemy2)
-	
-	
-	Hero.add_child(PlayerStateUI)
+
+	#var PlayerStateUI = preload("uid://bd2erf76jvubl").instantiate()
+	#Hero.add_child(PlayerStateUI)
 	
 	
 	
