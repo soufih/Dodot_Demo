@@ -199,7 +199,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Break",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -317,6 +317,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_b035h"]
 resource_name = "Break"
+length = 0.7
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -468,7 +469,9 @@ shape = SubResource("CapsuleShape2D_iuq1t")
 position = Vector2(2.2737368e-13, -1.364242e-12)
 scale = Vector2(1.581081, 1.581081)
 sprite_frames = SubResource("SpriteFrames_ay60v")
-animation = &"Jump"
+animation = &"Break"
+frame = 4
+frame_progress = 1.0
 
 [node name="State" type="Node" parent="." node_paths=PackedStringArray("Current")]
 script = ExtResource("3_b7f62")
@@ -506,11 +509,10 @@ libraries = {
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Player_State_UI" parent="Camera2D" instance=ExtResource("12_v1ih1")]
-offset_left = -136.0
-offset_top = 168.0
-offset_right = -136.0
-offset_bottom = 168.0
-scale = Vector2(0.88, 1)
+offset_left = -576.0
+offset_top = -320.0
+offset_right = -576.0
+offset_bottom = -320.0
 
 [node name="RecoverTimer" type="Timer" parent="."]
 one_shot = true
@@ -520,3 +522,4 @@ wait_time = 1.5
 one_shot = true
 
 [connection signal="god_mode" from="." to="." method="_on_god_mode"]
+[connection signal="child_entered_tree" from="WeaponPosition" to="." method="_on_weapon_position_child_entered_tree"]

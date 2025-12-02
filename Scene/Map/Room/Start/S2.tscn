@@ -9,3 +9,6 @@ tile_map_data = PackedByteArray("AAD9/wMAAAA1AAMAAAD+/wMAAAA1AAMAAAD//wMAAAA1AAM
 
 [node name="RIGHT" type="Marker2D" parent="." index="1"]
 position = Vector2(272, -56)
+
+[node name="Startpoint" type="Marker2D" parent="." index="2"]
+position = Vector2(0, -8)

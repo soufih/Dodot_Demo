@@ -24,7 +24,6 @@ func _ready() -> void:
 	for i in range(0, RelicMaxContianer):
 		RelicSlot.push_back(-1)
 
-
 #更新长度数值
 func _on_equipment_slot_changed():
 	WeaponCurrentContianer = WeaponSlot.size()

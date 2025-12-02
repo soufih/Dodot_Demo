@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EnemyLog" load_steps=5 format=3 uid="uid://dx6tcineeo3dt"]
+
+[ext_resource type="Script" uid="uid://b1xkmukmylbml" path="res://Script/Base/EnemyManager/EnemyConfig.gd" id="1_ckhv6"]
+[ext_resource type="Script" uid="uid://duo10xl22wwpt" path="res://Script/Base/EnemyManager/EnemyLog.gd" id="2_t40pt"]
+
+[sub_resource type="Resource" id="Resource_ckhv6"]
+script = ExtResource("1_ckhv6")
+Name = "Enemy1"
+Path = "uid://dapiqis2bgofl"
+metadata/_custom_type_script = "uid://b1xkmukmylbml"
+
+[sub_resource type="Resource" id="Resource_t40pt"]
+script = ExtResource("1_ckhv6")
+Name = "Enemy2"
+Path = "uid://debrsbk4rnn23"
+metadata/_custom_type_script = "uid://b1xkmukmylbml"
+
+[resource]
+script = ExtResource("2_t40pt")
+Log = Array[ExtResource("1_ckhv6")]([SubResource("Resource_ckhv6"), SubResource("Resource_t40pt")])
+metadata/_custom_type_script = "uid://duo10xl22wwpt"

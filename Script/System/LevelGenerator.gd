@@ -2,16 +2,23 @@ extends Node
 
 var InforLevelRoomLog:LevelRoomLog
 var InforLevelTemplateLog:LevelTemplateLog
-
+var Startpoint:Vector2i
 
 func _ready() -> void:
 	randomize()
 	prepare_generating()
+	
 
-
+#房间数据初始化
 func prepare_generating():
 	load_level_room_log()
 	load_level_template_log()
+
+
+func generate_level(level: int):
+	assemble_room(level)
+	generate_enemy()
+	generate_player()
 
 
 func load_level_room_log():
@@ -89,6 +96,9 @@ func assemble_room(Level:int):
 		if Index == 0:
 			var Room = RoomScene.instantiate()
 			RoomCache[Index] = Room
+			#保存出生点
+			if Room.get_node(""):
+				Startpoint = Room.get_node("Startpoint").global_position
 			add_child(Room)
 			continue
 		
@@ -125,3 +135,10 @@ func assemble_room(Level:int):
 	
 	SelectedRooms.clear()
 	RoomCache.clear()
+
+func generate_enemy():
+	pass
+
+func generate_player():
+	var player:BaseCharacter = DataLoader.HERO
+	player.global_position = Startpoint

@@ -11,6 +11,9 @@ signal god_mode
 @export var Speed:int = 200
 @export var GodModeTimer: int = 1
 
+var CurrentWeaponRefer: BaseWeapon
+
+
 func _ready() -> void:
 	super.beginning()
 	add_to_group("Hero")
@@ -44,3 +47,8 @@ func _on_god_mode() -> void:
 	await $Godmode.timeout
 	set_collision_layer_value(2,true)
 	set_collision_layer_value(7,false)
+
+
+func _on_weapon_position_child_entered_tree(Weapon: BaseWeapon) -> void:
+	if Weapon:
+		CurrentWeaponRefer = Weapon

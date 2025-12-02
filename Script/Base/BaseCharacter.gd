@@ -20,7 +20,7 @@ signal toughness_changed
 
 var DamageEnhance:Array
 var DamageReduce:Array
-var StatusSlot:Dictionary
+var StatusSlot:Dictionary[ENUM.STATUS, Vector2]  #状态名隐射持续时间和状态层数
 
 
 func beginning():
@@ -133,8 +133,8 @@ func set_character_toughness(T:float):
 	Toughness = MaxToughness
 	toughness_changed.emit()
 
-func add_new_status(Name:int, Duration:float):
-	StatusSlot[Name] = Duration
+func add_new_status(Name:int, Duration:float, Amount:int):
+	StatusSlot[Name] = Vector2(Duration, Amount)
 	state_changed.emit()
 
 func erase_status(Name:int):

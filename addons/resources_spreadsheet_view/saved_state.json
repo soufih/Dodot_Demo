@@ -98,6 +98,17 @@
         "visibility": 0.0
       }
     },
+    "res://Rescource/Data::Log/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://Rescource::Item/": {
       "metadata/_custom_type_script": {
         "visibility": 0.0
@@ -144,6 +155,20 @@
       "resource_name": {
         "visibility": 0.0
       }
+    },
+    "res://Rescource::Log/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      },
+      "resource_path": {
+        "visibility": 0
+      }
     }
   },
   "recent_paths": [
@@ -153,7 +178,7 @@
     "res://Rescource/Data/",
     "res://Rescource/Data::LevelLog/",
     "res://Rescource/Data::LevelLog::RoomLog/",
-    "res://Rescource/Data::Item/"
+    "res://Rescource::Log/"
   ],
   "table_functions": {
     "filter": [
