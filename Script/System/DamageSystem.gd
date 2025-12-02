@@ -16,7 +16,7 @@ func apply_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorper
 		if Damage == -1:
 			return
 		Target.set_character_current_health(Target.get_character_current_health()-Damage)
-		Target.take_damage()
+		#Target.take_damage()
 	#其他受伤反馈逻辑
 
 func calculate_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorperty)->float:
@@ -31,7 +31,7 @@ func calculate_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePo
 func apply_impact_force(Target:BaseCharacter, Attack:DamagePorperty):
 	if Target:
 		Target.set_character_toughness(Target.get_character_toughness()-Attack.ImpactForce)
-		Target.toughness_reduced()
+		#Target.toughness_reduced()
 	
 #func break_assess(Target:BaseCharacter):
 	#if Target:

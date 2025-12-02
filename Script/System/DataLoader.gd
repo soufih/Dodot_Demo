@@ -3,6 +3,7 @@ extends Node
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var WeaponPorpertyLog:WeaponPorperty
 var EnemyPorpertyLog:EnemyPorperty
+var HERO
 
 func _ready() -> void:
 	WeaponPorpertyLog = preload("uid://cpjcvujytunnw")
@@ -10,18 +11,18 @@ func _ready() -> void:
 
 	var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
 	add_child(TestMap)
-
-	var Hero = preload("res://Scene/Hero/Hero.tscn").instantiate()
-	add_child(Hero)
-
+#
+	HERO = preload("res://Scene/Hero/Hero.tscn").instantiate()
+	add_child(HERO)
+#
 	var Enemy1 = preload("res://Scene/Enemy/Enemy1.tscn").instantiate()
 	add_child(Enemy1)
 
-	#var Enemy2 = preload("res://Scene/Enemy/Enemy2.tscn").instantiate()
-	#add_child(Enemy2)
+	var Enemy2 = preload("res://Scene/Enemy/Enemy2.tscn").instantiate()
+	add_child(Enemy2)
 
 	#var PlayerStateUI = preload("uid://bd2erf76jvubl").instantiate()
-	#Hero.add_child(PlayerStateUI)
+	#add_child(PlayerStateUI)
 	
 	
 	

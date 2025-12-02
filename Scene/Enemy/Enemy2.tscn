@@ -508,14 +508,14 @@ collision_mask = 8
 position = Vector2(22, 34)
 shape = SubResource("RectangleShape2D_qm5lr")
 
-[node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 4
+[node name="HateArea" type="Area2D" parent="."]
+collision_layer = 128
 collision_mask = 66
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HateArea"]
 shape = SubResource("CircleShape2D_usd1x")
 
 [node name="RecoverTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_exited" from="Hitbox" to="FSM/Attack" method="_on_hitbox_body_exited"]
+[connection signal="body_exited" from="HateArea" to="FSM/Attack" method="_on_hitbox_body_exited"]

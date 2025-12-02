@@ -10,3 +10,11 @@ enum Location {LEFT,RIGHT,TOP,BOTTOM}
 
 #物品属性
 enum ItemType {Weapon, Materials, Relic, Equipment}
+
+#状态类型
+enum STATUS {
+	EnhanceHealth,
+	EnhanceStrength,
+	ContinuousRecovery,
+	Weakness,
+}

@@ -2,6 +2,9 @@ class_name BaseCharacter
 extends CharacterBody2D
 
 signal health_changed
+signal state_changed
+signal mana_changed
+signal toughness_changed
 
 @export var MaxHealth: float
 @export var MaxMana:float
@@ -17,17 +20,22 @@ signal health_changed
 
 var DamageEnhance:Array
 var DamageReduce:Array
+var StatusSlot:Dictionary
 
 
 func beginning():
 	add_to_group("Chr")
 	RecoverTimer.one_shot = true
+	#StatusEffectManager.enhance_health(self, 5)
+
 
 func running(delta: float):
 	pass
 	
+
 func physics_running(delta: float):
 	pass
+	
 	
 #func breaked():
 	#if get_node("AnimationPlayer"):
@@ -35,9 +43,9 @@ func physics_running(delta: float):
 	##health_changed.emit()
 ##	添加其他共同的破防逻辑
 
-func take_damage():
-	health_changed.emit()
-	print(self.name," CurrentHealth:",CurrentHealth)
+#func take_damage():
+	#health_changed.emit()
+	#print(self.name," CurrentHealth:",CurrentHealth)
 
 #func death():
 	#if get_node("AnimationPlayer"):
@@ -45,12 +53,12 @@ func take_damage():
 		#await get_node("AnimationPlayer").animation_finished
 ##	添加其他共用的死亡逻辑
 
-func toughness_reduced():
-	print(self.name," Toughness:",Toughness)
-	RecoverTimer.start(5)
-	await RecoverTimer.timeout
-	Toughness = MaxToughness
-	
+#func toughness_reduced():
+	#print(self.name," Toughness:",Toughness)
+	#RecoverTimer.start(5)
+	#await RecoverTimer.timeout
+	#Toughness = MaxToughness
+
 func sum_damage_enhance()->float:
 	var Sum:float
 	for i in DamageEnhance:
@@ -87,20 +95,48 @@ func get_character_damage_resist()->Array:
 func get_character_abnormal_condition_resist()->Array:
 	return AbnormalConditionResist
 
+func get_character_state_slot()->Dictionary:
+	return StatusSlot
+
 func set_character_current_health(CH: float):
 	CurrentHealth = CH
-	
+	health_changed.emit()
+	print(self.name," CurrentHealth:",CurrentHealth)
+
 func set_character_max_health(MH:float):
+	print(MH)
 	MaxHealth = MH
+	
+	CurrentHealth = min(MaxHealth, CurrentHealth)
+	
+	health_changed.emit()
 
 func set_character_current_mana(CM: float):
 	CurrentMana = CM
+	mana_changed.emit()
 
 func set_character_max_mana(MM: float):
 	MaxMana = MM
+	CurrentMana = min(MaxMana, CurrentMana)
+	mana_changed.emit()
 
 func set_character_max_toughness(MT:float):
 	MaxToughness = MT
-	
+	Toughness = min(Toughness, MaxToughness)
+	toughness_changed.emit()
+
 func set_character_toughness(T:float):
 	Toughness = T
+	print(self.name," Toughness:",Toughness)
+	RecoverTimer.start(5)
+	await RecoverTimer.timeout
+	Toughness = MaxToughness
+	toughness_changed.emit()
+
+func add_new_status(Name:int, Duration:float):
+	StatusSlot[Name] = Duration
+	state_changed.emit()
+
+func erase_status(Name:int):
+	StatusSlot.erase(Name)
+	state_changed.emit()

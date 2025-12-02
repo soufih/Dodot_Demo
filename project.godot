@@ -31,16 +31,17 @@ config/icon="res://icon.svg"
 [autoload]
 
 ResourceManager="*res://Script/System/ResourceManager.gd"
+DataLoader="*res://Script/System/DataLoader.gd"
 BackpackSystem="*res://Script/System/BackpackSystem.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
 LevelGenerator="*res://Script/System/LevelGenerator.gd"
 DamageSystem="*res://Script/System/DamageSystem.gd"
-DataLoader="*res://Script/System/DataLoader.gd"
 SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
-ENUM="*res://Script/Base/Enum.gd"
-BUFF="*res://Script/System/Buff.gd"
+ENUM="*res://Script/System/Enum.gd"
+BUFF="*res://Script/System/StatusEffectManager.gd"
 DEBUFF="*res://Script/System/Debuff.gd"
 EquipmentSlotSystem="*res://Script/System/EquipmentSlotSystem.gd"
+StatusEffectManager="*res://Script/System/StatusEffectManager.gd"
 
 [display]
 
@@ -90,6 +91,7 @@ SwitchWeapon={
 2d_physics/layer_5="BarrierDetect"
 2d_physics/layer_6="Bullet"
 2d_physics/layer_7="GodMod"
+2d_physics/layer_8="HateArea"
 
 [rendering]
 

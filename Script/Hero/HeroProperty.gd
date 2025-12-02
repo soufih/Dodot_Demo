@@ -9,6 +9,7 @@ signal god_mode
 
 @export var CurrentWeapon:int = 0
 @export var Speed:int = 200
+@export var GodModeTimer: int = 1
 
 func _ready() -> void:
 	super.beginning()
@@ -32,13 +33,14 @@ func equip_weapon(WeaponId: int):
 	if WeaponPosition.get_children().size() != 0:
 		WeaponPosition.get_child(0).queue_free()
 	ResourceManager.instantiate_item(WeaponId, WeaponPosition)
-	WeaponPosition.get_child(0).set_self_owner(self)
+	if WeaponPosition.get_child(0):
+		WeaponPosition.get_child(0).set_self_owner(self)
 
 
 func _on_god_mode() -> void:
 	set_collision_layer_value(2,false)
 	set_collision_layer_value(7,true)
-	$Godmode.start(5)
+	$Godmode.start(GodModeTimer)
 	await $Godmode.timeout
 	set_collision_layer_value(2,true)
 	set_collision_layer_value(7,false)

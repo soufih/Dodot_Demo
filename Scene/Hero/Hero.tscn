@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dsspae73jd8a6"]
+[gd_scene load_steps=58 format=3 uid="uid://dsspae73jd8a6"]
 
 [ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/HeroProperty.gd" id="1_6pkku"]
 [ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b05lqsb3afh4j" path="res://Script/Hero/FSM/SwitchWeapon.gd" id="9_iuq1t"]
 [ext_resource type="Script" uid="uid://c7qfa1oryeryk" path="res://Script/Hero/FSM/Death.gd" id="10_pwso0"]
 [ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Hero/FSM/Break.gd" id="11_v1ih1"]
+[ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/Player_State_UI/Player_State_UI.tscn" id="12_v1ih1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iuq1t"]
 radius = 8.0
@@ -449,6 +450,7 @@ _data = {
 
 [node name="Hero" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 129
 script = ExtResource("1_6pkku")
 MaxHealth = 100.0
 MaxMana = 100.0
@@ -502,6 +504,13 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player_State_UI" parent="Camera2D" instance=ExtResource("12_v1ih1")]
+offset_left = -136.0
+offset_top = 168.0
+offset_right = -136.0
+offset_bottom = 168.0
+scale = Vector2(0.88, 1)
 
 [node name="RecoverTimer" type="Timer" parent="."]
 one_shot = true

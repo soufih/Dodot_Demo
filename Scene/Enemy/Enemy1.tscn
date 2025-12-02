@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://dapiqis2bgofl"]
+[gd_scene load_steps=74 format=3 uid="uid://dapiqis2bgofl"]
 
 [ext_resource type="Script" uid="uid://c6v46godkgndo" path="res://Script/Enemy/Enemy1/Enemy1Porperty.gd" id="1_sm4r0"]
 [ext_resource type="Texture2D" uid="uid://ddhckxaacoud6" path="res://Rescource/Static/Enemy/NightBorne.png" id="1_vf83f"]
@@ -537,6 +537,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i6n7o"]
 size = Vector2(20.27252, 46.33719)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_i6n7o"]
+radius = 78.61596
+
 [node name="Enemy1" type="CharacterBody2D"]
 scale = Vector2(1.0358851, 1.0358851)
 collision_layer = 2
@@ -577,7 +580,7 @@ script = ExtResource("4_1pyv3")
 
 [node name="Move" type="Node" parent="FSM"]
 script = ExtResource("5_8lps2")
-Speed = 40
+Speed = 70
 
 [node name="Attack" type="Node" parent="FSM"]
 script = ExtResource("6_hxmcx")
@@ -603,5 +606,12 @@ shape = SubResource("RectangleShape2D_i6n7o")
 
 [node name="RecoverTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="HateArea" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 66
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HateArea"]
+shape = SubResource("CircleShape2D_i6n7o")
 
 [connection signal="body_exited" from="AnimatedSprite2D/Hitbox" to="FSM/Attack" method="_on_hitbox_body_exited"]

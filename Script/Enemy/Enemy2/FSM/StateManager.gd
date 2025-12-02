@@ -1,6 +1,6 @@
 extends BaseStateManager
 
-@onready var Hitbox:Area2D = $"../Hitbox"
+@onready var Hitbox:Area2D = $"../HateArea"
 @onready var SelfBody:BaseCharacter = $".."
 @onready var ani:AnimationPlayer = $"../AnimationPlayer"
 
