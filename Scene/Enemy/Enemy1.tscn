@@ -598,7 +598,7 @@ libraries = {
 
 [node name="BarrierDetect" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 8
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetect"]
 position = Vector2(25.581991, -3.450346)

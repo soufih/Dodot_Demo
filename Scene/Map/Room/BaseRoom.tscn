@@ -949,3 +949,7 @@ sources/0 = SubResource("TileSetAtlasSource_gv2it")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_kgchs")
+
+[node name="EnemySpawnPoint" type="Marker2D" parent="."]
+
+[node name="Barriers" type="Marker2D" parent="."]

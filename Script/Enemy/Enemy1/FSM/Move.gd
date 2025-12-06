@@ -1,6 +1,6 @@
 extends BaseState
 
-@onready var BarrierDetect = $"../../BarrierDetect"
+@onready var BarrierDetect:Area2D = $"../../BarrierDetect"
 @onready var FSM = $".."
 @onready var Spirte = $"../../AnimatedSprite2D"
 
@@ -27,7 +27,7 @@ func do(delta):
 			else:
 				$"../Move".Direct = -1
 	
-	if BarrierDetect.has_overlapping_areas():
+	if BarrierDetect.has_overlapping_bodies() || BarrierDetect.get_overlapping_areas():
 		FSM.SelfBody.scale.x= -FSM.SelfBody.scale.x
 		Direct= -Direct
 

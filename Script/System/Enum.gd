@@ -18,3 +18,10 @@ enum STATUS {
 	ContinuousRecovery,
 	Weakness,
 }
+
+#敌人级别
+enum EnemyLevel{
+	Normal,
+	Elite,
+	Boss,
+}

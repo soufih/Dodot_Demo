@@ -2,45 +2,59 @@ extends Node
 
 var InforLevelRoomLog:LevelRoomLog
 var InforLevelTemplateLog:LevelTemplateLog
+var InforLevelEnemyLog:LevelEnemyLog
 var Startpoint:Vector2i
 
-func _ready() -> void:
-	randomize()
-	prepare_generating()
-	
 
 #房间数据初始化
 func prepare_generating():
+	randomize()
 	load_level_room_log()
 	load_level_template_log()
+	load_enemy_log()
 
-
+#生成关卡
 func generate_level(level: int):
 	assemble_room(level)
-	generate_enemy()
+	generate_enemy(level)
 	generate_player()
 
-
+#加载房间列表
 func load_level_room_log():
 	InforLevelRoomLog = load("uid://dh3a2qfk263s4") as LevelRoomLog
 	if !InforLevelRoomLog:
 		push_error("ERRO!WHEN LOAD ROOMS OF LEVEL")
 
+#加载模板列表
 func load_level_template_log():
 	InforLevelTemplateLog = load("uid://imcee336yrsx") as LevelTemplateLog
 	if !InforLevelTemplateLog:
 		push_error("ERRO!WHEN LOAD LEVEL TEMPLATE")
 
+#加载敌人列表
+func load_enemy_log():
+	InforLevelEnemyLog = load("uid://buyhm8wjeyf3u") as LevelEnemyLog
+	#print(InforLevelEnemyLog)
+	if !InforLevelEnemyLog:
+		push_error("ERRO!WHEN LOAD ENEMY")
+
+#加载房间
 func get_level_rooms(Level:int)->LevelRoomConfig:
 	if InforLevelRoomLog:
-		return InforLevelRoomLog.LevelLog[Level]
+		var result = InforLevelRoomLog.LevelLog.get(Level)
+		if result:
+			return result
 	return null
 
+#加载模板
 func get_level_template(Level:int)->TemplateConfig:
 	if InforLevelTemplateLog:
-		return InforLevelTemplateLog.LevelLog[Level]
+		var result = InforLevelTemplateLog.LevelLog.get(Level)
+		if result:
+			return result
 	return null
 
+#随机挑选模板
 func random_select_level_template(Level:int)->Array:
 	var CurrentLevelTemplates:Array = get_level_template(Level).TemplatePath
 	var Size = CurrentLevelTemplates.size()
@@ -50,6 +64,7 @@ func random_select_level_template(Level:int)->Array:
 		push_error("ERRO!WHEN ACCESS TEMPLATE FILE", FileAccess.get_open_error())
 	return JSON.parse_string(Result.get_line())
 
+#随机挑选房间
 func select_room(Level:int)->Array:
 	var Template = random_select_level_template(Level)
 	var Rooms =  get_level_rooms(Level)	
@@ -84,6 +99,7 @@ func check_room(Room:RoomConfig, Target:Array)->bool:
 	var TargetExit = Target[2] 
 	return TYPE[Room.RoomType] == TargetType && ENTRANCE[Room.Entrance] == TargetEntrance && Room.Exit == TargetExit 
 
+#组装房间
 func assemble_room(Level:int):
 	var SelectedRooms:Array = select_room(Level)
 	var RoomCache:Dictionary={}
@@ -131,14 +147,64 @@ func assemble_room(Level:int):
 		
 		#拼接房间
 		TargetRoom.global_position = Neighbour.get_node(Exit).global_position
-	print("Done!")
+	print("Done! Assemble Room")
 	
 	SelectedRooms.clear()
 	RoomCache.clear()
 
-func generate_enemy():
-	pass
+#生成敌人
+func generate_enemy(Level:int):
+	#获取所有房间
+	var Rooms = self.get_children()
+	
+	#遍历所有房间
+	for room:Node2D in Rooms:
+		if room.has_node("EnemySpawnPoint"):
+			#获取房间内的敌人生成点
+			var SpawnPoints = room.get_node("EnemySpawnPoint").get_children()
+			spawn_enemy(SpawnPoints, Level)
+	
+	print("Done! Generate Enemy")
 
+#生成敌人的具体规则
+func spawn_enemy(SpawnPoints:Array[Node], Level:int):
+	var Size = SpawnPoints.size()
+	var Index = 0
+	var Enemies:Array = get_enemies(Level)
+	#print(Enemies)
+	if Enemies.size() == 0:
+		return
+	
+	while Index < Size:
+		randomize()
+		#随机挑选一个敌人
+		var Target:EnemyConfig = Enemies.get(randi()%Enemies.size())
+		
+		#生成敌人
+		var Enemy = load(Target.Path).instantiate()
+		SpawnPoints[Index].add_child(Enemy)
+		
+		#普通敌人可较为密集的生成
+		if Target.Level == ENUM.EnemyLevel.Normal:
+			Index += 1
+		
+		#精英敌人分散生成
+		if Target.Level == ENUM.EnemyLevel.Elite:
+			Index += 2
+		
+		if Index >= Size:
+			break
+
+#获取敌人
+func get_enemies(Level:int)->Array:
+	if InforLevelEnemyLog:
+		var result:EnemyLog = InforLevelEnemyLog.Log.get(Level)
+		if result:
+			return result.Log
+	return []
+
+#生成玩家
 func generate_player():
 	var player:BaseCharacter = DataLoader.HERO
 	player.global_position = Startpoint
+	print("Done! Generate Player")
