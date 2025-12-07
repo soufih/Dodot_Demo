@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://dsspae73jd8a6"]
+[gd_scene load_steps=60 format=3 uid="uid://dsspae73jd8a6"]
 
 [ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/HeroProperty.gd" id="1_6pkku"]
 [ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://c7qfa1oryeryk" path="res://Script/Hero/FSM/Death.gd" id="10_pwso0"]
 [ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Hero/FSM/Break.gd" id="11_v1ih1"]
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/Player_State_UI/Player_State_UI.tscn" id="12_v1ih1"]
+[ext_resource type="Script" uid="uid://b136nok0ljjgi" path="res://Script/Hero/ActiveZone.gd" id="13_8l1ja"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iuq1t"]
 radius = 8.0
@@ -449,14 +450,18 @@ _data = {
 &"Run": SubResource("Animation_73oc2")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1ih1"]
+size = Vector2(1153, 649)
+
 [node name="Hero" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 129
 script = ExtResource("1_6pkku")
+Speed = 200
+GodModeTimer = 1
 MaxHealth = 100.0
 MaxMana = 100.0
 MaxToughness = 30.0
-DamageResist = Array[float]([0.1, 0.1, 0.1])
 ToughnessRecover = 5.0
 
 [node name="WeaponPosition" type="Marker2D" parent="."]
@@ -485,6 +490,7 @@ script = ExtResource("5_iuq1t")
 
 [node name="Jumping" type="Node" parent="State"]
 script = ExtResource("6_o2ky4")
+JumpSpeed = -400
 
 [node name="Falling" type="Node" parent="State"]
 script = ExtResource("7_pwso0")
@@ -507,12 +513,27 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_enabled = false
 
 [node name="Player_State_UI" parent="Camera2D" instance=ExtResource("12_v1ih1")]
 offset_left = -576.0
 offset_top = -320.0
 offset_right = -576.0
 offset_bottom = -320.0
+
+[node name="ActiveZone" type="Area2D" parent="Camera2D"]
+visible = false
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("13_8l1ja")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/ActiveZone"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_v1ih1")
+
+[node name="ActiveTimer" type="Timer" parent="Camera2D/ActiveZone"]
+wait_time = 20.0
+autostart = true
 
 [node name="RecoverTimer" type="Timer" parent="."]
 one_shot = true
@@ -523,3 +544,6 @@ one_shot = true
 
 [connection signal="god_mode" from="." to="." method="_on_god_mode"]
 [connection signal="child_entered_tree" from="WeaponPosition" to="." method="_on_weapon_position_child_entered_tree"]
+[connection signal="body_entered" from="Camera2D/ActiveZone" to="Camera2D/ActiveZone" method="_on_body_entered"]
+[connection signal="body_exited" from="Camera2D/ActiveZone" to="Camera2D/ActiveZone" method="_on_body_exited"]
+[connection signal="timeout" from="Camera2D/ActiveZone/ActiveTimer" to="Camera2D/ActiveZone" method="_on_active_timer_timeout"]

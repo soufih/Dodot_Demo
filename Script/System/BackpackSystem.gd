@@ -1,6 +1,7 @@
 extends Node
 
 signal backpack_changed#释放信号后更新UI
+signal quick_add#快速添加物品后触发
 
 var Backpack: Dictionary[Vector2i, Vector2i]#[(id, index), postion]， 记录各物品位置
 var Amounts:Dictionary[Vector2i, int]#[(id, index), amount]， 记录各物品数量
@@ -10,12 +11,13 @@ var ContianerY: int = 4#水平为y
 @onready var MaxContianer: int = ContianerX *ContianerY
 var CurrentContianer: int = 0
 
+#func test():
+	#print(1)
+
 func _ready() -> void:
-	Backpack[Vector2i(3,1)] = Vector2i(1,2)
-	Amounts[Vector2i(3,1)] = 3
 	_on_backpack_changed()
-	
-	quick_add_item(2,1000)
+	#quick_add.connect(test)
+	#quick_add_item(0, 99)
 
 func _on_backpack_changed():
 	CurrentContianer = Backpack.size()
@@ -78,6 +80,7 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 		amount -= MaxStack
 		CurrentContianer += 1
 		backpack_changed.emit()
+		quick_add.emit()
 	return Vector2i(id, 0)
 
 ##其他栏位物品与背包物品交互时使用，如仓库中物品与背包物品交互

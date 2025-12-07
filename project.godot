@@ -31,6 +31,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 ResourceManager="*res://Script/System/ResourceManager.gd"
+EnemyManager="*res://Script/System/EnemyManager.gd"
 DataLoader="*res://Script/System/DataLoader.gd"
 LevelGenerator="*res://Script/System/LevelGenerator.gd"
 BackpackSystem="*res://Script/System/BackpackSystem.gd"
@@ -40,6 +41,7 @@ SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
 ENUM="*res://Script/System/Enum.gd"
 EquipmentSlotSystem="*res://Script/System/EquipmentSlotSystem.gd"
 StatusEffectManager="*res://Script/System/StatusEffectManager.gd"
+DroppedItemSystem="*res://Script/System/DroppedItemSystem.gd"
 
 [display]
 

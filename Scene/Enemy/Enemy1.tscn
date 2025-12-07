@@ -452,7 +452,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.9),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
+"args": ["Attack"],
 "method": &"apply_damage"
 }]
 }
@@ -544,11 +544,6 @@ radius = 78.61596
 scale = Vector2(1.0358851, 1.0358851)
 collision_layer = 2
 script = ExtResource("1_sm4r0")
-MaxHealth = 100.0
-MaxMana = 100.0
-MaxToughness = 100.0
-DamageResist = Array[float]([0.1, 0.1, 0.1])
-ToughnessRecover = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(5.7228656, -2.9676678)
@@ -558,10 +553,9 @@ shape = SubResource("RectangleShape2D_kmcel")
 position = Vector2(5.7921486, -20.82679)
 scale = Vector2(1.7151884, 1.7151884)
 sprite_frames = SubResource("SpriteFrames_1rp2h")
-animation = &"Idle"
+animation = &"Attack"
 autoplay = "Idle"
-frame = 6
-frame_progress = 0.22222881
+frame = 9
 
 [node name="Hitbox" type="Area2D" parent="AnimatedSprite2D"]
 collision_layer = 4

@@ -9,8 +9,9 @@ func _ready() -> void:
 	Current.enter()
 
 func _physics_process(delta: float) -> void:
-	check()
-	Current.do(delta)
+	if is_actived():
+		check()
+		Current.do(delta)
 	
 func change_state(id: int):
 	Current.exit()
@@ -19,4 +20,6 @@ func change_state(id: int):
 	
 func check():
 	pass
-	
+
+func is_actived()->bool:
+	return true

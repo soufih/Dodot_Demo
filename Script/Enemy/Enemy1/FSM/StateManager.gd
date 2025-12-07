@@ -1,4 +1,4 @@
-extends BaseStateManager
+extends BaseEnemyStateManager
 
 @onready var Hitbox:Area2D = $"../AnimatedSprite2D/Hitbox"
 @onready var SelfBody:BaseCharacter = $".."

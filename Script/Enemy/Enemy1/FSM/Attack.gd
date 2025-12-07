@@ -13,10 +13,11 @@ func do(delta):
 
 
 
-func apply_damage():
+func apply_damage(Movement: String):
 	for body in FSM.Hitbox.get_overlapping_bodies():
 		if body.is_in_group("Hero") && Spirte.frame == 9:
-			DamageSystem.damage_assess(FSM.SelfBody, body, FSM.SelfBody.Porperty)
+			var Entity: BaseEnemy = FSM.SelfBody
+			DamageSystem.damage_assess(FSM.SelfBody, body, Entity.Porperty.Movementlist[Movement])
 
 
 func _on_hitbox_body_exited(body: Node2D) -> void:

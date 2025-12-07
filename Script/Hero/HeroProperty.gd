@@ -7,9 +7,9 @@ signal god_mode
 @onready var Spirte: AnimatedSprite2D = $AnimatedSprite2D
 @onready var WeaponPosition: Marker2D = $WeaponPosition
 
-@export var CurrentWeapon:int = 0
-@export var Speed:int = 200
-@export var GodModeTimer: int = 1
+@export var CurrentWeapon:int
+@export var Speed:int
+@export var GodModeTimer: int
 
 var CurrentWeaponRefer: BaseWeapon
 

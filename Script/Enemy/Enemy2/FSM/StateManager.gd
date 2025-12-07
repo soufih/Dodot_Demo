@@ -1,4 +1,4 @@
-extends BaseStateManager
+extends BaseEnemyStateManager
 
 @onready var Hitbox:Area2D = $"../HateArea"
 @onready var SelfBody:BaseCharacter = $".."

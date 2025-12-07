@@ -21,7 +21,9 @@ func apply_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorper
 
 func calculate_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorperty)->float:
 	if Target && Source:
-		var TotalDamage = (Target.get_character_damage_resist()[Attack.DamageType]+1)*Attack.Damage
+		var TotalDamage = Attack.Damage
+		if Target.get_character_damage_resist().get(Attack.DamageType):
+			TotalDamage = TotalDamage - Target.get_character_damage_resist().get(Attack.DamageType)*TotalDamage
 		if randf()*100 <= Attack.CriticalHit:
 			TotalDamage = TotalDamage * 1.5
 		TotalDamage = TotalDamage * (1+Source.sum_damage_enhance()+Source.sum_damage_reduce())

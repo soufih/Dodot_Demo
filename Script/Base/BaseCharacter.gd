@@ -36,28 +36,6 @@ func running(delta: float):
 func physics_running(delta: float):
 	pass
 	
-	
-#func breaked():
-	#if get_node("AnimationPlayer"):
-		#get_node("AnimationPlayer").play("Break")
-	##health_changed.emit()
-##	添加其他共同的破防逻辑
-
-#func take_damage():
-	#health_changed.emit()
-	#print(self.name," CurrentHealth:",CurrentHealth)
-
-#func death():
-	#if get_node("AnimationPlayer"):
-		#get_node("AnimationPlayer").play("Death")
-		#await get_node("AnimationPlayer").animation_finished
-##	添加其他共用的死亡逻辑
-
-#func toughness_reduced():
-	#print(self.name," Toughness:",Toughness)
-	#RecoverTimer.start(5)
-	#await RecoverTimer.timeout
-	#Toughness = MaxToughness
 
 func sum_damage_enhance()->float:
 	var Sum:float
@@ -104,7 +82,6 @@ func set_character_current_health(CH: float):
 	print(self.name," CurrentHealth:",CurrentHealth)
 
 func set_character_max_health(MH:float):
-	print(MH)
 	MaxHealth = MH
 	
 	CurrentHealth = min(MaxHealth, CurrentHealth)
@@ -128,7 +105,7 @@ func set_character_max_toughness(MT:float):
 func set_character_toughness(T:float):
 	Toughness = T
 	print(self.name," Toughness:",Toughness)
-	RecoverTimer.start(5)
+	RecoverTimer.start(ToughnessRecover)
 	await RecoverTimer.timeout
 	Toughness = MaxToughness
 	toughness_changed.emit()

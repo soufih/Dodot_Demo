@@ -2,7 +2,7 @@ extends Node
 
 var InforLevelRoomLog:LevelRoomLog
 var InforLevelTemplateLog:LevelTemplateLog
-var InforLevelEnemyLog:LevelEnemyLog
+
 var Startpoint:Vector2i
 
 
@@ -11,7 +11,6 @@ func prepare_generating():
 	randomize()
 	load_level_room_log()
 	load_level_template_log()
-	load_enemy_log()
 
 #生成关卡
 func generate_level(level: int):
@@ -30,13 +29,6 @@ func load_level_template_log():
 	InforLevelTemplateLog = load("uid://imcee336yrsx") as LevelTemplateLog
 	if !InforLevelTemplateLog:
 		push_error("ERRO!WHEN LOAD LEVEL TEMPLATE")
-
-#加载敌人列表
-func load_enemy_log():
-	InforLevelEnemyLog = load("uid://buyhm8wjeyf3u") as LevelEnemyLog
-	#print(InforLevelEnemyLog)
-	if !InforLevelEnemyLog:
-		push_error("ERRO!WHEN LOAD ENEMY")
 
 #加载房间
 func get_level_rooms(Level:int)->LevelRoomConfig:
@@ -113,7 +105,7 @@ func assemble_room(Level:int):
 			var Room = RoomScene.instantiate()
 			RoomCache[Index] = Room
 			#保存出生点
-			if Room.get_node(""):
+			if Room.get_node("Startpoint"):
 				Startpoint = Room.get_node("Startpoint").global_position
 			add_child(Room)
 			continue
@@ -170,7 +162,7 @@ func generate_enemy(Level:int):
 func spawn_enemy(SpawnPoints:Array[Node], Level:int):
 	var Size = SpawnPoints.size()
 	var Index = 0
-	var Enemies:Array = get_enemies(Level)
+	var Enemies:Array = EnemyManager.get_enemies(Level)
 	#print(Enemies)
 	if Enemies.size() == 0:
 		return
@@ -194,14 +186,6 @@ func spawn_enemy(SpawnPoints:Array[Node], Level:int):
 		
 		if Index >= Size:
 			break
-
-#获取敌人
-func get_enemies(Level:int)->Array:
-	if InforLevelEnemyLog:
-		var result:EnemyLog = InforLevelEnemyLog.Log.get(Level)
-		if result:
-			return result.Log
-	return []
 
 #生成玩家
 func generate_player():

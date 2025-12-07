@@ -111,13 +111,13 @@
     },
     "res://Rescource/Data::Log::Log/": {
       "metadata/_custom_type_script": {
-        "visibility": 0
+        "visibility": 0.0
       },
       "resource_local_to_scene": {
-        "visibility": 0
+        "visibility": 0.0
       },
       "resource_name": {
-        "visibility": 0
+        "visibility": 0.0
       }
     },
     "res://Rescource::Item/": {
@@ -189,7 +189,8 @@
     "res://Rescource/Data::LevelLog/",
     "res://Rescource/Data::LevelLog::RoomLog/",
     "res://Rescource/Data::Log/",
-    "res://Rescource/Data::Log::Log/"
+    "res://Rescource/Data::Log::Log/",
+    "res://Rescource/Data::Item/"
   ],
   "table_functions": {
     "filter": [

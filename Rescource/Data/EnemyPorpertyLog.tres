@@ -1,23 +1,39 @@
-[gd_resource type="Resource" script_class="EnemyPorperty" load_steps=5 format=3 uid="uid://2srf8bdj186"]
+[gd_resource type="Resource" script_class="EnemyPorpertyLog" load_steps=7 format=3 uid="uid://2srf8bdj186"]
 
+[ext_resource type="Script" uid="uid://bi7s2odqv145" path="res://Script/Base/EnemyManager/EnemyPorpertyLog.gd" id="1_85ovv"]
 [ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Base/DamagePorperty.gd" id="1_h6kre"]
 [ext_resource type="Script" uid="uid://baodf2c00ykd8" path="res://Script/Base/EnemyManager/EnemyPorperty.gd" id="2_usd80"]
 
-[sub_resource type="Resource" id="Resource_h6kre"]
+[sub_resource type="Resource" id="Resource_c0hcj"]
 script = ExtResource("1_h6kre")
-Damage = 20.0
-ImpactForce = 10.0
-CriticalHit = 10.0
+Damage = 10.0
 metadata/_custom_type_script = "uid://db328o465i0bl"
 
 [sub_resource type="Resource" id="Resource_usd80"]
-script = ExtResource("1_h6kre")
-metadata/_custom_type_script = "uid://db328o465i0bl"
-
-[resource]
 script = ExtResource("2_usd80")
-Enemy = Dictionary[String, ExtResource("1_h6kre")]({
-"Enemy1": SubResource("Resource_h6kre"),
-"Enemy2": SubResource("Resource_usd80")
+Name = "Enemy1"
+MaxHealth = 100.0
+MaxToughness = 100.0
+DamageResist = Array[float]([0.0, 0.0, 0.0])
+Drop = Array[Vector4]([Vector4(1, 1, 4, 100), Vector4(1, 2, 9, 100)])
+Movementlist = Dictionary[String, ExtResource("1_h6kre")]({
+"Attack": SubResource("Resource_c0hcj")
 })
 metadata/_custom_type_script = "uid://baodf2c00ykd8"
+
+[sub_resource type="Resource" id="Resource_3h2yo"]
+script = ExtResource("2_usd80")
+Name = "Enemy2"
+MaxHealth = 100.0
+MaxToughness = 100.0
+DamageResist = Array[float]([0.0, 0.0, 0.0])
+Drop = Array[Vector4]([Vector4(3, 1, 1, 50), Vector4(4, 2, 5, 100)])
+metadata/_custom_type_script = "uid://baodf2c00ykd8"
+
+[resource]
+script = ExtResource("1_85ovv")
+Log = Dictionary[String, ExtResource("2_usd80")]({
+"Enemy1": SubResource("Resource_usd80"),
+"Enemy2": SubResource("Resource_3h2yo")
+})
+metadata/_custom_type_script = "uid://bi7s2odqv145"
