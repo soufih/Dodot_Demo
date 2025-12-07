@@ -35,5 +35,30 @@ func get_enemy_porperty(Name:String)->EnemyPorperty:
 	return null
 
 #获取敌人掉落物
-#func get_dropped_item(level:int, target:String)->Array[Vector3i]:
-	#pass
+func get_dropped_item(target:String)->Array[Vector4]:
+	if InforEnemyPorpertyLog:
+		var porperty:EnemyPorperty = InforEnemyPorpertyLog.Log.get(target)
+		if porperty:
+			return porperty.Drop
+	return []
+
+#掉落物品
+func drop(Target:String, Pos:Vector2):
+	var Items:Array[Vector4] = EnemyManager.get_dropped_item(Target)
+	var result:Array = []
+	
+	
+	for Item:Vector4 in Items:
+		
+		var id = int(Item.x) 
+		var range_x = Item.y
+		var range_y = Item.z
+		var probility = Item.w
+		#判断能否掉落
+		if randf_range(0, 100) > probility:
+			continue
+
+		var amount = randi_range(range_x, range_y)
+		result.append([id, amount])
+	
+	DroppedItemSystem.create_dropped_item(result, Pos)

@@ -44,11 +44,19 @@ func get_items()->Array:
 func _on_pickup_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Hero"):
 		var remain:Vector2i
+		var tmp_queue:Array
+		#将物品加入背包
 		for item in Items:
 			remain = BackpackSystem.quick_add_item(item[0], item[1])
+			
 			if remain.y == 0:
-				Items.erase(item)
+				tmp_queue.append(item)#加入待移除队列
 			else:
 				item[1] = remain.y
+		
+		#移除标记物品
+		for i in tmp_queue:
+			Items.erase(i)
+		
 		if Items.is_empty():
 			queue_free()

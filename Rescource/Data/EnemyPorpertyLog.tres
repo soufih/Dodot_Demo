@@ -15,7 +15,7 @@ Name = "Enemy1"
 MaxHealth = 100.0
 MaxToughness = 100.0
 DamageResist = Array[float]([0.0, 0.0, 0.0])
-Drop = Array[Vector4]([Vector4(1, 1, 4, 100), Vector4(1, 2, 9, 100)])
+Drop = Array[Vector4]([Vector4(1, 1, 4, 100), Vector4(2, 2, 9, 100)])
 Movementlist = Dictionary[String, ExtResource("1_h6kre")]({
 "Attack": SubResource("Resource_c0hcj")
 })

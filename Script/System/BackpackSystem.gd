@@ -12,11 +12,11 @@ var ContianerY: int = 4#水平为y
 var CurrentContianer: int = 0
 
 #func test():
-	#print(1)
+	#print(Amounts)
 
 func _ready() -> void:
 	_on_backpack_changed()
-	#quick_add.connect(test)
+	#backpack_changed.connect(test)
 	#quick_add_item(0, 99)
 
 func _on_backpack_changed():
