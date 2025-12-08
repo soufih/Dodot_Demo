@@ -46,8 +46,7 @@ func get_dropped_item(target:String)->Array[Vector4]:
 func drop(Target:String, Pos:Vector2):
 	var Items:Array[Vector4] = EnemyManager.get_dropped_item(Target)
 	var result:Array = []
-	
-	
+
 	for Item:Vector4 in Items:
 		
 		var id = int(Item.x) 
@@ -60,5 +59,8 @@ func drop(Target:String, Pos:Vector2):
 
 		var amount = randi_range(range_x, range_y)
 		result.append([id, amount])
-	
+
+	if result.size() == 0:
+		return
+
 	DroppedItemSystem.create_dropped_item(result, Pos)
