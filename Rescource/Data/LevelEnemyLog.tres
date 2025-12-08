@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="LevelEnemyLog" load_steps=11 format=3 uid="uid://buyhm8wjeyf3u"]
 
-[ext_resource type="Script" uid="uid://duo10xl22wwpt" path="res://Script/Base/EnemyManager/EnemyLog.gd" id="1_onsx1"]
-[ext_resource type="Script" uid="uid://bx2ieyyp244uj" path="res://Script/Base/EnemyManager/LevelEnemyLog.gd" id="2_14h01"]
-[ext_resource type="Script" uid="uid://b1xkmukmylbml" path="res://Script/Base/EnemyManager/EnemyConfig.gd" id="2_lau6p"]
+[ext_resource type="Script" uid="uid://duo10xl22wwpt" path="res://Script/Model/EnemyManager/EnemyLog.gd" id="1_onsx1"]
+[ext_resource type="Script" uid="uid://bx2ieyyp244uj" path="res://Script/Model/EnemyManager/LevelEnemyLog.gd" id="2_14h01"]
+[ext_resource type="Script" uid="uid://b1xkmukmylbml" path="res://Script/Model/EnemyManager/EnemyConfig.gd" id="2_lau6p"]
 
 [sub_resource type="Resource" id="Resource_14h01"]
 script = ExtResource("2_lau6p")

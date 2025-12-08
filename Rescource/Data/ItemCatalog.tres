@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ItemCatalog" load_steps=13 format=3 uid="uid://crd3nj0t7e4d6"]
 
-[ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Base/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
+[ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Model/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
 [ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Rescource/Static/TestWeapon/weapons_new2_sword.png" id="2_brj21"]
-[ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Base/ResourceManager/ItemCatalog.gd" id="2_hcisg"]
+[ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Model/ResourceManager/ItemCatalog.gd" id="2_hcisg"]
 [ext_resource type="Texture2D" uid="uid://7mko7pt3q7qq" path="res://Rescource/Static/Material/item296.png" id="3_r6x5k"]
 [ext_resource type="Texture2D" uid="uid://b4acdgasrsxit" path="res://Rescource/Static/Material/item320.png" id="4_hl4hp"]
 [ext_resource type="Texture2D" uid="uid://bquqvbrvlfr62" path="res://Rescource/Static/Material/item341.png" id="5_n3iav"]
