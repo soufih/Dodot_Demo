@@ -6,7 +6,6 @@ signal god_mode
 @onready var ani: AnimationPlayer = $AnimationPlayer
 @onready var Spirte: AnimatedSprite2D = $AnimatedSprite2D
 @onready var WeaponPosition: Marker2D = $WeaponPosition
-@onready var Camera:Camera2D = $Camera2D
 
 @export var CurrentWeapon:int
 @export var Speed:int
@@ -32,7 +31,7 @@ func _physics_process(delta: float) -> void:
 			WeaponPosition.get_child(0).scale.x=-1
 		Spirte.flip_h = true
 
-#装备武器
+
 func equip_weapon(WeaponId: int):
 	if WeaponPosition.get_children().size() != 0:
 		WeaponPosition.get_child(0).queue_free()
@@ -40,7 +39,7 @@ func equip_weapon(WeaponId: int):
 	if WeaponPosition.get_child(0):
 		WeaponPosition.get_child(0).set_self_owner(self)
 
-#进入无敌时间
+
 func _on_god_mode() -> void:
 	set_collision_layer_value(2,false)
 	set_collision_layer_value(7,true)
@@ -49,10 +48,7 @@ func _on_god_mode() -> void:
 	set_collision_layer_value(2,true)
 	set_collision_layer_value(7,false)
 
-#更新装备的武器信息
+
 func _on_weapon_position_child_entered_tree(Weapon: BaseWeapon) -> void:
 	if Weapon:
 		CurrentWeaponRefer = Weapon
-
-func get_camera()->Camera2D:
-	return Camera

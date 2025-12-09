@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelTemplateLog" load_steps=6 format=3 uid="uid://imcee336yrsx"]
 
-[ext_resource type="Script" uid="uid://cov56ybr8a1ls" path="res://Script/Base/LevelManager/TemplateConfig.gd" id="1_5ipdd"]
-[ext_resource type="Script" uid="uid://byxpdesq7ei0h" path="res://Script/Base/LevelManager/LevelTemplateConfig.gd" id="1_x8v2j"]
+[ext_resource type="Script" uid="uid://cov56ybr8a1ls" path="res://Script/Model/LevelManager/TemplateConfig.gd" id="1_5ipdd"]
+[ext_resource type="Script" uid="uid://byxpdesq7ei0h" path="res://Script/Model/LevelManager/LevelTemplateConfig.gd" id="1_x8v2j"]
 
 [sub_resource type="Resource" id="Resource_x8v2j"]
 script = ExtResource("1_5ipdd")
