@@ -17,7 +17,7 @@ var CurrentContianer: int = 0
 func _ready() -> void:
 	_on_backpack_changed()
 	#backpack_changed.connect(test)
-	#quick_add_item(0, 99)
+	quick_add_item(2, 99)
 
 func _on_backpack_changed():
 	CurrentContianer = Backpack.size()
@@ -87,7 +87,7 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i:
 	var remain:Vector2i = Vector2i(-1, 0)
 	var TargetItem = Backpack.find_key(TargetPostion)
-	print(TargetPostion)
+	#print(TargetPostion)
 	#检测合法性
 	#if TargetPostion.x > ContianerX ||  TargetPostion.y > ContianerY:
 		#return Vector2i(id, amount)

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="LevelRoomLog" load_steps=17 format=3 uid="uid://dh3a2qfk263s4"]
 
-[ext_resource type="Script" uid="uid://cwo4e54lv8500" path="res://Script/Model/LevelManager/LevelRoomConfig.gd" id="1_2ypun"]
-[ext_resource type="Script" uid="uid://dxvktdhmsuboy" path="res://Script/Model/LevelManager/RoomConfig.gd" id="2_cqset"]
-[ext_resource type="Script" uid="uid://bgc6n7osdvkgt" path="res://Script/Model/LevelManager/LevelRoomLog.gd" id="2_xqdc7"]
+[ext_resource type="Script" uid="uid://cwo4e54lv8500" path="res://Script/Base/LevelManager/LevelRoomConfig.gd" id="1_2ypun"]
+[ext_resource type="Script" uid="uid://dxvktdhmsuboy" path="res://Script/Base/LevelManager/RoomConfig.gd" id="2_cqset"]
+[ext_resource type="Script" uid="uid://bgc6n7osdvkgt" path="res://Script/Base/LevelManager/LevelRoomLog.gd" id="2_xqdc7"]
 
 [sub_resource type="Resource" id="Resource_xqdc7"]
 script = ExtResource("2_cqset")

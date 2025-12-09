@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cuuau3172n0rp" path="res://Script/UI_Script/tmp_slot.gd" id="1_nxnr5"]
 
 [node name="Marker2D" type="Marker2D"]
+light_mask = 512
 script = ExtResource("1_nxnr5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
