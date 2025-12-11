@@ -32,14 +32,14 @@ config/icon="res://icon.svg"
 
 ResourceManager="*res://Script/System/ResourceManager.gd"
 EnemyManager="*res://Script/System/EnemyManager.gd"
+BackpackSystem="*res://Script/System/BackpackSystem.gd"
+EquipmentSlotSystem="*res://Script/System/EquipmentSlotSystem.gd"
 DataLoader="*res://Script/System/DataLoader.gd"
 LevelGenerator="*res://Script/System/LevelGenerator.gd"
-BackpackSystem="*res://Script/System/BackpackSystem.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
 DamageSystem="*res://Script/System/DamageSystem.gd"
 SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
 ENUM="*res://Script/System/Enum.gd"
-EquipmentSlotSystem="*res://Script/System/EquipmentSlotSystem.gd"
 StatusEffectManager="*res://Script/System/StatusEffectManager.gd"
 DroppedItemSystem="*res://Script/System/DroppedItemSystem.gd"
 
@@ -52,6 +52,12 @@ window/per_pixel_transparency/allowed=true
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
+
+[global_group]
+
+Hero="玩家"
+Enemy="敌人"
+Weapon="武器"
 
 [input]
 

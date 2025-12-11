@@ -1,12 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b12ujb2p2b4v"]
+[gd_scene load_steps=6 format=3 uid="uid://b12ujb2p2b4v"]
 
 [ext_resource type="Script" uid="uid://4jhmk7fxlbu0" path="res://Script/UI_Script/bag.gd" id="1_1285k"]
 [ext_resource type="Texture2D" uid="uid://mulibc6w686r" path="res://Rescource/UI/Fantasy-UI.png" id="1_d2dm1"]
-[ext_resource type="PackedScene" uid="uid://bb4quhyltqxmu" path="res://UI/Bag_UI/TmpItem.tscn" id="3_rmgxi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1285k"]
 atlas = ExtResource("1_d2dm1")
-region = Rect2(32, 159.99854, 79.97076, 64.001465)
+region = Rect2(32.21469, 96.51488, 79.956924, 64.39644)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rmgxi"]
 texture = SubResource("AtlasTexture_1285k")
@@ -33,10 +32,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 372.0
-offset_top = 181.0
-offset_right = -382.0
-offset_bottom = -165.0
+offset_left = 328.0
+offset_top = 178.0
+offset_right = -512.0
+offset_bottom = -189.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_rmgxi")
@@ -48,9 +47,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
-
-[node name="tmp_slot" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_rmgxi")]
-position = Vector2(-697, 106)
 
 [node name="Equipment_Bag" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -90,7 +86,3 @@ size_flags_vertical = 4
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
-
-[node name="AttributeValue_Bag" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3

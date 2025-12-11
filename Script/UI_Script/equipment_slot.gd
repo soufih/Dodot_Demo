@@ -11,13 +11,7 @@ var tmp_slot:TmpSlot
 func _ready() -> void:
 	EquipmentSlotSystem.equipment_slot_changed.connect(init)
 	init()
-	tmp_slot = get_parent().get_parent().get_parent().get_parent().get_parent().get_node("tmp_slot")
-
-
-func _process(delta: float) -> void:
-	#临时物品图标跟随鼠标移动
-	if button_down_sign:
-		tmp_slot.global_position = get_global_mouse_position()
+	tmp_slot = DataLoader.tmp_slot
 
 
 func init():
@@ -52,4 +46,4 @@ func _on_button_down() -> void:
 
 	tmp_slot.set_icon(result.x)
 	tmp_slot.set_tmp_item(result.x, result.y)
-	button_down_sign = true
+	tmp_slot.set_button_down_sign(true)

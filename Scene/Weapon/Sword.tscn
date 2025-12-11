@@ -240,7 +240,6 @@ _data = {
 sprite_frames = SubResource("SpriteFrames_bdwpa")
 animation = &"Attack1"
 autoplay = "Idle"
-frame = 8
 script = ExtResource("4_wmhkq")
 
 [node name="HitboxsTransform" type="Marker2D" parent="."]
