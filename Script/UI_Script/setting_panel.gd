@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 @onready var Resolution:int
 @onready var DisplayMode:int
@@ -6,7 +6,7 @@ extends Control
 @onready var volume_slider = $"Background/Panel/Tabs/音频设置/MarginContainer/Sound/Main_music_HS"
 
 func _ready() -> void:
-	pass
+	begin()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

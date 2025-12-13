@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 @onready var Hero: BaseCharacter = DataLoader.HERO
 @onready var health_bar: TextureProgressBar = $HP/Health_bar
@@ -14,6 +14,7 @@ var need_update_mana:bool = true
 var base_max_mana: float = 100
 
 func _ready() ->void:
+	begin()
 	Hero.mana_changed.connect(update_mana)
 	Hero.health_changed.connect(update_health)
 	await get_tree().create_timer(0.1).timeout

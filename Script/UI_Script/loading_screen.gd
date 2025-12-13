@@ -1,7 +1,7 @@
-extends Control
-
+extends BaseUI
 
 func _ready() -> void:
+	begin()
 	ResourceLoader.load_threaded_request(SceneLoader.next_scene)
 #加载资源
 

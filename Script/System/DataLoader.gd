@@ -4,7 +4,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var HERO
 var tmp_slot:TmpSlot
-var UI
+var UILayer: CanvasLayer
 
 func _ready() -> void:
 	load_ui()
@@ -31,16 +31,17 @@ func _ready() -> void:
 
 func load_ui():
 	var TmpSlotLayer = CanvasLayer.new()
-	UI = CanvasLayer.new()
+	UILayer = CanvasLayer.new()
 	
 	add_child(TmpSlotLayer)
-	add_child(UI)
+	add_child(UILayer)
 	
 	TmpSlotLayer.layer = 100
-	UI.layer = 99
+	UILayer.layer = 99
 
 	tmp_slot = preload("uid://bb4quhyltqxmu").instantiate()
 	TmpSlotLayer.add_child(tmp_slot)
 
-	var Backpack = preload("uid://b12ujb2p2b4v").instantiate()
-	UI.add_child(Backpack)
+	var Backpack:BaseUI = preload("uid://b12ujb2p2b4v").instantiate()
+	Backpack.hide()
+	UILayer.add_child(Backpack)
