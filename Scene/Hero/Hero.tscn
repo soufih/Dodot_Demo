@@ -527,6 +527,7 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(176, -2)
 limit_enabled = false
 
 [node name="RecoverTimer" type="Timer" parent="."]

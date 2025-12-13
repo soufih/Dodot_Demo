@@ -1,25 +1,21 @@
 extends Node
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var WeaponPorpertyLog:WeaponPorperty
+
 var HERO
 var tmp_slot:TmpSlot
+var UI
 
 func _ready() -> void:
-	var UI = CanvasLayer.new()
-	add_child(UI)
+	load_ui()
 
-	WeaponPorpertyLog = preload("uid://cpjcvujytunnw")
 	HERO = preload("res://Scene/Hero/Hero.tscn").instantiate()
-	tmp_slot = preload("res://UI/Bag_UI/TmpItem.tscn").instantiate()
-	UI.add_child(tmp_slot)
-	UI.layer = 99
 
-	#LevelGenerator.prepare_generating()
-	#LevelGenerator.generate_level(0)
+	LevelGenerator.prepare_generating()
+	LevelGenerator.generate_level(0)
 
-	var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
-	add_child(TestMap)
+	#var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
+	#add_child(TestMap)
 
 	#var Enemy1 = preload("res://Scene/Enemy/Enemy1.tscn").instantiate()
 	#add_child(Enemy1)
@@ -32,8 +28,19 @@ func _ready() -> void:
 
 	add_child(HERO)
 
-func get_weapon_porperty(Name:String)->DamagePorperty:
-	if WeaponPorpertyLog:
-		if WeaponPorpertyLog.Weapon.get(Name):
-			return WeaponPorpertyLog.Weapon[Name]
-	return null
+
+func load_ui():
+	var TmpSlotLayer = CanvasLayer.new()
+	UI = CanvasLayer.new()
+	
+	add_child(TmpSlotLayer)
+	add_child(UI)
+	
+	TmpSlotLayer.layer = 100
+	UI.layer = 99
+
+	tmp_slot = preload("uid://bb4quhyltqxmu").instantiate()
+	TmpSlotLayer.add_child(tmp_slot)
+
+	var Backpack = preload("uid://b12ujb2p2b4v").instantiate()
+	UI.add_child(Backpack)

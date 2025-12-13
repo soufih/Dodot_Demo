@@ -1,21 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cc5wdn2jl6o02"]
+[gd_scene load_steps=2 format=3 uid="uid://cc5wdn2jl6o02"]
 
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/Player_State_UI/Player_State_UI.tscn" id="1_4r1r0"]
-[ext_resource type="PackedScene" uid="uid://b12ujb2p2b4v" path="res://UI/Bag_UI/bag.tscn" id="2_pogrs"]
 
 [node name="PlayerUi" type="CanvasLayer"]
 
-[node name="Bag" parent="." instance=ExtResource("2_pogrs")]
-offset_left = -479.0
-offset_top = -193.99998
-offset_right = -477.0
-offset_bottom = -193.0
-scale = Vector2(1.4873332, 1.4212925)
-
 [node name="Player_State_UI" parent="." instance=ExtResource("1_4r1r0")]
-offset_left = 393.0
-offset_top = 1317.0
-offset_right = 393.0
-offset_bottom = 1317.0
-rotation = 3.6781008
+offset_left = -1.0
+offset_top = -1.0
+offset_right = -1.0
+offset_bottom = -1.0
+rotation = 6.2830772
 metadata/_edit_use_anchors_ = true
