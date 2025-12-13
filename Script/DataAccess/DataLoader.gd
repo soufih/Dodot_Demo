@@ -1,10 +1,7 @@
 extends Node
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
 var HERO
-var tmp_slot:TmpSlot
-var UILayer: CanvasLayer
 
 func _ready() -> void:
 	ResourceManager.load_item_catalog()
@@ -14,7 +11,6 @@ func _ready() -> void:
 	
 	HERO = preload("res://Scene/Hero/Hero.tscn").instantiate()
 
-	
 	LevelGenerator.generate_level(0)
 
 	#var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
@@ -32,19 +28,4 @@ func _ready() -> void:
 	add_child(HERO)
 
 
-func load_ui():
-	var TmpSlotLayer = CanvasLayer.new()
-	UILayer = CanvasLayer.new()
-	
-	add_child(TmpSlotLayer)
-	add_child(UILayer)
-	
-	TmpSlotLayer.layer = 100
-	UILayer.layer = 99
 
-	tmp_slot = preload("uid://bb4quhyltqxmu").instantiate()
-	TmpSlotLayer.add_child(tmp_slot)
-
-	var Backpack:BaseUI = preload("uid://b12ujb2p2b4v").instantiate()
-	Backpack.hide()
-	UILayer.add_child(Backpack)

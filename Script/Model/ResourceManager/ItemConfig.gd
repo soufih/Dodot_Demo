@@ -13,5 +13,5 @@ class_name ItemConfig
 
 #物品属性
 @export var MaxStack: int = 1
-@export var Source:Array[int]
-@export var SourceDiscription: String = ''
+@export var Products: Array[int]
+@export var Recipe: Array[int]

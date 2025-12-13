@@ -16,7 +16,7 @@ resources_spreadsheet_view/array_min_width=128.0
 resources_spreadsheet_view/resource_preview_size=32.0
 resources_spreadsheet_view/clip_headers=false
 resources_spreadsheet_view/dupe_arrays=true
-resources_spreadsheet_view/context_menu_on_leftclick=false
+resources_spreadsheet_view/context_menu_on_leftclick=true
 resources_spreadsheet_view/fold_docks=true
 resources_spreadsheet_view/resource_cell_label_mode=1
 resources_spreadsheet_view/freeze_first_column=true
@@ -44,6 +44,8 @@ ENUM="*res://Script/System/Enum.gd"
 StatusEffectManager="*res://Script/System/StatusEffectManager.gd"
 DroppedItemSystem="*res://Script/System/DroppedItemSystem.gd"
 UIManager="*res://Script/System/UIManager.gd"
+WarehouseSystem="*res://Script/System/WarehouseSystem.gd"
+CompoundSystem="*res://Script/System/CompoundSystem.gd"
 
 [display]
 

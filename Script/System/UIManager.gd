@@ -50,6 +50,10 @@ func ui_get_top() -> BaseUI:
 		return UIStack[UIStack.size() - 1]
 	return null
 
+##清空UI栈
+func ui_clear_stack() -> void:
+	UIStack.clear()
+
 ##关闭最上层UI
 func ui_cancel():
 	if UIStack.size() > 0:
