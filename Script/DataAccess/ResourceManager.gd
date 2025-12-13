@@ -6,11 +6,6 @@ var loadedTextures: Dictionary = {}
 
 var ReferItemCatalog: ItemCatalog
 
-
-func _ready() -> void:
-	load_item_catalog()
-
-
 func load_item_catalog():
 	ReferItemCatalog = load("uid://crd3nj0t7e4d6") as ItemCatalog
 	if !ReferItemCatalog:

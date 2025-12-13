@@ -7,11 +7,14 @@ var tmp_slot:TmpSlot
 var UILayer: CanvasLayer
 
 func _ready() -> void:
-	load_ui()
-
+	ResourceManager.load_item_catalog()
+	WeaponManager.load_weapon()
+	EnemyManager.load_enemy()
+	LevelGenerator.prepare_generating()
+	
 	HERO = preload("res://Scene/Hero/Hero.tscn").instantiate()
 
-	LevelGenerator.prepare_generating()
+	
 	LevelGenerator.generate_level(0)
 
 	#var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()

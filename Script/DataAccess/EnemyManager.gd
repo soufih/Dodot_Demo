@@ -3,7 +3,8 @@ extends Node
 var InforLevelEnemyLog:LevelEnemyLog
 var InforEnemyPorpertyLog:EnemyPorpertyLog
 
-func _ready() -> void:
+##加载敌人数据
+func load_enemy():
 	load_enemy_log()
 	load_enemy_porperty()
 
@@ -14,6 +15,7 @@ func load_enemy_log():
 	if !InforLevelEnemyLog:
 		push_error("ERRO!WHEN LOAD ENEMY")
 
+#加载敌人属性列表
 func load_enemy_porperty():
 	InforEnemyPorpertyLog = load("uid://2srf8bdj186") as EnemyPorpertyLog
 	if !InforEnemyPorpertyLog:

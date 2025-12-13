@@ -11,7 +11,7 @@ var tmp_slot:TmpSlot
 func _ready() -> void:
 	EquipmentSlotSystem.equipment_slot_changed.connect(init)
 	init()
-	tmp_slot = DataLoader.tmp_slot
+	tmp_slot = UIManager.tmp_slot
 
 
 func init():

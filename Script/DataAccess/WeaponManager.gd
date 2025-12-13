@@ -2,11 +2,8 @@ extends Node
 
 var WeaponPorpertyLog:WeaponPorperty
 
-func _ready() -> void:
-	load_weapon()
-
 func load_weapon():
-	WeaponPorpertyLog = load("uid://cpjcvujytunnw")
+	WeaponPorpertyLog = load("uid://cpjcvujytunnw") as WeaponPorperty
 	if !WeaponPorpertyLog:
 		push_error("ERRO!WHEN LOADING WEAPON")
 

@@ -17,7 +17,7 @@ var CurrentContianer: int = 0
 func _ready() -> void:
 	_on_backpack_changed()
 	#backpack_changed.connect(test)
-	quick_add_item(2, 99)
+	# quick_add_item(2, 100)
 
 func _on_backpack_changed():
 	CurrentContianer = Backpack.size()

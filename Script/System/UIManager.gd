@@ -1,9 +1,30 @@
 extends Node
 
 var UIStack: Array[BaseUI] = []
+var tmp_slot:TmpSlot
+var UILayer: CanvasLayer
 
 func _ready() -> void:
-	pass
+	load_ui_layer_config()
+
+##加载UI层配置
+func load_ui_layer_config():
+	var TmpSlotLayer = CanvasLayer.new()
+	UILayer = CanvasLayer.new()
+	
+	add_child(TmpSlotLayer)
+	add_child(UILayer)
+	
+	TmpSlotLayer.layer = 100
+	UILayer.layer = 99
+
+	tmp_slot = preload("uid://bb4quhyltqxmu").instantiate()
+	TmpSlotLayer.add_child(tmp_slot)
+
+	var Backpack:BaseUI = preload("uid://b12ujb2p2b4v").instantiate()
+	Backpack.hide()
+	UILayer.add_child(Backpack)
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -44,7 +65,6 @@ func open_pause_menu():
 
 ##打开/关闭背包
 func ui_open_backpack():
-	var backpack = DataLoader.UILayer.get_node("Backpack")
+	var backpack = UILayer.get_node("Backpack")
 	if backpack:
 		backpack.visible = !backpack.visible
-
