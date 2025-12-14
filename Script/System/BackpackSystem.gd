@@ -1,8 +1,5 @@
 extends Node
 
-signal backpack_changed#释放信号后更新UI
-signal quick_add#快速添加物品后触发
-
 var Backpack: Dictionary[Vector2i, Vector2i]#[(id, index), postion]， 记录各物品位置
 var Amounts:Dictionary[Vector2i, int]#[(id, index), amount]， 记录各物品数量
 
@@ -79,8 +76,8 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 		Amounts[Vector2i(id, TargetIndex)] = min(MaxStack, amount)
 		amount -= MaxStack
 		CurrentContianer += 1
-		backpack_changed.emit()
-		quick_add.emit()
+		SignalBus.backpack_changed.emit()
+		SignalBus.quick_add.emit()
 	return Vector2i(id, 0)
 
 ##其他栏位物品与背包物品交互时使用，如仓库中物品与背包物品交互
@@ -101,7 +98,7 @@ func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i
 		else:
 			remain = exchange_item(id, amount, TargetItem)
 
-	backpack_changed.emit()
+	SignalBus.backpack_changed.emit()
 	return remain
 
 
@@ -153,7 +150,7 @@ func erase_item_by_item(TargetItem: Vector2i):
 	if Amounts.has(TargetItem):
 		Amounts.erase(TargetItem)
 
-	backpack_changed.emit()
+	SignalBus.backpack_changed.emit()
 
 ##移除目标物品
 func erase_item_by_position(TargetPosition: Vector2i):
@@ -215,17 +212,17 @@ func get_max_contianer()->int:
 
 func set_contianer_x(newContianerX: int):
 	ContianerX = newContianerX
-	backpack_changed.emit()
+	SignalBus.backpack_changed.emit()
 
 func set_contianer_y(newContianerY: int):
 	ContianerY = newContianerY
-	backpack_changed.emit()
+	SignalBus.backpack_changed.emit()
 
 func set_current_contianer(newCurrentContianer: int):
 	CurrentContianer = newCurrentContianer
-	backpack_changed.emit()
+	SignalBus.backpack_changed.emit()
 
 
 func set_max_contianer(newMaxContianer: int):
 	MaxContianer = newMaxContianer
-	backpack_changed.emit()
+	SignalBus.backpack_changed.emit()

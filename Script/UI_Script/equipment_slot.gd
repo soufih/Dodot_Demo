@@ -9,7 +9,7 @@ const self_amount:int = 1
 var tmp_slot:TmpSlot
 
 func _ready() -> void:
-	EquipmentSlotSystem.equipment_slot_changed.connect(init)
+	SignalBus.equipment_slot_changed.connect(init)
 	init()
 	tmp_slot = UIManager.tmp_slot
 

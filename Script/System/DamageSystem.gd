@@ -1,24 +1,21 @@
 extends Node
 
-
+##伤害检测
 func damage_assess(Source:BaseCharacter, Target:BaseCharacter, Attack:DamagePorperty):
 	randomize()
 	apply_damage(Source, Target, Attack)
-	#death_assess(Target)
 	apply_impact_force(Target, Attack)
-	#break_assess(Target)
 	#apply_abnormal_condition(Target, Attack)
-	#death_assess(Target)
-	
+
+##施加伤害
 func apply_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorperty):
 	if Target && Source:
 		var Damage = calculate_damage(Source, Target, Attack)
 		if Damage == -1:
 			return
 		Target.set_character_current_health(Target.get_character_current_health()-Damage)
-		#Target.take_damage()
-	#其他受伤反馈逻辑
 
+##计算最终伤害值
 func calculate_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorperty)->float:
 	if Target && Source:
 		var TotalDamage = Attack.Damage
@@ -31,23 +28,15 @@ func calculate_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePo
 		return TotalDamage
 	return -1
 
+##施加冲击力
 func apply_impact_force(Target:BaseCharacter, Attack:DamagePorperty):
 	if Target:
 		Target.set_character_toughness(Target.get_character_toughness()-Attack.ImpactForce)
-		#Target.toughness_reduced()
-	
-#func break_assess(Target:BaseCharacter):
-	#if Target:
-		#if Target.get_character_toughness() <= 0:
-			#Target.breaked()
+
 
 #func apply_abnormal_condition(Target:BaseCharacter, Attack:DamagePorperty):
 	#pass
-	
-#func death_assess(Target:BaseCharacter):
-	#if Target:
-		#if Target.get_character_current_health() <= 0:
-			#Target.death()
+
 	
 class AbnormalEffect:
 	func effect_1():

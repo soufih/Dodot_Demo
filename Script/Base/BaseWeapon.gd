@@ -12,6 +12,7 @@ func _ready() -> void:
 	Hitboxs = get_node("Hitboxs")
 	add_to_group("Weapon")
 
+##执行攻击
 func excute_attack(Movement:int):
 	before_attack(Movement)
 
@@ -19,15 +20,19 @@ func excute_attack(Movement:int):
 
 	after_attack(Movement)
 
+##攻击前的准备
 func before_attack(Movement:int):
 	pass
 
+##攻击中
 func during_attack(Movement:int):
 	apply_damage(Movement)
 
+##攻击后
 func after_attack(Movement:int):
 	pass
 
+##应用伤害
 func apply_damage(Movement:int):
 	for body in Hitboxs.get_child(Movement).get_overlapping_bodies():
 		if body.is_in_group("Enemy"):
@@ -35,6 +40,7 @@ func apply_damage(Movement:int):
 			Damage.Damage = Damage.Damage * Porperty.DamageMultipler[Movement]
 			DamageSystem.damage_assess(EquipmentOwner,body, Damage)
 
+##设置武器的拥有者
 func set_self_owner(who: BaseCharacter):
 	if who:
 		EquipmentOwner = who

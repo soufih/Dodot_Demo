@@ -46,6 +46,7 @@ DroppedItemSystem="*res://Script/System/DroppedItemSystem.gd"
 UIManager="*res://Script/System/UIManager.gd"
 WarehouseSystem="*res://Script/System/WarehouseSystem.gd"
 CompoundSystem="*res://Script/System/CompoundSystem.gd"
+SignalBus="*res://Script/System/SignalBus.gd"
 
 [display]
 
