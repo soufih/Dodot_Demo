@@ -24,11 +24,11 @@ func beginning():
 	#StatusEffectManager.enhance_health(self, 5)
 
 
-func running(delta: float):
+func running(_delta: float):
 	pass
 	
 
-func physics_running(delta: float):
+func physics_running(_delta: float):
 	pass
 	
 ##计算伤害增强总和

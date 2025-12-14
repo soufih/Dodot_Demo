@@ -10,7 +10,7 @@ func _ready() -> void:
 	#鼠标拖动物品图标显示于最上层
 	z_index = 10
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#临时物品图标跟随鼠标移动
 	if button_down_sign:
 		global_position = get_global_mouse_position()

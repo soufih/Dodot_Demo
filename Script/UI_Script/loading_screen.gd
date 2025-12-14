@@ -5,7 +5,7 @@ func _ready() -> void:
 	ResourceLoader.load_threaded_request(SceneLoader.next_scene)
 #加载资源
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var progress = []
 	ResourceLoader.load_threaded_get_status(SceneLoader.next_scene,progress)
 	$ProgressBar.value = progress[0] * 100

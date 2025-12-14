@@ -12,7 +12,7 @@ var Direct = Vector2i.RIGHT.x
 func enter():
 	FSM.ani.play("Move")
 	
-func do(delta):
+func do(_delta):
 	for body in $"../../HateArea".get_overlapping_bodies():
 		if body.is_in_group("Hero"):
 			var HeroPos = body.global_position

@@ -24,7 +24,7 @@ func _ready() -> void:
 	# 应用冲量
 	apply_central_impulse(force_vector)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#冻结掉落物减少性能开销
 	if linear_velocity.x < 1 && linear_velocity.y < 1 && Launched:
 		freeze = true

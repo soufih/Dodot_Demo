@@ -21,15 +21,15 @@ func excute_attack(Movement:int):
 	after_attack(Movement)
 
 ##攻击前的准备
-func before_attack(Movement:int):
+func before_attack(_Movement:int):
 	pass
 
 ##攻击中
-func during_attack(Movement:int):
-	apply_damage(Movement)
+func during_attack(_Movement:int):
+	apply_damage(_Movement)
 
 ##攻击后
-func after_attack(Movement:int):
+func after_attack(_Movement:int):
 	pass
 
 ##应用伤害

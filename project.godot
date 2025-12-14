@@ -48,6 +48,13 @@ WarehouseSystem="*res://Script/System/WarehouseSystem.gd"
 CompoundSystem="*res://Script/System/CompoundSystem.gd"
 SignalBus="*res://Script/System/SignalBus.gd"
 
+[debug]
+
+gdscript/warnings/unused_variable=0
+gdscript/warnings/unused_local_constant=0
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/subwindows/embed_subwindows=false

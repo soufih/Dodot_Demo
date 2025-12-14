@@ -7,7 +7,7 @@ func enter():
 	FSM.Attacking = true
 
 
-func do(delta):
+func do(_delta):
 	FSM.ani.play("Attack")
 	await Spirte.animation_finished
 

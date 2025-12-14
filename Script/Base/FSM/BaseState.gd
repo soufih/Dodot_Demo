@@ -4,7 +4,7 @@ extends Node
 func enter():
 	pass
 	
-func do(delta: float):
+func do(_delta: float):
 	pass
 	
 func exit():

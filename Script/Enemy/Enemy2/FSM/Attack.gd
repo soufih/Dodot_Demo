@@ -9,7 +9,7 @@ func enter():
 	FSM.Attacking = true
 	Hero = get_tree().get_first_node_in_group("Hero")
 
-func do(delta):
+func do(_delta):
 	#追踪玩家
 	for body in FSM.Hitbox.get_overlapping_bodies():
 		if body.is_in_group("Hero"):
