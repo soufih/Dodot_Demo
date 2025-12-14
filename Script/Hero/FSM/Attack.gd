@@ -10,7 +10,7 @@ func enter():
 	get_parent().attacking = true
 	Hero.velocity = Vector2(0, Hero.velocity.y) 
 	ani.play("Attack")
-	$"../../WeaponPosition".get_child(0).excute_attack()
+	$"../../WeaponPosition".get_child(0).excute_attack(0)
 	await $"../../WeaponPosition".get_child(0).animation_finished
 	await ani.animation_finished
 	get_parent().attacking = false

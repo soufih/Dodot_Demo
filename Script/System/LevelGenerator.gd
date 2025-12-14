@@ -1,7 +1,7 @@
 extends Node
 
-var InforLevelRoomLog:LevelRoomLog
-var InforLevelTemplateLog:LevelTemplateLog
+var ReferLevelRoomLog:LevelRoomLog
+var ReferLevelTemplateLog:LevelTemplateLog
 
 var Startpoint:Vector2i
 
@@ -20,28 +20,28 @@ func generate_level(level: int):
 
 #加载房间列表
 func load_level_room_log():
-	InforLevelRoomLog = load("uid://dh3a2qfk263s4") as LevelRoomLog
-	if !InforLevelRoomLog:
+	ReferLevelRoomLog = load("uid://dh3a2qfk263s4") as LevelRoomLog
+	if !ReferLevelRoomLog:
 		push_error("ERRO!WHEN LOAD ROOMS OF LEVEL")
 
 #加载模板列表
 func load_level_template_log():
-	InforLevelTemplateLog = load("uid://imcee336yrsx") as LevelTemplateLog
-	if !InforLevelTemplateLog:
+	ReferLevelTemplateLog = load("uid://imcee336yrsx") as LevelTemplateLog
+	if !ReferLevelTemplateLog:
 		push_error("ERRO!WHEN LOAD LEVEL TEMPLATE")
 
 #加载房间
 func get_level_rooms(Level:int)->LevelRoomConfig:
-	if InforLevelRoomLog:
-		var result = InforLevelRoomLog.LevelLog.get(Level)
+	if ReferLevelRoomLog:
+		var result = ReferLevelRoomLog.LevelLog.get(Level)
 		if result:
 			return result
 	return null
 
 #加载模板
 func get_level_template(Level:int)->TemplateConfig:
-	if InforLevelTemplateLog:
-		var result = InforLevelTemplateLog.LevelLog.get(Level)
+	if ReferLevelTemplateLog:
+		var result = ReferLevelTemplateLog.LevelLog.get(Level)
 		if result:
 			return result
 	return null

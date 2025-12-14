@@ -1,7 +1,7 @@
 extends Node
 
-var InforLevelEnemyLog:LevelEnemyLog
-var InforEnemyPorpertyLog:EnemyPorpertyLog
+var ReferLevelEnemyLog:LevelEnemyLog
+var ReferEnemyPorpertyLog:EnemyPorpertyLog
 
 ##加载敌人数据
 func load_enemy():
@@ -10,36 +10,36 @@ func load_enemy():
 
 #加载关卡敌人列表
 func load_enemy_log():
-	InforLevelEnemyLog = load("uid://buyhm8wjeyf3u") as LevelEnemyLog
-	#print(InforLevelEnemyLog)
-	if !InforLevelEnemyLog:
+	ReferLevelEnemyLog = load("uid://buyhm8wjeyf3u") as LevelEnemyLog
+	#print(ReferLevelEnemyLog)
+	if !ReferLevelEnemyLog:
 		push_error("ERRO!WHEN LOAD ENEMY")
 
 #加载敌人属性列表
 func load_enemy_porperty():
-	InforEnemyPorpertyLog = load("uid://2srf8bdj186") as EnemyPorpertyLog
-	if !InforEnemyPorpertyLog:
+	ReferEnemyPorpertyLog = load("uid://2srf8bdj186") as EnemyPorpertyLog
+	if !ReferEnemyPorpertyLog:
 		push_error("ERRO!WHEN LOAD ENEMY PORPERTY")
 
 #获取敌人
 func get_enemies(Level:int)->Array:
-	if InforLevelEnemyLog:
-		var result:EnemyLog = InforLevelEnemyLog.Log.get(Level)
+	if ReferLevelEnemyLog:
+		var result:EnemyLog = ReferLevelEnemyLog.Log.get(Level)
 		if result:
 			return result.Log
 	return []
 
 #获取敌人属性
 func get_enemy_porperty(Name:String)->EnemyPorperty:
-	if InforEnemyPorpertyLog:
-		if InforEnemyPorpertyLog.Log.get(Name):
-			return InforEnemyPorpertyLog.Log.get(Name)
+	if ReferEnemyPorpertyLog:
+		if ReferEnemyPorpertyLog.Log.get(Name):
+			return ReferEnemyPorpertyLog.Log.get(Name)
 	return null
 
 #获取敌人掉落物
 func get_dropped_item(target:String)->Array[Vector4]:
-	if InforEnemyPorpertyLog:
-		var porperty:EnemyPorperty = InforEnemyPorpertyLog.Log.get(target)
+	if ReferEnemyPorpertyLog:
+		var porperty:EnemyPorperty = ReferEnemyPorpertyLog.Log.get(target)
 		if porperty:
 			return porperty.Drop
 	return []

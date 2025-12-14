@@ -226,14 +226,14 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"apply_damage"
+"args": ["attack"],
+"method": &"excute_attack"
 }]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gfkto"]
 _data = {
-&"Attack": SubResource("Animation_wmhkq")
+&"attack": SubResource("Animation_wmhkq")
 }
 
 [node name="Sword" type="AnimatedSprite2D"]
@@ -242,23 +242,24 @@ animation = &"Attack1"
 autoplay = "Idle"
 script = ExtResource("4_wmhkq")
 
-[node name="HitboxsTransform" type="Marker2D" parent="."]
+[node name="Hitboxs" type="Marker2D" parent="."]
 
-[node name="Area1" type="Area2D" parent="HitboxsTransform"]
+[node name="attack" type="Area2D" parent="Hitboxs"]
 visible = false
 rotation = -1.5707964
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxsTransform/Area1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitboxs/attack"]
 rotation = 1.5707964
 polygon = PackedVector2Array(-3.496911e-07, 8, 16.000002, -32, 24.000002, -23.999998, 32, -7.9999986, 32, 8.000001, 23.999998, 24.000002, 7.999998, 40, -32, 40)
 
-[node name="Area2" type="Area2D" parent="HitboxsTransform"]
+[node name="attack1" type="Area2D" parent="Hitboxs"]
+visible = false
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxsTransform/Area2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitboxs/attack1"]
 rotation = 1.5707964
 polygon = PackedVector2Array(0, 0, -40, 0, -32, -16, -24, -24, -8, -32, 8, -32, 21.59784, -25.201077, 24, -24, 32, -16, 40, 0, 40, 16, 32, 32)
 

@@ -1,4 +1,9 @@
 extends Resource
 class_name WeaponPorperty
 
-@export var Weapon:Dictionary[String,DamagePorperty]
+@export_category("Weapon Properties")
+@export var Name: String
+@export var Type: ENUM.WeaponType
+@export var BaseDamage: DamagePorperty
+@export var DamageMultipler: Dictionary[int, float]## Key: Movement, Value: Multiplier
+@export var AttackSpeed: float = 1.0

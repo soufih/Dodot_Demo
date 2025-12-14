@@ -1,17 +1,17 @@
 extends Node
 
-#伤害类型
+##伤害类型
 enum DamageType {Physics, Fire, Ice}
 enum AbnormalType {}
 
-#房间属性
+##房间属性
 enum Type {Start, Corridor, Room, End}
 enum Location {LEFT,RIGHT,TOP,BOTTOM}
 
-#物品属性
+##物品属性
 enum ItemType {Weapon, Materials, Relic, Equipment}
 
-#状态类型
+##状态类型
 enum STATUS {
 	EnhanceHealth,
 	EnhanceStrength,
@@ -19,9 +19,17 @@ enum STATUS {
 	Weakness,
 }
 
-#敌人级别
+##敌人级别
 enum EnemyLevel{
 	Normal,
 	Elite,
 	Boss,
+}
+
+## 武器类型
+enum WeaponType{
+	Sword,
+	Blade,
+	Staff,
+	Bow,
 }
