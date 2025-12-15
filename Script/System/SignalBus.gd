@@ -13,3 +13,4 @@ signal quick_add#快速添加物品后触发
 
 #装备栏信号
 signal equipment_slot_changed
+

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bb4quhyltqxmu"]
 
-[ext_resource type="Script" uid="uid://cuuau3172n0rp" path="res://Script/UI_Script/tmp_slot.gd" id="1_nxnr5"]
+[ext_resource type="Script" uid="uid://cuuau3172n0rp" path="res://Script/UI_Script/Backpack/tmp_slot.gd" id="1_nxnr5"]
 
 [node name="TmpSlot" type="Marker2D"]
 script = ExtResource("1_nxnr5")

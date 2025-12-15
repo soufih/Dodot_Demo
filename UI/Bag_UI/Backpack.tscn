@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b12ujb2p2b4v"]
 
-[ext_resource type="Script" uid="uid://4jhmk7fxlbu0" path="res://Script/UI_Script/bag.gd" id="1_rfmpy"]
+[ext_resource type="Script" uid="uid://4jhmk7fxlbu0" path="res://Script/UI_Script/Backpack/bag.gd" id="1_rfmpy"]
 [ext_resource type="Texture2D" uid="uid://mulibc6w686r" path="res://Rescource/UI/Fantasy-UI.png" id="2_ypsps"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1285k"]
@@ -21,10 +21,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -275.0
-offset_top = -89.0
-offset_right = -273.0
-offset_bottom = -88.0
+offset_left = 444.0
+offset_top = -111.0
+offset_right = 446.0
+offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rfmpy")

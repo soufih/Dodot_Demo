@@ -42,10 +42,6 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 			#堆叠完毕退出
 			if amount <= 0:
 				break
-				
-		#记录最早查找到的未使用过的索引，以防上溢
-		#else:
-			#TargetIndex = min(index, TargetIndex)
 
 	#如果物品在堆叠后仍有剩余
 	while amount > 0:
@@ -76,8 +72,10 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 		Amounts[Vector2i(id, TargetIndex)] = min(MaxStack, amount)
 		amount -= MaxStack
 		CurrentContianer += 1
-		SignalBus.backpack_changed.emit()
-		SignalBus.quick_add.emit()
+	
+	SignalBus.backpack_changed.emit()
+	SignalBus.quick_add.emit()
+
 	return Vector2i(id, 0)
 
 ##其他栏位物品与背包物品交互时使用，如仓库中物品与背包物品交互

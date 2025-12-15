@@ -6,6 +6,9 @@ var UILayer: CanvasLayer
 
 func _ready() -> void:
 	load_ui_layer_config()
+	load_ui("uid://dg5jscvs3feh3") #装备栏UI
+	load_ui("uid://1s1kttvb6l7w") #物品栏UI
+	
 
 ##加载UI层配置
 func load_ui_layer_config():
@@ -21,9 +24,17 @@ func load_ui_layer_config():
 	tmp_slot = preload("uid://bb4quhyltqxmu").instantiate()
 	TmpSlotLayer.add_child(tmp_slot)
 
-	var Backpack:BaseUI = preload("uid://b12ujb2p2b4v").instantiate()
-	Backpack.hide()
-	UILayer.add_child(Backpack)
+	# var Backpack:BaseUI = preload("uid://b12ujb2p2b4v").instantiate()
+	# Backpack.hide()
+	# UILayer.add_child(Backpack)
+
+##加载UI
+func load_ui(ui_path: String) -> BaseUI:
+	var ui_scene: PackedScene = load(ui_path)
+	var ui_instance: BaseUI = ui_scene.instantiate()
+	UILayer.add_child(ui_instance)
+	ui_instance.hide()
+	return ui_instance
 
 
 func _input(event: InputEvent) -> void:
@@ -69,6 +80,14 @@ func open_pause_menu():
 
 ##打开/关闭背包
 func ui_open_backpack():
-	var backpack = UILayer.get_node("Backpack")
-	if backpack:
-		backpack.visible = !backpack.visible
+	# var backpack_ui = UILayer.get_node("Backpack") as BaseUI
+	# if backpack_ui:
+	# 	backpack_ui.visible = !backpack_ui.visible
+
+	var item_bar = UILayer.get_node("item_bar") as BaseUI
+	if item_bar:
+		item_bar.visible = !item_bar.visible
+	
+	var equipment_bar = UILayer.get_node("equipment_bar") as BaseUI
+	if equipment_bar:
+		equipment_bar.visible = !equipment_bar.visible

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://6oby8ergpaw7"]
 
 [ext_resource type="Texture2D" uid="uid://mulibc6w686r" path="res://Rescource/UI/Fantasy-UI.png" id="1_ypyr3"]
-[ext_resource type="Script" uid="uid://uennhv0xsk13" path="res://Script/UI_Script/slot.gd" id="2_2purt"]
+[ext_resource type="Script" uid="uid://uennhv0xsk13" path="res://Script/UI_Script/Backpack/slot.gd" id="2_2purt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2purt"]
 atlas = ExtResource("1_ypyr3")
@@ -19,6 +19,8 @@ offset_left = 3.0
 offset_top = 3.0
 offset_right = -2.0
 offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
 toggle_mode = true
 script = ExtResource("2_2purt")
 
