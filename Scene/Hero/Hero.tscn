@@ -466,6 +466,7 @@ ToughnessRecover = 5.0
 
 [node name="ActiveZone" type="Area2D" parent="."]
 visible = false
+position = Vector2(176, -4)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("13_8l1ja")

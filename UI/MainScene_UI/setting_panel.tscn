@@ -74,13 +74,15 @@ text = "分辨率"
 
 [node name="Resolution_OptionButton" type="OptionButton" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
 layout_mode = 2
-item_count = 3
+item_count = 4
 popup/item_0/text = "2k"
 popup/item_0/id = 0
 popup/item_1/text = "1080p"
 popup/item_1/id = 1
 popup/item_2/text = "720p"
 popup/item_2/id = 2
+popup/item_3/text = "自定义"
+popup/item_3/id = 3
 
 [node name="DisplayMode" type="Label" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
 layout_mode = 2
@@ -93,7 +95,7 @@ item_count = 2
 popup/item_0/text = "全屏"
 popup/item_0/id = 0
 popup/item_1/text = "窗口"
-popup/item_1/id = 2
+popup/item_1/id = 1
 
 [node name="Fps" type="Label" parent="Background/Panel/Tabs/视频设置/MarginContainer/Video"]
 layout_mode = 2

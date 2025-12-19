@@ -1,32 +1,26 @@
-extends Control
+extends BaseUI
 
-var setting_panel_instance: Control = null
-const setting_panel : String = "res://UI/MainScene_UI/setting_panel.tscn"
+var save_panel_instance: BaseUI = null
+var load_panel_instance: BaseUI = null
 
 
-func _on_setting_pressed() -> void:
-	# 防止重复加载（避免多次点击创建多个设置界面）
-	if setting_panel_instance != null:
-		return
 
+func _ready() -> void:
+	begin()
 	# 加载设置场景并实例化
-	var setting_scene: PackedScene = preload(setting_panel)
-	setting_panel_instance = setting_scene.instantiate()
 
-	# 将设置界面添加到主UI的根节点（或场景树根节点）
-	add_child(setting_panel_instance)
+## 设置
+func _on_setting_pressed() -> void:	
+	UIManager.setting_panel_instance.show()
 
-	# 隐藏设置按钮
-	$PanelContainer.visible = false
-
-
+## 保存
 func _on_save_pressed() -> void:
-	pass # Replace with function body.
+	save_panel_instance.show()
 
-
+## 加载
 func _on_load_pressed() -> void:
-	pass # Replace with function body.
+	load_panel_instance.show()
 
-
+## 返回
 func _on_back_pressed() -> void:
-	pass # Replace with function body.
+	hide()

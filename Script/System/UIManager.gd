@@ -3,17 +3,25 @@ extends Node
 var UIStack: Array[BaseUI] = []
 var tmp_slot:TmpSlot
 var UILayer: CanvasLayer
+var is_paused: bool = false
+
+var setting_panel_instance: BaseUI= null
+
 
 func _ready() -> void:
 	load_ui_layer_config()
+	
+	
 	load_ui("uid://dg5jscvs3feh3") #装备栏UI
 	load_ui("uid://1s1kttvb6l7w") #物品栏UI
-	
+	load_ui("uid://cyy1mus77qou1")#暂停菜单UI
+	setting_panel_instance = load_ui("uid://di38xxftqwhae") ##加载设置面板
 
 ##加载UI层配置
 func load_ui_layer_config():
 	var TmpSlotLayer = CanvasLayer.new()
 	UILayer = CanvasLayer.new()
+	
 	
 	add_child(TmpSlotLayer)
 	add_child(UILayer)
@@ -41,7 +49,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		ui_cancel()
 	
-	if event.is_action_pressed("OpenBackpack"):
+	if event.is_action_pressed("OpenBackpack")&& !is_paused:
 		ui_open_backpack()
 
 ##UIStack新增元素时调用
@@ -69,14 +77,17 @@ func ui_clear_stack() -> void:
 func ui_cancel():
 	if UIStack.size() > 0:
 		var top_ui: BaseUI = UIStack[UIStack.size() - 1]
-		if top_ui.has_method("ui_close"):
-			top_ui.hide()
+		top_ui.hide()
 	else: #栈为空时打开暂停菜单
 		open_pause_menu()
 
 ##打开暂停菜单
 func open_pause_menu():
-	print("Open Pause Menu")
+	var pause_menu = UILayer.get_node("menu_ui") as BaseUI
+	if pause_menu:
+		pause_menu.visible = !pause_menu.visible
+		is_paused = pause_menu.visible
+
 
 ##打开/关闭背包
 func ui_open_backpack():

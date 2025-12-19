@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://1hivnbrfupgu" path="res://Script/UI_Script/menu_ui.gd" id="1_bmej7"]
 
-[node name="Menu_ui" type="Control"]
+[node name="menu_ui" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,8 +13,10 @@ script = ExtResource("1_bmej7")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_right = 200.0
-offset_bottom = 300.0
+offset_left = 420.0
+offset_top = 146.0
+offset_right = 620.0
+offset_bottom = 446.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2

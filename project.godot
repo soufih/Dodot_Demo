@@ -39,7 +39,6 @@ EquipmentSlotSystem="*res://Script/System/EquipmentSlotSystem.gd"
 LevelGenerator="*res://Script/System/LevelGenerator.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
 DamageSystem="*res://Script/System/DamageSystem.gd"
-SceneLoader="*res://Script/UI_Script/SceneLoader.gd"
 ENUM="*res://Script/System/Enum.gd"
 StatusEffectManager="*res://Script/System/StatusEffectManager.gd"
 DroppedItemSystem="*res://Script/System/DroppedItemSystem.gd"
@@ -47,6 +46,7 @@ UIManager="*res://Script/System/UIManager.gd"
 WarehouseSystem="*res://Script/System/WarehouseSystem.gd"
 CompoundSystem="*res://Script/System/CompoundSystem.gd"
 SignalBus="*res://Script/System/SignalBus.gd"
+SceneLoader="*res://Script/System/SceneLoader.gd"
 
 [debug]
 

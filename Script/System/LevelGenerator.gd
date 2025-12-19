@@ -4,13 +4,14 @@ var ReferLevelRoomLog:LevelRoomLog
 var ReferLevelTemplateLog:LevelTemplateLog
 
 var Startpoint:Vector2i
-
+var RoomLoadThreads:Thread = Thread.new()
 
 #房间数据初始化
 func prepare_generating():
 	randomize()
 	load_level_room_log()
 	load_level_template_log()
+	create_threads()
 
 #生成关卡
 func generate_level(level: int):
@@ -72,12 +73,18 @@ func select_room(Level:int)->Array:
 				
 		if Candidate.size() == 0:
 			break
-		#从候选房间中随机挑选一个
+		# #从候选房间中随机挑选一个
 		var result = load(Candidate[randi()%Candidate.size()]) as PackedScene #从候选房间中随机挑选一个
-		
 		var Index:int = Target[3]
-		SelectedRooms.append([result, Index, Target[1]]) #保存房间信息和它的相当位置信息
+		var entrance:String = Target[1]
 		
+		SelectedRooms.append([result, Index, Target[1]]) #保存房间信息和它的相对位置信息
+
+		# var result:String = Candidate[randi()%Candidate.size()]
+		# if !RoomLoadThreads.is_alive():
+		# 	RoomLoadThreads.start(load_rooms.bind(SelectedRooms, Index, entrance, result))
+		# RoomLoadThreads.wait_to_finish()
+
 	return SelectedRooms
 
 #将枚举量与字符串映射
@@ -192,3 +199,21 @@ func generate_player():
 	var player:BaseCharacter = DataLoader.HERO
 	player.global_position = Startpoint
 	print("Done! Generate Player")
+
+##销毁关卡
+func destroy_level():
+	var Rooms = self.get_children()
+	for room in Rooms:
+		room.queue_free()
+	print("Done! Destroy Level")
+
+##创建线程
+func create_threads():
+	var processors:int = OS.get_processor_count()
+	# for i in range(processors-1):
+	# 	RoomLoadThreads.append(Thread.new())
+
+##线程化加载房间
+func load_rooms(rooms:Array, index:int, entrance:String, room:String):
+	var room_scene =  load(room) as PackedScene
+	rooms.append([room_scene, index, entrance])
