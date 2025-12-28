@@ -21,12 +21,11 @@ func _ready():
 
 
 # 公共方法：用于显示拾取提示
-# material_data: 一个字典，包含 'texture', 'name', 'count'
-func show_pickup(material_data: Dictionary):
+#func show_pickup():
 	# 1. 更新UI内容
-	icon_texture.texture = material_data.texture
-	name_label.text = material_data.name
-	count_label.text = "x" + str(material_data.count)
+	#icon_texture.texture = 
+	#name_label.text = 
+	#count_label.text = "x" + 
 
 	# 2. 重置动画和显示UI
 	show()
