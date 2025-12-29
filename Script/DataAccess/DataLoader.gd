@@ -6,15 +6,15 @@ var HERO
 
 
 func _ready() -> void:
-	ResourceManager.load_item_catalog()
-	WeaponManager.load_weapon()
-	EnemyManager.load_enemy()
-	LevelGenerator.prepare_generating()
-
-
-	HERO = preload("res://Scene/Hero/Hero.tscn").instantiate()
-
-	LevelGenerator.generate_level(0)
+	#ResourceManager.load_item_catalog()
+	#WeaponManager.load_weapon()
+	#EnemyManager.load_enemy()
+	#LevelGenerator.prepare_generating()
+#
+#
+	#HERO = preload("res://Scene/Hero/Hero.tscn").instantiate()
+#
+	#LevelGenerator.generate_level(0)
 
 	# var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
 	# add_child(TestMap)
