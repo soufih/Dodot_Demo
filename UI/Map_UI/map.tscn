@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://baysbd0v7e3fm"]
+
+[ext_resource type="StyleBox" uid="uid://dfqp47rds7m7q" path="res://Rescource/UI/map/m2.tres" id="1_ti81g"]
+[ext_resource type="StyleBox" uid="uid://d3c5s318qc8hy" path="res://Rescource/UI/map/m3.tres" id="2_wxejp"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 397.0
+offset_right = 320.0
+offset_bottom = 545.0
+theme_override_styles/normal = ExtResource("1_ti81g")
+theme_override_styles/pressed = ExtResource("2_wxejp")
+theme_override_styles/hover = ExtResource("2_wxejp")
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 309.0
+offset_top = 185.0
+offset_right = 457.0
+offset_bottom = 333.0
+theme_override_styles/normal = ExtResource("1_ti81g")
+theme_override_styles/pressed = ExtResource("2_wxejp")
+theme_override_styles/hover = ExtResource("2_wxejp")
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 457.0
+offset_top = 346.0
+offset_right = 605.0
+offset_bottom = 494.0
+theme_override_styles/normal = ExtResource("1_ti81g")
+theme_override_styles/pressed = ExtResource("2_wxejp")
+theme_override_styles/hover = ExtResource("2_wxejp")
+
+[node name="Button4" type="Button" parent="."]
+layout_mode = 0
+offset_left = 542.0
+offset_top = 159.0
+offset_right = 690.0
+offset_bottom = 307.0
+theme_override_styles/normal = ExtResource("1_ti81g")
+theme_override_styles/pressed = ExtResource("2_wxejp")
+theme_override_styles/hover = ExtResource("2_wxejp")
+
+[node name="Button5" type="Button" parent="."]
+layout_mode = 0
+offset_left = 819.0
+offset_top = 68.0
+offset_right = 967.0
+offset_bottom = 216.0
+theme_override_styles/normal = ExtResource("1_ti81g")
+theme_override_styles/pressed = ExtResource("2_wxejp")
+theme_override_styles/hover = ExtResource("2_wxejp")
