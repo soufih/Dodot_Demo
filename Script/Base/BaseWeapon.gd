@@ -1,15 +1,13 @@
 class_name BaseWeapon
 extends AnimatedSprite2D
 
-var Porperty:WeaponPorperty
+@onready var Porperty:WeaponPorperty = WeaponManager.get_weapon_porperty(self.name)
+@onready var Hitboxs:Marker2D = get_node("Hitboxs")
+
 var Rank:int = 1
-var Hitboxs:Marker2D
 var EquipmentOwner: BaseCharacter
 
-
 func _ready() -> void:
-	Porperty =  WeaponManager.get_weapon_porperty(self.name)
-	Hitboxs = get_node("Hitboxs")
 	add_to_group("Weapon")
 
 ##执行攻击

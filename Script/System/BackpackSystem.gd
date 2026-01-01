@@ -212,9 +212,11 @@ func set_contianer_x(newContianerX: int):
 	ContianerX = newContianerX
 	SignalBus.backpack_changed.emit()
 
+
 func set_contianer_y(newContianerY: int):
 	ContianerY = newContianerY
 	SignalBus.backpack_changed.emit()
+
 
 func set_current_contianer(newCurrentContianer: int):
 	CurrentContianer = newCurrentContianer

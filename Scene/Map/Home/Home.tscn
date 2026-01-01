@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://5x746yhfjp3c"]
+[gd_scene load_steps=10 format=4 uid="uid://5x746yhfjp3c"]
 
 [ext_resource type="Texture2D" uid="uid://d4kr1vwrt4p8" path="res://Rescource/Static/TileSet/Final/Background_0.png" id="1_oxw1y"]
 [ext_resource type="Texture2D" uid="uid://c6fbfl6suptcb" path="res://Rescource/Static/TileSet/Final/Background_1.png" id="2_0qttu"]
 [ext_resource type="Texture2D" uid="uid://dhjcymkjsoi6y" path="res://Rescource/Static/TileSet/Final/Tiles.png" id="2_hly1h"]
 [ext_resource type="Texture2D" uid="uid://bl3h2gyh1bkyd" path="res://Rescource/Static/TileSet/Final/brush.png" id="4_dkyxa"]
 [ext_resource type="PackedScene" uid="uid://dkpfad1e406sr" path="res://Scene/Map/Barrier.tscn" id="5_dkyxa"]
+[ext_resource type="Script" uid="uid://ikp4rqib57ny" path="res://Script/Map/Startpoint.gd" id="6_p4x0u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0qttu"]
 texture = ExtResource("2_hly1h")
@@ -575,7 +576,6 @@ sources/0 = SubResource("TileSetAtlasSource_0qttu")
 sources/1 = SubResource("TileSetAtlasSource_p4x0u")
 
 [node name="Home" type="Node2D"]
-position = Vector2(0, 220)
 
 [node name="Background0" type="Sprite2D" parent="."]
 position = Vector2(111.99997, -41.000004)
@@ -596,3 +596,7 @@ position = Vector2(332, -40)
 
 [node name="Barrier2" parent="." instance=ExtResource("5_dkyxa")]
 position = Vector2(-531, -34)
+
+[node name="Startpoint" type="Marker2D" parent="."]
+position = Vector2(1, -92)
+script = ExtResource("6_p4x0u")

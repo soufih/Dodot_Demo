@@ -1,4 +1,4 @@
-extends Node
+extends RefCounted
 
 ##伤害检测
 func damage_assess(Source:BaseCharacter, Target:BaseCharacter, Attack:DamagePorperty):

@@ -6,15 +6,18 @@ var HERO
 
 
 func _ready() -> void:
-	#ResourceManager.load_item_catalog()
-	#WeaponManager.load_weapon()
-	#EnemyManager.load_enemy()
-	#LevelGenerator.prepare_generating()
-#
-#
-	#HERO = preload("res://Scene/Hero/Hero.tscn").instantiate()
-#
-	#LevelGenerator.generate_level(0)
+	ResourceManager.load_item_catalog()
+	WeaponManager.load_weapon()
+	EnemyManager.load_enemy()
+	# LevelGenerator.prepare_generating()
+
+
+	# HERO = preload("res://Scene/Hero/Hero.tscn").instantiate()
+	# HERO.hide()
+	# add_child(HERO)
+	
+
+	# LevelGenerator.generate_level(0)
 
 	# var TestMap = preload("res://Scene/Map/Home/Home.tscn").instantiate()
 	# add_child(TestMap)
@@ -25,4 +28,12 @@ func _ready() -> void:
 	# var Enemy2 = preload("res://Scene/Enemy/Enemy2.tscn").instantiate()
 	# add_child(Enemy2)
 
-	add_child(HERO)
+
+func set_hero(hero:BaseCharacter):
+	if hero:
+		HERO = hero
+
+func get_hero():
+	if HERO:
+		return HERO
+	return null
