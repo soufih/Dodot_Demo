@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://hmacpsbsf4q8"]
+[gd_scene load_steps=2 format=3 uid="uid://hmacpsbsf4q8"]
+
+[ext_resource type="PackedScene" uid="uid://bmquh0ekr1vjp" path="res://UI/Compound_UI/Item_List_UI/item_selector_ui.tscn" id="1_yrfu7"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -81,5 +83,5 @@ theme_override_constants/margin_bottom = 30
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer"]
+[node name="PanelContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer" instance=ExtResource("1_yrfu7")]
 layout_mode = 2

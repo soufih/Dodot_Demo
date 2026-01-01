@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmquh0ekr1vjp"]
+
+[ext_resource type="Script" uid="uid://cjsdhfc1emcpg" path="res://Script/UI_Script/Compound_UI/item_selector_ui.gd" id="1_hwc0y"]
+
+[node name="item_selector_ui" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 50)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 730.0
+offset_top = 87.0
+offset_right = -84.0
+offset_bottom = -511.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hwc0y")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button3" type="Button" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button4" type="Button" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button5" type="Button" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3

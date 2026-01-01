@@ -1,6 +1,6 @@
 extends PanelContainer
 
-@onready var VBox_Container = $MarginContainer/ScrollContainer/VBoxContainer
+@onready var VBox_Container = $VBoxContainer/MarginContainer/ScrollContainer/slot_VB
 
 func _ready() -> void:
 	var max_container = 10   #测试

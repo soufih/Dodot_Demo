@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd2xfe7rysnxr"]
+
+[ext_resource type="PackedScene" uid="uid://bmquh0ekr1vjp" path="res://UI/Compound_UI/Item_List_UI/item_selector_ui.tscn" id="1_xr8qs"]
+[ext_resource type="PackedScene" uid="uid://dag208oshi70o" path="res://UI/Compound_UI/Item_List_UI/item_list_ui.tscn" id="2_evmvb"]
+
+[node name="warehouse_ui" type="VBoxContainer"]
+offset_right = 300.0
+offset_bottom = 404.0
+
+[node name="item_selector_ui" parent="." instance=ExtResource("1_xr8qs")]
+layout_mode = 2
+
+[node name="item_list_ui" parent="." instance=ExtResource("2_evmvb")]
+layout_mode = 2
