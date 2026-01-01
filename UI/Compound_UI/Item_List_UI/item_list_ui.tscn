@@ -3,10 +3,9 @@
 [ext_resource type="Script" uid="uid://srjyxsc6snwh" path="res://Script/UI_Script/Compound_UI/item_list_ui.gd" id="1_kmu5j"]
 
 [node name="item_list_ui" type="PanelContainer"]
-custom_minimum_size = Vector2(300, 350)
 offset_left = 10.0
 offset_right = 310.0
-offset_bottom = 390.0
+offset_bottom = 350.0
 script = ExtResource("1_kmu5j")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

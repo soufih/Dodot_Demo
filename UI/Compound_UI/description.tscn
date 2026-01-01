@@ -9,7 +9,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(260, 360)
 layout_mode = 0
 offset_left = 278.0
@@ -31,16 +30,25 @@ layout_mode = 2
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_vertical = 3
+text = "name"
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_vertical = 3
+text = "description"
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_vertical = 3
+text = "property"
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
