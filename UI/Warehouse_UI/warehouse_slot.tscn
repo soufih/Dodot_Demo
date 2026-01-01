@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmtyh6pxk6pjt"]
+
+[ext_resource type="Texture2D" uid="uid://bnunu78lmxyi3" path="res://Rescource/UI/MediavelFree.png" id="1_d30lc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3d2df"]
+atlas = ExtResource("1_d30lc")
+region = Rect2(3.2324219, 20.793537, 70.76758, 72.20647)
+
+[node name="PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(240, 80)
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 47.0
+offset_bottom = 70.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="icon_texture" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+texture = SubResource("AtlasTexture_3d2df")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+autowrap_mode = 3
+
+[node name="count_Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 3
