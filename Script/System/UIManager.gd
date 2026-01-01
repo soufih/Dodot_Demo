@@ -10,8 +10,7 @@ var setting_panel_instance: BaseUI= null
 
 func _ready() -> void:
 	load_ui_layer_config()
-	
-	
+
 	load_ui("uid://dg5jscvs3feh3") #装备栏UI
 	load_ui("uid://1s1kttvb6l7w") #物品栏UI
 	load_ui("uid://cyy1mus77qou1")#暂停菜单UI
@@ -21,7 +20,6 @@ func _ready() -> void:
 func load_ui_layer_config():
 	var TmpSlotLayer = CanvasLayer.new()
 	UILayer = CanvasLayer.new()
-	
 	
 	add_child(TmpSlotLayer)
 	add_child(UILayer)
@@ -78,6 +76,7 @@ func ui_cancel():
 	if UIStack.size() > 0:
 		var top_ui: BaseUI = UIStack[UIStack.size() - 1]
 		top_ui.hide()
+		is_paused = false
 	else: #栈为空时打开暂停菜单
 		open_pause_menu()
 

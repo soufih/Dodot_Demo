@@ -1,17 +1,15 @@
 extends Node
 
-var ReferLevelRoomLog:LevelRoomLog
-var ReferLevelTemplateLog:LevelTemplateLog
+static var ReferLevelRoomLog:LevelRoomLog
+static var ReferLevelTemplateLog:LevelTemplateLog
 
 var Startpoint:Vector2i
-var RoomLoadThreads:Thread = Thread.new()
 
 #房间数据初始化
 func prepare_generating():
 	randomize()
 	load_level_room_log()
 	load_level_template_log()
-	create_threads()
 
 #生成关卡
 func generate_level(level: int):
@@ -21,12 +19,16 @@ func generate_level(level: int):
 
 #加载房间列表
 func load_level_room_log():
+	if ReferLevelRoomLog:
+		return
 	ReferLevelRoomLog = load("uid://dh3a2qfk263s4") as LevelRoomLog
 	if !ReferLevelRoomLog:
 		push_error("ERRO!WHEN LOAD ROOMS OF LEVEL")
 
 #加载模板列表
 func load_level_template_log():
+	if ReferLevelTemplateLog:
+		return
 	ReferLevelTemplateLog = load("uid://imcee336yrsx") as LevelTemplateLog
 	if !ReferLevelTemplateLog:
 		push_error("ERRO!WHEN LOAD LEVEL TEMPLATE")
@@ -196,8 +198,10 @@ func spawn_enemy(SpawnPoints:Array[Node], Level:int):
 
 #生成玩家
 func generate_player():
-	var player:BaseCharacter = DataLoader.HERO
-	player.global_position = Startpoint
+	var hero = load("res://Scene/Hero/Hero.tscn").instantiate()
+	DataLoader.set_hero(hero)
+	add_child(hero)
+	hero.global_position = Startpoint
 	print("Done! Generate Player")
 
 ##销毁关卡

@@ -36,17 +36,15 @@ ResourceManager="*res://Script/DataAccess/ResourceManager.gd"
 EnemyManager="*res://Script/DataAccess/EnemyManager.gd"
 BackpackSystem="*res://Script/System/BackpackSystem.gd"
 EquipmentSlotSystem="*res://Script/System/EquipmentSlotSystem.gd"
-LevelGenerator="*res://Script/System/LevelGenerator.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
-DamageSystem="*res://Script/System/DamageSystem.gd"
-ENUM="*res://Script/System/Enum.gd"
 StatusEffectManager="*res://Script/System/StatusEffectManager.gd"
 DroppedItemSystem="*res://Script/System/DroppedItemSystem.gd"
 UIManager="*res://Script/System/UIManager.gd"
 WarehouseSystem="*res://Script/System/WarehouseSystem.gd"
-CompoundSystem="*res://Script/System/CompoundSystem.gd"
 SignalBus="*res://Script/System/SignalBus.gd"
-SceneLoader="*res://Script/System/SceneLoader.gd"
+LevelInformation="*res://Script/Map/LevelInformation.gd"
+LevelGenerator="*res://Script/Map/LevelGenerator.gd"
+DamageSystem="*res://Script/System/DamageSystem.gd"
 
 [debug]
 
@@ -64,6 +62,16 @@ window/per_pixel_transparency/allowed=true
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Rescource/": "red",
+"res://Scene/": "yellow",
+"res://Script/": "blue",
+"res://UI/": "teal",
+"res://addons/": "purple"
+}
 
 [global_group]
 
