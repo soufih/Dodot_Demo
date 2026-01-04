@@ -30,9 +30,6 @@ func load_ui_layer_config():
 	tmp_slot = preload("uid://bb4quhyltqxmu").instantiate()
 	TmpSlotLayer.add_child(tmp_slot)
 
-	# var Backpack:BaseUI = preload("uid://b12ujb2p2b4v").instantiate()
-	# Backpack.hide()
-	# UILayer.add_child(Backpack)
 
 ##加载UI
 func load_ui(ui_path: String) -> BaseUI:
@@ -90,10 +87,6 @@ func open_pause_menu():
 
 ##打开/关闭背包
 func ui_open_backpack():
-	# var backpack_ui = UILayer.get_node("Backpack") as BaseUI
-	# if backpack_ui:
-	# 	backpack_ui.visible = !backpack_ui.visible
-
 	var item_bar = UILayer.get_node("item_bar") as BaseUI
 	if item_bar:
 		item_bar.visible = !item_bar.visible

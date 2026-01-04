@@ -1,6 +1,11 @@
 class_name BaseCharacter
 extends CharacterBody2D
 
+signal health_changed
+signal state_changed
+signal mana_changed
+signal toughness_changed
+
 @export var MaxHealth: float
 @export var MaxMana:float
 @export var MaxToughness: float
@@ -84,7 +89,7 @@ func get_character_state_slot()->Dictionary:
 ##设置角色当前生命值
 func set_character_current_health(CH: float):
 	CurrentHealth = CH
-	SignalBus.health_changed.emit()
+	health_changed.emit()
 	print(self.name," CurrentHealth:",CurrentHealth)
 
 ##设置角色最大生命值
@@ -93,24 +98,24 @@ func set_character_max_health(MH:float):
 	
 	CurrentHealth = min(MaxHealth, CurrentHealth)
 	
-	SignalBus.health_changed.emit()
+	health_changed.emit()
 
 ##设置角色当前法力值
 func set_character_current_mana(CM: float):
 	CurrentMana = CM
-	SignalBus.mana_changed.emit()
+	mana_changed.emit()
 
 ##设置角色最大法力值
 func set_character_max_mana(MM: float):
 	MaxMana = MM
 	CurrentMana = min(MaxMana, CurrentMana)
-	SignalBus.mana_changed.emit()
+	mana_changed.emit()
 
 ##设置角色最大韧性值
 func set_character_max_toughness(MT:float):
 	MaxToughness = MT
 	Toughness = min(Toughness, MaxToughness)
-	SignalBus.toughness_changed.emit()
+	toughness_changed.emit()
 
 ##设置角色韧性值
 func set_character_toughness(T:float):
@@ -119,14 +124,14 @@ func set_character_toughness(T:float):
 	RecoverTimer.start(ToughnessRecover)
 	await RecoverTimer.timeout
 	Toughness = MaxToughness
-	SignalBus.toughness_changed.emit()
+	toughness_changed.emit()
 
 ##添加新的状态效果
 func add_new_status(Name:int, Duration:float, Amount:int):
 	StatusSlot[Name] = Vector2(Duration, Amount)
-	SignalBus.state_changed.emit()
+	state_changed.emit()
 
 ##擦除状态效果
 func erase_status(Name:int):
 	StatusSlot.erase(Name)
-	SignalBus.state_changed.emit()
+	state_changed.emit()

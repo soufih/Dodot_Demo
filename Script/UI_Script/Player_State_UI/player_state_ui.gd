@@ -16,8 +16,8 @@ var Hero:BaseCharacter
 func _ready() ->void:
 	begin()
 	Hero = DataLoader.get_hero()
-	SignalBus.mana_changed.connect(update_mana)
-	SignalBus.health_changed.connect(update_health)
+	Hero.mana_changed.connect(update_mana)
+	Hero.health_changed.connect(update_health)
 	await get_tree().create_timer(0.1).timeout
 	update_health()
 	update_mana()

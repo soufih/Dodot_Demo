@@ -1,6 +1,7 @@
 extends BaseCharacter
 class_name HeroProperty
 
+signal god_mode
 
 @onready var ani: AnimationPlayer = $AnimationPlayer
 @onready var Spirte: AnimatedSprite2D = $AnimatedSprite2D
@@ -17,7 +18,7 @@ func _ready() -> void:
 	super.beginning()
 	add_to_group("Hero")
 	equip_weapon(CurrentWeapon)
-	SignalBus.god_mode.connect(_on_god_mode)
+	god_mode.connect(_on_god_mode)
 
 
 func _physics_process(delta: float) -> void:

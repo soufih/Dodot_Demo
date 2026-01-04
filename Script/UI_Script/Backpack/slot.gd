@@ -12,7 +12,7 @@ var tmp_slot:TmpSlot
 
 func _ready() -> void:
 	init()
-	SignalBus.backpack_changed.connect(init)
+	BackpackSystem.backpack_changed.connect(init)
 	tmp_slot = UIManager.tmp_slot
 
 

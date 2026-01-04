@@ -11,47 +11,57 @@
 [sub_resource type="Resource" id="Resource_brj21"]
 script = ExtResource("1_h6kmf")
 ItemName = "Sword1"
+ItemDiscription = "test"
 ItemType = Array[int]([0, 1])
 IconTexture = ExtResource("2_brj21")
 ScenePath = "uid://dt0bj2ejimup4"
-Source = Array[int]([1, 2, 0])
+Recipe = Array[int]([1, 2, 3])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_h5cvd"]
 script = ExtResource("1_h6kmf")
 ItemID = 1
 ItemName = "Material1"
+ItemDiscription = "test2"
 ItemType = Array[int]([1])
 IconTexture = ExtResource("3_r6x5k")
 MaxStack = 100
+Products = Array[int]([0])
+Recipe = Array[int]([3])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_n3iav"]
 script = ExtResource("1_h6kmf")
 ItemID = 2
 ItemName = "Material2"
+ItemDiscription = "test4"
 ItemType = Array[int]([1])
 IconTexture = ExtResource("4_hl4hp")
 MaxStack = 100
-Source = Array[int]([3, 4])
+Products = Array[int]([0])
+Recipe = Array[int]([3, 4])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_r6x5k"]
 script = ExtResource("1_h6kmf")
 ItemID = 3
 ItemName = "Material3"
+ItemDiscription = "test5"
 ItemType = Array[int]([1])
 IconTexture = ExtResource("5_n3iav")
 MaxStack = 100
+Products = Array[int]([0, 1, 2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_hl4hp"]
 script = ExtResource("1_h6kmf")
 ItemID = 4
 ItemName = "Material4"
+ItemDiscription = "test3"
 ItemType = Array[int]([1])
 IconTexture = ExtResource("6_hl4hp")
 MaxStack = 100
+Products = Array[int]([2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [resource]

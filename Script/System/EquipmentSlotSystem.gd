@@ -1,5 +1,7 @@
 extends Node
 
+signal equipment_slot_changed
+
 #索引为位置，值为物品id
 var WeaponSlot:Array[int]
 var RelicSlot:Array[int]
@@ -14,7 +16,7 @@ func _ready() -> void:
 	WeaponSlot.append(ENUM.ItemType.Weapon)
 	RelicSlot.append(ENUM.ItemType.Relic)
 	
-	SignalBus.equipment_slot_changed.connect(_on_equipment_slot_changed)
+	equipment_slot_changed.connect(_on_equipment_slot_changed)
 	
 	for i in range(0, WeaponMaxContianer):
 		WeaponSlot.push_back(-1)
@@ -41,7 +43,7 @@ func interact_with_equipment_slot(id: int,amount: int,Postion: int, arr:Array)->
 		return Vector2i(exchange_equipment(id, Postion, arr), 1)
 	else:#不存在装备，放入物装备
 		arr[Postion] = id
-		SignalBus.equipment_slot_changed.emit()
+		equipment_slot_changed.emit()
 
 	return Vector2i(-1, 0)
 
@@ -51,7 +53,7 @@ func exchange_equipment(id: int, TargetPostion: int, arr: Array)->int:
 
 	arr[TargetPostion] = id
 	
-	SignalBus.equipment_slot_changed.emit()
+	equipment_slot_changed.emit()
 	return TargetItem
 
 #移除装备
@@ -59,7 +61,7 @@ func erase_equipment(TargetPostion: int, arr: Array):
 	if arr && TargetPostion:
 		if arr.get(TargetPostion):
 			arr.remove_at(TargetPostion)
-			SignalBus.equipment_slot_changed.emit()
+			equipment_slot_changed.emit()
 
 #获取指定位置的装备id
 func get_equipment(TargetPostion: int, arr: Array)->int:

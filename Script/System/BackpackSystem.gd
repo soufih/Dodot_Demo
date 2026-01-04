@@ -1,5 +1,8 @@
 extends Node
 
+signal backpack_changed#释放信号后更新UI
+signal quick_add#快速添加物品后触发
+
 var Backpack: Dictionary[Vector2i, Vector2i]#[(id, index), postion]， 记录各物品位置
 var Amounts:Dictionary[Vector2i, int]#[(id, index), amount]， 记录各物品数量
 
@@ -14,7 +17,7 @@ var CurrentContianer: int = 0
 func _ready() -> void:
 	_on_backpack_changed()
 	#backpack_changed.connect(test)
-	# quick_add_item(2, 100)
+	quick_add_item(2, 100)
 
 func _on_backpack_changed():
 	CurrentContianer = Backpack.size()
@@ -73,8 +76,8 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 		amount -= MaxStack
 		CurrentContianer += 1
 	
-	SignalBus.backpack_changed.emit()
-	SignalBus.quick_add.emit()
+	backpack_changed.emit()
+	quick_add.emit()
 
 	return Vector2i(id, 0)
 
@@ -84,8 +87,8 @@ func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i
 	var TargetItem = Backpack.find_key(TargetPostion)
 	#print(TargetPostion)
 	#检测合法性
-	#if TargetPostion.x > ContianerX ||  TargetPostion.y > ContianerY:
-		#return Vector2i(id, amount)
+	if TargetPostion.x > ContianerX ||  TargetPostion.y > ContianerY:
+		return Vector2i(id, amount)
 
 	if !Backpack.values().has(TargetPostion):#若不存在则添加目标物品
 		add_item(id, amount, TargetPostion)
@@ -96,7 +99,7 @@ func interact_with_slot(id: int, amount: int, TargetPostion: Vector2i)->Vector2i
 		else:
 			remain = exchange_item(id, amount, TargetItem)
 
-	SignalBus.backpack_changed.emit()
+	backpack_changed.emit()
 	return remain
 
 
@@ -148,7 +151,7 @@ func erase_item_by_item(TargetItem: Vector2i):
 	if Amounts.has(TargetItem):
 		Amounts.erase(TargetItem)
 
-	SignalBus.backpack_changed.emit()
+	backpack_changed.emit()
 
 ##移除目标物品
 func erase_item_by_position(TargetPosition: Vector2i):
@@ -210,19 +213,19 @@ func get_max_contianer()->int:
 
 func set_contianer_x(newContianerX: int):
 	ContianerX = newContianerX
-	SignalBus.backpack_changed.emit()
+	backpack_changed.emit()
 
 
 func set_contianer_y(newContianerY: int):
 	ContianerY = newContianerY
-	SignalBus.backpack_changed.emit()
+	backpack_changed.emit()
 
 
 func set_current_contianer(newCurrentContianer: int):
 	CurrentContianer = newCurrentContianer
-	SignalBus.backpack_changed.emit()
+	backpack_changed.emit()
 
 
 func set_max_contianer(newMaxContianer: int):
 	MaxContianer = newMaxContianer
-	SignalBus.backpack_changed.emit()
+	backpack_changed.emit()

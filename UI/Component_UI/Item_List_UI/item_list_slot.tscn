@@ -1,17 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmtyh6pxk6pjt"]
+[gd_scene load_steps=4 format=3 uid="uid://bmtyh6pxk6pjt"]
 
 [ext_resource type="Texture2D" uid="uid://bnunu78lmxyi3" path="res://Rescource/UI/MediavelFree.png" id="1_d30lc"]
+[ext_resource type="Script" uid="uid://dwslkgmy76apw" path="res://Script/UI_Script/Component_UI/item_list_slot.gd" id="1_o5r2q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3d2df"]
 atlas = ExtResource("1_d30lc")
 region = Rect2(3.2324219, 20.793537, 70.76758, 72.20647)
 
-[node name="PanelContainer" type="PanelContainer"]
+[node name="item_list_slot" type="PanelContainer"]
 custom_minimum_size = Vector2(240, 80)
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 47.0
 offset_bottom = 70.0
+script = ExtResource("1_o5r2q")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -24,19 +26,24 @@ theme_override_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="icon_texture" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+[node name="item_icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 texture = SubResource("AtlasTexture_3d2df")
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="item_name" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 autowrap_mode = 3
 
-[node name="count_Label" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="item_amount" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 autowrap_mode = 3
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

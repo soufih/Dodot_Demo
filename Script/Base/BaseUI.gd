@@ -21,3 +21,4 @@ func ui_remove_from_stack() -> void:
 			break
 		else:
 			UIManager.ui_pop_from_stack()
+			

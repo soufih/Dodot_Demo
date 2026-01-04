@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bmquh0ekr1vjp"]
 
-[ext_resource type="Script" uid="uid://cjsdhfc1emcpg" path="res://Script/UI_Script/Compound_UI/item_selector_ui.gd" id="1_hwc0y"]
+[ext_resource type="Script" uid="uid://cjsdhfc1emcpg" path="res://Script/UI_Script/Component_UI/item_selector_ui.gd" id="1_hwc0y"]
 
 [node name="item_selector_ui" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 50)
@@ -47,3 +47,9 @@ size_flags_horizontal = 3
 [node name="Button5" type="Button" parent="MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="button_down" from="MarginContainer2/HBoxContainer/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="MarginContainer2/HBoxContainer/Button2" to="." method="_on_button_2_button_down"]
+[connection signal="button_down" from="MarginContainer2/HBoxContainer/Button3" to="." method="_on_button_3_button_down"]
+[connection signal="button_down" from="MarginContainer2/HBoxContainer/Button4" to="." method="_on_button_4_button_down"]
+[connection signal="button_down" from="MarginContainer2/HBoxContainer/Button5" to="." method="_on_button_5_button_down"]
