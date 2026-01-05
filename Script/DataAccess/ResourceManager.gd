@@ -55,6 +55,16 @@ func get_item_discription(id: int)->String:
 
 	return ""
 
+##获取物品主类型
+func get_item_main_item_type(id: int)->ENUM.ItemType:
+	var Config = get_item_config(id)
+	
+	if Config:
+		if Config.MainItemType:
+			return Config.MainItemType
+
+	return ENUM.ItemType.None
+
 ##获取物品类型
 func get_item_item_type(id: int)->Array:
 	var Config = get_item_config(id)
@@ -114,14 +124,14 @@ func get_item_products(id: int)->Array:
 	return []
 
 ##获取物品基础物品列表
-func get_item_recipe(id: int)->Array:
+func get_item_recipe(id: int)->Dictionary:
 	var Config = get_item_config(id)
 	
 	if Config:
 		if Config.Recipe:
 			return Config.Recipe
 
-	return []
+	return {}
 
 ##实例化物品场景
 func instantiate_item(id: int, parent: Node = null) -> Node:

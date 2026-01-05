@@ -129,6 +129,9 @@
       },
       "resource_name": {
         "visibility": 0.0
+      },
+      "resource_path": {
+        "visibility": 0
       }
     },
     "res://Rescource::Item::IconTexture/": {
@@ -183,7 +186,6 @@
     }
   },
   "recent_paths": [
-    "res://Rescource::Item/",
     "res://Rescource::LevelLog/",
     "res://Rescource/Data/",
     "res://Rescource/Data::LevelLog/",

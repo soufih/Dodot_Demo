@@ -7,16 +7,16 @@ func query_product(id: int) ->Array[int]:
 	return products
 
 ##查询配方
-func query_recipe(id: int) ->Array[int]:
-	var recipe:Array[int] = ResourceManager.get_item_recipe(id)
+func query_recipe(id: int) ->Dictionary:
+	var recipe:Dictionary = ResourceManager.get_item_recipe(id)
 	return recipe
 
 ##合成物品
 func compound(id: int) ->bool:
 	#获取配方
-	var recipe:Array[int] = query_recipe(id)
+	var recipe:Dictionary = query_recipe(id)
 
-	if recipe.size() == 0:  #没有配方
+	if recipe.is_empty():  #没有配方
 		return false
 
 	#检查材料是否足够

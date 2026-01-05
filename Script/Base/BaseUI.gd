@@ -2,7 +2,7 @@ extends Control
 class_name BaseUI
 
 func begin():
-	visibility_changed.connect(_on_visibility_changed)
+	connect("visibility_changed",_on_visibility_changed)
 
 
 ## 当UI可见性改变时调用

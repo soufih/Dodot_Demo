@@ -3,8 +3,6 @@ extends Node
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var HERO
 
-
-
 func _ready() -> void:
 	ResourceManager.load_item_catalog()
 	WeaponManager.load_weapon()

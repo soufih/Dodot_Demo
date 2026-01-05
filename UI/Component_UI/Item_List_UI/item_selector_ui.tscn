@@ -48,6 +48,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="button_down" from="MarginContainer2/HBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="MarginContainer2/HBoxContainer/Button2" to="." method="_on_button_2_button_down"]
 [connection signal="button_down" from="MarginContainer2/HBoxContainer/Button3" to="." method="_on_button_3_button_down"]
