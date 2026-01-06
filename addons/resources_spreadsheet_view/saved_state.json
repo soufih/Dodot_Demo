@@ -131,7 +131,7 @@
         "visibility": 0.0
       },
       "resource_path": {
-        "visibility": 0
+        "visibility": 0.0
       }
     },
     "res://Rescource::Item::IconTexture/": {
