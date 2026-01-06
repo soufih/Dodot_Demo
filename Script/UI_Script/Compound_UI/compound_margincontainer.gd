@@ -4,7 +4,7 @@ extends MarginContainer
 @onready var item_list_ui:itemList = $HBoxContainer/compound_ui/item_list_ui
 @onready var item_selector_ui:itemSelector = $HBoxContainer/compound_ui/item_selector_ui
 @onready var item_name_label: Label = $HBoxContainer/detailed_information/MarginContainer/name
-@onready var item_disciption_label: Label = $HBoxContainer/detailed_information/MarginContainer2/disciption
+@onready var item_disciption_label: Label = $HBoxContainer/detailed_information/MarginContainer2/discription
 @onready var item_recipe_list: itemList = $HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/item_list_ui
 
 ##合成UI属性

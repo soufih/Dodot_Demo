@@ -1,27 +1,25 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmtyh6pxk6pjt"]
 
-[ext_resource type="Texture2D" uid="uid://bnunu78lmxyi3" path="res://Rescource/UI/MediavelFree.png" id="1_d30lc"]
 [ext_resource type="Script" uid="uid://dwslkgmy76apw" path="res://Script/UI_Script/Component_UI/item_list_slot.gd" id="1_o5r2q"]
+[ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Rescource/Static/TestWeapon/weapons_new2_sword.png" id="2_o5r2q"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3d2df"]
-atlas = ExtResource("1_d30lc")
-region = Rect2(3.2324219, 20.793537, 70.76758, 72.20647)
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvmbs"]
+atlas = ExtResource("2_o5r2q")
 
 [node name="item_list_slot" type="PanelContainer"]
-custom_minimum_size = Vector2(240, 80)
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 47.0
-offset_bottom = 70.0
+custom_minimum_size = Vector2(80, 20)
+offset_top = 1.0
+offset_right = 160.0
+offset_bottom = 44.0
 script = ExtResource("1_o5r2q")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -30,12 +28,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-texture = SubResource("AtlasTexture_3d2df")
 
 [node name="item_name" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
+theme_override_font_sizes/font_size = 8
 autowrap_mode = 3
 
 [node name="item_amount" type="Label" parent="MarginContainer/HBoxContainer"]
@@ -43,8 +41,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 autowrap_mode = 3
 
+[node name="item_icon_true" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_kvmbs")
+
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
+size_flags_stretch_ratio = 2.0
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
