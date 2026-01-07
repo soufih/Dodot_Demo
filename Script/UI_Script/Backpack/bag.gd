@@ -24,3 +24,5 @@ func _ready() -> void:
 	var max_relic_contianer = EquipmentSlotSystem.get_relic_max_contianer()
 	for i in range(0, max_relic_contianer):
 		relic_container.add_child(equipment_slot.instantiate())
+	BackpackSystem._on_backpack_changed()
+	BackpackSystem.quick_add_item(2, 100)

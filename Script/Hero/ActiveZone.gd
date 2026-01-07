@@ -16,6 +16,9 @@ func _on_body_exited(body: Node2D) -> void:
 
 #定期冷冻最长时间未再次进入区域的敌人
 func _on_active_timer_timeout() -> void:
+	if FreezeQueue.is_empty():
+		return
+	
 	if FreezeQueue.get(0):
 		FreezeQueue.get(0).Atived = false
 	FreezeQueue.pop_front()

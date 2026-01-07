@@ -21,15 +21,15 @@ func _ready():
 
 
 # 公共方法：用于显示拾取提示
-#func show_pickup():
-	# 1. 更新UI内容
-	#icon_texture.texture = 
-	#name_label.text = 
-	#count_label.text = "x" + 
+func show_pickup():
+	 #1. 更新UI内容
+	icon_texture.texture = null
+	name_label.text = ''
+	count_label.text = "x" + ''
 
 	# 2. 重置动画和显示UI
 	show()
-	tween.kill_all() # 停止任何正在进行的动画
+	tween.kill() # 停止任何正在进行的动画
 	panel.modulate.a = 0 # 完全透明
 	panel.rect_position.y = -panel.rect_size.y # 从屏幕外上方开始
 

@@ -7,12 +7,12 @@ class_name warehouseUI
 @onready var warehouse:Array[Dictionary] = WarehouseSystem.get_warehouse()
 
 
-
 func _ready() -> void:
 	super.begin()
 	connect("visibility_changed", _on_self_visibility_changed)
 	EventBus.slot_pressed.connect(_on_slot_pressed)
 	EventBus.selector_button_pressed.connect(_on_selector_button_pressed)
+	WarehouseSystem.warehouse_changed.connect(refresh_display)
 	
 	refresh_display()
 	discription_ui.hide()
@@ -30,6 +30,7 @@ func _on_self_visibility_changed() -> void:
 		print("disconnect signal now")
 		EventBus.slot_pressed.disconnect(_on_slot_pressed)
 		EventBus.selector_button_pressed.disconnect(_on_selector_button_pressed)
+		discription_ui.hide()
 
 
 func _on_slot_pressed(item:Dictionary):

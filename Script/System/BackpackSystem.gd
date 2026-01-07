@@ -26,6 +26,7 @@ func _on_backpack_changed():
 func quick_add_item(id: int, amount: int)->Vector2i:
 	#检测合法性
 	if ResourceManager.get_item_config(id) == null:
+		
 		return Vector2i(id, amount)
 
 	var MaxStack: int = ResourceManager.get_item_max_stack(id)
@@ -35,7 +36,6 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 	#尝试在已有的物品堆中堆叠
 	for index in range(1, MaxContianer+1):
 		if Backpack.has(Vector2i(id, index)):
-			
 			var CurrentItemAmount =  Amounts[Vector2i(id, index)]
 			if CurrentItemAmount < MaxStack:
 				
@@ -78,7 +78,6 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 	
 	backpack_changed.emit()
 	quick_add.emit()
-
 	return Vector2i(id, 0)
 
 ##其他栏位物品与背包物品交互时使用，如仓库中物品与背包物品交互

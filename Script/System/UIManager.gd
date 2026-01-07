@@ -5,16 +5,9 @@ var tmp_slot:TmpSlot
 var UILayer: CanvasLayer
 var is_paused: bool = false
 
-var setting_panel_instance: BaseUI= null
-
 
 func _ready() -> void:
 	load_ui_layer_config()
-
-	load_ui("uid://dg5jscvs3feh3") #装备栏UI
-	load_ui("uid://1s1kttvb6l7w") #物品栏UI
-	load_ui("uid://cyy1mus77qou1")#暂停菜单UI
-	setting_panel_instance = load_ui("uid://di38xxftqwhae") ##加载设置面板
 
 ##加载UI层配置
 func load_ui_layer_config():
@@ -33,10 +26,14 @@ func load_ui_layer_config():
 
 ##加载UI
 func load_ui(ui_path: String) -> BaseUI:
+	if !UILayer:
+		return null	
 	var ui_scene: PackedScene = load(ui_path)
 	var ui_instance: BaseUI = ui_scene.instantiate()
-	UILayer.add_child(ui_instance)
+	
+	UILayer.call_deferred("add_child",ui_instance)
 	ui_instance.hide()
+		
 	return ui_instance
 
 
@@ -44,9 +41,21 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		ui_cancel()
 	
-	if event.is_action_pressed("OpenBackpack")&& !is_paused:
+	if is_paused:
+		return
+
+	if event.is_action_pressed("OpenBackpack"):
 		ui_open_backpack()
 
+	if event.is_action_pressed("OpenWarehouse"):
+		ui_open_warehouse()
+	
+	if event.is_action_pressed("OpenEquipmentEnhancement"):
+		ui_open_equipment_enhancement()
+
+	if event.is_action_pressed("OpenMap"):
+		ui_open_map()
+	
 ##UIStack新增元素时调用
 func ui_add_to_stack(ui: BaseUI) -> void:
 	UIStack.append(ui)
@@ -72,8 +81,9 @@ func ui_clear_stack() -> void:
 func ui_cancel():
 	if UIStack.size() > 0:
 		var top_ui: BaseUI = UIStack[UIStack.size() - 1]
-		top_ui.hide()
-		is_paused = false
+		if top_ui:
+			top_ui.hide()
+			is_paused = false
 	else: #栈为空时打开暂停菜单
 		open_pause_menu()
 
@@ -84,13 +94,30 @@ func open_pause_menu():
 		pause_menu.visible = !pause_menu.visible
 		is_paused = pause_menu.visible
 
-
 ##打开/关闭背包
 func ui_open_backpack():
 	var item_bar = UILayer.get_node("item_bar") as BaseUI
+	var equipment_bar = UILayer.get_node("equipment_bar") as BaseUI
+
 	if item_bar:
 		item_bar.visible = !item_bar.visible
-	
-	var equipment_bar = UILayer.get_node("equipment_bar") as BaseUI
+
 	if equipment_bar:
 		equipment_bar.visible = !equipment_bar.visible
+
+##打开/关闭仓库
+func ui_open_warehouse():
+	var warehouse_ui = UILayer.get_node("warehouse_ui") as BaseUI
+	if warehouse_ui:
+		warehouse_ui.visible = !warehouse_ui.visible
+
+##打开/关闭装备强化界面
+func ui_open_equipment_enhancement():
+	var equipment_enhancement_ui = UILayer.get_node("equipment_enhancement_ui") as BaseUI
+	if equipment_enhancement_ui:
+		equipment_enhancement_ui.visible = !equipment_enhancement_ui.visible
+
+func ui_open_map():
+	var map_ui = UILayer.get_node("map_ui") as BaseUI
+	if map_ui:
+		map_ui.visible = !map_ui.visible

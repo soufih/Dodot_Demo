@@ -8,4 +8,4 @@ func set_level_info(level:int, level_name:String) -> void:
 	LevelName = level_name
 
 func get_level_info() -> Dictionary:
-	return {"Level": Level, "LevelName": LevelName}
+	return {"level": Level, "levelName": LevelName}

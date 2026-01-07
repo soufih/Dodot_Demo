@@ -1,6 +1,7 @@
 extends PanelContainer
 class_name itemList
 
+
 @onready var slot_resource:PackedScene = load("uid://bmtyh6pxk6pjt")
 @onready var slot_VB = $MarginContainer/ScrollContainer/slot_VB
 

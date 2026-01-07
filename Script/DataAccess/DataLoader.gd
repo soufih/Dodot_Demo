@@ -28,8 +28,7 @@ func _ready() -> void:
 
 
 func set_hero(hero:BaseCharacter):
-	if hero:
-		HERO = hero
+	HERO = hero
 
 func get_hero():
 	if HERO:

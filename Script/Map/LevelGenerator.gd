@@ -51,7 +51,9 @@ func get_level_template(Level:int)->TemplateConfig:
 
 #随机挑选模板
 func random_select_level_template(Level:int)->Array:
-	var CurrentLevelTemplates:Array = get_level_template(Level).TemplatePath
+	var CurrentLevelTemplates:Array = get_level_template(Level).get("TemplatePath")
+	if !CurrentLevelTemplates:
+		return []
 	var Size = CurrentLevelTemplates.size()
 	
 	var Result = FileAccess.open(CurrentLevelTemplates[randi()%Size], FileAccess.READ)
@@ -210,14 +212,3 @@ func destroy_level():
 	for room in Rooms:
 		room.queue_free()
 	print("Done! Destroy Level")
-
-##创建线程
-func create_threads():
-	var processors:int = OS.get_processor_count()
-	# for i in range(processors-1):
-	# 	RoomLoadThreads.append(Thread.new())
-
-##线程化加载房间
-func load_rooms(rooms:Array, index:int, entrance:String, room:String):
-	var room_scene =  load(room) as PackedScene
-	rooms.append([room_scene, index, entrance])

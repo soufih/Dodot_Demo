@@ -7,7 +7,7 @@ class_name LoadingScreenUI
 var next_scene:String
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
 	ResourceLoader.load_threaded_request(next_scene, '', true)
 
 
@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 
 	#加载完成后跳转下一个界面
 	if progress[0] == 1:
-		var original_scene: Node2D= get_tree().current_scene
+		var original_scene= get_tree().current_scene
 		var packed_scene = ResourceLoader.load_threaded_get(next_scene)
 		get_tree().change_scene_to_packed(packed_scene)
 		original_scene.queue_free()

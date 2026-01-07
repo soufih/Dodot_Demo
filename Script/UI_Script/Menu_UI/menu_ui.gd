@@ -2,16 +2,21 @@ extends BaseUI
 
 var save_panel_instance: BaseUI = null
 var load_panel_instance: BaseUI = null
+var setting_panel_instance: BaseUI= null
 
 
 
 func _ready() -> void:
 	begin()
 	# 加载设置场景并实例化
+	setting_panel_instance = UIManager.load_ui("uid://di38xxftqwhae") #加载设置面板
+
+func _exit_tree() -> void:
+	setting_panel_instance.queue_free()
 
 ## 设置
 func _on_setting_pressed() -> void:	
-	UIManager.setting_panel_instance.show()
+	setting_panel_instance.show()
 
 ## 保存
 func _on_save_pressed() -> void:

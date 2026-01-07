@@ -1,16 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://baysbd0v7e3fm"]
+[gd_scene load_steps=6 format=3 uid="uid://baysbd0v7e3fm"]
 
+[ext_resource type="Script" uid="uid://dp1gt021tlnb2" path="res://Script/UI_Script/Map_UI/map_ui.gd" id="1_m4maf"]
 [ext_resource type="StyleBox" uid="uid://dfqp47rds7m7q" path="res://Rescource/UI/map/m2.tres" id="1_ti81g"]
 [ext_resource type="StyleBox" uid="uid://d05v5f0s0psq7" path="res://Rescource/UI/map/m4.tres" id="2_snxjc"]
 [ext_resource type="StyleBox" uid="uid://d3c5s318qc8hy" path="res://Rescource/UI/map/m3.tres" id="2_wxejp"]
+[ext_resource type="PackedScene" uid="uid://dbwx0jsme6knq" path="res://UI/Map_UI/level_discription.tscn" id="5_ea6cf"]
 
-[node name="Control" type="Control"]
+[node name="map_ui" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_m4maf")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -20,52 +23,97 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="Level1" type="Button" parent="."]
 layout_mode = 0
-offset_left = 237.0
-offset_top = 420.0
-offset_right = 385.0
-offset_bottom = 568.0
+offset_left = 75.0
+offset_top = 185.0
+offset_right = 223.0
+offset_bottom = 333.0
 theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="Button2" type="Button" parent="."]
+[node name="discription_pos_1" type="Marker2D" parent="Level1"]
+position = Vector2(161, -142)
+
+[node name="camera_pos_1" type="Marker2D" parent="Level1"]
+
+[node name="Level2" type="Button" parent="."]
 layout_mode = 0
-offset_left = 654.0
-offset_top = 306.0
-offset_right = 802.0
-offset_bottom = 454.0
+offset_left = 264.0
+offset_top = 386.0
+offset_right = 412.0
+offset_bottom = 534.0
 theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="Button3" type="Button" parent="."]
+[node name="discription_pos_2" type="Marker2D" parent="Level2"]
+position = Vector2(164, -88)
+
+[node name="camera_pos_2" type="Marker2D" parent="Level2"]
+
+[node name="Level3" type="Button" parent="."]
 layout_mode = 0
-offset_left = 510.0
-offset_top = 124.0
-offset_right = 658.0
-offset_bottom = 272.0
+offset_left = 444.0
+offset_top = 104.0
+offset_right = 592.0
+offset_bottom = 252.0
 theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="Button4" type="Button" parent="."]
+[node name="discription_pos_3" type="Marker2D" parent="Level3"]
+position = Vector2(160, -95)
+
+[node name="camera_pos_3" type="Marker2D" parent="Level3"]
+
+[node name="Level4" type="Button" parent="."]
 layout_mode = 0
-offset_left = 310.0
-offset_top = 235.0
-offset_right = 458.0
-offset_bottom = 383.0
+offset_left = 578.0
+offset_top = 419.0
+offset_right = 726.0
+offset_bottom = 567.0
 theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="Button5" type="Button" parent="."]
+[node name="discription_pos_4" type="Marker2D" parent="Level4"]
+position = Vector2(154, -109)
+
+[node name="camera_pos_4" type="Marker2D" parent="Level4"]
+
+[node name="Level5" type="Button" parent="."]
 layout_mode = 0
-offset_left = 803.0
-offset_top = 84.0
-offset_right = 951.0
-offset_bottom = 232.0
+offset_left = 824.0
+offset_top = 138.0
+offset_right = 972.0
+offset_bottom = 286.0
 theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
+
+[node name="discription_pos_5" type="Marker2D" parent="Level5"]
+position = Vector2(-281, -137)
+
+[node name="camera_pos_5" type="Marker2D" parent="Level5"]
+
+[node name="level_discription" parent="." instance=ExtResource("5_ea6cf")]
+layout_mode = 1
+offset_left = 542.0
+offset_right = 542.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(479, 217)
+zoom = Vector2(1.5, 1.5)
+limit_enabled = false
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 648
+
+[connection signal="button_down" from="Level1" to="." method="_on_level_1_button_down"]
+[connection signal="button_down" from="Level2" to="." method="_on_level_2_button_down"]
+[connection signal="button_down" from="Level3" to="." method="_on_level_3_button_down"]
+[connection signal="button_down" from="Level4" to="." method="_on_level_4_button_down"]
+[connection signal="button_down" from="Level5" to="." method="_on_level_5_button_down"]

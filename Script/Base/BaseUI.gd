@@ -20,5 +20,6 @@ func ui_remove_from_stack() -> void:
 			UIManager.ui_pop_from_stack()
 			break
 		else:
-			UIManager.ui_pop_from_stack()
+			if UIManager.ui_get_top():
+				UIManager.ui_get_top().hide()
 			

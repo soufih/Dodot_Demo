@@ -145,7 +145,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_bottom = 30
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/MarginContainer"]
+[node name="confirm" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -155,3 +155,4 @@ text = "确认"
 [connection signal="button_down" from="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer/compound_button" to="." method="_on_compound_button_button_down"]
 [connection signal="button_down" from="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_button_down"]
 [connection signal="visibility_changed" from="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" to="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" method="_on_visibility_changed"]
+[connection signal="button_down" from="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/MarginContainer/confirm" to="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" method="_on_confirm_button_down"]
