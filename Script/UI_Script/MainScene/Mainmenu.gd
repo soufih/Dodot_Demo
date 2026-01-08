@@ -10,7 +10,7 @@ func _ready() -> void:
 	start_button.pressed.connect(on_start_pressed)
 	setting_button.pressed.connect(on_setting_pressed)
 	quit_button.pressed.connect(on_quit_pressed)
-	setting_panel_instance = UIManager.load_ui("uid://di38xxftqwhae")
+	setting_panel_instance = UIManager.load_ui("uid://di38xxftqwhae", "UILayer")
 
 
 func on_start_pressed():

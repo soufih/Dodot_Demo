@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dsspae73jd8a6"]
+[gd_scene load_steps=61 format=3 uid="uid://dsspae73jd8a6"]
 
 [ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/HeroProperty.gd" id="1_6pkku"]
 [ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://c7qfa1oryeryk" path="res://Script/Hero/FSM/Death.gd" id="10_pwso0"]
 [ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Hero/FSM/Break.gd" id="11_v1ih1"]
 [ext_resource type="Script" uid="uid://b136nok0ljjgi" path="res://Script/Hero/ActiveZone.gd" id="13_8l1ja"]
+[ext_resource type="Script" uid="uid://fe5kru1uiwtf" path="res://Script/Hero/main_camera.gd" id="13_73oc2"]
 [ext_resource type="PackedScene" uid="uid://cc5wdn2jl6o02" path="res://UI/PlayerUI/PlayerUI.tscn" id="13_fqamf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1ih1"]
@@ -527,9 +528,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_b7f62")
 }
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="MainCamera" type="Camera2D" parent="."]
 position = Vector2(176, -2)
 limit_enabled = false
+script = ExtResource("13_73oc2")
 
 [node name="RecoverTimer" type="Timer" parent="."]
 one_shot = true

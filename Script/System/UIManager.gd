@@ -3,6 +3,7 @@ extends Node
 var UIStack: Array[BaseUI] = []
 var tmp_slot:TmpSlot
 var UILayer: CanvasLayer
+var flotUIlayer: CanvasLayer
 var is_paused: bool = false
 
 
@@ -13,27 +14,33 @@ func _ready() -> void:
 func load_ui_layer_config():
 	var TmpSlotLayer = CanvasLayer.new()
 	UILayer = CanvasLayer.new()
+	UILayer.name = "UILayer"
+	flotUIlayer = CanvasLayer.new()
+	flotUIlayer.name = "flotUIlayer"
+	flotUIlayer.follow_viewport_enabled = true
 	
 	add_child(TmpSlotLayer)
 	add_child(UILayer)
+	add_child(flotUIlayer)	
 	
 	TmpSlotLayer.layer = 100
 	UILayer.layer = 99
+	flotUIlayer.layer = 101
 
 	tmp_slot = preload("uid://bb4quhyltqxmu").instantiate()
 	TmpSlotLayer.add_child(tmp_slot)
 
-
 ##加载UI
-func load_ui(ui_path: String) -> BaseUI:
+func load_ui(ui_path: String, layer: String) -> BaseUI:
 	if !UILayer:
 		return null	
 	var ui_scene: PackedScene = load(ui_path)
 	var ui_instance: BaseUI = ui_scene.instantiate()
-	
-	UILayer.call_deferred("add_child",ui_instance)
 	ui_instance.hide()
-		
+
+	if get_node(layer):
+		get_node(layer).call_deferred("add_child",ui_instance)
+
 	return ui_instance
 
 
@@ -118,6 +125,6 @@ func ui_open_equipment_enhancement():
 		equipment_enhancement_ui.visible = !equipment_enhancement_ui.visible
 
 func ui_open_map():
-	var map_ui = UILayer.get_node("map_ui") as BaseUI
+	var map_ui = flotUIlayer.get_node("map_ui") as BaseUI
 	if map_ui:
 		map_ui.visible = !map_ui.visible

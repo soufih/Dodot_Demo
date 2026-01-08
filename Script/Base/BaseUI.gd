@@ -22,4 +22,3 @@ func ui_remove_from_stack() -> void:
 		else:
 			if UIManager.ui_get_top():
 				UIManager.ui_get_top().hide()
-			

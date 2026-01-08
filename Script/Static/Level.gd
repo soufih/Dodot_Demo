@@ -8,16 +8,20 @@ var pauseMenuUI: BaseUI = null
 var hero: HeroProperty
 
 func _ready() -> void:
-	equipemntBarUI =  UIManager.load_ui("uid://dg5jscvs3feh3")#装备栏UI
-	backpackBarUI = UIManager.load_ui("uid://1s1kttvb6l7w") #物品栏UI
-	pauseMenuUI =  UIManager.load_ui("uid://cyy1mus77qou1")#暂停菜单UI
+	equipemntBarUI =  UIManager.load_ui("uid://dg5jscvs3feh3", "UILayer")#装备栏UI
+	backpackBarUI = UIManager.load_ui("uid://1s1kttvb6l7w", "UILayer") #物品栏UI
+	pauseMenuUI =  UIManager.load_ui("uid://cyy1mus77qou1", "UILayer")#暂停菜单UI
 	
 	LevelGenerator.prepare_generating()
 	LevelGenerator.generate_level(LevelInformation.get_level_info().level)
 
 func _exit_tree() -> void:
-	equipemntBarUI.queue_free()
-	backpackBarUI.queue_free()
-	pauseMenuUI.queue_free()
+	UIManager.ui_clear_stack()
+	if equipemntBarUI:
+		equipemntBarUI.queue_free()
+	if backpackBarUI:
+		backpackBarUI.queue_free()
+	if pauseMenuUI:
+		pauseMenuUI.queue_free()
 
 	DataLoader.set_hero(null)

@@ -14,37 +14,95 @@ extends BaseUI
 @onready var camera_pos_4: Marker2D = $"Level4/camera_pos_4"
 @onready var camera_pos_5: Marker2D = $"Level5/camera_pos_5"
 
-@onready var camera = $Camera2D
+@onready var camera:Camera2D = $MapCammera
+var camera_pos_start:Vector2
 
 func _ready() -> void:
 	begin()
-	hide()
+	#hide()
+	camera_pos_start = camera.global_position
+	
 
 func _on_level_1_button_down() -> void:
 	LevelInformation.set_level_info(0,"level1")
 	level_discription.global_position = discription_pos1.global_position
-	level_discription.show()
+	
+	var tween:Tween = create_tween()
+	tween.tween_property(camera,"global_position", camera_pos_1.global_position, 0.25)
+	tween.set_parallel()
+	tween.tween_property(camera,"zoom", Vector2(1.5,1.5), 0.25)
+
+	tween.tween_callback(level_discription.show).set_delay(0.25)
 
 
 func _on_level_2_button_down() -> void:
 	LevelInformation.set_level_info(1,"level2")
 	level_discription.global_position = discription_pos2.global_position
-	level_discription.show()
+
+	var tween:Tween = create_tween()
+	tween.tween_property(camera,"global_position", camera_pos_2.global_position, 0.25)
+	tween.set_parallel()
+	tween.tween_property(camera,"zoom", Vector2(1.5,1.5), 0.25)
+
+	tween.tween_callback(level_discription.show).set_delay(0.25)
 
 
 func _on_level_3_button_down() -> void:
 	LevelInformation.set_level_info(2,"level3")
 	level_discription.global_position = discription_pos3.global_position
-	level_discription.show()
+	
+	var tween:Tween = create_tween()
+	tween.tween_property(camera,"global_position", camera_pos_3.global_position, 0.25)
+	tween.set_parallel()
+	tween.tween_property(camera,"zoom", Vector2(1.5,1.5), 0.25)
+	
+	tween.tween_callback(level_discription.show).set_delay(0.25)
 
 
 func _on_level_4_button_down() -> void:
 	LevelInformation.set_level_info(3,"level4")
 	level_discription.global_position = discription_pos4.global_position
-	level_discription.show()
+	
+	var tween:Tween = create_tween()
+	tween.tween_property(camera,"global_position", camera_pos_4.global_position, 0.25)
+	tween.set_parallel()
+	tween.tween_property(camera,"zoom", Vector2(1.5,1.5), 0.25)
+
+	tween.tween_callback(level_discription.show).set_delay(0.25)
+
 
 
 func _on_level_5_button_down() -> void:
 	LevelInformation.set_level_info(4,"level5")
 	level_discription.global_position = discription_pos5.global_position
-	level_discription.show()
+
+	var tween:Tween = create_tween()
+	tween.tween_property(camera,"global_position", camera_pos_5.global_position, 0.25)
+	tween.set_parallel()
+	tween.tween_property(camera,"zoom", Vector2(1.5,1.5), 0.25)
+
+	tween.tween_callback(level_discription.show).set_delay(0.25)
+
+
+func _on_level_discription_visibility_changed() -> void:
+	if !level_discription:
+		return
+	if !level_discription.visible:
+		var tween:Tween = create_tween()
+		tween.tween_property(camera,"global_position", camera_pos_start, 0.25)
+		tween.set_parallel()
+		tween.tween_property(camera,"zoom", Vector2(1,1), 0.25)
+
+
+func _on_map_ui_visibility_changed() -> void:
+	if !camera:
+		return
+	
+	if visible:
+		camera.make_current()
+		return
+
+	var cameras = get_tree().get_nodes_in_group("Camera")
+	for c in cameras:
+		if c.name == "MainCamera":
+			c.make_current()

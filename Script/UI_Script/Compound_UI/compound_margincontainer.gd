@@ -59,8 +59,9 @@ func _on_visibility_changed() -> void:
 
 func _exit_tree() -> void:
 	print("disconnect signal now")
-	EventBus.slot_pressed.disconnect(_on_slot_pressed)
-	EventBus.selector_button_pressed.disconnect(_on_selector_button_pressed)
+	if !EventBus.slot_pressed.get_connections().is_empty():
+		EventBus.slot_pressed.disconnect(_on_slot_pressed)
+		EventBus.selector_button_pressed.disconnect(_on_selector_button_pressed)
 
 ##处理物品槽信号
 func _on_slot_pressed(item:Dictionary):

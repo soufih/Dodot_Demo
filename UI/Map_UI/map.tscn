@@ -1,16 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://baysbd0v7e3fm"]
+[gd_scene load_steps=8 format=3 uid="uid://baysbd0v7e3fm"]
 
 [ext_resource type="Script" uid="uid://dp1gt021tlnb2" path="res://Script/UI_Script/Map_UI/map_ui.gd" id="1_m4maf"]
 [ext_resource type="StyleBox" uid="uid://dfqp47rds7m7q" path="res://Rescource/UI/map/m2.tres" id="1_ti81g"]
+[ext_resource type="Texture2D" uid="uid://p1m3uxrnf0f3" path="res://Rescource/Static/334bdd63de86f1629ad411172374e62c.jpg" id="2_p05sj"]
 [ext_resource type="StyleBox" uid="uid://d05v5f0s0psq7" path="res://Rescource/UI/map/m4.tres" id="2_snxjc"]
 [ext_resource type="StyleBox" uid="uid://d3c5s318qc8hy" path="res://Rescource/UI/map/m3.tres" id="2_wxejp"]
 [ext_resource type="PackedScene" uid="uid://dbwx0jsme6knq" path="res://UI/Map_UI/level_discription.tscn" id="5_ea6cf"]
+[ext_resource type="Script" uid="uid://bea1y3y6hitgp" path="res://Script/UI_Script/Map_UI/map_cammera.gd" id="6_nobv4"]
 
 [node name="map_ui" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m4maf")
@@ -20,8 +24,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -254.99998
+offset_top = -174.0
+offset_right = 804.0
+offset_bottom = 529.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.5200008, 1.5200008)
+texture = ExtResource("2_p05sj")
 
 [node name="Level1" type="Button" parent="."]
 layout_mode = 0
@@ -37,6 +47,7 @@ theme_override_styles/hover = ExtResource("2_snxjc")
 position = Vector2(161, -142)
 
 [node name="camera_pos_1" type="Marker2D" parent="Level1"]
+position = Vector2(67, 68)
 
 [node name="Level2" type="Button" parent="."]
 layout_mode = 0
@@ -52,6 +63,7 @@ theme_override_styles/hover = ExtResource("2_snxjc")
 position = Vector2(164, -88)
 
 [node name="camera_pos_2" type="Marker2D" parent="Level2"]
+position = Vector2(68, 112)
 
 [node name="Level3" type="Button" parent="."]
 layout_mode = 0
@@ -67,6 +79,7 @@ theme_override_styles/hover = ExtResource("2_snxjc")
 position = Vector2(160, -95)
 
 [node name="camera_pos_3" type="Marker2D" parent="Level3"]
+position = Vector2(41, 112)
 
 [node name="Level4" type="Button" parent="."]
 layout_mode = 0
@@ -82,6 +95,7 @@ theme_override_styles/hover = ExtResource("2_snxjc")
 position = Vector2(154, -109)
 
 [node name="camera_pos_4" type="Marker2D" parent="Level4"]
+position = Vector2(59, 95)
 
 [node name="Level5" type="Button" parent="."]
 layout_mode = 0
@@ -97,23 +111,29 @@ theme_override_styles/hover = ExtResource("2_snxjc")
 position = Vector2(-281, -137)
 
 [node name="camera_pos_5" type="Marker2D" parent="Level5"]
+position = Vector2(76, 66)
 
 [node name="level_discription" parent="." instance=ExtResource("5_ea6cf")]
 layout_mode = 1
-offset_left = 542.0
-offset_right = 542.0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(479, 217)
-zoom = Vector2(1.5, 1.5)
+[node name="MapCammera" type="Camera2D" parent="."]
+position = Vector2(566.92914, 324)
 limit_enabled = false
 limit_left = 0
 limit_top = 0
 limit_right = 1152
 limit_bottom = 648
+script = ExtResource("6_nobv4")
 
+[connection signal="visibility_changed" from="." to="." method="_on_map_ui_visibility_changed"]
 [connection signal="button_down" from="Level1" to="." method="_on_level_1_button_down"]
 [connection signal="button_down" from="Level2" to="." method="_on_level_2_button_down"]
 [connection signal="button_down" from="Level3" to="." method="_on_level_3_button_down"]
 [connection signal="button_down" from="Level4" to="." method="_on_level_4_button_down"]
 [connection signal="button_down" from="Level5" to="." method="_on_level_5_button_down"]
+[connection signal="visibility_changed" from="level_discription" to="." method="_on_level_discription_visibility_changed"]

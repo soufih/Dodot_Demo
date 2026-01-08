@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/Player_State_UI/Player_State_UI.tscn" id="1_4r1r0"]
 
 [node name="PlayerUi" type="CanvasLayer"]
+follow_viewport_scale = 0.001
 
 [node name="Player_State_UI" parent="." instance=ExtResource("1_4r1r0")]
 offset_left = -1.0

@@ -78,6 +78,7 @@ folder_colors={
 Hero="玩家"
 Enemy="敌人"
 Weapon="武器"
+Camera="摄像机"
 
 [input]
 

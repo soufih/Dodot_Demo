@@ -9,7 +9,7 @@ var setting_panel_instance: BaseUI= null
 func _ready() -> void:
 	begin()
 	# 加载设置场景并实例化
-	setting_panel_instance = UIManager.load_ui("uid://di38xxftqwhae") #加载设置面板
+	setting_panel_instance = UIManager.load_ui("uid://di38xxftqwhae", "UILayer") #加载设置面板
 
 func _exit_tree() -> void:
 	setting_panel_instance.queue_free()
