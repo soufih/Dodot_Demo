@@ -2,8 +2,7 @@ extends Node
 
 @onready var startpoint:Marker2D = $Startpoint
 #UI界面
-var equipemntBarUI: BaseUI = null
-var backpackBarUI: BaseUI = null
+var inventoryUI: BaseUI = null
 var pauseMenuUI: BaseUI = null
 var warehouse:BaseUI = null
 var equipmentEnhancementUI:BaseUI = null
@@ -13,8 +12,7 @@ var hero: HeroProperty
 
 
 func _enter_tree() -> void:
-	equipemntBarUI = UIManager.load_ui("uid://dg5jscvs3feh3", "UILayer") #装备栏UI
-	backpackBarUI = UIManager.load_ui("uid://1s1kttvb6l7w", "UILayer") #物品栏UI
+	inventoryUI = UIManager.load_ui("uid://m6qc3rqc8yuq", "UILayer") #背包UI
 	warehouse = UIManager.load_ui("uid://cd2xfe7rysnxr", "UILayer") #仓库UI
 	equipmentEnhancementUI = UIManager.load_ui("uid://hmacpsbsf4q8", "UILayer") #装备强化界面
 	pauseMenuUI = UIManager.load_ui("uid://cyy1mus77qou1", "UILayer")#暂停菜单UI
@@ -27,13 +25,11 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	UIManager.ui_clear_stack()
-	if equipemntBarUI:
-		equipemntBarUI.queue_free()
-	if backpackBarUI:
-		backpackBarUI.queue_free()
+	if inventoryUI:
+		inventoryUI.queue_free()
 	if warehouse:
 		warehouse.queue_free()
-	if equipemntBarUI:
+	if equipmentEnhancementUI:
 		equipmentEnhancementUI.queue_free()
 	if pauseMenuUI:
 		pauseMenuUI.queue_free()

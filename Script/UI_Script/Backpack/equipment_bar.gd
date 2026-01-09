@@ -1,11 +1,11 @@
-extends BaseUI
+extends Control
+class_name equipment_bar
 
-@onready var weapon_container: HBoxContainer = $VBoxContainer/WeaponSlot
-@onready var relic_container: HBoxContainer = $VBoxContainer/RelicSlot
+@onready var weapon_container: VBoxContainer = $VBoxContainer/WeaponSlot
+@onready var relic_container: VBoxContainer = $VBoxContainer/RelicSlot
 
 
 func _ready() -> void:
-	begin()
 	#加载装备格子
 	var max_weapon_contianer = EquipmentSlotSystem.get_weapon_max_contianer()
 	var equipment_slot = load("uid://5fpsr5w83lwa")

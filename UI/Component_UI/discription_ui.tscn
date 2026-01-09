@@ -4,7 +4,10 @@
 
 [node name="discription_ui" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
 mouse_filter = 1
 script = ExtResource("1_ctkqa")
 
@@ -56,10 +59,10 @@ autowrap_mode = 3
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(1150, 650)
 layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 1152.0
-offset_bottom = 652.0
+offset_left = -894.0
+offset_top = -1.0
+offset_right = 256.0
+offset_bottom = 649.0
 mouse_filter = 1
 
 [connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]

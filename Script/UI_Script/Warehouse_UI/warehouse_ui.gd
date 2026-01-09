@@ -3,7 +3,7 @@ class_name warehouseUI
 
 @onready var item_selector_ui:itemSelector = $VBoxContainer/item_selector_ui
 @onready var item_list_ui: itemList = $VBoxContainer/item_list_ui
-@onready var discription_ui:discriptionUI = $discription_ui
+@onready var discription_ui:discriptionUI = $DesriptionContainer/discription_ui
 @onready var warehouse:Array[Dictionary] = WarehouseSystem.get_warehouse()
 
 

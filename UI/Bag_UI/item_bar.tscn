@@ -34,3 +34,7 @@ size_flags_vertical = 4
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 2

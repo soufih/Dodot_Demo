@@ -103,14 +103,10 @@ func open_pause_menu():
 
 ##打开/关闭背包
 func ui_open_backpack():
-	var item_bar = UILayer.get_node("item_bar") as BaseUI
-	var equipment_bar = UILayer.get_node("equipment_bar") as BaseUI
+	var inventory_ui = UILayer.get_node("inventory_ui") as BaseUI
 
-	if item_bar:
-		item_bar.visible = !item_bar.visible
-
-	if equipment_bar:
-		equipment_bar.visible = !equipment_bar.visible
+	if inventory_ui:
+		inventory_ui.visible = !inventory_ui.visible
 
 ##打开/关闭仓库
 func ui_open_warehouse():

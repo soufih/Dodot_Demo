@@ -4,7 +4,6 @@ class_name BaseUI
 func begin():
 	connect("visibility_changed",_on_visibility_changed)
 
-
 ## 当UI可见性改变时调用
 func _on_visibility_changed():
 	if visible:

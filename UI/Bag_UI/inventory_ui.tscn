@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://m6qc3rqc8yuq"]
+
+[ext_resource type="Script" uid="uid://bvho4ojtslqu" path="res://Script/UI_Script/Backpack/inventory_ui.gd" id="1_32ywa"]
+[ext_resource type="PackedScene" uid="uid://dg5jscvs3feh3" path="res://UI/Bag_UI/equipment_bar.tscn" id="1_ox6jp"]
+[ext_resource type="PackedScene" uid="uid://1s1kttvb6l7w" path="res://UI/Bag_UI/item_bar.tscn" id="2_32ywa"]
+
+[node name="inventory_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_32ywa")
+metadata/_custom_type_script = "uid://dpvedxs6c6e4f"
+metadata/_edit_vertical_guides_ = [-18.0]
+metadata/_edit_horizontal_guides_ = [48.0]
+
+[node name="equipment_bar" parent="." instance=ExtResource("1_ox6jp")]
+layout_mode = 0
+offset_left = 154.0
+offset_top = 48.0
+offset_right = 354.0
+offset_bottom = 219.985
+
+[node name="item_bar" parent="." instance=ExtResource("2_32ywa")]
+layout_mode = 1
+offset_left = 16.999998
+offset_top = 43.0
+offset_right = 157.0
+offset_bottom = 183.0

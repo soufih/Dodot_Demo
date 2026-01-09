@@ -95,7 +95,6 @@ func compound(item:Dictionary) ->bool:
 		WarehouseSystem.modify_item_amount(item_id, -recipe[item_id])
 		WarehouseSystem.modify_item_amount(item.id, int(item.amount))
 
-	print(WarehouseSystem.get_warehouse())
 	return true
 
 
