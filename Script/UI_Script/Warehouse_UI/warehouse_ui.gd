@@ -10,8 +10,6 @@ class_name warehouseUI
 func _ready() -> void:
 	super.begin()
 	connect("visibility_changed", _on_self_visibility_changed)
-	EventBus.slot_pressed.connect(_on_slot_pressed)
-	EventBus.selector_button_pressed.connect(_on_selector_button_pressed)
 	WarehouseSystem.warehouse_changed.connect(refresh_display)
 	
 	refresh_display()
@@ -22,20 +20,22 @@ func refresh_display():
 	item_list_ui.modify_items_list(displayed_items)
 
 func _on_self_visibility_changed() -> void:
-	if visible:
-		print("connect signal now")
-		EventBus.slot_pressed.connect(_on_slot_pressed)
-		EventBus.selector_button_pressed.connect(_on_selector_button_pressed)
-	else:
-		print("disconnect signal now")
-		EventBus.slot_pressed.disconnect(_on_slot_pressed)
-		EventBus.selector_button_pressed.disconnect(_on_selector_button_pressed)
+	if !visible:
 		discription_ui.hide()
 
 
-func _on_slot_pressed(item:Dictionary):
+func _on_item_list_ui_list_slot_pressed(item:Dictionary) -> void:
 	discription_ui.modify_displayed_information(item)
 	discription_ui.show()
 
+
+#func _on_slot_pressed(item:Dictionary):
+	#discription_ui.modify_displayed_information(item)
+	#discription_ui.show()
+
 func _on_selector_button_pressed(type:ENUM.ItemType):
+	refresh_display()
+
+
+func _on_item_selector_ui_selector_button_pressed(type:ENUM.ItemType) -> void:
 	refresh_display()

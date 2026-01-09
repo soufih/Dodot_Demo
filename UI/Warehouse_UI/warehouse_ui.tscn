@@ -24,3 +24,6 @@ size_flags_vertical = 3
 
 [node name="discription_ui" parent="." instance=ExtResource("4_gai1e")]
 layout_mode = 2
+
+[connection signal="selector_button_pressed" from="VBoxContainer/item_selector_ui" to="." method="_on_item_selector_ui_selector_button_pressed"]
+[connection signal="list_slot_pressed" from="VBoxContainer/item_list_ui" to="." method="_on_item_list_ui_list_slot_pressed"]

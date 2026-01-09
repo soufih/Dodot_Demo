@@ -5,7 +5,7 @@ extends MarginContainer
 @onready var item_selector_ui:itemSelector = $HBoxContainer/compound_ui/item_selector_ui
 @onready var item_name_label: Label = $HBoxContainer/detailed_information/MarginContainer/name
 @onready var item_disciption_label: Label = $HBoxContainer/detailed_information/MarginContainer2/discription
-@onready var item_recipe_list: itemList = $HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/item_list_ui
+@onready var item_recipe_list: itemList = $HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/RecipeContainer/item_list_ui
 
 ##合成UI属性
 var selector_condotion:Array
@@ -17,6 +17,8 @@ const maxItemcounts:int = 5
 
 func _ready() -> void:
 	item_list_ui.modify_items_list(select_displayed_items())
+	if item_recipe_list:
+		item_recipe_list.hide_when_empty(true)
 
 func select_displayed_items()->Array:
 	var items:Array[Dictionary]=[]
@@ -42,29 +44,14 @@ func selector(id: int)->bool:
 func _on_visibility_changed() -> void:
 	if root:
 		if !root.visible || !visible:
-			print("disconnect signal now")
-			EventBus.slot_pressed.disconnect(_on_slot_pressed)
-			EventBus.selector_button_pressed.disconnect(_on_selector_button_pressed)
 			current_selected_item = {
 				"id": -1,
 				"amount": 0
 			}
 			return
 
-	if visible:
-		print("connect signal now")
-		EventBus.slot_pressed.connect(_on_slot_pressed)
-		EventBus.selector_button_pressed.connect(_on_selector_button_pressed)
-
-
-func _exit_tree() -> void:
-	print("disconnect signal now")
-	if !EventBus.slot_pressed.get_connections().is_empty():
-		EventBus.slot_pressed.disconnect(_on_slot_pressed)
-		EventBus.selector_button_pressed.disconnect(_on_selector_button_pressed)
-
 ##处理物品槽信号
-func _on_slot_pressed(item:Dictionary):
+func _on_item_list_ui_list_slot_pressed(item:Dictionary) -> void:
 	item_name_label.text = item.itemName
 	item_disciption_label.text = ResourceManager.get_item_discription(item.id)
 
@@ -80,8 +67,9 @@ func _on_slot_pressed(item:Dictionary):
 	item_recipe_list.modify_items_list(result)
 
 ##处理筛选信号
-func _on_selector_button_pressed(type: ENUM.ItemType):
+func _on_item_selector_ui_selector_button_pressed(type: ENUM.ItemType) -> void:
 	item_list_ui.modify_items_list(select_displayed_items())
+
 
 ##处理合成逻辑
 func _on_confirm_button_down() -> void:
@@ -109,3 +97,25 @@ func compound(item:Dictionary) ->bool:
 
 	print(WarehouseSystem.get_warehouse())
 	return true
+
+
+
+###处理物品槽信号
+#func _on_slot_pressed(item:Dictionary):
+	#item_name_label.text = item.itemName
+	#item_disciption_label.text = ResourceManager.get_item_discription(item.id)
+#
+	#var recipe:Dictionary = ResourceManager.get_item_recipe(item.id)
+	#var result:Array = []
+	#for id in recipe:
+		#result.append({
+			#"id": id,
+			#"amount": recipe[id],
+		#})
+#
+	#current_selected_item = item
+	#item_recipe_list.modify_items_list(result)
+
+###处理筛选信号
+#func _on_selector_button_pressed(type: ENUM.ItemType):
+	#item_list_ui.modify_items_list(select_displayed_items())

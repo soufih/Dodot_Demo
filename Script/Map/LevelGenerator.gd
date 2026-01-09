@@ -51,7 +51,10 @@ func get_level_template(Level:int)->TemplateConfig:
 
 #随机挑选模板
 func random_select_level_template(Level:int)->Array:
-	var CurrentLevelTemplates:Array = get_level_template(Level).get("TemplatePath")
+	var LevelTemplates = get_level_template(Level)
+	if !LevelTemplates:
+		return []
+	var CurrentLevelTemplates:Array = LevelTemplates.get("TemplatePath")
 	if !CurrentLevelTemplates:
 		return []
 	var Size = CurrentLevelTemplates.size()

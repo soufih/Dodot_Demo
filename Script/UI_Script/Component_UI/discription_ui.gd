@@ -11,7 +11,6 @@ func modify_displayed_information(itemConfig:Dictionary):
 	
 	Name.text = ResourceManager.get_item_name(itemConfig.id) 
 	Description.text = ResourceManager.get_item_discription(itemConfig.id)
-	
 
 
 func _on_panel_gui_input(event: InputEvent) -> void:

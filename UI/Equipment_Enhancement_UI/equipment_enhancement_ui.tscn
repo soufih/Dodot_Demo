@@ -131,7 +131,12 @@ size_flags_stretch_ratio = 6.0
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3"]
 layout_mode = 2
 
-[node name="item_list_ui" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer" instance=ExtResource("2_ms68c")]
+[node name="RecipeContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(108.715, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 2.0
+
+[node name="item_list_ui" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/RecipeContainer" instance=ExtResource("2_ms68c")]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -155,4 +160,7 @@ text = "确认"
 [connection signal="button_down" from="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer/compound_button" to="." method="_on_compound_button_button_down"]
 [connection signal="button_down" from="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer/exit_button" to="." method="_on_exit_button_button_down"]
 [connection signal="visibility_changed" from="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" to="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" method="_on_visibility_changed"]
+[connection signal="selector_button_pressed" from="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/compound_ui/item_selector_ui" to="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" method="_on_item_selector_ui_selector_button_pressed"]
+[connection signal="list_slot_pressed" from="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/compound_ui/item_list_ui" to="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" method="_on_item_list_ui_list_slot_pressed"]
+[connection signal="list_slot_pressed" from="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/RecipeContainer/item_list_ui" to="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" method="_on_item_list_ui_list_slot_pressed"]
 [connection signal="button_down" from="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/MarginContainer/confirm" to="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" method="_on_confirm_button_down"]

@@ -44,7 +44,6 @@ WarehouseSystem="*res://Script/System/WarehouseSystem.gd"
 LevelInformation="*res://Script/Map/LevelInformation.gd"
 LevelGenerator="*res://Script/Map/LevelGenerator.gd"
 DamageSystem="*res://Script/System/DamageSystem.gd"
-EventBus="*res://Script/System/EventBus.gd"
 
 [debug]
 

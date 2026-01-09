@@ -1,6 +1,8 @@
 extends PanelContainer
 class_name itemListslot
 
+signal slot_pressed
+
 @onready var icon:TextureRect = $MarginContainer/item_icon_true
 @onready var itemName: Label = $MarginContainer/HBoxContainer/item_name
 @onready var amount: Label = $MarginContainer/HBoxContainer/item_amount
@@ -16,8 +18,8 @@ func modify_item_display(itemConfig:Dictionary):
 
 
 func _on_button_button_down() -> void:
-	EventBus.emit_signal("slot_pressed", {
+	emit_signal("slot_pressed", {
 		"id": id,
 		"itemName": itemName.text,
-		"amount": amount.text,
+		"amount": int(amount.text),
 	})

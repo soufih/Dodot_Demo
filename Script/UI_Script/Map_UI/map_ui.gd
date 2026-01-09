@@ -19,7 +19,6 @@ var camera_pos_start:Vector2
 
 func _ready() -> void:
 	begin()
-	#hide()
 	camera_pos_start = camera.global_position
 	
 
