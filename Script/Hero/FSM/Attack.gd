@@ -5,6 +5,8 @@ extends BaseState
 var HitBox: Area2D
 
 func enter():
+	if $"../../WeaponPosition".get_children().is_empty():
+		return
 	if $"../../WeaponPosition".get_child(0) == null:
 		return
 	get_parent().attacking = true

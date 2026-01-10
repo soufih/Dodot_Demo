@@ -34,9 +34,11 @@ func _physics_process(delta: float) -> void:
 
 
 func equip_weapon(WeaponId: int):
-	if WeaponPosition.get_children().size() != 0:
+	if !WeaponPosition.get_children().is_empty():
 		WeaponPosition.get_child(0).queue_free()
 	ResourceManager.instantiate_item(WeaponId, WeaponPosition)
+	if WeaponPosition.get_children().is_empty():
+		return
 	if WeaponPosition.get_child(0):
 		WeaponPosition.get_child(0).set_self_owner(self)
 

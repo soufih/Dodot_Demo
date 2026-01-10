@@ -1,6 +1,7 @@
 extends Button
 
 @onready var label_item_amount: Label = $Label_item_amount
+@onready var item_icon: TextureRect = $item_icon
 
 var button_down_sign = false
 var self_position:Vector2i
@@ -22,7 +23,7 @@ func init():
 	
 	self_id = item.x
 	self_amount = item.y
-	self_icon = ResourceManager.get_item_icon(self_id)
+	item_icon.texture = ResourceManager.get_item_icon(self_id)
 	set_button_icon(self_icon)
 	#显示物品数量
 	if self_amount > 1:

@@ -5,6 +5,7 @@ class_name discriptionUI
 @onready var Description = $PanelContainer/MarginContainer/VBoxContainer/Description
 @onready var Property = $PanelContainer/MarginContainer/VBoxContainer/Property
 
+
 func modify_displayed_information(itemConfig:Dictionary):
 	if !itemConfig:
 		return
@@ -14,5 +15,5 @@ func modify_displayed_information(itemConfig:Dictionary):
 
 
 func _on_panel_gui_input(event: InputEvent) -> void:
-	if event.as_text() == "Right Mouse Button":
+	if event.as_text() == "Right Mouse Button" && event.is_pressed():
 		hide()

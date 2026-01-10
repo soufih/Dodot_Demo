@@ -11,7 +11,7 @@ region = Rect2(128.40524, 160.00008, 31.594757, 31.999924)
 texture = SubResource("AtlasTexture_2purt")
 
 [node name="Button" type="Button" parent="."]
-modulate = Color(1, 1, 1, 0.92941177)
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +24,16 @@ grow_horizontal = 2
 grow_vertical = 2
 toggle_mode = true
 script = ExtResource("2_2purt")
+
+[node name="item_icon" type="TextureRect" parent="Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label_item_amount" type="Label" parent="Button"]
 layout_mode = 0

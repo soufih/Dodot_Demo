@@ -16,11 +16,12 @@ var Hero:BaseCharacter
 func _ready() ->void:
 	begin()
 	Hero = DataLoader.get_hero()
-	Hero.mana_changed.connect(update_mana)
-	Hero.health_changed.connect(update_health)
-	await get_tree().create_timer(0.1).timeout
-	update_health()
-	update_mana()
+	if Hero:
+		Hero.mana_changed.connect(update_mana)
+		Hero.health_changed.connect(update_health)
+		await get_tree().create_timer(0.1).timeout
+		update_health()
+		update_mana()
 	
 #血条显示更新
 func update_health() ->void:

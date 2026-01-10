@@ -14,7 +14,7 @@ func _ready() -> void:
 	LevelGenerator.generate_level(LevelInformation.get_level_info().level)
 
 func _exit_tree() -> void:
-	UIManager.ui_clear_stack()
+	UIManager.ui_clear_list()
 	if inventoryUI:
 		inventoryUI.queue_free()
 	if pauseMenuUI:

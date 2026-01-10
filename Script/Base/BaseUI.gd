@@ -7,17 +7,17 @@ func begin():
 ## 当UI可见性改变时调用
 func _on_visibility_changed():
 	if visible:
-		UIManager.ui_add_to_stack(self)
+		UIManager.ui_add_to_list(self)
 	else:
-		ui_remove_from_stack()
+		UIManager.ui_remove_from_list(self)
 
-##从UI栈中移除
-func ui_remove_from_stack() -> void:
-	while UIManager.UIStack.size() > 0:
-		var top_ui: BaseUI = UIManager.ui_get_top()
-		if top_ui == self:
-			UIManager.ui_pop_from_stack()
-			break
-		else:
-			if UIManager.ui_get_top():
-				UIManager.ui_get_top().hide()
+# ##从UI栈中移除
+# func ui_remove_from_list() -> void:
+# 	while UIManager.UIlist.size() > 0:
+# 		var top_ui: BaseUI = UIManager.ui_get_top()
+# 		if top_ui == self:
+# 			UIManager.ui_pop_from_list()
+# 			break
+# 		else:
+# 			if UIManager.ui_get_top():
+# 				UIManager.ui_get_top().hide()

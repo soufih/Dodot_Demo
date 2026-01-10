@@ -3,7 +3,7 @@ class_name itemListslot
 
 signal slot_pressed
 
-@onready var icon:TextureRect = $MarginContainer/item_icon_true
+@onready var icon:TextureRect = $MarginContainer/HBoxContainer/item_icon
 @onready var itemName: Label = $MarginContainer/HBoxContainer/item_name
 @onready var amount: Label = $MarginContainer/HBoxContainer/item_amount
 
@@ -14,7 +14,15 @@ func modify_item_display(itemConfig:Dictionary):
 	id = itemConfig.id
 	icon.texture = ResourceManager.get_item_icon(itemConfig.id)
 	itemName.text = ResourceManager.get_item_name(itemConfig.id)
-	amount.text = str(itemConfig.amount) 
+
+	amount.text = str(itemConfig.amount)
+
+	if !icon.texture:
+		icon.hide()
+	if !itemName.text:
+		itemName.hide()
+	if !amount.text:
+		amount.hide()
 
 
 func _on_button_button_down() -> void:

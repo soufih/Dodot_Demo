@@ -26,8 +26,9 @@ layout_mode = 2
 
 [node name="item_icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_kvmbs")
 
 [node name="item_name" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -41,12 +42,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 8
 autowrap_mode = 3
-
-[node name="item_icon_true" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = SubResource("AtlasTexture_kvmbs")
 
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)

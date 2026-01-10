@@ -24,7 +24,7 @@ func _ready() -> void:
 	startpoint.add_child(hero)
 
 func _exit_tree() -> void:
-	UIManager.ui_clear_stack()
+	UIManager.ui_clear_list()
 	if inventoryUI:
 		inventoryUI.queue_free()
 	if warehouse:

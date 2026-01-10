@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bd2erf76jvubl"]
 
-[ext_resource type="Script" uid="uid://d1vdkqejq3msk" path="res://Script/UI_Script/Player_State_UI/player_state_ui.gd" id="1_hf3bv"]
+[ext_resource type="Script" uid="uid://d1vdkqejq3msk" path="res://Script/UI_Script/Player_UI/Player_State_UI/player_state_ui.gd" id="1_hf3bv"]
 [ext_resource type="Texture2D" uid="uid://fgbi2k6cqxax" path="res://Rescource/UI/Base-01.png" id="2_kfmsa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y32wq"]
@@ -20,17 +20,19 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 360.0
+offset_top = 512.0
+offset_right = -492.0
+offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hf3bv")
 
 [node name="HP" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 159.99998
-offset_top = 704.0
-offset_right = 274.0
-offset_bottom = 756.0
-rotation = 3.9269907
+offset_top = -56.0
+offset_right = 114.0
+offset_bottom = -4.0
 scale = Vector2(5.1680574, 3.55895)
 
 [node name="Health_bar" type="TextureProgressBar" parent="HP"]
@@ -45,11 +47,9 @@ texture_progress_offset = Vector2(0.5, 0)
 
 [node name="MP" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 183.99995
-offset_top = 680.0
-offset_right = 297.99994
-offset_bottom = 732.0
-rotation = 3.9269907
+offset_top = -32.0
+offset_right = 114.0
+offset_bottom = 20.0
 scale = Vector2(5.1680574, 3.55895)
 
 [node name="Mana_bar" type="TextureProgressBar" parent="MP"]
@@ -61,3 +61,9 @@ value = 100.0
 texture_over = SubResource("AtlasTexture_y32wq")
 texture_progress = SubResource("AtlasTexture_hf3bv")
 texture_progress_offset = Vector2(0.5, 0)
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 100.0
