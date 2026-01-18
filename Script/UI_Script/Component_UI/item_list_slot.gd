@@ -3,7 +3,7 @@ class_name itemListslot
 
 signal slot_pressed
 
-@onready var icon:TextureRect = $MarginContainer/HBoxContainer/item_icon
+@onready var icon:TextureRect = $MarginContainer/item_icon
 @onready var itemName: Label = $MarginContainer/HBoxContainer/item_name
 @onready var amount: Label = $MarginContainer/HBoxContainer/item_amount
 

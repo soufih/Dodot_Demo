@@ -55,12 +55,6 @@ func switch_item():
 		)
 	).set_delay(0.25)
 
-	#恢复下一个武器容器到初始状态
-	#tween.tween_property(next_item_container, "modulate:a", original_modulate.a, 0.5)
-	#tween.set_parallel()
-	#tween.tween_property(next_item_container, "global_position", next_original_position, 0.5)
-	#tween.set_parallel()
-	#tween.tween_property(next_item_container, "size", next_original_size, 0.5)
 	tween.tween_callback(func():
 		completed = true
 		).set_delay(0.25)

@@ -48,11 +48,15 @@ func _on_pickup_area_body_entered(body: Node2D) -> void:
 		#将物品加入背包
 		for item in Items:
 			remain = BackpackSystem.quick_add_item(item[0], item[1])
+			DroppedItemSystem.create_pickup_mention({
+				"id": item[0],
+				"amount": item[1] - remain[1]
+			})
 			
 			if remain.y == 0:
 				tmp_queue.append(item)#加入待移除队列
 			else:
-				item[1] = remain.y
+				item[item] = remain.y
 		
 		#移除标记物品
 		for i in tmp_queue:

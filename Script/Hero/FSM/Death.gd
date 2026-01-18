@@ -8,5 +8,5 @@ func enter():
 	FSM.ani.play("Death")
 	await FSM.ani.animation_finished
 	var NewParent = get_tree().current_scene
-	$"../../Camera2D".reparent(NewParent,true)
+	$"../../MainCamera".reparent(NewParent,true)
 	FSM.Hero.queue_free()

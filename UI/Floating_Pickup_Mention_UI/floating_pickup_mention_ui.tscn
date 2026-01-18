@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://guh862eg7yun"]
+
+[ext_resource type="Script" uid="uid://biwbawpcdbb1s" path="res://Script/UI_Script/Floating_Pickup_UI/floating_pickup_ui.gd" id="1_npq8s"]
+[ext_resource type="Texture2D" uid="uid://b4acdgasrsxit" path="res://Rescource/Static/Material/item320.png" id="2_k0xh2"]
+
+[node name="pickup_mention_ui" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = 356.0
+offset_right = -1205.995
+offset_bottom = -269.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_npq8s")
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(27.64, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="icon_texture" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("2_k0xh2")
+expand_mode = 3
+
+[node name="name_label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "test"
+horizontal_alignment = 1
+
+[node name="amount_label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "x1"
