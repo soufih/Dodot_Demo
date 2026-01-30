@@ -12,8 +12,3 @@ func modify_displayed_information(itemConfig:Dictionary):
 	
 	Name.text = ResourceManager.get_item_name(itemConfig.id) 
 	Description.text = ResourceManager.get_item_discription(itemConfig.id)
-
-
-func _on_panel_gui_input(event: InputEvent) -> void:
-	if event.as_text() == "Right Mouse Button" && event.is_pressed():
-		hide()

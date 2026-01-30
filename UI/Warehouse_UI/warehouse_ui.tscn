@@ -1,38 +1,57 @@
-[gd_scene load_steps=5 format=3 uid="uid://cd2xfe7rysnxr"]
+[gd_scene format=3 uid="uid://cd2xfe7rysnxr"]
 
 [ext_resource type="Script" uid="uid://cblva5s3jlb0v" path="res://Script/UI_Script/Warehouse_UI/warehouse_ui.gd" id="1_evmvb"]
 [ext_resource type="PackedScene" uid="uid://bmquh0ekr1vjp" path="res://UI/Component_UI/Item_List_UI/item_selector_ui.tscn" id="1_xr8qs"]
 [ext_resource type="PackedScene" uid="uid://dag208oshi70o" path="res://UI/Component_UI/Item_List_UI/item_list_ui.tscn" id="2_evmvb"]
 [ext_resource type="PackedScene" uid="uid://pn2rtwj3ukb5" path="res://UI/Component_UI/discription_ui.tscn" id="4_gai1e"]
 
-[node name="warehouse_ui" type="HBoxContainer"]
-offset_left = 702.0
-offset_top = 3.0
-offset_right = 1149.0
-offset_bottom = 561.0
+[node name="warehouse_ui" type="Control" unique_id=1433313816]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1055.0
+offset_right = 1055.0
+offset_bottom = 643.0
 script = ExtResource("1_evmvb")
 
-[node name="DesriptionContainer" type="PanelContainer" parent="."]
+[node name="disription_container" type="PanelContainer" parent="." unique_id=1701994074]
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(263.08, 0)
+z_index = 10
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 264.0
+offset_top = 18.0
+offset_right = 524.0
+offset_bottom = 376.21
+grow_horizontal = 0
+
+[node name="discription_ui" parent="disription_container" unique_id=170008123 instance=ExtResource("4_gai1e")]
+z_index = 10
 layout_mode = 2
 
-[node name="discription_ui" parent="DesriptionContainer" instance=ExtResource("4_gai1e")]
-custom_minimum_size = Vector2(263.08, 0)
-layout_mode = 2
+[node name="warehouse_hbox_contaniner" type="HBoxContainer" parent="." unique_id=150721332]
+layout_mode = 1
+offset_left = -86.0
+offset_right = 361.0
+offset_bottom = 643.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="warehouse_vbox_contaniner" type="VBoxContainer" parent="warehouse_hbox_contaniner" unique_id=289635922]
 z_index = 5
 layout_mode = 2
 
-[node name="item_selector_ui" parent="VBoxContainer" instance=ExtResource("1_xr8qs")]
+[node name="item_selector_ui" parent="warehouse_hbox_contaniner/warehouse_vbox_contaniner" unique_id=736123486 instance=ExtResource("1_xr8qs")]
 layout_mode = 2
 
-[node name="item_list_ui" parent="VBoxContainer" instance=ExtResource("2_evmvb")]
+[node name="item_list_ui" parent="warehouse_hbox_contaniner/warehouse_vbox_contaniner" unique_id=522052702 instance=ExtResource("2_evmvb")]
 custom_minimum_size = Vector2(0, 589.345)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 
-[connection signal="selector_button_pressed" from="VBoxContainer/item_selector_ui" to="." method="_on_item_selector_ui_selector_button_pressed"]
-[connection signal="gui_input" from="VBoxContainer/item_list_ui" to="." method="_on_item_list_ui_gui_input"]
-[connection signal="list_slot_pressed" from="VBoxContainer/item_list_ui" to="." method="_on_item_list_ui_list_slot_pressed"]
+[connection signal="selector_button_pressed" from="warehouse_hbox_contaniner/warehouse_vbox_contaniner/item_selector_ui" to="." method="_on_item_selector_ui_selector_button_pressed"]
+[connection signal="gui_input" from="warehouse_hbox_contaniner/warehouse_vbox_contaniner/item_list_ui" to="." method="_on_item_list_ui_gui_input"]
+[connection signal="list_slot_gui_input" from="warehouse_hbox_contaniner/warehouse_vbox_contaniner/item_list_ui" to="." method="_on_item_list_ui_list_slot_gui_input"]
+[connection signal="list_slot_mouse_enter" from="warehouse_hbox_contaniner/warehouse_vbox_contaniner/item_list_ui" to="." method="_on_item_list_ui_list_slot_mouse_enter"]
+[connection signal="list_slot_mouse_exit" from="warehouse_hbox_contaniner/warehouse_vbox_contaniner/item_list_ui" to="." method="_on_item_list_ui_list_slot_mouse_exit"]
+[connection signal="list_slot_pressed" from="warehouse_hbox_contaniner/warehouse_vbox_contaniner/item_list_ui" to="." method="_on_item_list_ui_list_slot_pressed"]

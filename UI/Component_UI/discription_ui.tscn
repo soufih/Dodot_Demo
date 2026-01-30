@@ -1,35 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://pn2rtwj3ukb5"]
+[gd_scene format=3 uid="uid://pn2rtwj3ukb5"]
 
 [ext_resource type="Script" uid="uid://bvjavtfbvn7be" path="res://Script/UI_Script/Component_UI/discription_ui.gd" id="1_ctkqa"]
 
-[node name="discription_ui" type="Control"]
+[node name="discription_ui" type="Control" unique_id=170008123]
 layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-grow_horizontal = 0
+anchors_preset = 0
 mouse_filter = 1
 script = ExtResource("1_ctkqa")
 metadata/_edit_vertical_guides_ = [1412.0]
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=870393734]
 custom_minimum_size = Vector2(260, 360)
-layout_mode = 0
-offset_top = 1.0
+layout_mode = 1
 offset_right = 260.0
-offset_bottom = 361.0
+offset_bottom = 360.0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1862926501]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1924896241]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Name" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=93947797]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -38,7 +34,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Description" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Description" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1762609534]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -47,7 +43,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Property" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Property" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=307388908]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -55,13 +51,3 @@ text = "property"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
-
-[node name="Panel" type="Panel" parent="."]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_right = 393.525
-offset_bottom = 102.875
-scale = Vector2(0.659, 3.485)
-mouse_filter = 1
-
-[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
