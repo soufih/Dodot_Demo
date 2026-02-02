@@ -34,20 +34,19 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DataLoader="*res://Script/DataAccess/DataLoader.gd"
-WeaponManager="*res://Script/DataAccess/WeaponManager.gd"
-ResourceManager="*res://Script/DataAccess/ResourceManager.gd"
-EnemyManager="*res://Script/DataAccess/EnemyManager.gd"
-BackpackSystem="*res://Script/System/BackpackSystem.gd"
-EquipmentSlotSystem="*res://Script/System/EquipmentSlotSystem.gd"
+DataLoader="*res://Script/Config/DataAccess/DataLoader.gd"
+WeaponManager="*res://Script/Config/DataAccess/WeaponManager.gd"
+ResourceManager="*res://Script/Config/DataAccess/ResourceManager.gd"
+StatusEffectManager="*res://Script/Gameplay/System/StatusEffectManager.gd"
+EnemyManager="*uid://dbsq2aiukow28"
+UIManager="*res://Script/Gameplay/System/UIManager.gd"
 VolumeManager="*res://Script/UI_Script/VolumeManager.gd"
-StatusEffectManager="*res://Script/System/StatusEffectManager.gd"
-DroppedItemSystem="*res://Script/System/DroppedItemSystem.gd"
-UIManager="*res://Script/System/UIManager.gd"
-WarehouseSystem="*res://Script/System/WarehouseSystem.gd"
-LevelInformation="*res://Script/Map/LevelInformation.gd"
-LevelGenerator="*res://Script/Map/LevelGenerator.gd"
-DamageSystem="*res://Script/System/DamageSystem.gd"
+BackpackSystem="*res://Script/Gameplay/System/BackpackSystem.gd"
+EquipmentSlotSystem="*res://Script/Gameplay/System/EquipmentSlotSystem.gd"
+DroppedItemSystem="*res://Script/Gameplay/System/DroppedItemSystem.gd"
+WarehouseSystem="*res://Script/Gameplay/System/WarehouseSystem.gd"
+DamageSystem="*res://Script/Gameplay/System/DamageSystem.gd"
+LevelInformation="*res://Script/Gameplay/Map/LevelInformation.gd"
 
 [debug]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://brjmaexsiviws"]
+[gd_scene format=3 uid="uid://brjmaexsiviws"]
 
 [ext_resource type="Script" uid="uid://riy0uqqdiuno" path="res://Script/DroppedItem/DroppedItem.gd" id="1_s7arg"]
 [ext_resource type="Texture2D" uid="uid://b4acdgasrsxit" path="res://Rescource/Static/Material/item320.png" id="2_xr2wx"]
@@ -9,24 +9,24 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_vj50y"]
 radius = 15.0
 
-[node name="DroppedItem" type="RigidBody2D"]
+[node name="DroppedItem" type="RigidBody2D" unique_id=1581359047]
 collision_layer = 0
 script = ExtResource("1_s7arg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=517239863]
 shape = SubResource("CircleShape2D_5c511")
 
-[node name="PickupArea" type="Area2D" parent="."]
+[node name="PickupArea" type="Area2D" parent="." unique_id=1429827167]
 collision_layer = 0
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2040441422]
 shape = SubResource("CircleShape2D_vj50y")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=323005834]
 texture = ExtResource("2_xr2wx")
 
-[node name="FreezeTimer" type="Timer" parent="."]
+[node name="FreezeTimer" type="Timer" parent="." unique_id=200549782]
 wait_time = 5.0
 one_shot = true
 autostart = true

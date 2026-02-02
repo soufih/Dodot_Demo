@@ -1,7 +1,7 @@
 extends BaseCharacter
 class_name BaseEnemy
 
-var Porperty:EnemyPorperty
+var Porperty:EnemyConfig
 var Atived:bool = false
 
 func beginning():

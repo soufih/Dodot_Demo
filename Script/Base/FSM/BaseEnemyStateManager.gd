@@ -1,7 +1,7 @@
 extends BaseStateManager
 class_name BaseEnemyStateManager
 
-@onready var Entity:BaseEnemy = self.get_parent()
+@export var Entity:BaseEnemy
 
 func is_actived()->bool:
 	if Entity:

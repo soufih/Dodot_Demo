@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dn6etfky2c7oa"]
+[gd_scene format=3 uid="uid://dn6etfky2c7oa"]
 
 [ext_resource type="Script" uid="uid://n6ank0mm7hej" path="res://Script/Static/Level.gd" id="1_kghl0"]
+[ext_resource type="PackedScene" uid="uid://cnobpreypcfvl" path="res://Scene/Tool/LevelGenerator.tscn" id="2_fnpaw"]
 
-[node name="LevelScene" type="Node2D"]
+[node name="LevelScene" type="Node2D" unique_id=70190648]
 script = ExtResource("1_kghl0")
+
+[node name="LevelGenerator" parent="." unique_id=635254476 node_paths=PackedStringArray("enemyManager") instance=ExtResource("2_fnpaw")]
+enemyManager = NodePath("")

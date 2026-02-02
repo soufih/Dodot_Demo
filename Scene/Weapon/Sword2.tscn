@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bxy6gk07im25q"]
+
+[ext_resource type="Texture2D" uid="uid://b4xn2fsb3y6xu" path="res://Rescource/Static/Weapon/SwordtemberSword1.png" id="1_w2w46"]
+[ext_resource type="Script" uid="uid://bkikw5mat87ag" path="res://Script/Gameplay/Weapon/Sword/Sword2.gd" id="2_7omri"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7omri"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w2w46")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_7omri"]
+resource_name = "attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_prdpt"]
+_data = {
+&"attack": SubResource("Animation_7omri")
+}
+
+[node name="Sword2" type="AnimatedSprite2D" unique_id=1266122779 node_paths=PackedStringArray("Ani")]
+sprite_frames = SubResource("SpriteFrames_7omri")
+script = ExtResource("2_7omri")
+Ani = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1713274209]
+libraries/ = SubResource("AnimationLibrary_prdpt")

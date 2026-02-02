@@ -1,9 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://dt0bj2ejimup4"]
+[gd_scene format=3 uid="uid://dt0bj2ejimup4"]
 
 [ext_resource type="Texture2D" uid="uid://c6fop6llbymm1" path="res://Rescource/Static/TestWeapon/weapons_new2_sword_swing1.png" id="1_i543r"]
 [ext_resource type="Texture2D" uid="uid://dy27p41obchom" path="res://Rescource/Static/TestWeapon/weapons_new2_sword_swing2.png" id="2_wmhkq"]
 [ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Rescource/Static/TestWeapon/weapons_new2_sword.png" id="3_gfkto"]
-[ext_resource type="Script" uid="uid://bgffv3aj8akhd" path="res://Script/Weapon/Sword/Sword.gd" id="4_wmhkq"]
+[ext_resource type="Script" uid="uid://bgffv3aj8akhd" path="res://Script/Gameplay/Weapon/Sword/Sword.gd" id="4_wmhkq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ydr8a"]
 atlas = ExtResource("1_i543r")
@@ -231,39 +231,44 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_gfkto"]
+resource_name = "Attack2"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gfkto"]
 _data = {
-&"attack": SubResource("Animation_wmhkq")
+&"Attack": SubResource("Animation_wmhkq"),
+&"Attack2": SubResource("Animation_gfkto")
 }
 
-[node name="Sword" type="AnimatedSprite2D"]
+[node name="Sword" type="AnimatedSprite2D" unique_id=765874051 node_paths=PackedStringArray("Hitboxs", "Ani")]
 sprite_frames = SubResource("SpriteFrames_bdwpa")
 animation = &"Attack1"
 autoplay = "Idle"
+frame = 3
 script = ExtResource("4_wmhkq")
+Hitboxs = NodePath("Hitboxs")
+Ani = NodePath("AnimationPlayer")
 
-[node name="Hitboxs" type="Marker2D" parent="."]
+[node name="Hitboxs" type="Marker2D" parent="." unique_id=1433719920]
 
-[node name="attack" type="Area2D" parent="Hitboxs"]
+[node name="attack" type="Area2D" parent="Hitboxs" unique_id=1444887445]
 visible = false
 rotation = -1.5707964
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitboxs/attack"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitboxs/attack" unique_id=26806692]
 rotation = 1.5707964
 polygon = PackedVector2Array(-3.496911e-07, 8, 16.000002, -32, 24.000002, -23.999998, 32, -7.9999986, 32, 8.000001, 23.999998, 24.000002, 7.999998, 40, -32, 40)
 
-[node name="attack1" type="Area2D" parent="Hitboxs"]
+[node name="attack1" type="Area2D" parent="Hitboxs" unique_id=317801940]
 visible = false
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitboxs/attack1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitboxs/attack1" unique_id=2013151659]
 rotation = 1.5707964
 polygon = PackedVector2Array(0, 0, -40, 0, -32, -16, -24, -24, -8, -32, 8, -32, 21.59784, -25.201077, 24, -24, 32, -16, 40, 0, 40, 16, 32, 32)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_gfkto")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=520473477]
+libraries/ = SubResource("AnimationLibrary_gfkto")

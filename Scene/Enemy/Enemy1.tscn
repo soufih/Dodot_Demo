@@ -1,13 +1,15 @@
-[gd_scene load_steps=74 format=3 uid="uid://dapiqis2bgofl"]
+[gd_scene format=3 uid="uid://dapiqis2bgofl"]
 
-[ext_resource type="Script" uid="uid://c6v46godkgndo" path="res://Script/Enemy/Enemy1/Enemy1Porperty.gd" id="1_sm4r0"]
+[ext_resource type="Script" uid="uid://c6v46godkgndo" path="res://Script/Gameplay/Character/Enemy/Enemy1/Enemy1Porperty.gd" id="1_sm4r0"]
 [ext_resource type="Texture2D" uid="uid://ddhckxaacoud6" path="res://Rescource/Static/Enemy/NightBorne.png" id="1_vf83f"]
-[ext_resource type="Script" uid="uid://r4rx5obdu4p3" path="res://Script/Enemy/Enemy1/FSM/StateManager.gd" id="3_i6n7o"]
-[ext_resource type="Script" uid="uid://c8onr7xsildnp" path="res://Script/Enemy/Enemy1/FSM/Idle.gd" id="4_1pyv3"]
-[ext_resource type="Script" uid="uid://c1uqydw17l1px" path="res://Script/Enemy/Enemy1/FSM/Move.gd" id="5_8lps2"]
-[ext_resource type="Script" uid="uid://doyomx8e7wqj0" path="res://Script/Enemy/Enemy1/FSM/Attack.gd" id="6_hxmcx"]
-[ext_resource type="Script" uid="uid://djyrwshmv14ha" path="res://Script/Enemy/Enemy1/FSM/Break.gd" id="7_jwua4"]
-[ext_resource type="Script" uid="uid://c8ks632g6ayhg" path="res://Script/Enemy/Enemy1/FSM/Death.gd" id="8_la8gj"]
+[ext_resource type="Script" uid="uid://r4rx5obdu4p3" path="res://Script/Gameplay/Character/Enemy/Enemy1/StateManager.gd" id="3_i6n7o"]
+[ext_resource type="Script" uid="uid://c8onr7xsildnp" path="res://Script/Gameplay/Character/Enemy/FSM/Idle.gd" id="4_1pyv3"]
+[ext_resource type="Script" uid="uid://c1uqydw17l1px" path="res://Script/Gameplay/Character/Enemy/FSM/Move.gd" id="5_8lps2"]
+[ext_resource type="Script" uid="uid://deowvfskpq3w5" path="res://Script/Gameplay/Character/Enemy/FSM/Potrol.gd" id="6_1pyv3"]
+[ext_resource type="Script" uid="uid://doyomx8e7wqj0" path="res://Script/Gameplay/Character/Enemy/FSM/Attack.gd" id="6_hxmcx"]
+[ext_resource type="Script" uid="uid://djyrwshmv14ha" path="res://Script/Gameplay/Character/Enemy/FSM/Break.gd" id="7_jwua4"]
+[ext_resource type="Script" uid="uid://c8ks632g6ayhg" path="res://Script/Gameplay/Character/Enemy/FSM/Death.gd" id="8_la8gj"]
+[ext_resource type="Script" uid="uid://g3r60myq5g8i" path="res://Script/Gameplay/Character/Enemy/FSM/Trace.gd" id="9_8lps2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmcel"]
 size = Vector2(19.445728, 47.302544)
@@ -425,6 +427,12 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6n7o"]
+size = Vector2(20.27252, 46.33719)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8lps2"]
+size = Vector2(256.1819, 67.90301)
+
 [sub_resource type="Animation" id="Animation_8lps2"]
 resource_name = "Attack"
 length = 1.1
@@ -445,7 +453,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("FSM/Attack")
+tracks/1/path = NodePath("FSM/Trace/Attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -534,22 +542,17 @@ _data = {
 &"Move": SubResource("Animation_1pyv3")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6n7o"]
-size = Vector2(20.27252, 46.33719)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_i6n7o"]
-radius = 78.61596
-
-[node name="Enemy1" type="CharacterBody2D"]
+[node name="Enemy1" type="CharacterBody2D" unique_id=804942941 node_paths=PackedStringArray("RecoverTimer")]
 scale = Vector2(1.0358851, 1.0358851)
 collision_layer = 2
 script = ExtResource("1_sm4r0")
+RecoverTimer = NodePath("Node/RecoverTimer")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1020700334]
 position = Vector2(5.7228656, -2.9676678)
 shape = SubResource("RectangleShape2D_kmcel")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1052282815]
 position = Vector2(5.7921486, -20.82679)
 scale = Vector2(1.7151884, 1.7151884)
 sprite_frames = SubResource("SpriteFrames_1rp2h")
@@ -557,55 +560,108 @@ animation = &"Attack"
 autoplay = "Idle"
 frame = 9
 
-[node name="Hitbox" type="Area2D" parent="AnimatedSprite2D"]
+[node name="Hitbox" type="Area2D" parent="AnimatedSprite2D" unique_id=1826654927]
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatedSprite2D/Hitbox"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatedSprite2D/Hitbox" unique_id=282660096]
 position = Vector2(0.73903006, 0)
 polygon = PackedVector2Array(-14.041572, -30.300232, -1.3018594, -3.0538197, -2.2170901, 28.083141, 22.909931, 27.344112, 36.951504, 15.51963, 36.951504, -11.824481, 8.8683605, -30.300232)
 
-[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("Current")]
-script = ExtResource("3_i6n7o")
-Current = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="FSM"]
-script = ExtResource("4_1pyv3")
-
-[node name="Move" type="Node" parent="FSM"]
-script = ExtResource("5_8lps2")
-Speed = 70
-
-[node name="Attack" type="Node" parent="FSM"]
-script = ExtResource("6_hxmcx")
-
-[node name="Break" type="Node" parent="FSM"]
-script = ExtResource("7_jwua4")
-
-[node name="Death" type="Node" parent="FSM"]
-script = ExtResource("8_la8gj")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_la8gj")
-}
-
-[node name="BarrierDetect" type="Area2D" parent="."]
+[node name="BarrierDetect" type="Area2D" parent="." unique_id=588118250]
 collision_layer = 16
 collision_mask = 9
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetect" unique_id=1618287131]
 position = Vector2(25.581991, -3.450346)
 shape = SubResource("RectangleShape2D_i6n7o")
 
-[node name="RecoverTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="HateArea" type="Area2D" parent="."]
+[node name="HateArea" type="Area2D" parent="." unique_id=850736334]
+visible = false
 collision_layer = 128
 collision_mask = 66
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HateArea"]
-shape = SubResource("CircleShape2D_i6n7o")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HateArea" unique_id=1923127318]
+position = Vector2(-0.96535873, -13.515013)
+shape = SubResource("RectangleShape2D_8lps2")
 
-[connection signal="body_exited" from="AnimatedSprite2D/Hitbox" to="FSM/Attack" method="_on_hitbox_body_exited"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1969764904]
+libraries/ = SubResource("AnimationLibrary_la8gj")
+
+[node name="FSM" type="Node" parent="." unique_id=1216871005 node_paths=PackedStringArray("Hatebox", "HateTimer", "Entity", "Current")]
+script = ExtResource("3_i6n7o")
+Hatebox = NodePath("../HateArea")
+HateTimer = NodePath("../Node/HateTimer")
+Entity = NodePath("..")
+Current = NodePath("Potrol")
+
+[node name="Break" type="Node" parent="FSM" unique_id=1314925561 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("7_jwua4")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Death" type="Node" parent="FSM" unique_id=1995881864 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("8_la8gj")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Potrol" type="Node" parent="FSM" unique_id=1954883550 node_paths=PackedStringArray("DefaultState", "RestTimer", "Entity", "AniPlayer")]
+script = ExtResource("6_1pyv3")
+DefaultState = NodePath("Idle")
+RestTimer = NodePath("../../Node/RestTimer")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Idle" type="Node" parent="FSM/Potrol" unique_id=1617769245 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("4_1pyv3")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../AnimationPlayer")
+
+[node name="Move" type="Node" parent="FSM/Potrol" unique_id=327126024 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer")]
+script = ExtResource("5_8lps2")
+BarrierDetect = NodePath("../../../BarrierDetect")
+Spirte = NodePath("../../../AnimatedSprite2D")
+Speed = 70
+Hatebox = NodePath("../../../HateArea")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../AnimationPlayer")
+
+[node name="Trace" type="Node" parent="FSM" unique_id=349240785 node_paths=PackedStringArray("DefaultState", "HateArea", "Hitbox", "Entity", "AniPlayer")]
+script = ExtResource("9_8lps2")
+DefaultState = NodePath("Move")
+HateArea = NodePath("../../HateArea")
+Hitbox = NodePath("../../AnimatedSprite2D/Hitbox")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Attack" type="Node" parent="FSM/Trace" unique_id=557217551 node_paths=PackedStringArray("Spirte", "Hitbox", "Entity", "AniPlayer")]
+script = ExtResource("6_hxmcx")
+Spirte = NodePath("../../../AnimatedSprite2D")
+Hitbox = NodePath("../../../AnimatedSprite2D/Hitbox")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../AnimationPlayer")
+
+[node name="Move" type="Node" parent="FSM/Trace" unique_id=763563608 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer")]
+script = ExtResource("5_8lps2")
+BarrierDetect = NodePath("../../../BarrierDetect")
+Spirte = NodePath("../../../AnimatedSprite2D")
+Speed = 70
+Hatebox = NodePath("../../../HateArea")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../AnimationPlayer")
+
+[node name="Node" type="Node" parent="." unique_id=2052789158]
+
+[node name="RecoverTimer" type="Timer" parent="Node" unique_id=681424899]
+one_shot = true
+
+[node name="HateTimer" type="Timer" parent="Node" unique_id=1444483758]
+wait_time = 5.0
+one_shot = true
+
+[node name="RestTimer" type="Timer" parent="Node" unique_id=1092438285]
+one_shot = true
+
+[connection signal="body_exited" from="AnimatedSprite2D/Hitbox" to="FSM/Trace/Attack" method="_on_hitbox_body_exited"]
+[connection signal="is_breaked" from="FSM/Break" to="FSM" method="_on_is_breaked"]
+[connection signal="on_attack" from="FSM/Trace/Attack" to="FSM/Trace" method="_on_attack"]

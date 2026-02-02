@@ -1,18 +1,18 @@
-[gd_scene load_steps=61 format=3 uid="uid://dsspae73jd8a6"]
+[gd_scene format=3 uid="uid://dsspae73jd8a6"]
 
-[ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Hero/HeroProperty.gd" id="1_6pkku"]
+[ext_resource type="Script" uid="uid://d05cap1vxq6rk" path="res://Script/Gameplay/Character/Hero/HeroProperty.gd" id="1_6pkku"]
 [ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png" id="1_uv5e3"]
-[ext_resource type="Script" uid="uid://ve64hqqjbjjt" path="res://Script/Hero/FSM/StateManager.gd" id="3_b7f62"]
-[ext_resource type="Script" uid="uid://dcdupyefvr2cl" path="res://Script/Hero/FSM/Idle.gd" id="4_qqiuq"]
-[ext_resource type="Script" uid="uid://de3556wyijsh0" path="res://Script/Hero/FSM/Run.gd" id="5_iuq1t"]
-[ext_resource type="Script" uid="uid://dvbqh7m28bfnn" path="res://Script/Hero/FSM/Jumping.gd" id="6_o2ky4"]
-[ext_resource type="Script" uid="uid://xlpd0upl7t7p" path="res://Script/Hero/FSM/Falling.gd" id="7_pwso0"]
-[ext_resource type="Script" uid="uid://ckib84dd2mngj" path="res://Script/Hero/FSM/Attack.gd" id="8_v1ih1"]
-[ext_resource type="Script" uid="uid://b05lqsb3afh4j" path="res://Script/Hero/FSM/SwitchWeapon.gd" id="9_iuq1t"]
-[ext_resource type="Script" uid="uid://c7qfa1oryeryk" path="res://Script/Hero/FSM/Death.gd" id="10_pwso0"]
-[ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Hero/FSM/Break.gd" id="11_v1ih1"]
-[ext_resource type="Script" uid="uid://b136nok0ljjgi" path="res://Script/Hero/ActiveZone.gd" id="13_8l1ja"]
-[ext_resource type="Script" uid="uid://fe5kru1uiwtf" path="res://Script/Hero/main_camera.gd" id="13_73oc2"]
+[ext_resource type="Script" uid="uid://ve64hqqjbjjt" path="res://Script/Gameplay/Character/Hero/FSM/StateManager.gd" id="3_b7f62"]
+[ext_resource type="Script" uid="uid://dcdupyefvr2cl" path="res://Script/Gameplay/Character/Hero/FSM/Idle.gd" id="5_fqamf"]
+[ext_resource type="Script" uid="uid://de3556wyijsh0" path="res://Script/Gameplay/Character/Hero/FSM/Run.gd" id="5_iuq1t"]
+[ext_resource type="Script" uid="uid://dvbqh7m28bfnn" path="res://Script/Gameplay/Character/Hero/FSM/Jumping.gd" id="6_o2ky4"]
+[ext_resource type="Script" uid="uid://xlpd0upl7t7p" path="res://Script/Gameplay/Character/Hero/FSM/Falling.gd" id="7_pwso0"]
+[ext_resource type="Script" uid="uid://ckib84dd2mngj" path="res://Script/Gameplay/Character/Hero/FSM/Attack.gd" id="8_v1ih1"]
+[ext_resource type="Script" uid="uid://b05lqsb3afh4j" path="res://Script/Gameplay/Character/Hero/FSM/SwitchWeapon.gd" id="9_iuq1t"]
+[ext_resource type="Script" uid="uid://c7qfa1oryeryk" path="res://Script/Gameplay/Character/Hero/FSM/Death.gd" id="10_pwso0"]
+[ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Gameplay/Character/Hero/FSM/Break.gd" id="11_v1ih1"]
+[ext_resource type="Script" uid="uid://b136nok0ljjgi" path="res://Script/Gameplay/Character/Hero/ActiveZone.gd" id="13_8l1ja"]
+[ext_resource type="Script" uid="uid://fe5kru1uiwtf" path="res://Script/Gameplay/Character/Hero/main_camera.gd" id="13_73oc2"]
 [ext_resource type="PackedScene" uid="uid://cc5wdn2jl6o02" path="res://UI/PlayerUI/PlayerUI.tscn" id="13_fqamf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1ih1"]
@@ -454,39 +454,41 @@ _data = {
 &"Run": SubResource("Animation_73oc2")
 }
 
-[node name="Hero" type="CharacterBody2D"]
+[node name="Hero" type="CharacterBody2D" unique_id=984855582 node_paths=PackedStringArray("RecoverTimer")]
 collision_layer = 2
 collision_mask = 129
 script = ExtResource("1_6pkku")
-Speed = 200
+CurrentWeapon = 10
 GodModeTimer = 1
 MaxHealth = 100.0
 MaxMana = 100.0
 MaxToughness = 30.0
 ToughnessRecover = 5.0
+Speed = 175
+RecoverTimer = NodePath("RecoverTimer")
 
-[node name="ActiveZone" type="Area2D" parent="."]
+[node name="ActiveZone" type="Area2D" parent="." unique_id=1152260469]
 visible = false
 position = Vector2(176, -4)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("13_8l1ja")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveZone" unique_id=1506932650]
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_v1ih1")
 
-[node name="ActiveTimer" type="Timer" parent="ActiveZone"]
+[node name="ActiveTimer" type="Timer" parent="ActiveZone" unique_id=987779585]
 wait_time = 20.0
 autostart = true
 
-[node name="WeaponPosition" type="Marker2D" parent="."]
+[node name="WeaponPosition" type="Marker2D" parent="." unique_id=460016322]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2091795180]
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_iuq1t")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1438333101]
 position = Vector2(2.2737368e-13, -1.364242e-12)
 scale = Vector2(1.581081, 1.581081)
 sprite_frames = SubResource("SpriteFrames_ay60v")
@@ -494,53 +496,68 @@ animation = &"Break"
 frame = 4
 frame_progress = 1.0
 
-[node name="State" type="Node" parent="." node_paths=PackedStringArray("Current")]
+[node name="State" type="Node" parent="." unique_id=248351880 node_paths=PackedStringArray("Current")]
 script = ExtResource("3_b7f62")
 Current = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="State"]
-script = ExtResource("4_qqiuq")
+[node name="Idle" type="Node" parent="State" unique_id=1886700286 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("5_fqamf")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Run" type="Node" parent="State"]
+[node name="Run" type="Node" parent="State" unique_id=2078534470 node_paths=PackedStringArray("Entity", "AniPlayer")]
 script = ExtResource("5_iuq1t")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Jumping" type="Node" parent="State"]
+[node name="Jumping" type="Node" parent="State" unique_id=83468260 node_paths=PackedStringArray("Entity", "AniPlayer")]
 script = ExtResource("6_o2ky4")
 JumpSpeed = -400
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Falling" type="Node" parent="State"]
+[node name="Falling" type="Node" parent="State" unique_id=556262976 node_paths=PackedStringArray("Entity", "AniPlayer")]
 script = ExtResource("7_pwso0")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Attack" type="Node" parent="State"]
+[node name="Attack" type="Node" parent="State" unique_id=1401270864 node_paths=PackedStringArray("WeaponPos", "Entity", "AniPlayer")]
 script = ExtResource("8_v1ih1")
+WeaponPos = NodePath("../../WeaponPosition")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="SwitchWeapon" type="Node" parent="State"]
+[node name="SwitchWeapon" type="Node" parent="State" unique_id=449154940 node_paths=PackedStringArray("Entity", "AniPlayer")]
 script = ExtResource("9_iuq1t")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Death" type="Node" parent="State"]
+[node name="Death" type="Node" parent="State" unique_id=1180608182 node_paths=PackedStringArray("Entity", "AniPlayer")]
 script = ExtResource("10_pwso0")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Break" type="Node" parent="State"]
+[node name="Break" type="Node" parent="State" unique_id=1964276792 node_paths=PackedStringArray("Entity", "AniPlayer")]
 script = ExtResource("11_v1ih1")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_b7f62")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1566741073]
+libraries/ = SubResource("AnimationLibrary_b7f62")
 
-[node name="MainCamera" type="Camera2D" parent="."]
+[node name="MainCamera" type="Camera2D" parent="." unique_id=1661422779]
 position = Vector2(176, -2)
 limit_enabled = false
 script = ExtResource("13_73oc2")
 
-[node name="RecoverTimer" type="Timer" parent="."]
+[node name="RecoverTimer" type="Timer" parent="." unique_id=1223829165]
 one_shot = true
 
-[node name="Godmode" type="Timer" parent="."]
+[node name="Godmode" type="Timer" parent="." unique_id=441113675]
 wait_time = 1.5
 one_shot = true
 
-[node name="PlayerUi" parent="." instance=ExtResource("13_fqamf")]
+[node name="PlayerUi" parent="." unique_id=1978079689 instance=ExtResource("13_fqamf")]
 
 [connection signal="body_entered" from="ActiveZone" to="ActiveZone" method="_on_body_entered"]
 [connection signal="body_exited" from="ActiveZone" to="ActiveZone" method="_on_body_exited"]

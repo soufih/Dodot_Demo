@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://cmuk84c173g6p"]
+[gd_scene format=3 uid="uid://cmuk84c173g6p"]
 
 [ext_resource type="Texture2D" uid="uid://dpqq1wq2sqigh" path="res://Rescource/Static/Bullet/Red Effect Bullet Impact Explosion 32x32.png" id="1_gntb5"]
-[ext_resource type="Script" uid="uid://dvsxykdfksfdh" path="res://Script/Bullet/Bullet.gd" id="2_lffvr"]
+[ext_resource type="Script" uid="uid://dvsxykdfksfdh" path="res://Script/Gameplay/Bullet/Bullet.gd" id="2_lffvr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lffvr"]
 atlas = ExtResource("1_gntb5")

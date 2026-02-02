@@ -13,7 +13,7 @@ var current_selected_item:Dictionary= {
 	"id": -1,
 	"amount": 0
 }
-const maxItemcounts:int = 5
+const maxItemcounts:int = 300
 
 func _ready() -> void:
 	item_list_ui.modify_items_list(select_displayed_items())
@@ -87,12 +87,13 @@ func compound(item:Dictionary) ->bool:
 
 	#检查材料是否足够
 	for item_id in recipe:
-		if WarehouseSystem.get_item_count(item_id) <= 0:
+		if WarehouseSystem.get_item_amount(item_id) <= 0:
 			return false
 	
 	#扣除材料
 	for item_id in recipe:
-		WarehouseSystem.modify_item_amount(item_id, -recipe[item_id])
-		WarehouseSystem.modify_item_amount(item.id, int(item.amount))
+		WarehouseSystem.remove_item_from_warehouse(item_id, recipe[item_id])
+	var remain:Vector2i = BackpackSystem.quick_add_item(item.id, int(item.amount))
+	WarehouseSystem.add_item_to_warehouse(remain.x, remain.y)
 
 	return true

@@ -31,6 +31,13 @@ texture = SubResource("AtlasTexture_kvmbs")
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1177358582]
 layout_mode = 2
 
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer" unique_id=638545951]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(24.305, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.0
+
 [node name="item_name" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1809879704]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -43,6 +50,7 @@ autowrap_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Button" type="Button" parent="." unique_id=1733934264]

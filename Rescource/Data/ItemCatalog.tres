@@ -1,54 +1,69 @@
-[gd_resource type="Resource" script_class="ItemCatalog" load_steps=13 format=3 uid="uid://crd3nj0t7e4d6"]
+[gd_resource type="Resource" script_class="ItemCatalog" format=3 uid="uid://crd3nj0t7e4d6"]
 
-[ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Model/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
+[ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Config/Model/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
 [ext_resource type="Texture2D" uid="uid://bepnwoncbphss" path="res://Rescource/Static/TestWeapon/weapons_new2_sword.png" id="2_brj21"]
-[ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Model/ResourceManager/ItemCatalog.gd" id="2_hcisg"]
+[ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Config/Model/ResourceManager/ItemCatalog.gd" id="2_hcisg"]
 [ext_resource type="Texture2D" uid="uid://7mko7pt3q7qq" path="res://Rescource/Static/Material/item296.png" id="3_r6x5k"]
 [ext_resource type="Texture2D" uid="uid://b4acdgasrsxit" path="res://Rescource/Static/Material/item320.png" id="4_hl4hp"]
 [ext_resource type="Texture2D" uid="uid://bquqvbrvlfr62" path="res://Rescource/Static/Material/item341.png" id="5_n3iav"]
 [ext_resource type="Texture2D" uid="uid://cdymq4vhnj0cu" path="res://Rescource/Static/Material/item329.png" id="6_hl4hp"]
+[ext_resource type="Texture2D" uid="uid://b4xn2fsb3y6xu" path="res://Rescource/Static/Weapon/SwordtemberSword1.png" id="7_ffxe5"]
+[ext_resource type="Texture2D" uid="uid://cf61wtlanmpyn" path="res://Rescource/Static/Weapon/SwordtemberSword29.png" id="8_e72d0"]
+[ext_resource type="Texture2D" uid="uid://be1axgv1tlvnj" path="res://Rescource/Static/Weapon/10.png" id="9_gbo0d"]
+[ext_resource type="Texture2D" uid="uid://jlomottmrq6x" path="res://Rescource/Static/Weapon/28.png" id="10_qnlap"]
+[ext_resource type="Texture2D" uid="uid://b2qyberivh322" path="res://Rescource/Static/Material/item304.png" id="11_eosbk"]
+[ext_resource type="Texture2D" uid="uid://nxr3ihsa8c1d" path="res://Rescource/Static/Material/item303.png" id="12_5ukeb"]
+[ext_resource type="Texture2D" uid="uid://csqd8g5xd0pbm" path="res://Rescource/Static/Material/item302.png" id="13_l8dk2"]
+[ext_resource type="Texture2D" uid="uid://daqrykxtdm2h" path="res://Rescource/Static/Material/item314.png" id="14_gdmoy"]
+[ext_resource type="Texture2D" uid="uid://c3cocnfed6vro" path="res://Rescource/Static/Material/item301.png" id="15_gtr5b"]
+[ext_resource type="Texture2D" uid="uid://bq2g25bq8bf3v" path="res://Rescource/Static/Material/item312.png" id="16_8yi4f"]
+[ext_resource type="Texture2D" uid="uid://boadsr7o0hfrk" path="res://Rescource/Static/Material/item311.png" id="17_vflbg"]
+[ext_resource type="Texture2D" uid="uid://crp8ny25faf57" path="res://Rescource/Static/Material/item313.png" id="18_874mp"]
+[ext_resource type="Texture2D" uid="uid://cg77xskdxhld1" path="res://Rescource/Static/Weapon/Icon17.png" id="19_l8dk2"]
+[ext_resource type="Texture2D" uid="uid://btw5h3a5o6ssn" path="res://Rescource/Static/Weapon/Icon9.png" id="20_gdmoy"]
 
-[sub_resource type="Resource" id="Resource_brj21"]
+[sub_resource type="Resource" id="Resource_l8dk2"]
 script = ExtResource("1_h6kmf")
-ItemName = "Sword1"
-ItemDiscription = "test"
+ItemID = 10
+ItemName = "Sword"
+ItemDiscription = "sword"
 IconTexture = ExtResource("2_brj21")
 ScenePath = "uid://dt0bj2ejimup4"
 Recipe = Dictionary[int, int]({
-1: 1,
-2: 2,
-3: 4
+21: 1,
+22: 2,
+23: 4
 })
 MainItemType = 1
 ItemType = Array[int]([1, 2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
-[sub_resource type="Resource" id="Resource_h5cvd"]
+[sub_resource type="Resource" id="Resource_gdmoy"]
 script = ExtResource("1_h6kmf")
-ItemID = 1
+ItemID = 21
 ItemName = "Material1"
-ItemDiscription = "test2"
+ItemDiscription = "material"
 IconTexture = ExtResource("3_r6x5k")
 MaxStack = 100
-Products = Array[int]([0])
+Products = Array[int]([11])
 Recipe = Dictionary[int, int]({
-4: 5
+20: 5
 })
 MainItemType = 2
 ItemType = Array[int]([2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
-[sub_resource type="Resource" id="Resource_n3iav"]
+[sub_resource type="Resource" id="Resource_gtr5b"]
 script = ExtResource("1_h6kmf")
-ItemID = 2
-ItemName = "Material2"
-ItemDiscription = "test4"
+ItemID = 23
+ItemName = "Material3"
+ItemDiscription = "material"
 IconTexture = ExtResource("4_hl4hp")
 MaxStack = 100
-Products = Array[int]([0])
+Products = Array[int]([11])
 Recipe = Dictionary[int, int]({
-3: 2,
-4: 5
+22: 2,
+24: 5
 })
 MainItemType = 2
 ItemType = Array[int]([2])
@@ -56,29 +71,184 @@ metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_r6x5k"]
 script = ExtResource("1_h6kmf")
-ItemID = 3
-ItemName = "Material3"
-ItemDiscription = "test5"
+ItemID = 22
+ItemName = "Material2"
+ItemDiscription = "material"
 IconTexture = ExtResource("5_n3iav")
 MaxStack = 100
-Products = Array[int]([0, 1, 2])
+Products = Array[int]([11, 22, 23])
 MainItemType = 2
 ItemType = Array[int]([2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_hl4hp"]
 script = ExtResource("1_h6kmf")
-ItemID = 4
-ItemName = "Material4"
-ItemDiscription = "test3"
+ItemID = 20
+ItemName = "Material"
+ItemDiscription = "material"
 IconTexture = ExtResource("6_hl4hp")
 MaxStack = 100
-Products = Array[int]([2])
+Products = Array[int]([23])
 MainItemType = 2
 ItemType = Array[int]([2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
+[sub_resource type="Resource" id="Resource_e72d0"]
+script = ExtResource("1_h6kmf")
+ItemID = 11
+ItemName = "Sword2"
+ItemDiscription = "sword"
+IconTexture = ExtResource("7_ffxe5")
+Recipe = Dictionary[int, int]({
+24: 3,
+26: 1,
+28: 5
+})
+MainItemType = 1
+ItemType = Array[int]([1])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_smrcc"]
+script = ExtResource("1_h6kmf")
+ItemID = 12
+ItemName = "Sword3"
+ItemDiscription = "sword"
+IconTexture = ExtResource("8_e72d0")
+Recipe = Dictionary[int, int]({
+28: 5,
+29: 5,
+210: 5,
+211: 5
+})
+MainItemType = 1
+ItemType = Array[int]([1])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_e7byo"]
+script = ExtResource("1_h6kmf")
+ItemID = 13
+ItemName = "Staff"
+ItemDiscription = "staff"
+IconTexture = ExtResource("9_gbo0d")
+MainItemType = 1
+ItemType = Array[int]([1])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_d4g7n"]
+script = ExtResource("1_h6kmf")
+ItemID = 14
+ItemName = "Staff2"
+ItemDiscription = "staff"
+IconTexture = ExtResource("10_qnlap")
+MainItemType = 1
+ItemType = Array[int]([1])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_gbo0d"]
+script = ExtResource("1_h6kmf")
+ItemID = 27
+ItemName = "Material7"
+ItemDiscription = "material"
+IconTexture = ExtResource("11_eosbk")
+MaxStack = 100
+MainItemType = 2
+ItemType = Array[int]([2])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_qnlap"]
+script = ExtResource("1_h6kmf")
+ItemID = 26
+ItemName = "Material6"
+ItemDiscription = "material"
+IconTexture = ExtResource("12_5ukeb")
+MaxStack = 100
+MainItemType = 2
+ItemType = Array[int]([2])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_wetg3"]
+script = ExtResource("1_h6kmf")
+ItemID = 25
+ItemName = "Material5"
+ItemDiscription = "material"
+IconTexture = ExtResource("13_l8dk2")
+MaxStack = 100
+MainItemType = 2
+ItemType = Array[int]([2])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_pb70h"]
+script = ExtResource("1_h6kmf")
+ItemID = 211
+ItemName = "Material11"
+ItemDiscription = "material"
+IconTexture = ExtResource("14_gdmoy")
+MaxStack = 100
+MainItemType = 2
+ItemType = Array[int]([2])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_aeivl"]
+script = ExtResource("1_h6kmf")
+ItemID = 24
+ItemName = "Material4"
+ItemDiscription = "material"
+IconTexture = ExtResource("15_gtr5b")
+MaxStack = 100
+MainItemType = 2
+ItemType = Array[int]([2])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_r14da"]
+script = ExtResource("1_h6kmf")
+ItemID = 29
+ItemName = "Material9"
+ItemDiscription = "material"
+IconTexture = ExtResource("16_8yi4f")
+MaxStack = 100
+MainItemType = 2
+ItemType = Array[int]([2])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_eosbk"]
+script = ExtResource("1_h6kmf")
+ItemID = 28
+ItemName = "Material8"
+ItemDiscription = "material"
+IconTexture = ExtResource("17_vflbg")
+MaxStack = 100
+MainItemType = 2
+ItemType = Array[int]([2])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_5ukeb"]
+script = ExtResource("1_h6kmf")
+ItemID = 210
+ItemName = "Material10"
+ItemDiscription = "material"
+IconTexture = ExtResource("18_874mp")
+MaxStack = 100
+MainItemType = 2
+ItemType = Array[int]([2])
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_8yi4f"]
+script = ExtResource("1_h6kmf")
+ItemID = 15
+ItemName = "Bow"
+ItemDiscription = "bow"
+IconTexture = ExtResource("19_l8dk2")
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
+[sub_resource type="Resource" id="Resource_vflbg"]
+script = ExtResource("1_h6kmf")
+ItemID = 16
+ItemName = "Bow2"
+ItemDiscription = "bow"
+IconTexture = ExtResource("20_gdmoy")
+metadata/_custom_type_script = "uid://qchpvf5o4y2y"
+
 [resource]
 script = ExtResource("2_hcisg")
-Item = Array[ExtResource("1_h6kmf")]([SubResource("Resource_brj21"), SubResource("Resource_h5cvd"), SubResource("Resource_n3iav"), SubResource("Resource_r6x5k"), SubResource("Resource_hl4hp")])
+Item = Array[ExtResource("1_h6kmf")]([SubResource("Resource_l8dk2"), SubResource("Resource_gdmoy"), SubResource("Resource_gtr5b"), SubResource("Resource_r6x5k"), SubResource("Resource_hl4hp"), SubResource("Resource_e72d0"), SubResource("Resource_smrcc"), SubResource("Resource_e7byo"), SubResource("Resource_d4g7n"), SubResource("Resource_gbo0d"), SubResource("Resource_qnlap"), SubResource("Resource_wetg3"), SubResource("Resource_pb70h"), SubResource("Resource_aeivl"), SubResource("Resource_r14da"), SubResource("Resource_eosbk"), SubResource("Resource_5ukeb"), SubResource("Resource_8yi4f"), SubResource("Resource_vflbg")])
 metadata/_custom_type_script = "uid://tr7wkpbk1gtd"

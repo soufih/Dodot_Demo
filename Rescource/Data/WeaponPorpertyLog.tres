@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponPorpertyLog" load_steps=6 format=3 uid="uid://btq5vs0iwj7jm"]
+[gd_resource type="Resource" script_class="WeaponPorpertyLog" format=3 uid="uid://btq5vs0iwj7jm"]
 
-[ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Model/DamagePorperty/DamagePorperty.gd" id="1_mucyj"]
-[ext_resource type="Script" uid="uid://byiqc24xx2v6v" path="res://Script/Model/WeaponPorperty/WeaponPorperty.gd" id="2_3sl5b"]
-[ext_resource type="Script" uid="uid://os6os7hbub0w" path="res://Script/Model/WeaponPorperty/WeaponPorpertyLog.gd" id="2_mucyj"]
+[ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Config/Model/DamagePorperty/DamagePorperty.gd" id="1_mucyj"]
+[ext_resource type="Script" uid="uid://byiqc24xx2v6v" path="res://Script/Config/Model/WeaponPorperty/WeaponPorperty.gd" id="2_3sl5b"]
+[ext_resource type="Script" uid="uid://os6os7hbub0w" path="res://Script/Config/Model/WeaponPorperty/WeaponPorpertyLog.gd" id="2_mucyj"]
 
 [sub_resource type="Resource" id="Resource_3sl5b"]
 script = ExtResource("1_mucyj")

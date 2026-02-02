@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://hmacpsbsf4q8"]
+[gd_scene format=3 uid="uid://hmacpsbsf4q8"]
 
 [ext_resource type="Script" uid="uid://d2jf5o8ceyo42" path="res://Script/UI_Script/Compound_UI/buttons.gd" id="1_ymv2g"]
 [ext_resource type="PackedScene" uid="uid://bmquh0ekr1vjp" path="res://UI/Component_UI/Item_List_UI/item_selector_ui.tscn" id="1_yrfu7"]
 [ext_resource type="PackedScene" uid="uid://dag208oshi70o" path="res://UI/Component_UI/Item_List_UI/item_list_ui.tscn" id="2_ms68c"]
 [ext_resource type="Script" uid="uid://cjekghaw0yacp" path="res://Script/UI_Script/Compound_UI/compound_margincontainer.gd" id="4_i5ane"]
 
-[node name="equipment_enhancement_ui" type="Control"]
+[node name="equipment_enhancement_ui" type="Control" unique_id=1430066660]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ymv2g")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=548638764]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 246.0
@@ -22,134 +22,134 @@ offset_top = 116.0
 offset_right = 886.0
 offset_bottom = 521.0
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer" unique_id=1222228152]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1307912235]
 layout_mode = 2
 
-[node name="Buttons" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+[node name="Buttons" type="PanelContainer" parent="PanelContainer/VBoxContainer" unique_id=111335301]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/Buttons"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/Buttons" unique_id=1116808395]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer" unique_id=212898477]
 layout_mode = 2
 
-[node name="intensify_button" type="Button" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer"]
+[node name="intensify_button" type="Button" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer" unique_id=2109054970]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 text = "强化"
 
-[node name="compound_button" type="Button" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer"]
+[node name="compound_button" type="Button" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer" unique_id=1224811004]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 text = "合成"
 
-[node name="Control" type="Control" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer" unique_id=1630921943]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 12.0
 
-[node name="exit_button" type="Button" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer"]
+[node name="exit_button" type="Button" parent="PanelContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer" unique_id=183522605]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "x"
 
-[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer" unique_id=412355267]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 8.0
 
-[node name="intensify_margincontainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2"]
+[node name="intensify_margincontainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2" unique_id=1040579765]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 30
 
-[node name="compound_margincontainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2"]
+[node name="compound_margincontainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2" unique_id=1096820204]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 30
 script = ExtResource("4_i5ane")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer" unique_id=1806553781]
 layout_mode = 2
 
-[node name="compound_ui" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer"]
+[node name="compound_ui" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer" unique_id=981541039]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="item_selector_ui" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/compound_ui" instance=ExtResource("1_yrfu7")]
+[node name="item_selector_ui" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/compound_ui" unique_id=389714531 instance=ExtResource("1_yrfu7")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="item_list_ui" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/compound_ui" instance=ExtResource("2_ms68c")]
+[node name="item_list_ui" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/compound_ui" unique_id=582127805 instance=ExtResource("2_ms68c")]
 custom_minimum_size = Vector2(180, 300)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="detailed_information" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer"]
+[node name="detailed_information" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer" unique_id=1629348848]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information" unique_id=161751603]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="name" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer"]
+[node name="name" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer" unique_id=1170283721]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information"]
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information" unique_id=1971697875]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="discription" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer2"]
+[node name="discription" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer2" unique_id=1420077072]
 layout_mode = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information"]
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information" unique_id=239514953]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3" unique_id=1750026996]
 layout_mode = 2
 
-[node name="RecipeContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer"]
+[node name="RecipeContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer" unique_id=141412875]
 custom_minimum_size = Vector2(108.715, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 2.0
 
-[node name="item_list_ui" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/RecipeContainer" instance=ExtResource("2_ms68c")]
+[node name="item_list_ui" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/RecipeContainer" unique_id=146895308 instance=ExtResource("2_ms68c")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer" unique_id=401861302]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer" unique_id=480966426]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_bottom = 30
 
-[node name="confirm" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/MarginContainer"]
+[node name="confirm" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer2/compound_margincontainer/HBoxContainer/detailed_information/MarginContainer3/HBoxContainer/MarginContainer" unique_id=325728424]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

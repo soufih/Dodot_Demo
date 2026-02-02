@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5btmj4x5ov78"]
+[gd_scene format=3 uid="uid://c5btmj4x5ov78"]
 
 [ext_resource type="Texture2D" uid="uid://y7fo1dja65qf" path="res://Rescource/Static/TileSet/TileSet.png" id="1_umq35"]
-[ext_resource type="Script" uid="uid://coj4te80mudld" path="res://Script/Map/Template/TemplateGenerator.gd" id="2_uh4ea"]
+[ext_resource type="Script" uid="uid://coj4te80mudld" path="res://Script/Gameplay/Map/Template/TemplateGenerator.gd" id="2_uh4ea"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xv1x0"]
 texture = ExtResource("1_umq35")

@@ -12,8 +12,9 @@ signal toughness_changed
 @export var DamageResist: Array[float]
 @export var AbnormalConditionResist: Array[float]
 @export var ToughnessRecover: float
+@export var Speed:int
+@export var RecoverTimer:Timer
 
-@onready var RecoverTimer:Timer = get_node("RecoverTimer")
 @onready var CurrentHealth: float = MaxHealth
 @onready var CurrentMana:float = MaxMana
 @onready var Toughness: float = MaxToughness
