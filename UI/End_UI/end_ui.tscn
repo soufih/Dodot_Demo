@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://bycq6aswbilkt"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=1258634461]
+self_modulate = Color(1, 1, 1, 0.6039216)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 326.0
+offset_top = 149.0
+offset_right = -326.0
+offset_bottom = -149.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=930981779]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer" unique_id=1682749434]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2" unique_id=1403574542]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Materials_List" type="PanelContainer" parent="VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1637223847]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Score" type="PanelContainer" parent="VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1113555267]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score" unique_id=1338726016]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer" unique_id=1652080121]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer/PanelContainer" unique_id=1931265605]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer" unique_id=2024450757]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+columns = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer/GridContainer" unique_id=1949351557]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "小怪："
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer/GridContainer" unique_id=1180777543]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "boss："
+
+[node name="Label3" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer/GridContainer" unique_id=1544797216]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "金币："
+
+[node name="Label4" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer/GridContainer" unique_id=847324762]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "耗时："
+
+[node name="Label5" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer/GridContainer" unique_id=404669233]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="Label6" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer/Score/VBoxContainer/GridContainer" unique_id=1982040779]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1885394901]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=1734703663]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=764921150]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "返回据点"
+
+[node name="Button2" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=2036659813]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "返回地图"
+
+[node name="Button3" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1517567068]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "再次挑战"
