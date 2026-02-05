@@ -17,6 +17,7 @@ func check():
 		return
 	
 	if Entity.Toughness <= 0:
+		Breaked = true
 		change_state(3)
 		return
 		

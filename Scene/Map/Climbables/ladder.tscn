@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://x1dfb4rvq5v"]
+
+[ext_resource type="Texture2D" uid="uid://ccrewiougq6ye" path="res://Rescource/Static/TileSet/PixelFantasy_Caves_1.0/mainlev_build.png" id="1_4mlq6"]
+[ext_resource type="Script" uid="uid://c7jgudape0ihu" path="res://Script/Gameplay/Map/Climbables/Ladder.gd" id="1_aqu2n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5uac"]
+atlas = ExtResource("1_4mlq6")
+region = Rect2(968, 112, 2, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4rh3"]
+size = Vector2(51.301605, 61.786407)
+
+[node name="Ladder" type="Node2D" unique_id=100316515]
+script = ExtResource("1_aqu2n")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1851729573]
+position = Vector2(1, 32)
+texture = SubResource("AtlasTexture_j5uac")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=976586906]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1148660085]
+position = Vector2(0.89201236, 32)
+scale = Vector2(0.043195043, -1.0358266)
+shape = SubResource("RectangleShape2D_p4rh3")

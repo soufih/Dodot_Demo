@@ -15,6 +15,7 @@ func _ready() -> void:
 	
 	levelGenerator.prepare_generating()
 	levelGenerator.generate_level(LevelInformation.get_level_info().level)
+	
 
 func _exit_tree() -> void:
 	UIManager.ui_clear_list()

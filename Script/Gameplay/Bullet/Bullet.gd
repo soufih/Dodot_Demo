@@ -27,11 +27,13 @@ func _physics_process(delta: float) -> void:
 
 
 func apply_damage():
-	var Attack = DamagePorperty.new()
-	Attack.Damage = 20
-	Attack.DamageType = "Physics"
-	Attack.ImpactForce = 20
-	Attack.CriticalHit = 0.1
+	var Attack = DamagePorperty.new(
+		20,
+		ENUM.DamageType.Physics,
+		20,
+		[],
+		0.1,
+	)
 	
 	for body in HitBox.get_overlapping_bodies():
 		if body.is_in_group(Target):

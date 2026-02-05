@@ -91,7 +91,7 @@ func get_character_state_slot()->Dictionary:
 func set_character_current_health(CH: float):
 	CurrentHealth = CH
 	health_changed.emit()
-	print(self.name," CurrentHealth:",CurrentHealth)
+	#print(self.name," CurrentHealth:",CurrentHealth)
 
 ##设置角色最大生命值
 func set_character_max_health(MH:float):
@@ -121,7 +121,7 @@ func set_character_max_toughness(MT:float):
 ##设置角色韧性值
 func set_character_toughness(T:float):
 	Toughness = T
-	print(self.name," Toughness:",Toughness)
+	#print(self.name," Toughness:",Toughness)
 	RecoverTimer.start(ToughnessRecover)
 	await RecoverTimer.timeout
 	Toughness = MaxToughness

@@ -14,6 +14,7 @@ func do(_delta):
 func apply_damage(Movement: String):
 	for body in Hitbox.get_overlapping_bodies():
 		if body.is_in_group("Hero") && Spirte.frame == 9:
+			print(Entity.Porperty.Movement)
 			DamageSystem.damage_assess(Entity, body, Entity.Porperty.Movementlist[Movement])
 
 

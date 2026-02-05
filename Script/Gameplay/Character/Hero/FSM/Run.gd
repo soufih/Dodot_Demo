@@ -6,6 +6,7 @@ func enter():
 	AniPlayer.play("Run")
 	
 func do(_delta):
+	
 	direct_x = Input.get_action_strength("MoveRight")-Input.get_action_strength("MoveLeft")
 
 	Entity.velocity.x = direct_x*Entity.Speed
