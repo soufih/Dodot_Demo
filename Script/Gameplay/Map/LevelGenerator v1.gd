@@ -6,6 +6,11 @@ static var ReferLevelTemplateLog:LevelTemplateLog
 
 var Startpoint:Vector2i
 
+func _init() -> void:
+	prepare_generating()
+	generate_level(LevelInformation.get_level_info().level)
+	
+
 #房间数据初始化
 func prepare_generating():
 	randomize()
@@ -180,7 +185,7 @@ func spawn_enemy(SpawnPoints:Array[Node], Level:int):
 	var Enemies:Array = EnemyManager.get_enemies_of_level(Level)
 	if Enemies.size() == 0:
 		return
-	
+
 	while Index < Size:
 		randomize()
 		#随机挑选一个敌人

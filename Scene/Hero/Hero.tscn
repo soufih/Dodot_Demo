@@ -13,8 +13,9 @@
 [ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Gameplay/Character/Hero/FSM/Break.gd" id="11_v1ih1"]
 [ext_resource type="Script" uid="uid://b136nok0ljjgi" path="res://Script/Gameplay/Character/Hero/ActiveZone.gd" id="13_8l1ja"]
 [ext_resource type="Script" uid="uid://fe5kru1uiwtf" path="res://Script/Gameplay/Character/Hero/main_camera.gd" id="13_73oc2"]
-[ext_resource type="PackedScene" uid="uid://cc5wdn2jl6o02" path="res://UI/PlayerUI/PlayerUI.tscn" id="13_fqamf"]
 [ext_resource type="Texture2D" uid="uid://ccrewiougq6ye" path="res://Rescource/Static/TileSet/PixelFantasy_Caves_1.0/mainlev_build.png" id="14_73oc2"]
+[ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/PlayerUI/Player_State_UI.tscn" id="15_73oc2"]
+[ext_resource type="PackedScene" uid="uid://c6i4w1y5eednm" path="res://UI/PlayerUI/weapon_state_ui.tscn" id="16_pw8k8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1ih1"]
 size = Vector2(1153, 649)
@@ -1381,7 +1382,8 @@ RecoverTimer = NodePath("RecoverTimer")
 
 [node name="ActiveZone" type="Area2D" parent="." unique_id=1152260469]
 visible = false
-position = Vector2(176, -4)
+position = Vector2(1, -126)
+scale = Vector2(1.1325878, 1.1208388)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("13_8l1ja")
@@ -1477,7 +1479,12 @@ one_shot = true
 wait_time = 1.5
 one_shot = true
 
-[node name="PlayerUi" parent="." unique_id=1978079689 instance=ExtResource("13_fqamf")]
+[node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1609103770]
+
+[node name="Player_State_UI" parent="PlayerUI" unique_id=1229242046 node_paths=PackedStringArray("Hero") instance=ExtResource("15_73oc2")]
+Hero = NodePath("../..")
+
+[node name="weapon_state_ui" parent="PlayerUI" unique_id=1906476103 instance=ExtResource("16_pw8k8")]
 
 [connection signal="body_entered" from="ActiveZone" to="ActiveZone" method="_on_body_entered"]
 [connection signal="body_exited" from="ActiveZone" to="ActiveZone" method="_on_body_exited"]

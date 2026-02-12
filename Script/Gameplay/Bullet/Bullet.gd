@@ -27,7 +27,8 @@ func _physics_process(delta: float) -> void:
 
 
 func apply_damage():
-	var Attack = DamagePorperty.new(
+	var Attack = DamagePorperty.new()
+	Attack.setter(
 		20,
 		ENUM.DamageType.Physics,
 		20,

@@ -3,6 +3,8 @@ extends BaseUI
 @onready var health_bar: TextureProgressBar = $HP/Health_bar
 @onready var mana_bar: TextureProgressBar = $MP/Mana_bar
 
+@export var Hero: BaseCharacter
+
 var max_health: float
 var health: float
 var need_update_health:bool = true
@@ -11,11 +13,9 @@ var max_mana: float
 var mana: float
 var need_update_mana:bool = true
 var base_max_mana: float = 100
-var Hero:BaseCharacter
 
 func _ready() ->void:
 	begin()
-	Hero = DataLoader.get_hero()
 	if Hero:
 		Hero.mana_changed.connect(update_mana)
 		Hero.health_changed.connect(update_health)

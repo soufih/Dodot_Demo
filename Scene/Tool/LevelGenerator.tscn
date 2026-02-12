@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnobpreypcfvl"]
 
-[ext_resource type="Script" uid="uid://bp2w26nctj7d6" path="res://Script/Gameplay/Map/LevelGenerator.gd" id="1_k7y5e"]
+[ext_resource type="Script" uid="uid://bp2w26nctj7d6" path="res://Script/Gameplay/Map/LevelGenerator v1.gd" id="1_k7y5e"]
 
 [node name="LevelGenerator" type="Node" unique_id=635254476]
 script = ExtResource("1_k7y5e")

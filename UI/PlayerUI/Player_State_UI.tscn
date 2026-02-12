@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bd2erf76jvubl"]
+[gd_scene format=3 uid="uid://bd2erf76jvubl"]
 
 [ext_resource type="Script" uid="uid://d1vdkqejq3msk" path="res://Script/UI_Script/Player_UI/Player_State_UI/player_state_ui.gd" id="1_hf3bv"]
 [ext_resource type="Texture2D" uid="uid://fgbi2k6cqxax" path="res://Rescource/UI/Base-01.png" id="2_kfmsa"]
@@ -15,7 +15,7 @@ region = Rect2(307.90057, 86, 56.072266, 4.083687)
 atlas = ExtResource("2_kfmsa")
 region = Rect2(307.96738, 54.114563, 56.338837, 3.9730988)
 
-[node name="Player_State_UI" type="Control"]
+[node name="Player_State_UI" type="Control" unique_id=1229242046]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,14 +28,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hf3bv")
 
-[node name="HP" type="HBoxContainer" parent="."]
+[node name="HP" type="HBoxContainer" parent="." unique_id=1297515489]
 layout_mode = 0
 offset_top = -56.0
 offset_right = 114.0
 offset_bottom = -4.0
 scale = Vector2(5.1680574, 3.55895)
 
-[node name="Health_bar" type="TextureProgressBar" parent="HP"]
+[node name="Health_bar" type="TextureProgressBar" parent="HP" unique_id=481188646]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -45,14 +45,14 @@ texture_over = SubResource("AtlasTexture_y32wq")
 texture_progress = SubResource("AtlasTexture_bobcw")
 texture_progress_offset = Vector2(0.5, 0)
 
-[node name="MP" type="HBoxContainer" parent="."]
+[node name="MP" type="HBoxContainer" parent="." unique_id=1765464160]
 layout_mode = 0
 offset_top = -32.0
 offset_right = 114.0
 offset_bottom = 20.0
 scale = Vector2(5.1680574, 3.55895)
 
-[node name="Mana_bar" type="TextureProgressBar" parent="MP"]
+[node name="Mana_bar" type="TextureProgressBar" parent="MP" unique_id=119040006]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -62,7 +62,7 @@ texture_over = SubResource("AtlasTexture_y32wq")
 texture_progress = SubResource("AtlasTexture_hf3bv")
 texture_progress_offset = Vector2(0.5, 0)
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1626039672]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 300.0

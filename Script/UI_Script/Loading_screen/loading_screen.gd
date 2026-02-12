@@ -8,6 +8,7 @@ var next_scene:String
 
 
 func _ready() -> void:
+	print("loading......")
 	ResourceLoader.load_threaded_request(next_scene, '', true)
 
 

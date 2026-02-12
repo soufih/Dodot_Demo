@@ -1,12 +1,14 @@
 extends BaseState
 
-var fallen_height_start
-var fallen_height_end
+@export var safe_fall_speed = 800  # 安全下落速度
+@export var max_fall_speed = 1500  # 最大下落速度
+@export var base_damage = 5  # 基础伤害
 
+var fall_speed:float
 
 func enter():
+	fall_speed = 0
 	AniPlayer.play("Falling")
-	fallen_height_start = Entity.global_position.y
 
 
 func do(delta):
@@ -16,17 +18,22 @@ func do(delta):
 	if !Entity.is_on_floor():
 		Entity.velocity.y += delta*DataLoader.gravity
 	Entity.move_and_slide()
+	fall_speed = max(abs(Entity.velocity.y), fall_speed)
 
 func exit():
-	fallen_height_end = Entity.global_position.y
-	if fallen_height_end-fallen_height_start <= 500:
-		return
-	var fallen_damage:DamagePorperty = DamagePorperty.new(
-		(fallen_height_end-fallen_height_start-500),
-		ENUM.DamageType.Null,
-		0,
-		[],
-		0)
-	print(fallen_damage.traverse_damage_property())
-	print("health: ", Entity.get_character_current_health())
-	DamageSystem.damage_assess(null, Entity, fallen_damage)
+	var damage:float
+	if fall_speed > safe_fall_speed:
+		var damage_ratio = (fall_speed - safe_fall_speed) / (max_fall_speed - safe_fall_speed)
+		damage_ratio = clamp(damage_ratio, 0.0, 1.0)
+
+		damage = base_damage + (50 - base_damage) * damage_ratio
+		damage = round(damage)
+	
+		var fallen_damage:DamagePorperty = DamagePorperty.new()
+		fallen_damage.setter(
+			damage,
+			ENUM.DamageType.Null,
+			0,
+			[],
+			0)
+		DamageSystem.damage_assess(null, Entity, fallen_damage)

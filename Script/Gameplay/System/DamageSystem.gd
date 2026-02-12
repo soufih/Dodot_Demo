@@ -9,22 +9,24 @@ func damage_assess(Source:BaseCharacter, Target:BaseCharacter, Attack:DamagePorp
 
 ##施加伤害
 func apply_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorperty):
-	if Target && Source:
+	if Target:
 		var Damage = calculate_damage(Source, Target, Attack)
 		if Damage == -1:
 			return
+			print(Damage)
 		Target.set_character_current_health(Target.get_character_current_health()-Damage)
 
 ##计算最终伤害值
 func calculate_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorperty)->float:
-	if Target && Source:
+	if Target:
 		var TotalDamage = Attack.Damage
 		if Target.get_character_damage_resist().size():
 			if Target.get_character_damage_resist().get(Attack.DamageType):
 				TotalDamage = TotalDamage - Target.get_character_damage_resist().get(Attack.DamageType)*TotalDamage
 		if randf()*100 <= Attack.CriticalHit:
 			TotalDamage = TotalDamage * 1.5
-		TotalDamage = TotalDamage * (1+Source.sum_damage_enhance()+Source.sum_damage_reduce())
+		if Source:
+			TotalDamage = TotalDamage * (1+Source.sum_damage_enhance()+Source.sum_damage_reduce())
 		return TotalDamage
 	return -1
 

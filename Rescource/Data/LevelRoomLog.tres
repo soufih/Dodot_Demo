@@ -10,47 +10,11 @@ Exit = Array[bool]([false, false, true, false])
 RoomPath = "res://Scene/Map/Room/Start/S1.tscn"
 metadata/_custom_type_script = "uid://dxvktdhmsuboy"
 
-[sub_resource type="Resource" id="Resource_cqset"]
-script = ExtResource("2_cqset")
-Exit = Array[bool]([false, false, true, false])
-RoomPath = "res://Scene/Map/Room/Start/S2.tscn"
-metadata/_custom_type_script = "uid://dxvktdhmsuboy"
-
-[sub_resource type="Resource" id="Resource_jll86"]
-script = ExtResource("2_cqset")
-Exit = Array[bool]([false, false, true, false])
-RoomPath = "res://Scene/Map/Room/Start/S3.tscn"
-metadata/_custom_type_script = "uid://dxvktdhmsuboy"
-
-[sub_resource type="Resource" id="Resource_rjiog"]
-script = ExtResource("2_cqset")
-RoomType = 2
-Entrance = 2
-Exit = Array[bool]([false, false, false, true])
-RoomPath = "res://Scene/Map/Room/Room/R3.tscn"
-metadata/_custom_type_script = "uid://dxvktdhmsuboy"
-
 [sub_resource type="Resource" id="Resource_xagui"]
 script = ExtResource("2_cqset")
 RoomType = 3
 Exit = Array[bool]([false, false, false, false])
 RoomPath = "res://Scene/Map/Room/End/E1.tscn"
-metadata/_custom_type_script = "uid://dxvktdhmsuboy"
-
-[sub_resource type="Resource" id="Resource_cjs1t"]
-script = ExtResource("2_cqset")
-RoomType = 3
-Entrance = 1
-Exit = Array[bool]([false, false, false, false])
-RoomPath = "res://Scene/Map/Room/End/E2.tscn"
-metadata/_custom_type_script = "uid://dxvktdhmsuboy"
-
-[sub_resource type="Resource" id="Resource_onb4c"]
-script = ExtResource("2_cqset")
-RoomType = 3
-Entrance = 2
-Exit = Array[bool]([false, false, false, false])
-RoomPath = "res://Scene/Map/Room/End/E3.tscn"
 metadata/_custom_type_script = "uid://dxvktdhmsuboy"
 
 [sub_resource type="Resource" id="Resource_j2d22"]
@@ -79,7 +43,7 @@ metadata/_custom_type_script = "uid://dxvktdhmsuboy"
 script = ExtResource("2_cqset")
 RoomType = 2
 Exit = Array[bool]([false, false, true, false])
-RoomPath = "uid://umasvyl80cyn"
+RoomPath = "res://Scene/Map/Room/Room/R4.tscn"
 metadata/_custom_type_script = "uid://dxvktdhmsuboy"
 
 [sub_resource type="Resource" id="Resource_uebvj"]
@@ -89,9 +53,17 @@ Exit = Array[bool]([false, false, true, false])
 RoomPath = "res://Scene/Map/Room/Room/R5.tscn"
 metadata/_custom_type_script = "uid://dxvktdhmsuboy"
 
+[sub_resource type="Resource" id="Resource_opy7d"]
+script = ExtResource("2_cqset")
+RoomType = 2
+Entrance = 2
+Exit = Array[bool]([false, false, false, true])
+RoomPath = "res://Scene/Map/Room/Room/R6.tscn"
+metadata/_custom_type_script = "uid://dxvktdhmsuboy"
+
 [sub_resource type="Resource" id="Resource_to31a"]
 script = ExtResource("1_2ypun")
-RoomLog = Array[ExtResource("2_cqset")]([SubResource("Resource_xqdc7"), SubResource("Resource_cqset"), SubResource("Resource_jll86"), SubResource("Resource_rjiog"), SubResource("Resource_xagui"), SubResource("Resource_cjs1t"), SubResource("Resource_onb4c"), SubResource("Resource_j2d22"), SubResource("Resource_0mdvf"), SubResource("Resource_aqgqe"), SubResource("Resource_82qac"), SubResource("Resource_uebvj")])
+RoomLog = Array[ExtResource("2_cqset")]([SubResource("Resource_xqdc7"), SubResource("Resource_xagui"), SubResource("Resource_j2d22"), SubResource("Resource_0mdvf"), SubResource("Resource_aqgqe"), SubResource("Resource_82qac"), SubResource("Resource_uebvj"), SubResource("Resource_opy7d")])
 metadata/_custom_type_script = "uid://cwo4e54lv8500"
 
 [resource]

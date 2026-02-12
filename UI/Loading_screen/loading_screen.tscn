@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwe0xfiykgcu0"]
+[gd_scene format=3 uid="uid://dwe0xfiykgcu0"]
 
 [ext_resource type="Script" uid="uid://i185qf6yvofm" path="res://Script/UI_Script/Loading_screen/loading_screen.gd" id="1_poetl"]
 
-[node name="Loading_screen" type="Control"]
+[node name="Loading_screen" type="Control" unique_id=854175974]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_poetl")
 
-[node name="progress_titiel_Lb" type="Label" parent="."]
+[node name="progress_titiel_Lb" type="Label" parent="." unique_id=1103528519]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -28,7 +28,7 @@ text = "请输入文本"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="progress_number_Lb" type="Label" parent="."]
+[node name="progress_number_Lb" type="Label" parent="." unique_id=97496051]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -43,7 +43,7 @@ text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1932834886]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

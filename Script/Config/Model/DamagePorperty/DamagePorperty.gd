@@ -8,7 +8,7 @@ class_name DamagePorperty
 @export var CriticalHit: float
 
 
-func _init(_Damage: float, _DamageType: ENUM.DamageType, _ImpactForce: float, _AbnormalDamage: Array[ENUM.AbnormalType], _CriticalHit: float) -> void:
+func setter(_Damage: float, _DamageType: ENUM.DamageType, _ImpactForce: float, _AbnormalDamage: Array[ENUM.AbnormalType], _CriticalHit: float) -> void:
 	self.Damage = _Damage
 	self.DamageType = _DamageType
 	self.ImpactForce = _ImpactForce
