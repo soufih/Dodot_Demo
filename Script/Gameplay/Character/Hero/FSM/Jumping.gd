@@ -2,14 +2,23 @@ extends BaseState
 
 @export var JumpSpeed: int
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var holdTime:float
+var maxHoldtime:float = 0.4
 
 func enter():
+	holdTime = 0
 	get_parent().jumping = true
-	Entity.velocity.y += JumpSpeed
+	Entity.velocity.y += -250
 	AniPlayer.play("Jump")
+	
 	
 
 func do(delta: float):
+	if Input.is_action_pressed("Jump"):
+		holdTime += delta
+		if holdTime < maxHoldtime:
+			Entity.velocity.y += -17
+
 	Entity.filp_character()
 	if Entity.velocity.y < 0:
 		Entity.velocity.y = Entity.velocity.y + gravity*delta

@@ -12227,9 +12227,6 @@ position = Vector2(1, 1)
 [node name="RIGHT" type="Marker2D" parent="." unique_id=1603103739]
 position = Vector2(2880, 0)
 
-[node name="Hero" parent="." unique_id=984855582 instance=ExtResource("10_x1b4i")]
-position = Vector2(118, 40)
-
 [node name="MapComonent" type="Node2D" parent="." unique_id=1325485475]
 
 [node name="Plateform" parent="MapComonent" unique_id=112102110 instance=ExtResource("10_43je5")]
@@ -12255,3 +12252,6 @@ scale = Vector2(2.021461, 1)
 [node name="Ladder" parent="." unique_id=976586906 instance=ExtResource("8_5d7g6")]
 position = Vector2(1721, -441)
 scale = Vector2(0.075, 9)
+
+[node name="Hero" parent="." unique_id=984855582 instance=ExtResource("10_x1b4i")]
+position = Vector2(1332, -379)

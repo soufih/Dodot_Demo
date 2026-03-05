@@ -1503,8 +1503,9 @@ script = ExtResource("9_iuq1t")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Death" type="Node" parent="State" unique_id=1180608182 node_paths=PackedStringArray("Entity", "AniPlayer")]
+[node name="Death" type="Node" parent="State" unique_id=1180608182 node_paths=PackedStringArray("mainCamera", "Entity", "AniPlayer")]
 script = ExtResource("10_pwso0")
+mainCamera = NodePath("../../MainCamera")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
 
