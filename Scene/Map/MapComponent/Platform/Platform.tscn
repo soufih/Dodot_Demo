@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cli20mnfoahgl"]
+
+[ext_resource type="Script" uid="uid://d3m636th3q4lp" path="res://Script/Gameplay/Map/MapComponent/Platform.gd" id="1_xs12m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7pja"]
+size = Vector2(59.99887, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xs12m"]
+size = Vector2(48.51016, 19.449745)
+
+[node name="Plateform" type="StaticBody2D" unique_id=1355288828 node_paths=PackedStringArray("detectBox")]
+position = Vector2(1, -44)
+collision_mask = 0
+script = ExtResource("1_xs12m")
+detectBox = NodePath("Area2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813936944]
+position = Vector2(1, 14.000002)
+shape = SubResource("RectangleShape2D_n7pja")
+one_way_collision = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=464119246]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1537889416]
+position = Vector2(1.0000012, 7)
+scale = Vector2(1.2368543, 1.3367784)
+shape = SubResource("RectangleShape2D_xs12m")
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -90,6 +90,13 @@ func ui_get_top() -> BaseUI:
 func ui_clear_list() -> void:
 	UIList.clear()
 
+##y关闭所有UI
+func ui_close_all():
+	for ui in UIList:
+		if ui:
+			ui.hide()
+	UIList.clear()
+
 ##关闭最上层UI
 func ui_cancel():
 	if UIList.size() > 0:

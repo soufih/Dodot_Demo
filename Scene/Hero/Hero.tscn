@@ -13,7 +13,10 @@
 [ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Gameplay/Character/Hero/FSM/Break.gd" id="11_v1ih1"]
 [ext_resource type="Script" uid="uid://b136nok0ljjgi" path="res://Script/Gameplay/Character/Hero/ActiveZone.gd" id="13_8l1ja"]
 [ext_resource type="Script" uid="uid://fe5kru1uiwtf" path="res://Script/Gameplay/Character/Hero/main_camera.gd" id="13_73oc2"]
+[ext_resource type="Script" uid="uid://cn6d25uwykjnr" path="res://Script/Gameplay/Character/Hero/FSM/Interaction.gd" id="13_xf7nq"]
+[ext_resource type="Script" uid="uid://cpwmxvvobtj8d" path="res://Script/Gameplay/Character/Hero/FSM/SubStates/Default.gd" id="14_6j51a"]
 [ext_resource type="Texture2D" uid="uid://ccrewiougq6ye" path="res://Rescource/Static/TileSet/PixelFantasy_Caves_1.0/mainlev_build.png" id="14_73oc2"]
+[ext_resource type="Script" uid="uid://dqt3bgrx5fca8" path="res://Script/Gameplay/Character/Hero/FSM/SubStates/ClimbLadder.gd" id="14_dqago"]
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/PlayerUI/Player_State_UI.tscn" id="15_73oc2"]
 [ext_resource type="PackedScene" uid="uid://c6i4w1y5eednm" path="res://UI/PlayerUI/weapon_state_ui.tscn" id="16_pw8k8"]
 
@@ -71,6 +74,22 @@ region = Rect2(300, 296, 50, 37)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mmtr"]
 atlas = ExtResource("1_uv5e3")
 region = Rect2(0, 333, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gp4r"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(200, 407, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b035h"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(250, 407, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6j0ej"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(300, 407, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmxlm"]
+atlas = ExtResource("1_uv5e3")
+region = Rect2(0, 444, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mfi7m"]
 atlas = ExtResource("1_uv5e3")
@@ -210,6 +229,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0gp4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b035h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6j0ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmxlm")
+}],
+"loop": true,
+"name": &"Climb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_mfi7m")
 }, {
 "duration": 1.0,
@@ -340,6 +376,23 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_pw8k8"]
+resource_name = "Climb"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Climb", 1.0, false],
+"method": &"play"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_0gp4r"]
 resource_name = "Death"
 tracks/0/type = "method"
@@ -448,6 +501,7 @@ tracks/0/keys = {
 _data = {
 &"Attack": SubResource("Animation_o8uxl"),
 &"Break": SubResource("Animation_b035h"),
+&"Climb": SubResource("Animation_pw8k8"),
 &"Death": SubResource("Animation_0gp4r"),
 &"Falling": SubResource("Animation_fqamf"),
 &"Idle": SubResource("Animation_6pkku"),
@@ -1367,6 +1421,9 @@ texture = ExtResource("14_73oc2")
 [sub_resource type="TileSet" id="TileSet_xf7nq"]
 sources/0 = SubResource("TileSetAtlasSource_pw8k8")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqago"]
+size = Vector2(14.999993, 37.499985)
+
 [node name="Hero" type="CharacterBody2D" unique_id=984855582 node_paths=PackedStringArray("RecoverTimer")]
 collision_layer = 2
 collision_mask = 129
@@ -1398,7 +1455,7 @@ autostart = true
 
 [node name="WeaponPosition" type="Marker2D" parent="." unique_id=460016322]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2091795180]
+[node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=2091795180]
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_iuq1t")
 
@@ -1406,9 +1463,9 @@ shape = SubResource("CapsuleShape2D_iuq1t")
 position = Vector2(2.2737368e-13, -1.364242e-12)
 scale = Vector2(1.581081, 1.581081)
 sprite_frames = SubResource("SpriteFrames_ay60v")
-animation = &"Break"
-frame = 4
-frame_progress = 1.0
+animation = &"Idle"
+frame = 1
+frame_progress = 0.52211946
 
 [node name="State" type="Node" parent="." unique_id=248351880 node_paths=PackedStringArray("Current")]
 script = ExtResource("3_b7f62")
@@ -1456,6 +1513,23 @@ script = ExtResource("11_v1ih1")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
 
+[node name="Interact" type="Node" parent="State" unique_id=1298160927 node_paths=PackedStringArray("InteractBox", "Entity", "AniPlayer")]
+script = ExtResource("13_xf7nq")
+InteractBox = NodePath("../../InteractBox")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Default" type="Node" parent="State/Interact" unique_id=2065400758 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("14_6j51a")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../AnimationPlayer")
+
+[node name="climbLadder" type="Node" parent="State/Interact" unique_id=738554418 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("14_dqago")
+Speed = 125
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../AnimationPlayer")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1566741073]
 libraries/ = SubResource("AnimationLibrary_b7f62")
 
@@ -1486,7 +1560,17 @@ Hero = NodePath("../..")
 
 [node name="weapon_state_ui" parent="PlayerUI" unique_id=1906476103 instance=ExtResource("16_pw8k8")]
 
+[node name="InteractBox" type="Area2D" parent="." unique_id=657202990]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractBox" unique_id=445753897]
+position = Vector2(-0.99999976, 4.5)
+scale = Vector2(1.2000005, 1.2000005)
+shape = SubResource("RectangleShape2D_dqago")
+
 [connection signal="body_entered" from="ActiveZone" to="ActiveZone" method="_on_body_entered"]
 [connection signal="body_exited" from="ActiveZone" to="ActiveZone" method="_on_body_exited"]
 [connection signal="timeout" from="ActiveZone/ActiveTimer" to="ActiveZone" method="_on_active_timer_timeout"]
 [connection signal="child_entered_tree" from="WeaponPosition" to="." method="_on_weapon_position_child_entered_tree"]
+[connection signal="area_exited" from="InteractBox" to="State/Interact" method="_on_interact_box_area_exited"]

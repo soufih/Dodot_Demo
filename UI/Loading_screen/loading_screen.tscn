@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://i185qf6yvofm" path="res://Script/UI_Script/Loading_screen/loading_screen.gd" id="1_poetl"]
 
 [node name="Loading_screen" type="Control" unique_id=854175974]
+z_index = 100
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +14,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_poetl")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=818940406]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="progress_titiel_Lb" type="Label" parent="." unique_id=1103528519]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -24,11 +35,12 @@ offset_right = -365.0
 offset_bottom = -418.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 64
-text = "请输入文本"
+text = "任意键继续"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="progress_number_Lb" type="Label" parent="." unique_id=97496051]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0

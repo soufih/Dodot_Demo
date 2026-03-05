@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbwx0jsme6knq"]
+[gd_scene format=3 uid="uid://dbwx0jsme6knq"]
 
 [ext_resource type="Script" uid="uid://bokfjy81a5h7w" path="res://Script/UI_Script/Map_UI/level_discription.gd" id="1_oem18"]
 [ext_resource type="PackedScene" uid="uid://pn2rtwj3ukb5" path="res://UI/Component_UI/discription_ui.tscn" id="1_quy03"]
 
-[node name="level_discription" type="Control"]
+[node name="level_discription" type="Control" unique_id=1365961901]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,21 +12,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_oem18")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1025731529]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="discription_ui" parent="VBoxContainer" instance=ExtResource("1_quy03")]
+[node name="discription_ui" parent="VBoxContainer" unique_id=1917430716 instance=ExtResource("1_quy03")]
 custom_minimum_size = Vector2(259.515, 357.355)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="VBoxContainer"]
+[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=638065250]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 7.355)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=472378834]
 custom_minimum_size = Vector2(0, 24.96)
 layout_mode = 2
 size_flags_vertical = 3

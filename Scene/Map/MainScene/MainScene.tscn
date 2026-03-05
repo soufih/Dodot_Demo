@@ -1,12 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpkdfkxoa4u4p"]
+[gd_scene format=3 uid="uid://bpkdfkxoa4u4p"]
 
 [ext_resource type="PackedScene" uid="uid://dj557uye5f0gc" path="res://UI/MainScene_UI/Mainmenu.tscn" id="1_1trh6"]
 
-[node name="MainScene" type="Node2D"]
+[node name="MainScene" type="Node2D" unique_id=713531618]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1783187758]
 
-[node name="Mainmenu" parent="CanvasLayer" instance=ExtResource("1_1trh6")]
+[node name="Mainmenu" parent="CanvasLayer" unique_id=1906383198 instance=ExtResource("1_1trh6")]
 offset_left = 3.0
 offset_top = 2.0
 offset_right = 3.0

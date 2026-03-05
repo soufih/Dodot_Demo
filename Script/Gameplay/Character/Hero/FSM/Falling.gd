@@ -12,6 +12,7 @@ func enter():
 
 
 func do(delta):
+	Entity.filp_character()
 	var direct_x = Input.get_action_strength("MoveRight")-Input.get_action_strength("MoveLeft")
 	Entity.velocity.x = direct_x*Entity.Speed
 	
@@ -21,6 +22,8 @@ func do(delta):
 	fall_speed = max(abs(Entity.velocity.y), fall_speed)
 
 func exit():
+	if !Entity.is_on_floor():
+		return
 	var damage:float
 	if fall_speed > safe_fall_speed:
 		var damage_ratio = (fall_speed - safe_fall_speed) / (max_fall_speed - safe_fall_speed)

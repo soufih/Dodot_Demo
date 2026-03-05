@@ -13,7 +13,6 @@ func apply_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorper
 		var Damage = calculate_damage(Source, Target, Attack)
 		if Damage == -1:
 			return
-			print(Damage)
 		Target.set_character_current_health(Target.get_character_current_health()-Damage)
 
 ##计算最终伤害值

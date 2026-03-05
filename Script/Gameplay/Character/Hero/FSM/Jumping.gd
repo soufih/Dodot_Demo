@@ -10,6 +10,7 @@ func enter():
 	
 
 func do(delta: float):
+	Entity.filp_character()
 	if Entity.velocity.y < 0:
 		Entity.velocity.y = Entity.velocity.y + gravity*delta
 	else:
@@ -20,3 +21,7 @@ func do(delta: float):
 	Entity.velocity.x = direct_x*Entity.Speed
 	
 	Entity.move_and_slide()
+
+func exit():
+	Entity.velocity = Vector2(0, 0)
+	get_parent().jumping = false

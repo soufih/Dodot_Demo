@@ -22,6 +22,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super.physics_running(delta)
+
+func filp_character()->void:
 	if Input.get_action_strength("MoveRight"):
 		if WeaponPosition.get_children().size() != 0:
 			WeaponPosition.get_child(0).scale.x=1
@@ -30,7 +32,6 @@ func _physics_process(delta: float) -> void:
 		if WeaponPosition.get_children().size() != 0:
 			WeaponPosition.get_child(0).scale.x=-1
 		Spirte.flip_h = true
-
 
 func equip_weapon(WeaponId: int):
 	if !WeaponPosition.get_children().is_empty():

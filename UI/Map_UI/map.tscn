@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://baysbd0v7e3fm"]
+[gd_scene format=3 uid="uid://baysbd0v7e3fm"]
 
 [ext_resource type="Script" uid="uid://dp1gt021tlnb2" path="res://Script/UI_Script/Map_UI/map_ui.gd" id="1_m4maf"]
 [ext_resource type="StyleBox" uid="uid://dfqp47rds7m7q" path="res://Rescource/UI/map/m2.tres" id="1_ti81g"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dbwx0jsme6knq" path="res://UI/Map_UI/level_discription.tscn" id="5_ea6cf"]
 [ext_resource type="Script" uid="uid://bea1y3y6hitgp" path="res://Script/UI_Script/Map_UI/map_cammera.gd" id="6_nobv4"]
 
-[node name="map_ui" type="Control"]
+[node name="map_ui" type="Control" unique_id=200978642]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m4maf")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=746248463]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,7 +33,7 @@ grow_vertical = 2
 scale = Vector2(1.5200008, 1.5200008)
 texture = ExtResource("2_p05sj")
 
-[node name="Level1" type="Button" parent="."]
+[node name="Level1" type="Button" parent="." unique_id=975328378]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 185.0
@@ -43,13 +43,13 @@ theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="discription_pos_1" type="Marker2D" parent="Level1"]
+[node name="discription_pos_1" type="Marker2D" parent="Level1" unique_id=939053277]
 position = Vector2(161, -142)
 
-[node name="camera_pos_1" type="Marker2D" parent="Level1"]
+[node name="camera_pos_1" type="Marker2D" parent="Level1" unique_id=1129432387]
 position = Vector2(67, 68)
 
-[node name="Level2" type="Button" parent="."]
+[node name="Level2" type="Button" parent="." unique_id=2029855288]
 layout_mode = 0
 offset_left = 264.0
 offset_top = 386.0
@@ -59,13 +59,13 @@ theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="discription_pos_2" type="Marker2D" parent="Level2"]
+[node name="discription_pos_2" type="Marker2D" parent="Level2" unique_id=1853006833]
 position = Vector2(164, -88)
 
-[node name="camera_pos_2" type="Marker2D" parent="Level2"]
+[node name="camera_pos_2" type="Marker2D" parent="Level2" unique_id=904999719]
 position = Vector2(68, 112)
 
-[node name="Level3" type="Button" parent="."]
+[node name="Level3" type="Button" parent="." unique_id=1756186809]
 layout_mode = 0
 offset_left = 444.0
 offset_top = 104.0
@@ -75,13 +75,13 @@ theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="discription_pos_3" type="Marker2D" parent="Level3"]
+[node name="discription_pos_3" type="Marker2D" parent="Level3" unique_id=822301372]
 position = Vector2(160, -95)
 
-[node name="camera_pos_3" type="Marker2D" parent="Level3"]
+[node name="camera_pos_3" type="Marker2D" parent="Level3" unique_id=865621733]
 position = Vector2(41, 112)
 
-[node name="Level4" type="Button" parent="."]
+[node name="Level4" type="Button" parent="." unique_id=1387497287]
 layout_mode = 0
 offset_left = 578.0
 offset_top = 419.0
@@ -91,13 +91,13 @@ theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="discription_pos_4" type="Marker2D" parent="Level4"]
+[node name="discription_pos_4" type="Marker2D" parent="Level4" unique_id=1019195765]
 position = Vector2(154, -109)
 
-[node name="camera_pos_4" type="Marker2D" parent="Level4"]
+[node name="camera_pos_4" type="Marker2D" parent="Level4" unique_id=1939734973]
 position = Vector2(59, 95)
 
-[node name="Level5" type="Button" parent="."]
+[node name="Level5" type="Button" parent="." unique_id=803275336]
 layout_mode = 0
 offset_left = 824.0
 offset_top = 138.0
@@ -107,13 +107,13 @@ theme_override_styles/normal = ExtResource("1_ti81g")
 theme_override_styles/pressed = ExtResource("2_wxejp")
 theme_override_styles/hover = ExtResource("2_snxjc")
 
-[node name="discription_pos_5" type="Marker2D" parent="Level5"]
+[node name="discription_pos_5" type="Marker2D" parent="Level5" unique_id=150128526]
 position = Vector2(168, -135)
 
-[node name="camera_pos_5" type="Marker2D" parent="Level5"]
+[node name="camera_pos_5" type="Marker2D" parent="Level5" unique_id=1342119210]
 position = Vector2(76, 66)
 
-[node name="level_discription" parent="." instance=ExtResource("5_ea6cf")]
+[node name="level_discription" parent="." unique_id=1972005491 instance=ExtResource("5_ea6cf")]
 layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
@@ -121,7 +121,7 @@ anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="MapCammera" type="Camera2D" parent="."]
+[node name="MapCammera" type="Camera2D" parent="." unique_id=1691377352]
 position = Vector2(566.92914, 324)
 limit_enabled = false
 limit_left = 0

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dj557uye5f0gc"]
+[gd_scene format=3 uid="uid://dj557uye5f0gc"]
 
 [ext_resource type="Script" uid="uid://dxs2k11uxxd6a" path="res://Script/UI_Script/MainScene/Mainmenu.gd" id="1_qn7se"]
 
-[node name="Mainmenu" type="Control"]
+[node name="Mainmenu" type="Control" unique_id=1259829971]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,10 +11,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qn7se")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="." unique_id=1062932412]
 position = Vector2(578, 339)
 
-[node name="TitleContainer" type="CenterContainer" parent="."]
+[node name="TitleContainer" type="CenterContainer" parent="." unique_id=451523617]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -25,14 +25,14 @@ offset_right = 301.0
 offset_bottom = 248.0
 grow_horizontal = 2
 
-[node name="GameTitle" type="Label" parent="TitleContainer"]
+[node name="GameTitle" type="Label" parent="TitleContainer" unique_id=127508240]
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
 text = "XXXX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonContainer" type="VBoxContainer" parent="."]
+[node name="ButtonContainer" type="VBoxContainer" parent="." unique_id=1507986800]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -48,25 +48,25 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="gamestart" type="Button" parent="ButtonContainer"]
+[node name="gamestart" type="Button" parent="ButtonContainer" unique_id=945493433]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
 text = "开始游戏"
 
-[node name="setting" type="Button" parent="ButtonContainer"]
+[node name="setting" type="Button" parent="ButtonContainer" unique_id=1742382721]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
 text = "设置"
 
-[node name="quit" type="Button" parent="ButtonContainer"]
+[node name="quit" type="Button" parent="ButtonContainer" unique_id=1673976909]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
 text = "退出游戏"
 
-[node name="blank" type="Control" parent="ButtonContainer"]
+[node name="blank" type="Control" parent="ButtonContainer" unique_id=1491737058]
 layout_mode = 2
 size_flags_vertical = 3
 
