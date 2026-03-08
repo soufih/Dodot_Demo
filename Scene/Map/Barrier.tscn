@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkpfad1e406sr"]
+[gd_scene format=3 uid="uid://dkpfad1e406sr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fgfy"]
 size = Vector2(3, 65)
 
-[node name="Barrier" type="Area2D"]
+[node name="Barrier" type="Area2D" unique_id=157799873]
 collision_layer = 8
 collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=465754451]
 shape = SubResource("RectangleShape2D_5fgfy")

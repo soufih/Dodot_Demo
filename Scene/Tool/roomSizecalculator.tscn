@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://brxads5maqrw8"]
+
+[ext_resource type="Script" uid="uid://bcopcmryg3ksc" path="res://Script/Gameplay/Map/roomSizecalculator.gd" id="1_rcqxv"]
+
+[node name="RoomSizecalculator" type="Node2D" unique_id=902239590]
+script = ExtResource("1_rcqxv")
+metadata/_edit_vertical_guides_ = [2883.0]
+metadata/_edit_horizontal_guides_ = [-1395.0, 311.0]

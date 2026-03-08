@@ -1,0 +1,183 @@
+{
+	"Barrier": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map",
+		"name": "Barrier",
+		"path": "res://Scene/Map/Barrier.tscn",
+		"rect": "[P: (0.0, 0.0), S: (0.0, 0.0)]",
+		"relative_path": "Scene/Map/Barrier.tscn"
+	},
+	"BaseRoom": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/Room",
+		"name": "BaseRoom",
+		"path": "res://Scene/Map/Room/BaseRoom.tscn",
+		"rect": "[P: (0.0, 0.0), S: (0.0, 0.0)]",
+		"relative_path": "Scene/Map/Room/BaseRoom.tscn"
+	},
+	"BaseTemplate": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/Template",
+		"name": "BaseTemplate",
+		"path": "res://Scene/Map/Template/BaseTemplate.tscn",
+		"rect": "[P: (0.0, 0.0), S: (0.0, 0.0)]",
+		"relative_path": "Scene/Map/Template/BaseTemplate.tscn"
+	},
+	"C1": {
+		"exit_pos": {
+			"RIGHT": "(1416.0, 0.0)"
+		},
+		"folder": "Scene/Map/Room/Corridor",
+		"name": "C1",
+		"path": "res://Scene/Map/Room/Corridor/C1.tscn",
+		"rect": "[P: (0.0, -264.0), S: (1416.0, 528.0)]",
+		"relative_path": "Scene/Map/Room/Corridor/C1.tscn"
+	},
+	"C2": {
+		"exit_pos": {
+			"BOTTOM": "(696.0, 576.0)",
+			"RIGHT": "(1344.0, 0.0)"
+		},
+		"folder": "Scene/Map/Room/Corridor",
+		"name": "C2",
+		"path": "res://Scene/Map/Room/Corridor/C2.tscn",
+		"rect": "[P: (0.0, -264.0), S: (1344.0, 840.0)]",
+		"relative_path": "Scene/Map/Room/Corridor/C2.tscn"
+	},
+	"C3": {
+		"exit_pos": {
+			"BOTTOM": "(0.0, 768.0)"
+		},
+		"folder": "Scene/Map/Room/Corridor",
+		"name": "C3",
+		"path": "res://Scene/Map/Room/Corridor/C3.tscn",
+		"rect": "[P: (-216.0, 0.0), S: (432.0, 768.0)]",
+		"relative_path": "Scene/Map/Room/Corridor/C3.tscn"
+	},
+	"E1": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/Room/End",
+		"name": "E1",
+		"path": "res://Scene/Map/Room/End/E1.tscn",
+		"rect": "[P: (0.0, -456.0), S: (1104.0, 672.0)]",
+		"relative_path": "Scene/Map/Room/End/E1.tscn"
+	},
+	"Home": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/Home",
+		"name": "Home",
+		"path": "res://Scene/Map/Home/Home.tscn",
+		"rect": "[P: (-816.0, -72.0), S: (1992.0, 288.0)]",
+		"relative_path": "Scene/Map/Home/Home.tscn"
+	},
+	"LevelScene": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/Level",
+		"name": "LevelScene",
+		"path": "res://Scene/Map/Level/LevelScene.tscn",
+		"rect": "[P: (0.0, 0.0), S: (0.0, 0.0)]",
+		"relative_path": "Scene/Map/Level/LevelScene.tscn"
+	},
+	"MainScene": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/MainScene",
+		"name": "MainScene",
+		"path": "res://Scene/Map/MainScene/MainScene.tscn",
+		"rect": "[P: (0.0, 0.0), S: (0.0, 0.0)]",
+		"relative_path": "Scene/Map/MainScene/MainScene.tscn"
+	},
+	"Platform": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/MapComponent/Platform",
+		"name": "Platform",
+		"path": "res://Scene/Map/MapComponent/Platform/Platform.tscn",
+		"rect": "[P: (0.0, 0.0), S: (0.0, 0.0)]",
+		"relative_path": "Scene/Map/MapComponent/Platform/Platform.tscn"
+	},
+	"R4": {
+		"exit_pos": {
+			"RIGHT": "(2880.0, 0.0)"
+		},
+		"folder": "Scene/Map/Room/Room",
+		"name": "R4",
+		"path": "res://Scene/Map/Room/Room/R4.tscn",
+		"rect": "[P: (-912.0, -1296.0), S: (3792.0, 1800.0)]",
+		"relative_path": "Scene/Map/Room/Room/R4.tscn"
+	},
+	"R5": {
+		"exit_pos": {
+			"RIGHT": "(2880.0, 0.0)"
+		},
+		"folder": "Scene/Map/Room/Room",
+		"name": "R5",
+		"path": "res://Scene/Map/Room/Room/R5.tscn",
+		"rect": "[P: (0.0, -384.0), S: (2880.0, 1704.0)]",
+		"relative_path": "Scene/Map/Room/Room/R5.tscn"
+	},
+	"R6": {
+		"exit_pos": {
+			"BOTTOM": "(3720.0, 2520.0)"
+		},
+		"folder": "Scene/Map/Room/Room",
+		"name": "R6",
+		"path": "res://Scene/Map/Room/Room/R6.tscn",
+		"rect": "[P: (-240.0, 0.0), S: (4320.0, 2520.0)]",
+		"relative_path": "Scene/Map/Room/Room/R6.tscn"
+	},
+	"S1": {
+		"exit_pos": {
+			"RIGHT": "(1096.0, 120.0)"
+		},
+		"folder": "Scene/Map/Room/Start",
+		"name": "S1",
+		"path": "res://Scene/Map/Room/Start/S1.tscn",
+		"rect": "[P: (-504.0, -504.0), S: (1608.0, 1032.0)]",
+		"relative_path": "Scene/Map/Room/Start/S1.tscn"
+	},
+	"Template1": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/Template",
+		"name": "Template1",
+		"path": "res://Scene/Map/Template/Template1.tscn",
+		"rect": "[P: (0.0, 0.0), S: (168.0, 96.0)]",
+		"relative_path": "Scene/Map/Template/Template1.tscn"
+	},
+	"TestMap": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map",
+		"name": "TestMap",
+		"path": "res://Scene/Map/TestMap.tscn",
+		"rect": "[P: (0.0, 0.0), S: (0.0, 0.0)]",
+		"relative_path": "Scene/Map/TestMap.tscn"
+	},
+	"ladder": {
+		"exit_pos": {
+
+		},
+		"folder": "Scene/Map/MapComponent/Climbables",
+		"name": "ladder",
+		"path": "res://Scene/Map/MapComponent/Climbables/ladder.tscn",
+		"rect": "[P: (0.0, 0.0), S: (0.0, 0.0)]",
+		"relative_path": "Scene/Map/MapComponent/Climbables/ladder.tscn"
+	}
+}

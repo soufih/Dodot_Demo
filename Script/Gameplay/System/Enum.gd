@@ -8,6 +8,7 @@ enum AbnormalType {}
 ##房间属性
 enum Type {Start, Corridor, Room, End}
 enum Location {LEFT,RIGHT,TOP,BOTTOM}
+enum Location_v2 {RIGHT = 1,UP = 2,NONE = 0, LEFT = -1,DOWN = -2}
 
 ##物品属性
 enum ItemType {
