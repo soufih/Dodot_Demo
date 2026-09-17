@@ -48,6 +48,7 @@ WarehouseSystem="*res://Script/Gameplay/System/WarehouseSystem.gd"
 DamageSystem="*res://Script/Gameplay/System/DamageSystem.gd"
 LevelInformation="*res://Script/Gameplay/Map/LevelInformation.gd"
 DebugTool="*res://Script/Gameplay/Util/DebugTool.gd"
+SignalBus="*uid://cj08qm13g6joy"
 
 [debug]
 

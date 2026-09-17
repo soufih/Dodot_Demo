@@ -14,8 +14,7 @@ func apply_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorper
 		if Damage == -1:
 			return
 		Target.set_character_current_health(Target.get_character_current_health()-Damage)
-		if Target.get_character_current_health() <= 0:
-			Target.death.emit()
+
 
 ##计算最终伤害值
 func calculate_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorperty)->float:

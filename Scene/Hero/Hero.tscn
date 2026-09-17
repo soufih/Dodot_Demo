@@ -1546,7 +1546,6 @@ collision_layer = 2
 collision_mask = 129
 script = ExtResource("1_6pkku")
 CurrentWeapon = 10
-GodModeTimer = 1
 MaxHealth = 100.0
 MaxMana = 100.0
 MaxToughness = 30.0
@@ -1558,10 +1557,11 @@ RecoverTimer = NodePath("RecoverTimer")
 script = ExtResource("3_b7f62")
 Current = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="State" unique_id=1886700286 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates")]
+[node name="Idle" type="Node" parent="State" unique_id=1886700286 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates")]
 script = ExtResource("5_fqamf")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
 NextStates = {
 "death": NodePath("../Death"),
 "is_fall": NodePath("../Falling"),
@@ -1571,10 +1571,11 @@ NextStates = {
 "when_attack_tigger": NodePath("../Attack")
 }
 
-[node name="Run" type="Node" parent="State" unique_id=2078534470 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates", "BufferedStates")]
+[node name="Run" type="Node" parent="State" unique_id=2078534470 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "BufferedStates")]
 script = ExtResource("5_iuq1t")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
 NextStates = {
 "death": NodePath("../Death"),
 "is_fall": NodePath("../Falling"),
@@ -1585,25 +1586,30 @@ NextStates = {
 }
 BufferedStates = [NodePath("."), NodePath("../Jumping")]
 
-[node name="Jumping" type="Node" parent="State" unique_id=83468260 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates", "BufferedStates")]
+[node name="Jumping" type="Node" parent="State" unique_id=83468260 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "BufferedStates")]
 script = ExtResource("6_o2ky4")
-JumpSpeed = -500
+JumpHeight = 20.0
+MaxJumpHeight = 30.0
+JumpSpeedMultiplier = 1.5
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
 NextStates = {
 "death": NodePath("../Death"),
 "end_jump": NodePath("../Falling")
 }
 BufferedStates = [NodePath("../Run"), NodePath("../Attack")]
 
-[node name="Falling" type="Node" parent="State" unique_id=556262976 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates")]
+[node name="Falling" type="Node" parent="State" unique_id=556262976 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "BufferedStates")]
 script = ExtResource("7_pwso0")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
 NextStates = {
 "death": NodePath("../Death"),
 "on_floor": NodePath("../Idle")
 }
+BufferedStates = [NodePath("../Jumping"), NodePath("../Run")]
 
 [node name="Attack" type="Node" parent="State" unique_id=1401270864 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates", "BufferedStates")]
 script = ExtResource("8_v1ih1")
@@ -1683,7 +1689,6 @@ frame = 6
 frame_progress = 1.0
 
 [node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=2091795180]
-visible = false
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_iuq1t")
 

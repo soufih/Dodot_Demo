@@ -1,4 +1,5 @@
 extends Node
+class_name InputController
 
 signal when_attack_tigger
 signal move_left_pressed
@@ -10,11 +11,20 @@ signal jump_pressed
 @export_range(0.0, 1.0, 0.01) var input_buffer_duration: float = 1
 
 var buffered_actions: Dictionary = {}
+var move_direction := 0.0
+var is_banned:bool = false
+
+func _ready() -> void:
+	SignalBus.input_control.connect(ban_input)
 
 func _process(_delta: float) -> void:
 	clear_expired_actions()
 
+
 func _input(event: InputEvent) -> void:
+	if is_banned:
+		return
+	
 	if event.is_action("Attack"):
 		buffer_action("Attack")
 		when_attack_tigger.emit()
@@ -37,8 +47,21 @@ func _input(event: InputEvent) -> void:
 		buffer_action("Jumping")
 		jump_pressed.emit()
 
+
+func ban_input(state:bool):
+	is_banned = state
+	print(is_banned)
+
+
+func get_move_direction() -> float:
+	if is_banned:
+		return 0
+	return Input.get_axis(&"MoveLeft", &"MoveRight")
+
+
 func buffer_action(action: StringName) -> void:
 	buffered_actions[action] = Time.get_ticks_msec()
+
 
 func has_buffered_action(action: StringName) -> bool:
 	if not buffered_actions.has(action):

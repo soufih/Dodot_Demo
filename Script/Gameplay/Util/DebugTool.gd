@@ -12,11 +12,12 @@ extends Node
 ## DebugTool 的内建命令通过服务名和公共方法与游戏系统通信，因此不依赖具体脚本类型。
 
 signal output_emitted(message: String, level: StringName)
+signal output_clear_requested
 signal command_executed(command_line: String, result: Dictionary)
-signal console_visibility_changed(visible: bool)
+signal console_toggle_requested
 
 const CONSOLE_TOGGLE_KEY := KEY_QUOTELEFT
-const MAX_HISTORY_SIZE := 100
+const DEBUG_CONSOLE_UI_SCENE: PackedScene = preload("res://UI/Debug_UI/debug_console_ui.tscn")
 
 const SERVICE_AUTOLOADS := {
 	&"backpack": &"BackpackSystem",
@@ -35,6 +36,7 @@ class DebugCommand extends RefCounted:
 	var aliases: PackedStringArray
 	var owner_ref: WeakRef
 
+	## 保存命令元数据、执行回调、别名及所属模块的弱引用。
 	func _init(
 		command_name: StringName,
 		command_handler: Callable,
@@ -51,32 +53,30 @@ class DebugCommand extends RefCounted:
 		if owner != null:
 			owner_ref = weakref(owner)
 
+	## 判断此命令是否由指定模块注册，用于模块卸载时批量清理。
 	func belongs_to(owner: Object) -> bool:
 		return owner_ref != null and owner_ref.get_ref() == owner
 
 
 var _commands: Dictionary = {}
 var _services: Dictionary = {}
-var _history: PackedStringArray = PackedStringArray()
-
-var _console_layer: CanvasLayer
-var _console_panel: PanelContainer
-var _output_label: RichTextLabel
-var _input_line: LineEdit
 
 
+## 初始化命令注册表、独立的控制台 UI，并延迟发现 Autoload 服务。
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_register_builtin_commands()
 	_create_console_ui()
+	_write_output("调试控制台已就绪。输入 help 查看命令。")
 	call_deferred("_discover_autoload_services")
 
 
+## 监听全局反引号快捷键，切换控制台可见状态且阻止事件继续传播。
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not (event is InputEventKey):
 		return
 	if event.pressed and not event.echo and event.keycode == CONSOLE_TOGGLE_KEY:
-		toggle_console()
+		console_toggle_requested.emit()
 		get_viewport().set_input_as_handled()
 
 
@@ -160,16 +160,18 @@ func register_service(service_name: StringName, service: Object) -> bool:
 	return true
 
 
+## 解除一个服务名和业务对象之间的映射。
 func unregister_service(service_name: StringName) -> void:
 	_services.erase(_normalize_command_name(str(service_name)))
 
 
+## 获取有效服务对象；若弱引用已失效，会自动清理失效映射。
 func get_service(service_name: StringName) -> Object:
 	var normalized_name := _normalize_command_name(str(service_name))
 	var service_ref: WeakRef = _services.get(normalized_name)
 	if service_ref == null:
 		return null
-	var service := service_ref.get_ref()
+	var service: Object = service_ref.get_ref()
 	if not is_instance_valid(service):
 		_services.erase(normalized_name)
 		return null
@@ -211,6 +213,7 @@ func execute_command(command_line: String, print_result: bool = true) -> Diction
 	return result
 
 
+## 返回去重并按字母排序后的正式命令名，不包含别名。
 func get_command_names() -> PackedStringArray:
 	var names := PackedStringArray()
 	for command in _commands.values():
@@ -220,23 +223,7 @@ func get_command_names() -> PackedStringArray:
 	return names
 
 
-func toggle_console() -> void:
-	set_console_visible(not is_console_visible())
-
-
-func set_console_visible(visible: bool) -> void:
-	if _console_panel == null:
-		return
-	_console_panel.visible = visible
-	if visible:
-		_input_line.grab_focus()
-	console_visibility_changed.emit(visible)
-
-
-func is_console_visible() -> bool:
-	return _console_panel != null and _console_panel.visible
-
-
+## 将已存在的项目 Autoload 按预设服务名自动接入调试工具。
 func _discover_autoload_services() -> void:
 	for service_name in SERVICE_AUTOLOADS:
 		if get_service(service_name) != null:
@@ -247,6 +234,7 @@ func _discover_autoload_services() -> void:
 			register_service(service_name, service)
 
 
+## 注册调试工具自带的帮助、场景、UI、物品和玩家命令。
 func _register_builtin_commands() -> void:
 	register_command(&"help", _command_help, "显示命令列表或指定命令的帮助。", "help [command]", self, PackedStringArray(["?"]))
 	register_command(&"clear", _command_clear, "清空控制台输出。", "clear", self)
@@ -265,6 +253,7 @@ func _register_builtin_commands() -> void:
 	register_command(&"player.god", _command_player_god, "触发玩家无敌状态。", "player.god [duration]", self)
 
 
+## 显示全部命令摘要，或显示指定命令的用法、说明及别名。
 func _command_help(arguments: PackedStringArray) -> Dictionary:
 	if arguments.is_empty():
 		var lines := PackedStringArray(["可用命令："])
@@ -282,16 +271,18 @@ func _command_help(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "%s\n%s%s" % [command.usage if not command.usage.is_empty() else command.name, command.description, alias_text])
 
 
+## 请求 UI 清空控制台输出，不影响命令注册表和历史记录。
 func _command_clear(_arguments: PackedStringArray) -> Dictionary:
-	if _output_label != null:
-		_output_label.clear()
+	output_clear_requested.emit()
 	return _result(true, "")
 
 
+## 原样回显参数，用于测试命令解析和输出链路。
 func _command_echo(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, " ".join(arguments))
 
 
+## 列出当前成功连接且仍然有效的调试服务。
 func _command_services(_arguments: PackedStringArray) -> Dictionary:
 	var lines := PackedStringArray(["已连接服务："])
 	var service_names := PackedStringArray()
@@ -308,6 +299,7 @@ func _command_services(_arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "\n".join(lines))
 
 
+## 按 on、off 或 toggle 参数暂停、恢复或切换场景树状态。
 func _command_game_pause(arguments: PackedStringArray) -> Dictionary:
 	var mode := arguments[0].to_lower() if not arguments.is_empty() else "toggle"
 	match mode:
@@ -322,6 +314,7 @@ func _command_game_pause(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "游戏已%s。" % ("暂停" if get_tree().paused else "恢复"))
 
 
+## 输出当前活动场景的资源路径。
 func _command_scene_current(_arguments: PackedStringArray) -> Dictionary:
 	var scene := get_tree().current_scene
 	if scene == null:
@@ -329,6 +322,7 @@ func _command_scene_current(_arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "当前场景：%s" % scene.scene_file_path)
 
 
+## 校验目标场景后切换到指定 PackedScene。
 func _command_scene_load(arguments: PackedStringArray) -> Dictionary:
 	if arguments.size() != 1:
 		return _result(false, "用法：scene.load <res://scene.tscn>")
@@ -341,6 +335,7 @@ func _command_scene_load(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "正在切换到：%s" % scene_path)
 
 
+## 根据 UI 名称调用 UI 服务公开的开关方法。
 func _command_ui_toggle(arguments: PackedStringArray) -> Dictionary:
 	if arguments.size() != 1:
 		return _result(false, "用法：ui.toggle <backpack|warehouse|equipment|map|pause>")
@@ -360,6 +355,7 @@ func _command_ui_toggle(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "已切换 UI：%s" % ui_name)
 
 
+## 解析物品参数并通过背包服务添加物品，报告无法容纳的余量。
 func _command_item_give(arguments: PackedStringArray) -> Dictionary:
 	var parsed := _parse_item_arguments(arguments, "item.give <item_id> [amount]")
 	if not parsed.success:
@@ -373,6 +369,7 @@ func _command_item_give(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "已添加物品 %s x%s。" % [parsed.item_id, parsed.amount])
 
 
+## 在 Hero 分组玩家的当前位置生成指定数量的掉落物。
 func _command_item_drop(arguments: PackedStringArray) -> Dictionary:
 	var parsed := _parse_item_arguments(arguments, "item.drop <item_id> [amount]")
 	if not parsed.success:
@@ -389,6 +386,7 @@ func _command_item_drop(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "已在玩家位置生成物品 %s x%s。" % [parsed.item_id, parsed.amount])
 
 
+## 解析物品参数并通过仓库服务添加物品。
 func _command_warehouse_give(arguments: PackedStringArray) -> Dictionary:
 	var parsed := _parse_item_arguments(arguments, "warehouse.give <item_id> [amount]")
 	if not parsed.success:
@@ -401,6 +399,7 @@ func _command_warehouse_give(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "已向仓库添加物品 %s x%s。" % [parsed.item_id, parsed.amount])
 
 
+## 查询 Hero 分组玩家的当前/最大生命值和法力值。
 func _command_player_info(_arguments: PackedStringArray) -> Dictionary:
 	var player := _get_player()
 	if player == null:
@@ -415,6 +414,7 @@ func _command_player_info(_arguments: PackedStringArray) -> Dictionary:
 	])
 
 
+## 将 Hero 分组玩家的当前生命值设为指定数值。
 func _command_player_hp(arguments: PackedStringArray) -> Dictionary:
 	if arguments.size() != 1 or not arguments[0].is_valid_float():
 		return _result(false, "用法：player.hp <value>")
@@ -427,6 +427,7 @@ func _command_player_hp(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "玩家当前生命已设为：%s" % arguments[0])
 
 
+## 治疗指定生命值；不传数量时直接恢复到最大生命值。
 func _command_player_heal(arguments: PackedStringArray) -> Dictionary:
 	if arguments.size() > 1 or (arguments.size() == 1 and not arguments[0].is_valid_float()):
 		return _result(false, "用法：player.heal [amount]")
@@ -439,14 +440,15 @@ func _command_player_heal(arguments: PackedStringArray) -> Dictionary:
 		return current_response
 	if not max_response.success:
 		return max_response
-	var amount := max_response.value if arguments.is_empty() else arguments[0].to_float()
-	var new_health := min(float(current_response.value) + amount, float(max_response.value))
+	var amount: float = float(max_response.value) if arguments.is_empty() else arguments[0].to_float()
+	var new_health: float = minf(float(current_response.value) + amount, float(max_response.value))
 	var set_response := _call_object(player, &"set_character_current_health", [new_health])
 	if not set_response.success:
 		return set_response
 	return _result(true, "玩家生命：%s / %s" % [new_health, max_response.value])
 
 
+## 可选地设置无敌时长，并触发玩家的 god_mode 信号。
 func _command_player_god(arguments: PackedStringArray) -> Dictionary:
 	if arguments.size() > 1 or (arguments.size() == 1 and not arguments[0].is_valid_int()):
 		return _result(false, "用法：player.god [duration]")
@@ -461,6 +463,7 @@ func _command_player_god(arguments: PackedStringArray) -> Dictionary:
 	return _result(true, "已触发无敌状态。")
 
 
+## 校验物品 ID 与数量参数，并确认物品存在后返回结构化结果。
 func _parse_item_arguments(arguments: PackedStringArray, usage: String) -> Dictionary:
 	if arguments.is_empty() or arguments.size() > 2 or not arguments[0].is_valid_int():
 		return _result(false, "用法：%s" % usage)
@@ -477,15 +480,18 @@ func _parse_item_arguments(arguments: PackedStringArray, usage: String) -> Dicti
 	return {"success": true, "item_id": item_id, "amount": amount}
 
 
+## 通过资源服务判断指定物品 ID 是否为有效配置。
 func _is_known_item(item_id: int) -> bool:
 	var resources := get_service(&"resources")
 	return resources != null and resources.has_method(&"get_item_config") and resources.call(&"get_item_config", item_id) != null
 
 
+## 从 Hero 分组中获取当前场景的第一个玩家节点。
 func _get_player() -> Node:
 	return get_tree().get_first_node_in_group(&"Hero")
 
 
+## 查找命名服务并调用其公开方法，将结果转换为统一响应结构。
 func _call_service(service_name: StringName, method: StringName, arguments: Array) -> Dictionary:
 	var service := get_service(service_name)
 	if service == null:
@@ -493,6 +499,7 @@ func _call_service(service_name: StringName, method: StringName, arguments: Arra
 	return _call_object(service, method, arguments)
 
 
+## 在确认对象和方法有效后使用 callv 调用，避免直接依赖业务类型。
 func _call_object(target: Object, method: StringName, arguments: Array) -> Dictionary:
 	if target == null or not is_instance_valid(target):
 		return _result(false, "目标对象已失效。")
@@ -501,6 +508,7 @@ func _call_object(target: Object, method: StringName, arguments: Array) -> Dicti
 	return {"success": true, "value": target.callv(method, arguments), "message": ""}
 
 
+## 将命令行拆分为令牌；支持单双引号包裹参数和反斜杠转义。
 func _parse_command_line(command_line: String) -> Dictionary:
 	var tokens := PackedStringArray()
 	var current := ""
@@ -536,6 +544,7 @@ func _parse_command_line(command_line: String) -> Dictionary:
 	return {"success": true, "tokens": tokens, "message": ""}
 
 
+## 将命令处理器的 String、Dictionary 或空返回值统一为结果字典。
 func _normalize_handler_result(value: Variant) -> Dictionary:
 	if value is Dictionary:
 		return {
@@ -548,30 +557,19 @@ func _normalize_handler_result(value: Variant) -> Dictionary:
 	return _result(true, str(value))
 
 
+## 创建包含 success、message 和 value 字段的统一命令响应。
 func _result(success: bool, message: String, value: Variant = null) -> Dictionary:
 	return {"success": success, "message": message, "value": value}
 
 
+## 去除首尾空格并转为小写，生成不区分大小写的命令或服务键。
 func _normalize_command_name(value: String) -> StringName:
 	return StringName(value.strip_edges().to_lower())
 
 
-func _on_command_submitted(command_line: String) -> void:
-	if command_line.strip_edges().is_empty():
-		return
-	_write_output("> %s" % command_line, &"command")
-	_history.append(command_line)
-	if _history.size() > MAX_HISTORY_SIZE:
-		_history.remove_at(0)
-	execute_command(command_line)
-	_input_line.clear()
-
-
+## 发出 UI 可订阅的输出事件，并同步写入 Godot 的调试输出。
 func _write_output(message: String, level: StringName = &"info") -> void:
 	output_emitted.emit(message, level)
-	if _output_label != null and not message.is_empty():
-		_output_label.append_text("%s\n" % message)
-		_output_label.scroll_to_line(_output_label.get_line_count())
 	match level:
 		&"error":
 			push_warning("DebugTool: %s" % message)
@@ -579,55 +577,11 @@ func _write_output(message: String, level: StringName = &"info") -> void:
 			print("DebugTool: %s" % message)
 
 
+## 实例化独立 UI 场景并注入当前 DebugTool 作为命令后端。
 func _create_console_ui() -> void:
-	_console_layer = CanvasLayer.new()
-	_console_layer.name = "DebugConsoleLayer"
-	_console_layer.layer = 200
-	_console_layer.process_mode = Node.PROCESS_MODE_ALWAYS
-	add_child(_console_layer)
-
-	_console_panel = PanelContainer.new()
-	_console_panel.name = "DebugConsole"
-	_console_panel.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	_console_panel.position = Vector2(-440, 24)
-	_console_panel.size = Vector2(880, 400)
-	_console_panel.visible = false
-	var panel_style := StyleBoxFlat.new()
-	panel_style.bg_color = Color(0.025, 0.035, 0.055, 0.94)
-	panel_style.border_color = Color(0.22, 0.66, 0.95, 0.9)
-	panel_style.set_border_width_all(1)
-	panel_style.corner_radius_top_left = 6
-	panel_style.corner_radius_top_right = 6
-	panel_style.corner_radius_bottom_left = 6
-	panel_style.corner_radius_bottom_right = 6
-	panel_style.content_margin_left = 12
-	panel_style.content_margin_right = 12
-	panel_style.content_margin_top = 10
-	panel_style.content_margin_bottom = 10
-	_console_panel.add_theme_stylebox_override("panel", panel_style)
-	_console_layer.add_child(_console_panel)
-
-	var layout := VBoxContainer.new()
-	layout.add_theme_constant_override("separation", 8)
-	_console_panel.add_child(layout)
-
-	var title := Label.new()
-	title.text = "DEBUG CONSOLE  ·  ` 切换  ·  help 查看命令"
-	title.add_theme_color_override("font_color", Color(0.45, 0.78, 1.0))
-	layout.add_child(title)
-
-	_output_label = RichTextLabel.new()
-	_output_label.bbcode_enabled = false
-	_output_label.custom_minimum_size = Vector2(0, 320)
-	_output_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_output_label.add_theme_font_size_override("normal_font_size", 15)
-	_output_label.add_theme_color_override("default_color", Color(0.9, 0.94, 1.0))
-	layout.add_child(_output_label)
-
-	_input_line = LineEdit.new()
-	_input_line.placeholder_text = "输入命令，例如：item.give 28 10"
-	_input_line.clear_button_enabled = true
-	_input_line.text_submitted.connect(_on_command_submitted)
-	layout.add_child(_input_line)
-
-	_write_output("调试控制台已就绪。输入 help 查看命令。")
+	var console_ui: Node = DEBUG_CONSOLE_UI_SCENE.instantiate()
+	add_child(console_ui)
+	if console_ui.has_method(&"bind_debug_tool"):
+		console_ui.call(&"bind_debug_tool", self)
+	else:
+		push_error("DebugTool: DebugConsoleUI 缺少 bind_debug_tool() 接口。")

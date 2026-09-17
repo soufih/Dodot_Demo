@@ -94,15 +94,15 @@ func get_character_state_slot()->Dictionary:
 func set_character_current_health(CH: float):
 	CurrentHealth = CH
 	health_changed.emit()
-	#print(self.name," CurrentHealth:",CurrentHealth)
+	if get_character_current_health() <= 0:
+		death.emit()
+	health_changed.emit()
 
 ##设置角色最大生命值
 func set_character_max_health(MH:float):
 	MaxHealth = MH
 	
 	CurrentHealth = min(MaxHealth, CurrentHealth)
-	
-	health_changed.emit()
 
 ##设置角色当前法力值
 func set_character_current_mana(CM: float):

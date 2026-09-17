@@ -15,7 +15,7 @@ signal end_attack
 @onready var WeaponPivot:Node2D = $WeaponController/WeaponPivot
 
 @export var CurrentWeapon:int
-@export var GodModeTimer: int
+@export var GodModeTimer: float
 
 
 func _ready() -> void:

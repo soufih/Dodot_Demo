@@ -5,7 +5,7 @@ var tmp_slot:TmpSlot
 var UILayer: CanvasLayer
 var flotUIlayer: CanvasLayer
 var is_paused: bool = false
-
+var is_banned:bool = false
 
 func _ready() -> void:
 	load_ui_layer_config()
@@ -45,6 +45,9 @@ func load_ui(ui_path: String, layer: String) -> BaseUI:
 
 
 func _input(event: InputEvent) -> void:
+	if is_banned:
+		return
+	
 	if event.is_action_pressed("ui_cancel"):
 		ui_cancel()
 	
@@ -62,6 +65,12 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("OpenMap"):
 		ui_open_map()
+
+func ban_ui_input():
+	is_banned = true
+
+func use_ui_input():
+	is_banned = false
 
 ##移除UI列表中的UI
 func ui_remove_from_list(ui: BaseUI) -> void:

@@ -2,7 +2,7 @@ extends BaseState
 
 @export var safe_fall_speed = 800  # 安全下落速度
 @export var max_fall_speed = 1500  # 最大下落速度
-@export var base_damage = 100  # 基础伤害
+@export var base_damage = 10  # 基础伤害
 
 var fall_speed:float
 
@@ -13,7 +13,7 @@ func enter():
 
 func do(delta):
 	Entity.filp_character()
-	var direct_x = Input.get_action_strength("MoveRight")-Input.get_action_strength("MoveLeft")
+	var direct_x = _InputController.get_move_direction()
 	Entity.velocity.x = direct_x*Entity.Speed
 	
 	if !Entity.is_on_floor():
