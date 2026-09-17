@@ -1,4 +1,4 @@
-extends AnimatedSprite2D
+extends BaseBullet
 
 @export var Speed:int
 
@@ -13,10 +13,7 @@ var Source:BaseCharacter
 func _ready() -> void:
 	var NewParent = get_tree().current_scene
 	reparent(NewParent,true)
-	#var Hero = get_tree().get_first_node_in_group("Hero")
-	#if Hero:
-		#Direction = global_position.direction_to(Hero.global_position)
-		#rotation = Direction.angle()
+
 	Direction = global_position.direction_to(TargetPosion)
 	rotation = Direction.angle()
 
@@ -42,7 +39,7 @@ func apply_damage():
 			$Area2D.set_collision_mask_value(2, false)
 
 
-#身存周期到后自动销毁
+#生存周期到后自动销毁
 func _on_timer_timeout() -> void:
 	queue_free()
 

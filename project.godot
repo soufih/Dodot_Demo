@@ -29,7 +29,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Demo"
 run/main_scene="uid://bpkdfkxoa4u4p"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -47,6 +47,7 @@ DroppedItemSystem="*res://Script/Gameplay/System/DroppedItemSystem.gd"
 WarehouseSystem="*res://Script/Gameplay/System/WarehouseSystem.gd"
 DamageSystem="*res://Script/Gameplay/System/DamageSystem.gd"
 LevelInformation="*res://Script/Gameplay/Map/LevelInformation.gd"
+DebugTool="*res://Script/Gameplay/Util/DebugTool.gd"
 
 [debug]
 

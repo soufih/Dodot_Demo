@@ -38,13 +38,19 @@ func _scan_and_save() -> void:
 		
 		# 获取场景中所有TileMapLayer的边界
 		var tilemap_data:Dictionary = await get_scene_tilemap_layers_rect(scene_path)
+		var rect:Rect2 = tilemap_data.get("rect")
 		if tilemap_data:
 			scene_data[scene_name] = {
 				"name": scene_name,
 				"path": scene_path,
 				"relative_path": relative_path,
 				"folder": scene_path.get_base_dir().trim_prefix("res://"),
-				"rect": tilemap_data.get("rect"),
+				"rect_p": {"x" : rect.position.x,
+							"y": rect.position.y
+							},
+				"rect_s": {"x": rect.size.x,
+							"y": rect.size.y
+							},
 				"exit_pos":tilemap_data.get("exit_pos")
 			}
 		processed += 1
@@ -113,7 +119,7 @@ func find_tilemap_layers(node: Node) -> Dictionary:
 
 	#检查是否为出口并记录位置信息
 	if node.name in ["UP", "BOTTOM", "LEFT", "RIGHT"]:
-		tilemap_data["exit_pos"][node.name] = node.position
+		tilemap_data["exit_pos"][node.name] = {"x": node.position.x, "y": node.position.y}
 
 	# 递归检查子节点
 	for child in node.get_children():

@@ -1,8 +1,9 @@
 [gd_resource type="Resource" script_class="WeaponPorpertyLog" format=3 uid="uid://btq5vs0iwj7jm"]
 
 [ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Config/Model/DamagePorperty/DamagePorperty.gd" id="1_mucyj"]
-[ext_resource type="Script" uid="uid://byiqc24xx2v6v" path="res://Script/Config/Model/WeaponPorperty/WeaponPorperty.gd" id="2_3sl5b"]
-[ext_resource type="Script" uid="uid://os6os7hbub0w" path="res://Script/Config/Model/WeaponPorperty/WeaponPorpertyLog.gd" id="2_mucyj"]
+[ext_resource type="Script" uid="uid://byiqc24xx2v6v" path="res://Script/Config/Model/Weapon/WeaponPorperty.gd" id="1_tfa17"]
+[ext_resource type="Script" uid="uid://btvqbjbxkj7uj" path="res://Script/Config/Model/Weapon/WeaponAction.gd" id="2_k2vi8"]
+[ext_resource type="Script" uid="uid://os6os7hbub0w" path="res://Script/Config/Model/Weapon/WeaponPorpertyLog.gd" id="4_qviqq"]
 
 [sub_resource type="Resource" id="Resource_3sl5b"]
 script = ExtResource("1_mucyj")
@@ -10,17 +11,18 @@ Damage = 100.0
 metadata/_custom_type_script = "uid://db328o465i0bl"
 
 [sub_resource type="Resource" id="Resource_tfa17"]
-script = ExtResource("2_3sl5b")
+script = ExtResource("1_tfa17")
 Name = "Sword"
 BaseDamage = SubResource("Resource_3sl5b")
 DamageMultipler = Dictionary[int, float]({
 0: 2.0
 })
+AttackSeq = [null]
 metadata/_custom_type_script = "uid://byiqc24xx2v6v"
 
 [resource]
-script = ExtResource("2_mucyj")
-Weapon = Dictionary[String, ExtResource("2_3sl5b")]({
+script = ExtResource("4_qviqq")
+Weapon = Dictionary[String, ExtResource("1_tfa17")]({
 "Sword": SubResource("Resource_tfa17")
 })
 metadata/_custom_type_script = "uid://os6os7hbub0w"

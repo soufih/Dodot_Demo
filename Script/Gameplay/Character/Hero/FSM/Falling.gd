@@ -2,7 +2,7 @@ extends BaseState
 
 @export var safe_fall_speed = 800  # 安全下落速度
 @export var max_fall_speed = 1500  # 最大下落速度
-@export var base_damage = 5  # 基础伤害
+@export var base_damage = 100  # 基础伤害
 
 var fall_speed:float
 
@@ -39,4 +39,4 @@ func exit():
 			0,
 			[],
 			0)
-		DamageSystem.damage_assess(null, Entity, fallen_damage)
+		DamageSystem.call_deferred("damage_assess", null, Entity, fallen_damage)

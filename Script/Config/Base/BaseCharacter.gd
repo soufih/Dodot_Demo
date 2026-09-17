@@ -5,6 +5,9 @@ signal health_changed
 signal state_changed
 signal mana_changed
 signal toughness_changed
+signal death
+signal breaked
+signal end_breaked
 
 @export var MaxHealth: float
 @export var MaxMana:float
