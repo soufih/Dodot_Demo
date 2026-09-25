@@ -13,12 +13,12 @@ func check():
 		
 	if Entity.CurrentHealth <= 0:
 		Dead = true
-		change_state(4)
+		change_state(0)
 		return
 	
 	if Entity.Toughness <= 0:
 		Breaked = true
-		change_state(3)
+		change_state(1)
 		return
 		
 	if Hatebox.has_overlapping_bodies():

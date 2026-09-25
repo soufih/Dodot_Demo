@@ -1,28 +1,71 @@
 [gd_resource type="Resource" script_class="WeaponPorpertyLog" format=3 uid="uid://btq5vs0iwj7jm"]
 
 [ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Config/Model/DamagePorperty/DamagePorperty.gd" id="1_mucyj"]
-[ext_resource type="Script" uid="uid://byiqc24xx2v6v" path="res://Script/Config/Model/Weapon/WeaponPorperty.gd" id="1_tfa17"]
-[ext_resource type="Script" uid="uid://btvqbjbxkj7uj" path="res://Script/Config/Model/Weapon/WeaponAction.gd" id="2_k2vi8"]
-[ext_resource type="Script" uid="uid://os6os7hbub0w" path="res://Script/Config/Model/Weapon/WeaponPorpertyLog.gd" id="4_qviqq"]
+[ext_resource type="Script" uid="uid://byiqc24xx2v6v" path="res://Script/Config/Model/WeaponConfig/WeaponPorperty.gd" id="1_q4qby"]
+[ext_resource type="Script" uid="uid://btvqbjbxkj7uj" path="res://Script/Config/Model/WeaponConfig/WeaponAction.gd" id="2_x8sac"]
+[ext_resource type="Script" uid="uid://ceborj3mnxiyi" path="res://Script/Gameplay/Weapon/WeaponComponent/SpawnBullet.gd" id="3_5gcyl"]
+[ext_resource type="PackedScene" uid="uid://cmuk84c173g6p" path="res://Scene/Bullet/Bullet.tscn" id="3_q4qby"]
+[ext_resource type="Script" uid="uid://bqqotsng3hioo" path="res://Script/Gameplay/Weapon/WeaponComponent/MakeDamage.gd" id="4_5gcyl"]
+[ext_resource type="Texture2D" uid="uid://el4rn6g3cbg8" path="res://Rescource/Static/Weapon/SwordtemberSword2.png" id="4_k2vi8"]
+[ext_resource type="Script" uid="uid://os6os7hbub0w" path="res://Script/Config/Model/WeaponConfig/WeaponPorpertyLog.gd" id="8_uxx1j"]
+[ext_resource type="Texture2D" uid="uid://b4xn2fsb3y6xu" path="res://Rescource/Static/Weapon/SwordtemberSword1.png" id="8_x8sac"]
+
+[sub_resource type="Resource" id="Resource_x8sac"]
+script = ExtResource("1_q4qby")
+metadata/_custom_type_script = "uid://byiqc24xx2v6v"
+
+[sub_resource type="Resource" id="Resource_la4fd"]
+script = ExtResource("3_5gcyl")
+_Speed = 500.0
+_Porperty = SubResource("Resource_x8sac")
+_BulletScence = ExtResource("3_q4qby")
+metadata/_custom_type_script = "uid://ceborj3mnxiyi"
 
 [sub_resource type="Resource" id="Resource_3sl5b"]
 script = ExtResource("1_mucyj")
-Damage = 100.0
+Damage = 10.0
+ImpactForce = 50.0
 metadata/_custom_type_script = "uid://db328o465i0bl"
 
+[sub_resource type="Resource" id="Resource_k2vi8"]
+script = ExtResource("4_5gcyl")
+metadata/_custom_type_script = "uid://bqqotsng3hioo"
+
 [sub_resource type="Resource" id="Resource_tfa17"]
-script = ExtResource("1_tfa17")
+script = ExtResource("1_q4qby")
 Name = "Sword"
+WeaponTexture = ExtResource("4_k2vi8")
 BaseDamage = SubResource("Resource_3sl5b")
 DamageMultipler = Dictionary[int, float]({
-0: 2.0
+0: 1.0,
+1: 2.0
 })
-AttackSeq = [null]
+DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_k2vi8")])
+AfterAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_la4fd")])
+
+[sub_resource type="Resource" id="Resource_g4lac"]
+script = ExtResource("1_mucyj")
+Damage = 30.0
+ImpactForce = 20.0
+CriticalHit = 25.0
+metadata/_custom_type_script = "uid://db328o465i0bl"
+
+[sub_resource type="Resource" id="Resource_uxx1j"]
+script = ExtResource("4_5gcyl")
+metadata/_custom_type_script = "uid://bqqotsng3hioo"
+
+[sub_resource type="Resource" id="Resource_q4qby"]
+script = ExtResource("1_q4qby")
+Name = "Sword2"
+WeaponTexture = ExtResource("8_x8sac")
+BaseDamage = SubResource("Resource_g4lac")
+DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_uxx1j")])
 metadata/_custom_type_script = "uid://byiqc24xx2v6v"
 
 [resource]
-script = ExtResource("4_qviqq")
-Weapon = Dictionary[String, ExtResource("1_tfa17")]({
-"Sword": SubResource("Resource_tfa17")
+script = ExtResource("8_uxx1j")
+Weapon = Dictionary[String, ExtResource("1_q4qby")]({
+"Sword": SubResource("Resource_tfa17"),
+"Sword2": SubResource("Resource_q4qby")
 })
 metadata/_custom_type_script = "uid://os6os7hbub0w"

@@ -1,79 +1,8 @@
 [gd_scene format=3 uid="uid://cmuk84c173g6p"]
 
-[ext_resource type="Texture2D" uid="uid://dpqq1wq2sqigh" path="res://Rescource/Static/Bullet/Red Effect Bullet Impact Explosion 32x32.png" id="1_gntb5"]
+[ext_resource type="SpriteFrames" uid="uid://bp80ydf070n5q" path="res://Rescource/Animation/Bullet/PurpleWave.tres" id="1_lffvr"]
 [ext_resource type="Script" uid="uid://dvsxykdfksfdh" path="res://Script/Gameplay/Bullet/Bullet.gd" id="2_lffvr"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lffvr"]
-atlas = ExtResource("1_gntb5")
-region = Rect2(512, 384, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kubfh"]
-atlas = ExtResource("1_gntb5")
-region = Rect2(544, 384, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lqx58"]
-atlas = ExtResource("1_gntb5")
-region = Rect2(576, 384, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ehult"]
-atlas = ExtResource("1_gntb5")
-region = Rect2(608, 384, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6f53m"]
-atlas = ExtResource("1_gntb5")
-region = Rect2(352, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vpqty"]
-atlas = ExtResource("1_gntb5")
-region = Rect2(384, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k8jiq"]
-atlas = ExtResource("1_gntb5")
-region = Rect2(416, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yb4rl"]
-atlas = ExtResource("1_gntb5")
-region = Rect2(448, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_btey2"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lffvr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kubfh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lqx58")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ehult")
-}],
-"loop": 0,
-"name": &"Boom",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6f53m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vpqty")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k8jiq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yb4rl")
-}],
-"loop": 1,
-"name": &"Move",
-"speed": 8.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qks0g"]
-radius = 9.0
+[ext_resource type="Shape2D" uid="uid://bchtberuehssy" path="res://Rescource/CollisionShape/Bullet/PurpleWave.tres" id="3_kubfh"]
 
 [sub_resource type="Animation" id="Animation_lffvr"]
 resource_name = "Boom"
@@ -112,15 +41,15 @@ _data = {
 &"Boom": SubResource("Animation_lffvr")
 }
 
-[node name="Bullet" type="AnimatedSprite2D" unique_id=1685861422]
-sprite_frames = SubResource("SpriteFrames_btey2")
-animation = &"Boom"
+[node name="Bullet" type="AnimatedSprite2D" unique_id=1685861422 node_paths=PackedStringArray("Ani")]
+sprite_frames = ExtResource("1_lffvr")
+animation = &"Move"
 autoplay = "Move"
-frame = 3
+frame = 1
 frame_progress = 1.0
-flip_h = true
 script = ExtResource("2_lffvr")
 Speed = 300
+Ani = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1285606942]
 collision_layer = 32
@@ -128,10 +57,10 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1898378202]
 position = Vector2(6, 0)
-shape = SubResource("CircleShape2D_qks0g")
+shape = ExtResource("3_kubfh")
 
 [node name="Lifecycle" type="Timer" parent="." unique_id=1301435948]
-wait_time = 2.0
+wait_time = 10.0
 one_shot = true
 autostart = true
 

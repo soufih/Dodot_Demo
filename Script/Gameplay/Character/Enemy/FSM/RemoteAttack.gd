@@ -30,7 +30,7 @@ func do(_delta):
 		Target = Hero.global_position
 
 	AniPlayer.play("Attack")
-	await Spirte.animation_finished
+	await AniPlayer.animation_finished
 
 var Target:Vector2
 
@@ -38,7 +38,7 @@ func spawn_bullet():
 	#生成弹幕攻击玩家
 	var Bullet = Entity.BulletPreload.instantiate()
 	if Bullet:
-		Bullet.set_bullet_porperty("Hero",Entity, Target)
+		Bullet.setup("Hero",Entity, Target)
 		$"../../../BulletSpawn".add_child(Bullet)
 	Bullet = null
 

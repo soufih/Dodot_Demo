@@ -8,7 +8,10 @@ func beginning():
 	super.beginning()
 	add_to_group("Enemy")
 	Porperty = EnemyManager.get_enemy_porperty(self.name)
-	
+	if !Porperty:
+		push_warning("Can't Find Enemy Porperty")
+		return
+		
 	MaxHealth = Porperty.MaxHealth
 	CurrentHealth = MaxHealth
 	MaxToughness = Porperty.MaxToughness

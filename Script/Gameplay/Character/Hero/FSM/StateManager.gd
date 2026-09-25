@@ -38,6 +38,5 @@ func switch_state(nextState: BaseState):
 
 
 func _check(signalName:String):
-	print(signalName)
 	if Current.NextStates.has(signalName):
 		switch_state(Current.NextStates.get(signalName))

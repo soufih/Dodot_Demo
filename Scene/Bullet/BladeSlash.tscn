@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://cuxogci85ep33"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_jpwt5"]
-
-[node name="BladeSlash" type="AnimatedSprite2D" unique_id=773499475]
-sprite_frames = SubResource("SpriteFrames_jpwt5")

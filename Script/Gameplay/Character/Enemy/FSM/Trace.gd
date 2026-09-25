@@ -12,8 +12,6 @@ func _ready() -> void:
 	StateController.StateArray = get_children()
 	StateController.Current = DefaultState
 
-func enter():
-	print(Entity.name," :trace now")
 
 func do(_delta: float):
 	check()

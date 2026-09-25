@@ -17,28 +17,27 @@ var is_banned:bool = false
 func _ready() -> void:
 	SignalBus.input_control.connect(ban_input)
 
+
 func _process(_delta: float) -> void:
+	if Input.is_action_pressed("MoveLeft"):
+		move_left_pressed.emit()
+
+	if Input.is_action_pressed("MoveRight"):
+		move_right_pressed.emit()
+	
 	clear_expired_actions()
 
 
 func _input(event: InputEvent) -> void:
 	if is_banned:
 		return
-	
+
 	if event.is_action("Attack"):
 		buffer_action("Attack")
 		when_attack_tigger.emit()
 	
-	if event.is_action_pressed("MoveLeft"):
-		buffer_action("Run")
-		move_left_pressed.emit()
-	
 	if event.is_action_released("MoveLeft"):
 		move_left_released.emit()
-
-	if event.is_action_pressed("MoveRight"):
-		buffer_action("Run")
-		move_right_pressed.emit()
 	
 	if event.is_action_released("MoveRight"):
 		move_right_released.emit()

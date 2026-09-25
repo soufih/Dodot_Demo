@@ -1,8 +1,6 @@
 extends BaseState
 
-@export var JumpHeight: float
-@export var MaxJumpHeight: float
-@export_range(0.1, 3.0, 0.1) var JumpSpeedMultiplier: float = 1.0
+
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var holdTime: float
@@ -14,8 +12,8 @@ func enter():
 
 	holdTime = 0
 	var jump_gravity := get_jump_gravity()
-	Entity.velocity.y = -sqrt(2.0 * gravity * JumpHeight)
-	Entity.velocity.y = -sqrt(2.0 * jump_gravity * JumpHeight)
+	Entity.velocity.y = -sqrt(2.0 * gravity * Entity.JumpHeight)
+	Entity.velocity.y = -sqrt(2.0 * jump_gravity * Entity.JumpHeight)
 	AniPlayer.play("Jump")
 
 
@@ -23,8 +21,8 @@ func do(delta: float):
 	var jump_gravity := get_jump_gravity()
 	if Input.is_action_pressed("Jump") and holdTime < maxHoldtime:
 		holdTime += delta
-		var jump_speed := sqrt(2.0 * jump_gravity * JumpHeight)
-		var max_jump_speed := sqrt(2.0 * jump_gravity * MaxJumpHeight)
+		var jump_speed := sqrt(2.0 * jump_gravity * Entity.JumpHeight)
+		var max_jump_speed := sqrt(2.0 * jump_gravity * Entity.MaxJumpHeight)
 		var hold_acceleration := (max_jump_speed - jump_speed) / maxHoldtime
 		Entity.velocity.y = min(Entity.velocity.y - hold_acceleration * delta, -max_jump_speed)
 
@@ -47,4 +45,4 @@ func exit():
 
 
 func get_jump_gravity() -> float:
-	return gravity * JumpSpeedMultiplier * JumpSpeedMultiplier
+	return gravity * Entity.JumpSpeedMultiplier * Entity.JumpSpeedMultiplier

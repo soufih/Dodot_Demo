@@ -224,7 +224,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qm5lr")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Attack",
 "speed": 8.0
 }, {
@@ -253,7 +253,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s0i4b")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Death",
 "speed": 8.0
 }, {
@@ -282,7 +282,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c6gql")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 10.0
 }, {
@@ -311,7 +311,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1yniw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Move",
 "speed": 10.0
 }, {
@@ -331,14 +331,14 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dh87t")
 }],
-"loop": false,
+"loop": 0,
 "name": &"TakeHit",
 "speed": 8.0
 }]
 
 [sub_resource type="Animation" id="Animation_6ml7p"]
 resource_name = "Attack"
-length = 2.0
+length = 1.625
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -457,7 +457,7 @@ collision_layer = 2
 script = ExtResource("1_1gu6a")
 MaxHealth = 100.0
 MaxMana = 100.0
-MaxToughness = 100.0
+MaxToughness = 50.0
 DamageResist = Array[float]([0.1, 0.1, 0.1])
 ToughnessRecover = 10.0
 RecoverTimer = NodePath("Timer/RecoverTimer")
@@ -473,7 +473,7 @@ shape = SubResource("RectangleShape2D_biwwt")
 position = Vector2(-1, -29)
 scale = Vector2(1.18125, 1.1640625)
 sprite_frames = SubResource("SpriteFrames_mxw6e")
-animation = &"TakeHit"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="FSM" type="Node" parent="." unique_id=92374122 node_paths=PackedStringArray("Hatebox", "HateTimer", "Entity", "Current")]
@@ -483,13 +483,13 @@ HateTimer = NodePath("../Timer/HateTimer")
 Entity = NodePath("..")
 Current = NodePath("Potrol")
 
-[node name="Break" type="Node" parent="FSM" unique_id=873260189 node_paths=PackedStringArray("Entity", "AniPlayer")]
-script = ExtResource("7_6ml7p")
+[node name="Death" type="Node" parent="FSM" unique_id=159874090 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("8_2y6po")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Death" type="Node" parent="FSM" unique_id=159874090 node_paths=PackedStringArray("Entity", "AniPlayer")]
-script = ExtResource("8_2y6po")
+[node name="Break" type="Node" parent="FSM" unique_id=873260189 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("7_6ml7p")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
 

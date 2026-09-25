@@ -1,0 +1,58 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bp80ydf070n5q"]
+
+[ext_resource type="Texture2D" uid="uid://dqxa1q32kn710" path="res://Rescource/Static/Bullet/Purple Effect Bullet Impact Explosion 32x32.png" id="1_5fpkq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa8o1"]
+atlas = ExtResource("1_5fpkq")
+region = Rect2(512, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb8lm"]
+atlas = ExtResource("1_5fpkq")
+region = Rect2(544, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwi8m"]
+atlas = ExtResource("1_5fpkq")
+region = Rect2(576, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx7c4"]
+atlas = ExtResource("1_5fpkq")
+region = Rect2(608, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2b01o"]
+atlas = ExtResource("1_5fpkq")
+region = Rect2(64, 256, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdlif"]
+atlas = ExtResource("1_5fpkq")
+region = Rect2(96, 256, 32, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa8o1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb8lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwi8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wx7c4")
+}],
+"loop": 1,
+"name": &"Boom",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2b01o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdlif")
+}],
+"loop": 1,
+"name": &"Move",
+"speed": 8.0
+}]

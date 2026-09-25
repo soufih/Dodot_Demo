@@ -1,6 +1,6 @@
 extends BaseState
 
-@export var InteractBox:Area2D
+
 
 enum subState {
 	Default,
@@ -14,7 +14,7 @@ func _ready() -> void:
 	stateController.Current = stateController.StateArray[subState.Default]
 
 func check():
-	for area in InteractBox.get_overlapping_areas():
+	for area in Entity.InteractBox.get_overlapping_areas():
 		if Input.is_action_just_pressed("Interact") || Input.is_action_just_pressed("Jump"):
 			get_parent().interacting = false
 

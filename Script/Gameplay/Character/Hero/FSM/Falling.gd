@@ -1,9 +1,5 @@
 extends BaseState
 
-@export var safe_fall_speed = 800  # 安全下落速度
-@export var max_fall_speed = 1500  # 最大下落速度
-@export var base_damage = 10  # 基础伤害
-
 var fall_speed:float
 
 func enter():
@@ -25,11 +21,11 @@ func exit():
 	if !Entity.is_on_floor():
 		return
 	var damage:float
-	if fall_speed > safe_fall_speed:
-		var damage_ratio = (fall_speed - safe_fall_speed) / (max_fall_speed - safe_fall_speed)
+	if fall_speed > Entity.safe_fall_speed:
+		var damage_ratio = (fall_speed - Entity.safe_fall_speed) / (Entity.max_fall_speed - Entity.safe_fall_speed)
 		damage_ratio = clamp(damage_ratio, 0.0, 1.0)
 
-		damage = base_damage + (50 - base_damage) * damage_ratio
+		damage = Entity.base_damage + (50 - Entity.base_damage) * damage_ratio
 		damage = round(damage)
 	
 		var fallen_damage:DamagePorperty = DamagePorperty.new()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2kosfdwy20kh"
-path="res://.godot/imported/BladeSlash-01.png-0da33f2096dcad97e82446adcf79e064.ctex"
+uid="uid://c3ns7wci2s6st"
+path="res://.godot/imported/adventurer-attack2-04-1.3.png-bb90abd4733f66289e0a146eee5139d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Rescource/Static/BladeSlash/BladeSlash-01.png"
-dest_files=["res://.godot/imported/BladeSlash-01.png-0da33f2096dcad97e82446adcf79e064.ctex"]
+source_file="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-04-1.3.png"
+dest_files=["res://.godot/imported/adventurer-attack2-04-1.3.png-bb90abd4733f66289e0a146eee5139d4.ctex"]
 
 [params]
 
