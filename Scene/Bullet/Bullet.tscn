@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmuk84c173g6p"]
 
-[ext_resource type="SpriteFrames" uid="uid://bp80ydf070n5q" path="res://Rescource/Animation/Bullet/PurpleWave.tres" id="1_lffvr"]
+[ext_resource type="SpriteFrames" uid="uid://bs467b57jjy8y" path="res://Rescource/Animation/Bullet/FireBall.tres" id="1_kubfh"]
 [ext_resource type="Script" uid="uid://dvsxykdfksfdh" path="res://Script/Gameplay/Bullet/Bullet.gd" id="2_lffvr"]
 [ext_resource type="Shape2D" uid="uid://bchtberuehssy" path="res://Rescource/CollisionShape/Bullet/PurpleWave.tres" id="3_kubfh"]
 
@@ -21,41 +21,25 @@ tracks/0/keys = {
 "method": &"play"
 }]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"apply_damage"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kubfh"]
 _data = {
 &"Boom": SubResource("Animation_lffvr")
 }
 
-[node name="Bullet" type="AnimatedSprite2D" unique_id=1685861422 node_paths=PackedStringArray("Ani")]
-sprite_frames = ExtResource("1_lffvr")
-animation = &"Move"
+[node name="Bullet" type="AnimatedSprite2D" unique_id=1685861422 node_paths=PackedStringArray("Ani", "HitBox")]
+sprite_frames = ExtResource("1_kubfh")
+animation = &"Boom"
 autoplay = "Move"
-frame = 1
-frame_progress = 1.0
 script = ExtResource("2_lffvr")
-Speed = 300
 Ani = NodePath("AnimationPlayer")
+HitBox = NodePath("Hitbox")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1285606942]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1285606942]
 collision_layer = 32
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1898378202]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1898378202]
 position = Vector2(6, 0)
 shape = ExtResource("3_kubfh")
 
@@ -67,5 +51,5 @@ autostart = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=277887903]
 libraries/ = SubResource("AnimationLibrary_kubfh")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Lifecycle" to="." method="_on_timer_timeout"]

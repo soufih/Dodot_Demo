@@ -1,6 +1,7 @@
 extends RefCounted
 class_name ENUM
 
+
 ##伤害类型
 enum DamageType {Physics, Fire, Ice, Null}
 enum AbnormalType {}

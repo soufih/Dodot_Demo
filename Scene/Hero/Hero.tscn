@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://x7acr20uawwk" path="res://Script/Gameplay/Util/InputController.gd" id="14_q22w6"]
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/PlayerUI/Player_State_UI.tscn" id="15_73oc2"]
 [ext_resource type="Script" uid="uid://r3ieb71ndrba" path="res://Script/Gameplay/Weapon/WeaponController.gd" id="15_la4fd"]
-[ext_resource type="Texture2D" uid="uid://b4xn2fsb3y6xu" path="res://Rescource/Static/Weapon/SwordtemberSword1.png" id="16_8705s"]
 [ext_resource type="PackedScene" uid="uid://c6i4w1y5eednm" path="res://UI/PlayerUI/weapon_state_ui.tscn" id="16_pw8k8"]
 [ext_resource type="Texture2D" uid="uid://lhekrotgb7jg" path="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-03-1.3.png" id="17_8705s"]
 [ext_resource type="Texture2D" uid="uid://2kosfdwy20kh" path="res://Rescource/Static/BladeSlash/Attack1/BladeSlash-01.png" id="18_la4fd"]
@@ -1776,7 +1775,6 @@ z_index = 50
 collision_layer = 2
 collision_mask = 129
 script = ExtResource("1_6pkku")
-CurrentWeapon = 10
 mainCamera = NodePath("MainCamera")
 InteractBox = NodePath("InteractBox")
 GodmodeTimer = NodePath("Timers/Godmode")
@@ -1792,7 +1790,7 @@ RecoverTimer = NodePath("Timers/RecoverTimer")
 script = ExtResource("3_b7f62")
 Current = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="State" unique_id=1886700286 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates")]
+[node name="Idle" type="Node" parent="State" unique_id=1886700286 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
 script = ExtResource("5_fqamf")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
@@ -1805,40 +1803,79 @@ NextStates = {
 "move_right_pressed": NodePath("../Run"),
 "when_attack_tigger": NodePath("../Attack")
 }
+Substates = {
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
 
-[node name="Run" type="Node" parent="State" unique_id=2078534470 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates")]
+[node name="SwitchWeapon" type="Node" parent="State/Idle" unique_id=449154940 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
+script = ExtResource("9_iuq1t")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../../InputController")
+
+[node name="Run" type="Node" parent="State" unique_id=2078534470 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
 script = ExtResource("5_iuq1t")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
 _InputController = NodePath("../../InputController")
 NextStates = {
 "death": NodePath("../Death"),
+"input_banned": NodePath("../Idle"),
 "is_fall": NodePath("../Falling"),
 "jump_pressed": NodePath("../Jumping"),
 "move_left_released": NodePath("../Idle"),
 "move_right_released": NodePath("../Idle"),
 "when_attack_tigger": NodePath("../Attack")
 }
+Substates = {
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
 
-[node name="Jumping" type="Node" parent="State" unique_id=83468260 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates")]
+[node name="SwitchWeapon" type="Node" parent="State/Run" unique_id=127736914 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
+script = ExtResource("9_iuq1t")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../../InputController")
+
+[node name="Jumping" type="Node" parent="State" unique_id=83468260 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
 script = ExtResource("6_o2ky4")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
 _InputController = NodePath("../../InputController")
 NextStates = {
 "death": NodePath("../Death"),
-"end_jump": NodePath("../Falling")
+"end_jump": NodePath("../Falling"),
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
+Substates = {
+"switch_weapon_pressed": NodePath("SwitchWeapon")
 }
 
-[node name="Falling" type="Node" parent="State" unique_id=556262976 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates")]
+[node name="SwitchWeapon" type="Node" parent="State/Jumping" unique_id=1826123866 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
+script = ExtResource("9_iuq1t")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../../InputController")
+
+[node name="Falling" type="Node" parent="State" unique_id=556262976 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
 script = ExtResource("7_pwso0")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
 _InputController = NodePath("../../InputController")
 NextStates = {
 "death": NodePath("../Death"),
-"on_floor": NodePath("../Idle")
+"on_floor": NodePath("../Idle"),
+"switch_weapon_pressed": NodePath("SwitchWeapon")
 }
+Substates = {
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
+
+[node name="SwitchWeapon" type="Node" parent="State/Falling" unique_id=618656502 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
+script = ExtResource("9_iuq1t")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../../InputController")
 
 [node name="Attack" type="Node" parent="State" unique_id=1401270864 node_paths=PackedStringArray("ComboCounter", "Entity", "AniPlayer", "NextStates", "BufferedStates")]
 script = ExtResource("8_v1ih1")
@@ -1850,11 +1887,6 @@ NextStates = {
 "end_attack": NodePath("../Idle")
 }
 BufferedStates = [NodePath(".")]
-
-[node name="SwitchWeapon" type="Node" parent="State" unique_id=449154940 node_paths=PackedStringArray("Entity", "AniPlayer")]
-script = ExtResource("9_iuq1t")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
 
 [node name="Death" type="Node" parent="State" unique_id=1180608182 node_paths=PackedStringArray("Entity", "AniPlayer")]
 script = ExtResource("10_pwso0")
@@ -1890,8 +1922,13 @@ AniPlayer = NodePath("../../../PlayerAnimations")
 script = ExtResource("14_q22w6")
 input_buffer_duration = 0.5
 
-[node name="WeaponController" type="Node2D" parent="." unique_id=486381604]
+[node name="WeaponController" type="Node2D" parent="." unique_id=486381604 node_paths=PackedStringArray("Ani", "Owner", "WeaponNode", "Hitbox", "WeaponTexture")]
 script = ExtResource("15_la4fd")
+Ani = NodePath("WeaponAnimations")
+Owner = NodePath("..")
+WeaponNode = NodePath("WeaponPivot/Weapon")
+Hitbox = NodePath("WeaponPivot/Hitbox")
+WeaponTexture = NodePath("WeaponPivot/Weapon/WeaponTexture")
 
 [node name="WeaponPivot" type="Node2D" parent="WeaponController" unique_id=240119211]
 
@@ -1901,7 +1938,6 @@ rotation = -6.348665
 scale = Vector2(0.6727489, 0.6727489)
 
 [node name="WeaponTexture" type="Sprite2D" parent="WeaponController/WeaponPivot/Weapon" unique_id=454955059]
-texture = ExtResource("16_8705s")
 
 [node name="Hitbox" type="Area2D" parent="WeaponController/WeaponPivot" unique_id=1022617116]
 visible = false
@@ -1985,7 +2021,6 @@ Hero = NodePath("../..")
 [node name="Timers" type="Node" parent="." unique_id=1310711207]
 
 [node name="EntryTimer" type="Timer" parent="Timers" unique_id=1881674336]
-wait_time = 0.05
 one_shot = true
 autostart = true
 ignore_time_scale = true
@@ -2010,6 +2045,7 @@ ignore_time_scale = true
 [connection signal="on_attack" from="." to="WeaponController" method="_on_hero_on_attack"]
 [connection signal="move_left_pressed" from="InputController" to="." method="_on_input_controller_move_left_pressed"]
 [connection signal="move_right_pressed" from="InputController" to="." method="_on_input_controller_move_right_pressed"]
+[connection signal="switch_weapon_pressed" from="InputController" to="State/Idle" method="_on_input_controller_switch_weapon_pressed"]
 [connection signal="body_entered" from="ActiveZone" to="ActiveZone" method="_on_body_entered"]
 [connection signal="body_exited" from="ActiveZone" to="ActiveZone" method="_on_body_exited"]
 [connection signal="area_exited" from="InteractBox" to="State/Interact" method="_on_interact_box_area_exited"]

@@ -5,10 +5,32 @@ extends Control
 @onready var current_item = $current_item_container/current_item
 @onready var next_item = $next_item_container/next_item
 var completed:bool = true
+var is_banned:bool = false
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("SwitchWeapon") && completed:
+func _ready() -> void:
+	SignalBus.weapon_switch.connect(_on_weapon_switch)
+	EquipmentSlotSystem.equipment_slot_changed.connect(_on_equipment_slot_changed)
+	refresh_display()
+
+
+func _exit_tree() -> void:
+	EquipmentSlotSystem.equipment_slot_changed.disconnect(_on_equipment_slot_changed)
+
+
+func _on_weapon_switch() -> void:
+	if completed:
 		switch_item()
+
+
+func _on_equipment_slot_changed():
+	refresh_display()
+
+
+func refresh_display():
+	var weapon_id = EquipmentSlotSystem.get_current_weapon()
+	current_item.texture = ResourceManager.get_item_icon(weapon_id)
+	var next_id = EquipmentSlotSystem.get_next_weapon()
+	next_item.texture = ResourceManager.get_item_icon(next_id)
 
 func switch_item():
 	completed = false

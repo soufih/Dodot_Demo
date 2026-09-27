@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dg5jscvs3feh3"]
+[gd_scene format=3 uid="uid://dg5jscvs3feh3"]
 
 [ext_resource type="Script" uid="uid://bro0d6fl2dcyn" path="res://Script/UI_Script/Backpack/equipment_bar.gd" id="1_wmsgd"]
 
-[node name="equipment_bar" type="MarginContainer"]
+[node name="equipment_bar" type="MarginContainer" unique_id=293486346]
 custom_minimum_size = Vector2(0, 171.985)
 offset_left = 99.0
 offset_top = 108.0
@@ -11,19 +11,19 @@ offset_bottom = 112.0
 size_flags_horizontal = 3
 script = ExtResource("1_wmsgd")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1775023439]
 layout_mode = 2
 
-[node name="WeaponSlot" type="VBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 0
-
-[node name="RelicSlot" type="VBoxContainer" parent="VBoxContainer"]
+[node name="WeaponSlot" type="VBoxContainer" parent="VBoxContainer" unique_id=1830122404]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="Panel" type="Panel" parent="."]
+[node name="RelicSlot" type="VBoxContainer" parent="VBoxContainer" unique_id=363207188]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Panel" type="Panel" parent="." unique_id=1077049962]
 visible = false
 layout_mode = 2

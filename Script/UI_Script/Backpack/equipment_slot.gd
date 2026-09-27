@@ -46,4 +46,3 @@ func _on_button_down() -> void:
 
 	tmp_slot.set_icon(result.x)
 	tmp_slot.set_tmp_item(result.x, result.y)
-	tmp_slot.set_button_down_sign(true)

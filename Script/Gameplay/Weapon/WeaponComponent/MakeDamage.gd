@@ -7,6 +7,9 @@ func execute(context: WeaponContext):
 
 ##伤害模块
 func damage_module(Hitbox:Area2D, Porperty:WeaponPorperty, Attacker:BaseCharacter, Combo:int) -> void:
+	if !Hitbox || !Attacker || !Porperty:
+		return
+	
 	for body in Hitbox.get_overlapping_bodies():
 		if body.is_in_group("Enemy"):
 			var Damage:DamagePorperty = Porperty.BaseDamage.duplicate(true) 

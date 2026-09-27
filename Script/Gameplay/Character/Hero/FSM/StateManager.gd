@@ -1,18 +1,20 @@
 extends Node
 
-@onready var InputControlller = $"../InputController"
+@onready var _InputController = $"../InputController"
 @onready var Hero = $".."
 
 @export var Current:BaseState
 
 
 func _ready() -> void:
-	InputControlller.move_left_pressed.connect(_check.bind("move_left_pressed"))
-	InputControlller.move_left_released.connect(_check.bind("move_left_released"))
-	InputControlller.move_right_pressed.connect(_check.bind("move_right_pressed"))
-	InputControlller.move_right_released.connect(_check.bind("move_right_released"))
-	InputControlller.jump_pressed.connect(_check.bind("jump_pressed"))
-	InputControlller.when_attack_tigger.connect(_check.bind("when_attack_tigger"))
+	_InputController.move_left_pressed.connect(_check.bind("move_left_pressed"))
+	_InputController.move_left_released.connect(_check.bind("move_left_released"))
+	_InputController.move_right_pressed.connect(_check.bind("move_right_pressed"))
+	_InputController.move_right_released.connect(_check.bind("move_right_released"))
+	_InputController.jump_pressed.connect(_check.bind("jump_pressed"))
+	_InputController.when_attack_tigger.connect(_check.bind("when_attack_tigger"))
+	_InputController.input_banned.connect(_check.bind("input_banned"))
+	
 	
 	Hero.is_static.connect(_check.bind("is_static"))
 	Hero.on_floor.connect(_check.bind("on_floor"))
@@ -25,13 +27,34 @@ func _ready() -> void:
 	
 	Current.enter()
 
+
+func _exit_tree() -> void:
+	_InputController.move_left_pressed.disconnect(_check.bind("move_left_pressed"))
+	_InputController.move_left_released.disconnect(_check.bind("move_left_released"))
+	_InputController.move_right_pressed.disconnect(_check.bind("move_right_pressed"))
+	_InputController.move_right_released.disconnect(_check.bind("move_right_released"))
+	_InputController.jump_pressed.disconnect(_check.bind("jump_pressed"))
+	_InputController.when_attack_tigger.disconnect(_check.bind("when_attack_tigger"))
+	_InputController.input_banned.disconnect(_check.bind("input_banned"))
+	
+	Hero.is_static.disconnect(_check.bind("is_static"))
+	Hero.on_floor.disconnect(_check.bind("on_floor"))
+	Hero.is_fall.disconnect(_check.bind("is_fall"))
+	Hero.end_jump.disconnect(_check.bind("end_jump"))
+	Hero.end_attack.disconnect(_check.bind("end_attack"))
+	Hero.death.disconnect(_check.bind("death"))
+	Hero.breaked.disconnect(_check.bind("breaked"))
+	Hero.end_breaked.disconnect(_check.bind("end_breaked"))
+
+
 func _physics_process(delta: float) -> void:
 	Current.do(delta)
+
 
 func switch_state(nextState: BaseState):
 	Current.exit()
 	for bufferedState in Current.BufferedStates:
-		if InputControlller.consume_buffered_action(bufferedState.name):
+		if _InputController.consume_buffered_action(bufferedState.name):
 				nextState = bufferedState
 	nextState.enter()
 	Current = nextState

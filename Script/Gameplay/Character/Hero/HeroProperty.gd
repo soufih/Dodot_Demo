@@ -15,7 +15,6 @@ signal end_attack
 @onready var WeaponPivot:Node2D = $WeaponController/WeaponPivot
 @onready var _InputController:InputController = $InputController
 
-@export var CurrentWeapon:int
 @export var GodModeTimer: float
 @export var mainCamera: Camera2D
 @export var InteractBox:Area2D

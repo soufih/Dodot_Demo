@@ -62,6 +62,26 @@ var _commands: Dictionary = {}
 var _services: Dictionary = {}
 
 
+## 注册调试工具自带的帮助、场景、UI、物品和玩家命令。
+func _register_builtin_commands() -> void:
+	register_command(&"help", _command_help, "显示命令列表或指定命令的帮助。", "help [command]", self, PackedStringArray(["?"]))
+	register_command(&"clear", _command_clear, "清空控制台输出。", "clear", self)
+	register_command(&"echo", _command_echo, "输出文本，用于验证控制台是否可用。", "echo <text>", self)
+	register_command(&"services", _command_services, "显示当前已连接的调试服务。", "services", self)
+	register_command(&"game.pause", _command_game_pause, "暂停或恢复场景树。", "game.pause [on|off|toggle]", self)
+	register_command(&"scene.current", _command_scene_current, "显示当前场景路径。", "scene.current", self)
+	register_command(&"scene.load", _command_scene_load, "切换到指定场景。", "scene.load <res://scene.tscn>", self)
+	register_command(&"ui.toggle", _command_ui_toggle, "切换游戏 UI。", "ui.toggle <backpack|warehouse|equipment|map|pause>", self)
+	register_command(&"item.give", _command_item_give, "向背包添加物品。", "item.give <item_id> [amount]", self)
+	register_command(&"item.drop", _command_item_drop, "在玩家位置生成掉落物。", "item.drop <item_id> [amount]", self)
+	register_command(&"warehouse.give", _command_warehouse_give, "向仓库添加物品。", "warehouse.give <item_id> [amount]", self)
+	register_command(&"player.info", _command_player_info, "显示玩家生命和法力。", "player.info", self)
+	register_command(&"player.hp", _command_player_hp, "设置玩家当前生命值。", "player.hp <value>", self)
+	register_command(&"player.heal", _command_player_heal, "恢复玩家生命值。", "player.heal [amount]", self)
+	register_command(&"player.god", _command_player_god, "触发玩家无敌状态。", "player.god [duration]", self)
+
+
+
 ## 初始化命令注册表、独立的控制台 UI，并延迟发现 Autoload 服务。
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -232,25 +252,6 @@ func _discover_autoload_services() -> void:
 		var service := get_tree().root.get_node_or_null(NodePath(autoload_name))
 		if service != null:
 			register_service(service_name, service)
-
-
-## 注册调试工具自带的帮助、场景、UI、物品和玩家命令。
-func _register_builtin_commands() -> void:
-	register_command(&"help", _command_help, "显示命令列表或指定命令的帮助。", "help [command]", self, PackedStringArray(["?"]))
-	register_command(&"clear", _command_clear, "清空控制台输出。", "clear", self)
-	register_command(&"echo", _command_echo, "输出文本，用于验证控制台是否可用。", "echo <text>", self)
-	register_command(&"services", _command_services, "显示当前已连接的调试服务。", "services", self)
-	register_command(&"game.pause", _command_game_pause, "暂停或恢复场景树。", "game.pause [on|off|toggle]", self)
-	register_command(&"scene.current", _command_scene_current, "显示当前场景路径。", "scene.current", self)
-	register_command(&"scene.load", _command_scene_load, "切换到指定场景。", "scene.load <res://scene.tscn>", self)
-	register_command(&"ui.toggle", _command_ui_toggle, "切换游戏 UI。", "ui.toggle <backpack|warehouse|equipment|map|pause>", self)
-	register_command(&"item.give", _command_item_give, "向背包添加物品。", "item.give <item_id> [amount]", self)
-	register_command(&"item.drop", _command_item_drop, "在玩家位置生成掉落物。", "item.drop <item_id> [amount]", self)
-	register_command(&"warehouse.give", _command_warehouse_give, "向仓库添加物品。", "warehouse.give <item_id> [amount]", self)
-	register_command(&"player.info", _command_player_info, "显示玩家生命和法力。", "player.info", self)
-	register_command(&"player.hp", _command_player_hp, "设置玩家当前生命值。", "player.hp <value>", self)
-	register_command(&"player.heal", _command_player_heal, "恢复玩家生命值。", "player.heal [amount]", self)
-	register_command(&"player.god", _command_player_god, "触发玩家无敌状态。", "player.god [duration]", self)
 
 
 ## 显示全部命令摘要，或显示指定命令的用法、说明及别名。

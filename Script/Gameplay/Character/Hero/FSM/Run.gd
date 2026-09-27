@@ -4,6 +4,7 @@ var direct_x
 
 func enter():
 	AniPlayer.play("Run")
+	_InputController.switch_weapon_pressed.connect(_check.bind("switch_weapon_pressed"))
 	
 func do(_delta):
 	Entity.filp_character()
@@ -14,3 +15,6 @@ func do(_delta):
 
 
 	Entity.move_and_slide()
+
+func exit():
+	_InputController.switch_weapon_pressed.disconnect(_check.bind("switch_weapon_pressed"))

@@ -3,7 +3,6 @@ class_name WeaponPorperty
 
 @export_category("Properties")
 @export var Name: String
-@export var WeaponTexture: Texture2D
 @export var Type: ENUM.WeaponType
 @export var BaseDamage: DamagePorperty
 @export var DamageMultipler: Dictionary[int, float]## Key: Movement, Value: Multiplier

@@ -5,7 +5,7 @@ var fall_speed:float
 func enter():
 	fall_speed = 0
 	AniPlayer.play("Falling")
-
+	_InputController.switch_weapon_pressed.connect(_check.bind("switch_weapon_pressed"))
 
 func do(delta):
 	Entity.filp_character()
@@ -18,6 +18,7 @@ func do(delta):
 	fall_speed = max(abs(Entity.velocity.y), fall_speed)
 
 func exit():
+	_InputController.switch_weapon_pressed.disconnect(_check.bind("switch_weapon_pressed"))
 	if !Entity.is_on_floor():
 		return
 	var damage:float

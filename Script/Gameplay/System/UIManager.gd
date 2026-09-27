@@ -76,18 +76,20 @@ func use_ui_input():
 func ui_remove_from_list(ui: BaseUI) -> void:
 	if UIList.has(ui):
 		UIList.erase(ui)
-	print("UI List:",UIList)
+	if UIList.is_empty():
+		SignalBus.input_control.emit(false)
 
 ##UIList新增元素时调用
 func ui_add_to_list(ui: BaseUI) -> void:
 	UIList.append(ui)
-	print("UI List:",UIList)
+	SignalBus.input_control.emit(true)
 
 ##移除UI列表顶元素
 func ui_pop_from_list() -> void:
 	if UIList.size() > 0:
 		UIList.pop_back()
-	print("UI List:",UIList)
+	if UIList.is_empty():
+		SignalBus.input_control.emit(false)
 
 ##获取UI列表顶元素
 func ui_get_top() -> BaseUI:
@@ -97,9 +99,10 @@ func ui_get_top() -> BaseUI:
 
 ##清空UI列表
 func ui_clear_list() -> void:
+	SignalBus.input_control.emit(false)
 	UIList.clear()
 
-##y关闭所有UI
+##关闭所有UI
 func ui_close_all():
 	for ui in UIList:
 		if ui:
@@ -116,8 +119,11 @@ func ui_cancel():
 	else: #列表为空时打开暂停菜单
 		open_pause_menu()
 
+
 ##打开暂停菜单
 func open_pause_menu():
+	if !UILayer.has_node("menu_ui"):
+		return
 	var pause_menu = UILayer.get_node("menu_ui") as BaseUI
 	if pause_menu:
 		pause_menu.visible = !pause_menu.visible
@@ -125,6 +131,8 @@ func open_pause_menu():
 
 ##打开/关闭背包
 func ui_open_backpack():
+	if !UILayer.has_node("inventory_ui"):
+		return
 	var inventory_ui = UILayer.get_node("inventory_ui") as BaseUI
 
 	if inventory_ui:
@@ -132,17 +140,24 @@ func ui_open_backpack():
 
 ##打开/关闭仓库
 func ui_open_warehouse():
+	if !UILayer.has_node("warehouse_ui"):
+		return
 	var warehouse_ui = UILayer.get_node("warehouse_ui") as BaseUI
 	if warehouse_ui:
 		warehouse_ui.visible = !warehouse_ui.visible
 
 ##打开/关闭装备强化界面
 func ui_open_equipment_enhancement():
+	if !UILayer.has_node("equipment_enhancement_ui"):
+		return
 	var equipment_enhancement_ui = UILayer.get_node("equipment_enhancement_ui") as BaseUI
 	if equipment_enhancement_ui:
 		equipment_enhancement_ui.visible = !equipment_enhancement_ui.visible
 
+
 func ui_open_map():
+	if !UILayer.has_node("map_ui"):
+		return
 	var map_ui = flotUIlayer.get_node("map_ui") as BaseUI
 	if map_ui:
 		map_ui.visible = !map_ui.visible

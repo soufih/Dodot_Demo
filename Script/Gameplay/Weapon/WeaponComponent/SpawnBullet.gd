@@ -1,22 +1,20 @@
 extends WeaponAction
 class_name SpawnBullet
 
-@export var _BulletScene:String
+
 ## 相对于瞄准方向的偏移：x 为前方距离，y 为侧向距离。
 @export var _SpawnPosition:Vector2 = Vector2(32.0, 0.0)
 ## 大于 0 时覆盖子弹场景速度，否则使用场景中的速度。
 @export var _Speed:float
-@export var _Porperty:WeaponPorperty
-
 @export var _BulletScence:PackedScene
 
 
 func execute(context: WeaponContext):
-	spawn_bullet(context, _BulletScene, _SpawnPosition, _Speed, _Porperty)
+	spawn_bullet(context, _SpawnPosition, _Speed)
 
 
 ## 生成弹幕模块。
-func spawn_bullet(context: WeaponContext, BulletScene:String, SpawnPosition:Vector2, Speed:float, _property:WeaponPorperty) -> void:
+func spawn_bullet(context: WeaponContext, SpawnPosition:Vector2, Speed:float) -> void:
 	if context == null or not is_instance_valid(context.attacker):
 		return
 	var attacker = context.attacker
@@ -24,8 +22,7 @@ func spawn_bullet(context: WeaponContext, BulletScene:String, SpawnPosition:Vect
 		return
 
 	var scene:PackedScene = _BulletScence
-	if scene == null and not BulletScene.is_empty():
-		scene = load(BulletScene) as PackedScene
+
 	if scene == null:
 		push_warning("SpawnBullet: 请配置子弹场景。")
 		return

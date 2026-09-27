@@ -7,6 +7,8 @@ signal move_left_released
 signal move_right_pressed
 signal move_right_released
 signal jump_pressed
+signal switch_weapon_pressed
+signal input_banned
 
 @export_range(0.0, 1.0, 0.01) var input_buffer_duration: float = 1
 
@@ -19,6 +21,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if is_banned:
+		return
+	
 	if Input.is_action_pressed("MoveLeft"):
 		move_left_pressed.emit()
 
@@ -30,9 +35,10 @@ func _process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if is_banned:
+		input_banned.emit()
 		return
 
-	if event.is_action("Attack"):
+	if event.is_action("Attack") && EquipmentSlotSystem.get_current_weapon() != -1:
 		buffer_action("Attack")
 		when_attack_tigger.emit()
 	
@@ -45,11 +51,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Jump"):
 		buffer_action("Jumping")
 		jump_pressed.emit()
+	
+	if event.is_action_pressed("SwitchWeapon"):
+		switch_weapon_pressed.emit()
 
 
 func ban_input(state:bool):
 	is_banned = state
-	print(is_banned)
 
 
 func get_move_direction() -> float:
@@ -78,7 +86,7 @@ func has_buffered_action(action: StringName) -> bool:
 func consume_buffered_action(action: StringName) -> bool:
 	if not has_buffered_action(action):
 		return false
-	print("Buffered Action:" + action)
+	#print("Buffered Action:" + action)
 	buffered_actions.erase(action)
 	return true
 

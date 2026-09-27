@@ -1,6 +1,7 @@
 extends Node
 
 signal equipment_slot_changed
+signal current_weapon_changed
 
 #索引为位置，值为物品id
 var WeaponSlot:Array[int]
@@ -10,6 +11,9 @@ var WeaponMaxContianer: int = 2
 var WeaponCurrentContianer: int = 0
 var RelicMaxContianer: int = 4
 var RelicCurrentContianer: int = 0
+
+var CurrentWeapon:int = 1
+
 
 func _ready() -> void:
 	#0号位用于记录类型
@@ -23,6 +27,40 @@ func _ready() -> void:
 	
 	for i in range(0, RelicMaxContianer):
 		RelicSlot.push_back(-1)
+
+
+
+func has_item(Slot:Array, index: int)->bool:
+	if index >= Slot.size() || Slot[index] == -1:
+		return false
+	return true
+
+
+func get_current_weapon()->int:
+	return WeaponSlot.get(CurrentWeapon)
+
+
+func get_next_weapon()->int:
+	var NextIndex = get_next_weapon_index()
+	if NextIndex == CurrentWeapon:
+		return -1
+	return WeaponSlot.get(NextIndex)
+
+
+func get_next_weapon_index()->int:
+	var index:int = CurrentWeapon
+	index = index % WeaponMaxContianer + 1
+	while !has_item(WeaponSlot, index) && index != CurrentWeapon:
+		index = index % WeaponMaxContianer + 1
+	return index
+
+
+func switch_current_weapon(index:int):
+	if index > WeaponMaxContianer:
+		return
+
+	CurrentWeapon = index
+	current_weapon_changed.emit()
 
 #更新长度数值
 func _on_equipment_slot_changed():
@@ -39,21 +77,22 @@ func interact_with_equipment_slot(id: int,amount: int,Postion: int, arr:Array)->
 	if !ResourceManager.get_item_item_type(id).has(arr[0]) && id != -1:
 		return Vector2i(id, amount)
 
+	var result:Vector2i = Vector2i(-1, 0)
 	if (arr.get(Postion) != -1 && Postion )|| id == -1: #若当前位置已存在装备，则进行交换
-		return Vector2i(exchange_equipment(id, Postion, arr), 1)
+		result = Vector2i(exchange_equipment(id, Postion, arr), 1)
 	else:#不存在装备，放入物装备
 		arr[Postion] = id
-		equipment_slot_changed.emit()
+	
+	equipment_slot_changed.emit()
+	current_weapon_changed.emit()
 
-	return Vector2i(-1, 0)
+	return result
 
 
 func exchange_equipment(id: int, TargetPostion: int, arr: Array)->int:
 	var TargetItem = arr[TargetPostion]
-
 	arr[TargetPostion] = id
-	
-	equipment_slot_changed.emit()
+
 	return TargetItem
 
 #移除装备

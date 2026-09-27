@@ -7,6 +7,7 @@ var holdTime: float
 var maxHoldtime: float = 0.4
 
 func enter():
+	_InputController.switch_weapon_pressed.connect(_check.bind("switch_weapon_pressed"))
 	if !Entity.is_on_floor():
 		return
 
@@ -15,7 +16,6 @@ func enter():
 	Entity.velocity.y = -sqrt(2.0 * gravity * Entity.JumpHeight)
 	Entity.velocity.y = -sqrt(2.0 * jump_gravity * Entity.JumpHeight)
 	AniPlayer.play("Jump")
-
 
 func do(delta: float):
 	var jump_gravity := get_jump_gravity()
@@ -41,6 +41,7 @@ func do(delta: float):
 
 
 func exit():
+	_InputController.switch_weapon_pressed.disconnect(_check.bind("switch_weapon_pressed"))
 	Entity.velocity = Vector2(0, 0)
 
 
