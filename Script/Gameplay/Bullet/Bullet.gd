@@ -1,49 +1,116 @@
 extends AnimatedSprite2D
 
-
 @export var Ani: AnimationPlayer
 @export var HitBox: Area2D
-
-var Speed: int
+var Speed: float = 0.0
 var Attacker: BaseCharacter
-var Bullet: SeniorBullet
+var Bullet: ElementaryBullet
 var Ctx: BulletContext
 var end_moving: bool = true
+var active: bool = false
+var _direction: Vector2
+var _moving_actions_running: bool = false
+@onready var _lifecycle: Timer = $Lifecycle
+@onready var _shape: CollisionShape2D = $Hitbox/CollisionShape2D
 
 
-func setup(attacker: BaseCharacter, speed: int):
+func _ready() -> void:
+	deactivate()
+
+
+func activate(data: ElementaryBullet, attacker: BaseCharacter, origin: Vector2,
+		direction: Vector2, speed: float, target: String) -> void:
+	Bullet = data
 	Attacker = attacker
 	Speed = speed
-
-#生成时触发
-func _ready() -> void:
-	Ctx = BulletContext.new(
-		self,
-		Bullet,
-		Ani,
-		HitBox,
-		Attacker
-	)
-	for action:BulletAction in Bullet.Spawned:
-		action.execute(Ctx)
+	_direction = direction.normalized() if not direction.is_zero_approx() else Vector2.RIGHT
+	global_position = origin
+	global_rotation = _direction.angle()
+	scale = Vector2.ONE
+	modulate = Color.WHITE
+	self_modulate = Color.WHITE
+	flip_h = false
+	flip_v = false
+	speed_scale = 1.0
+	sprite_frames = data.AniTres
+	_shape.shape = data.CollisionShape
+	Ctx = BulletContext.new(self, data, Ani, HitBox, attacker)
+	Ctx.Target = target
+	active = true
 	end_moving = false
+	_moving_actions_running = false
+	show()
+	set_process(true)
+	HitBox.set_deferred("monitoring", true)
+	HitBox.set_deferred("monitorable", true)
+	_shape.set_deferred("disabled", false)
+	if sprite_frames != null and sprite_frames.has_animation("Move"):
+		play("Move")
+	_lifecycle.start(maxf(data.Lifecycle, 0.001))
+	_run_actions(data.Spawned, Ctx)
 
-#移动过程中触发
+func deactivate() -> void:
+	active = false
+	end_moving = true
+	if Ctx != null:
+		Ctx.Valid = false
+	_lifecycle.stop()
+	Ani.stop()
+	stop()
+	frame = 0
+	hide()
+	set_process(false)
+	HitBox.set_deferred("monitoring", false)
+	HitBox.set_deferred("monitorable", false)
+	_shape.set_deferred("disabled", true)
+	Ctx = null
+	Bullet = null
+	Attacker = null
+	Speed = 0.0
+
+
+func release() -> void:
+	BulletPoolManager.recycle(self)
+
+
 func _process(delta: float) -> void:
-	if end_moving:
+	if not active or end_moving:
 		return
+	global_position += _direction * Speed * delta
+	if not _moving_actions_running:
+		_moving_actions_running = true
+		var context := Ctx
+		await _run_actions(Bullet.Moving, context)
+		if context.Valid:
+			_moving_actions_running = false
 
-	for action:BulletAction in Bullet.Moving:
-		action.execute(Ctx)
 
-#生存周期结束后触发
+func _run_actions(actions: Array[BulletAction], context: BulletContext) -> void:
+	for action in actions:
+		if not context.Valid:
+			return
+		if action != null:
+			await action.execute(context)
+
+
+func _finish(actions: Array[BulletAction]) -> void:
+	if not active or end_moving:
+		return
+	end_moving = true
+	_lifecycle.stop()
+	var context := Ctx
+	await _run_actions(actions, context)
+	if context.Valid:
+		release()
+
+
 func _on_timer_timeout() -> void:
-	end_moving = true
-	for action:BulletAction in Bullet.Death:
-		action.execute(Ctx)
+	if active:
+		_finish(Bullet.Death)
 
-#命中时触发
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	end_moving = true
-	for action:BulletAction in Bullet.Hit:
-		action.execute(Ctx)
+	if not active or end_moving or body == Attacker or not body.is_in_group(Ctx.Target):
+		return
+	Ctx.HitBody = body
+	_finish(Bullet.Hit)

@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://c8ks632g6ayhg" path="res://Script/Gameplay/Character/Enemy/FSM/Death.gd" id="8_2y6po"]
 [ext_resource type="Script" uid="uid://deowvfskpq3w5" path="res://Script/Gameplay/Character/Enemy/FSM/Potrol.gd" id="8_6ml7p"]
 [ext_resource type="Script" uid="uid://g3r60myq5g8i" path="res://Script/Gameplay/Character/Enemy/FSM/Trace.gd" id="9_2y6po"]
+[ext_resource type="Resource" uid="uid://butaa0i8k8mts" path="res://Rescource/Bullet/ElementaryBullet/FireBall.tres" id="10_bullet"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_biwwt"]
 size = Vector2(20, 61.5)
@@ -526,6 +527,7 @@ AniPlayer = NodePath("../../AnimationPlayer")
 script = ExtResource("6_2y6po")
 Spirte = NodePath("../../../AnimatedSprite2D")
 Hitbox = NodePath("../../../HateArea")
+BulletData = ExtResource("10_bullet")
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
 
@@ -562,6 +564,7 @@ shape = SubResource("CircleShape2D_usd1x")
 [node name="Timer" type="Node" parent="." unique_id=935989560]
 
 [node name="RecoverTimer" type="Timer" parent="Timer" unique_id=744676938]
+wait_time = 5.0
 one_shot = true
 
 [node name="HateTimer" type="Timer" parent="Timer" unique_id=1126762764]

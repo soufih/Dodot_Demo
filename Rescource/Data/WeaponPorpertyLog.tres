@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://byiqc24xx2v6v" path="res://Script/Config/Model/WeaponConfig/WeaponPorperty.gd" id="1_q4qby"]
 [ext_resource type="Script" uid="uid://btvqbjbxkj7uj" path="res://Script/Config/Model/WeaponConfig/WeaponAction.gd" id="2_x8sac"]
 [ext_resource type="Script" uid="uid://ceborj3mnxiyi" path="res://Script/Gameplay/Weapon/WeaponComponent/SpawnBullet.gd" id="3_5gcyl"]
-[ext_resource type="PackedScene" uid="uid://cmuk84c173g6p" path="res://Scene/Bullet/Bullet.tscn" id="3_q4qby"]
 [ext_resource type="Script" uid="uid://bqqotsng3hioo" path="res://Script/Gameplay/Weapon/WeaponComponent/MakeDamage.gd" id="4_5gcyl"]
+[ext_resource type="Resource" uid="uid://bbdlp3w7oyci1" path="res://Rescource/Bullet/ElementaryBullet/PurpleWave.tres" id="5_5gcyl"]
 [ext_resource type="Script" uid="uid://os6os7hbub0w" path="res://Script/Config/Model/WeaponConfig/WeaponPorpertyLog.gd" id="8_uxx1j"]
 
 [sub_resource type="Resource" id="Resource_3sl5b"]
@@ -20,8 +20,7 @@ metadata/_custom_type_script = "uid://bqqotsng3hioo"
 
 [sub_resource type="Resource" id="Resource_o8uxl"]
 script = ExtResource("3_5gcyl")
-_Speed = 500.0
-_BulletScence = ExtResource("3_q4qby")
+_BulletData = ExtResource("5_5gcyl")
 metadata/_custom_type_script = "uid://ceborj3mnxiyi"
 
 [sub_resource type="Resource" id="Resource_tfa17"]
@@ -45,11 +44,16 @@ metadata/_custom_type_script = "uid://db328o465i0bl"
 script = ExtResource("4_5gcyl")
 metadata/_custom_type_script = "uid://bqqotsng3hioo"
 
+[sub_resource type="Resource" id="Resource_p4x0u"]
+script = ExtResource("3_5gcyl")
+_BulletData = ExtResource("5_5gcyl")
+metadata/_custom_type_script = "uid://ceborj3mnxiyi"
+
 [sub_resource type="Resource" id="Resource_x8sac"]
 script = ExtResource("1_q4qby")
 Name = "Sword2"
 BaseDamage = SubResource("Resource_g4lac")
-DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_uxx1j")])
+DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_uxx1j"), SubResource("Resource_p4x0u")])
 metadata/_custom_type_script = "uid://byiqc24xx2v6v"
 
 [resource]

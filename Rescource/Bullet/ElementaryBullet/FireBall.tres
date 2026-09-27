@@ -37,8 +37,8 @@ metadata/_custom_type_script = "uid://dsge07ylj0eld"
 
 [sub_resource type="Resource" id="Resource_5gcyl"]
 script = ExtResource("4_hbqu1")
-Damage = 30.0
-ImpactForce = 20.0
+Damage = 3.0
+ImpactForce = 100.0
 metadata/_custom_type_script = "uid://db328o465i0bl"
 
 [resource]

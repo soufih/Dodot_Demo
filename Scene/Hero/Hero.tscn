@@ -1775,6 +1775,7 @@ z_index = 50
 collision_layer = 2
 collision_mask = 129
 script = ExtResource("1_6pkku")
+GodModeTimer = 1.0
 mainCamera = NodePath("MainCamera")
 InteractBox = NodePath("InteractBox")
 GodmodeTimer = NodePath("Timers/Godmode")
@@ -1796,6 +1797,7 @@ Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
 _InputController = NodePath("../../InputController")
 NextStates = {
+"breaked": NodePath("../Break"),
 "death": NodePath("../Death"),
 "is_fall": NodePath("../Falling"),
 "jump_pressed": NodePath("../Jumping"),
@@ -1819,6 +1821,7 @@ Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
 _InputController = NodePath("../../InputController")
 NextStates = {
+"breaked": NodePath("../Break"),
 "death": NodePath("../Death"),
 "input_banned": NodePath("../Idle"),
 "is_fall": NodePath("../Falling"),
@@ -1848,6 +1851,7 @@ NextStates = {
 "switch_weapon_pressed": NodePath("SwitchWeapon")
 }
 Substates = {
+"breaked": NodePath("../Break"),
 "switch_weapon_pressed": NodePath("SwitchWeapon")
 }
 
@@ -1863,6 +1867,7 @@ Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
 _InputController = NodePath("../../InputController")
 NextStates = {
+"breaked": NodePath("../Break"),
 "death": NodePath("../Death"),
 "on_floor": NodePath("../Idle"),
 "switch_weapon_pressed": NodePath("SwitchWeapon")
@@ -1883,6 +1888,7 @@ ComboCounter = NodePath("../../Timers/ComberTimer")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
 NextStates = {
+"breaked": NodePath("../Break"),
 "death": NodePath("../Death"),
 "end_attack": NodePath("../Idle")
 }
@@ -2026,6 +2032,7 @@ autostart = true
 ignore_time_scale = true
 
 [node name="RecoverTimer" type="Timer" parent="Timers" unique_id=1223829165]
+wait_time = 3.0
 one_shot = true
 
 [node name="Godmode" type="Timer" parent="Timers" unique_id=441113675]
@@ -2041,6 +2048,7 @@ wait_time = 0.25
 one_shot = true
 ignore_time_scale = true
 
+[connection signal="breaked" from="." to="WeaponController" method="_on_hero_breaked"]
 [connection signal="end_attack" from="." to="WeaponController" method="_on_hero_end_attack"]
 [connection signal="on_attack" from="." to="WeaponController" method="_on_hero_on_attack"]
 [connection signal="move_left_pressed" from="InputController" to="." method="_on_input_controller_move_left_pressed"]

@@ -33,6 +33,7 @@ func calculate_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePo
 ##施加冲击力
 func apply_impact_force(Target:BaseCharacter, Attack:DamagePorperty):
 	if Target:
+		
 		Target.set_character_toughness(Target.get_character_toughness()-Attack.ImpactForce)
 
 

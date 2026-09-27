@@ -52,6 +52,10 @@ func _on_hero_end_attack() -> void:
 	Ani.play("Reset")
 
 
+func _on_hero_breaked() -> void:
+	Ani.play("Reset")
+
+
 func before_attack():
 	if Weapon == null:
 		return

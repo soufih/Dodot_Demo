@@ -9,6 +9,7 @@ var ComboCount: int = 0
 
 
 func enter():
+	Entity.breaked.connect(break_attack)
 	# 只在上一次攻击结束后的窗口内保留计数。
 	if ComboCounter.is_stopped() or ComboCounter.time_left <= 0.0:
 		ComboCount = 0
@@ -32,6 +33,16 @@ func enter():
 	
 	ComboCounter.start()
 	Entity.end_attack.emit()
+
+
+func break_attack():
+	if AniPlayer.current_animation in ComboAnimations:
+		AniPlayer.stop()
+	Entity.end_attack.emit()
+
+
+func exit():
+	Entity.breaked.disconnect(break_attack)
 
 
 ## 鼠标在人物左侧返回 -1，右侧返回 1；横坐标相同时返回 1。

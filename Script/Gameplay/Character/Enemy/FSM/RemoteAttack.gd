@@ -34,14 +34,13 @@ func do(_delta):
 
 var Target:Vector2
 
-func spawn_bullet():
-	#生成弹幕攻击玩家
-	var Bullet = Entity.BulletPreload.instantiate()
-	if Bullet:
-		Bullet.setup("Hero",Entity, Target)
-		$"../../../BulletSpawn".add_child(Bullet)
-	Bullet = null
+@export var BulletData: ElementaryBullet
+@export var BulletSpeed: float = 500.0
 
+func spawn_bullet():
+	var origin: Vector2 = $"../../../BulletSpawn".global_position
+	BulletPoolManager.spawn(BulletData,
+		Entity, origin, origin.direction_to(Target), BulletSpeed, "Hero")
 func _on_hitbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Hero"):
 		await Spirte.animation_finished

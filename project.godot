@@ -34,6 +34,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+BulletPoolManager="*res://Script/Gameplay/System/BulletPoolManager.gd"
 DataLoader="*res://Script/Config/DataAccess/DataLoader.gd"
 WeaponManager="*res://Script/Config/DataAccess/WeaponManager.gd"
 ResourceManager="*res://Script/Config/DataAccess/ResourceManager.gd"

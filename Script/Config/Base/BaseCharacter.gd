@@ -124,11 +124,14 @@ func set_character_max_toughness(MT:float):
 ##设置角色韧性值
 func set_character_toughness(T:float):
 	Toughness = T
-	#print(self.name," Toughness:",Toughness)
+	if Toughness <= 0:
+		breaked.emit()
+		Toughness = MaxToughness
 	RecoverTimer.start(ToughnessRecover)
+	toughness_changed.emit()
 	await RecoverTimer.timeout
 	Toughness = MaxToughness
-	toughness_changed.emit()
+
 
 ##添加新的状态效果
 func add_new_status(Name:int, Duration:float, Amount:int):
