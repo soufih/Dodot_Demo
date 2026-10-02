@@ -6,7 +6,7 @@ extends Node
 ## 所有弹幕数据共用同一个场景池。空闲上限不限制同时发射数量。
 const BULLET_SCENE = preload("res://Scene/Bullet/Bullet.tscn")
 ## 启动时预先创建的空闲实例数量，实际数量受 max_idle_count 限制。
-@export var prewarm_count: int = 32
+@export var prewarm_count: int = 128
 ## 最多保留的空闲实例数；并发发射不受此限制，池耗尽时按需创建。
 @export var max_idle_count: int = 256
 

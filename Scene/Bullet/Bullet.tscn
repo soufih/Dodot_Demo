@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cmuk84c173g6p"]
 
-[ext_resource type="SpriteFrames" uid="uid://bs467b57jjy8y" path="res://Rescource/Animation/Bullet/FireBall.tres" id="1_kubfh"]
+[ext_resource type="SpriteFrames" uid="uid://dftrbn7t4wyf3" path="res://Rescource/Animation/Bullet/Arrow.tres" id="1_lffvr"]
 [ext_resource type="Script" uid="uid://dvsxykdfksfdh" path="res://Script/Gameplay/Bullet/Bullet.gd" id="2_lffvr"]
-[ext_resource type="Shape2D" uid="uid://bchtberuehssy" path="res://Rescource/CollisionShape/Bullet/PurpleWave.tres" id="3_kubfh"]
+[ext_resource type="Shape2D" uid="uid://baxogt0gau368" path="res://Rescource/CollisionShape/Bullet/Arrow.tres" id="3_kubfh"]
 
 [sub_resource type="Animation" id="Animation_lffvr"]
 resource_name = "Boom"
@@ -28,8 +28,9 @@ _data = {
 }
 
 [node name="Bullet" type="AnimatedSprite2D" unique_id=1685861422 node_paths=PackedStringArray("Ani", "HitBox")]
-sprite_frames = ExtResource("1_kubfh")
-animation = &"Boom"
+z_index = 10
+sprite_frames = ExtResource("1_lffvr")
+animation = &"Move"
 autoplay = "Move"
 script = ExtResource("2_lffvr")
 Ani = NodePath("AnimationPlayer")
@@ -38,10 +39,14 @@ HitBox = NodePath("Hitbox")
 [node name="Hitbox" type="Area2D" parent="." unique_id=1285606942]
 collision_layer = 32
 collision_mask = 2
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1898378202]
-position = Vector2(6, 0)
+position = Vector2(14.000002, 1)
+scale = Vector2(0.9122864, 0.1446428)
 shape = ExtResource("3_kubfh")
+disabled = true
 
 [node name="Lifecycle" type="Timer" parent="." unique_id=1301435948]
 wait_time = 10.0

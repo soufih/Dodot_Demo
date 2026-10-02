@@ -11,23 +11,62 @@
 [ext_resource type="Script" uid="uid://ckib84dd2mngj" path="res://Script/Gameplay/Character/Hero/FSM/Attack.gd" id="8_v1ih1"]
 [ext_resource type="Script" uid="uid://b05lqsb3afh4j" path="res://Script/Gameplay/Character/Hero/FSM/SwitchWeapon.gd" id="9_iuq1t"]
 [ext_resource type="Script" uid="uid://c7qfa1oryeryk" path="res://Script/Gameplay/Character/Hero/FSM/Death.gd" id="10_pwso0"]
+[ext_resource type="Script" uid="uid://brfe6k0ue62o" path="res://Script/Gameplay/Character/Hero/FSM/Climb.gd" id="11_6w1ju"]
 [ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Gameplay/Character/Hero/FSM/Break.gd" id="11_v1ih1"]
 [ext_resource type="Script" uid="uid://b136nok0ljjgi" path="res://Script/Gameplay/Character/Hero/ActiveZone.gd" id="13_8l1ja"]
 [ext_resource type="Script" uid="uid://fe5kru1uiwtf" path="res://Script/Gameplay/Character/Hero/main_camera.gd" id="13_73oc2"]
-[ext_resource type="Script" uid="uid://cn6d25uwykjnr" path="res://Script/Gameplay/Character/Hero/FSM/Interaction.gd" id="13_xf7nq"]
-[ext_resource type="Script" uid="uid://cpwmxvvobtj8d" path="res://Script/Gameplay/Character/Hero/FSM/SubStates/Default.gd" id="14_6j51a"]
 [ext_resource type="Texture2D" uid="uid://ccrewiougq6ye" path="res://Rescource/Static/TileSet/PixelFantasy_Caves_1.0/mainlev_build.png" id="14_73oc2"]
-[ext_resource type="Script" uid="uid://dqt3bgrx5fca8" path="res://Script/Gameplay/Character/Hero/FSM/SubStates/ClimbLadder.gd" id="14_dqago"]
 [ext_resource type="Script" uid="uid://x7acr20uawwk" path="res://Script/Gameplay/Util/InputController.gd" id="14_q22w6"]
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/PlayerUI/Player_State_UI.tscn" id="15_73oc2"]
 [ext_resource type="Script" uid="uid://r3ieb71ndrba" path="res://Script/Gameplay/Weapon/WeaponController.gd" id="15_la4fd"]
+[ext_resource type="Texture2D" uid="uid://btw5h3a5o6ssn" path="res://Rescource/Static/Weapon/Icon9.png" id="16_8705s"]
 [ext_resource type="PackedScene" uid="uid://c6i4w1y5eednm" path="res://UI/PlayerUI/weapon_state_ui.tscn" id="16_pw8k8"]
 [ext_resource type="Texture2D" uid="uid://lhekrotgb7jg" path="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-03-1.3.png" id="17_8705s"]
 [ext_resource type="Texture2D" uid="uid://2kosfdwy20kh" path="res://Rescource/Static/BladeSlash/Attack1/BladeSlash-01.png" id="18_la4fd"]
 [ext_resource type="Texture2D" uid="uid://jja05y1x4t8b" path="res://Rescource/Static/BladeSlash/Attack1/BladeSlash-02.png" id="19_fmb0r"]
-[ext_resource type="Texture2D" uid="uid://dwahxlfumrnjk" path="res://Rescource/Static/Hero/adventurer-v1.5-Sheet.png" id="21_fmb0r"]
 [ext_resource type="Texture2D" uid="uid://c3ns7wci2s6st" path="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-04-1.3.png" id="21_w1mej"]
 [ext_resource type="Texture2D" uid="uid://bp7rpq86si5d" path="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-05-1.3.png" id="22_8mmtr"]
+[ext_resource type="Texture2D" uid="uid://djrv2vem15di7" path="res://Rescource/Static/Hero/adventurer-bow-Sheet.png" id="23_o8uxl"]
+
+[sub_resource type="Animation" id="Animation_ms1qk"]
+resource_name = "BowAttack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponPivot/Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-4.999999, -2.0000005), Vector2(9.999999, 11), Vector2(5.999999, 10.999999), Vector2(12, 5.9999995), Vector2(10.999999, 3.0000005)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponPivot/Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [-3.0342464, -3.2584507, -3.20881, 2.353699, 2.3725023]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponPivot/Weapon:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0.70872664, 0.70872664), Vector2(0.85577726, 0.9771606), Vector2(1.1013263, 1.1013039), Vector2(1, 1), Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_8mmtr"]
 length = 0.001
@@ -67,6 +106,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [-6.348665]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponPivot/Weapon:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
 
 [sub_resource type="Animation" id="Animation_q22w6"]
 resource_name = "Reset"
@@ -105,6 +156,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [null]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponPivot/Weapon:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
 }
 
 [sub_resource type="Animation" id="Animation_tpe2r"]
@@ -188,6 +251,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_la4fd"]
 _data = {
+&"BowAttack": SubResource("Animation_ms1qk"),
 &"RESET": SubResource("Animation_8mmtr"),
 &"Reset": SubResource("Animation_q22w6"),
 &"SwordAttack": SubResource("Animation_tpe2r"),
@@ -247,28 +311,28 @@ atlas = ExtResource("3_q22w6")
 region = Rect2(150, 185, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_enlhj"]
-atlas = ExtResource("21_fmb0r")
-region = Rect2(300, 222, 50, 37)
+atlas = ExtResource("23_o8uxl")
+region = Rect2(0, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ycw7"]
-atlas = ExtResource("21_fmb0r")
-region = Rect2(0, 259, 50, 37)
+atlas = ExtResource("23_o8uxl")
+region = Rect2(50, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g3nfl"]
-atlas = ExtResource("21_fmb0r")
-region = Rect2(50, 259, 50, 37)
+atlas = ExtResource("23_o8uxl")
+region = Rect2(100, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c7mcv"]
-atlas = ExtResource("21_fmb0r")
-region = Rect2(100, 259, 50, 37)
+atlas = ExtResource("23_o8uxl")
+region = Rect2(150, 0, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g0anl"]
-atlas = ExtResource("21_fmb0r")
-region = Rect2(150, 259, 50, 37)
+atlas = ExtResource("23_o8uxl")
+region = Rect2(150, 37, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5yefd"]
-atlas = ExtResource("21_fmb0r")
-region = Rect2(50, 222, 50, 37)
+atlas = ExtResource("23_o8uxl")
+region = Rect2(0, 74, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tpe2r"]
 atlas = ExtResource("3_q22w6")
@@ -464,9 +528,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5yefd")
 }],
-"loop": 1,
-"name": &"Attack_test",
-"speed": 5.0
+"loop": 0,
+"name": &"AttackBow",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -606,8 +670,9 @@ animations = [{
 radius = 8.0
 height = 32.0
 
-[sub_resource type="Animation" id="Animation_o8uxl"]
-resource_name = "Attack"
+[sub_resource type="Animation" id="Animation_6lf6g"]
+resource_name = "BowAttack"
+length = 0.8
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -618,41 +683,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [&"Attack", 1.0, false],
-"method": &"play"
-}]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponController")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.375, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"during_attack"
-}, {
-"args": [],
-"method": &"after_attack"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_w1mej"]
-resource_name = "Attack2"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HeroSpirte")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"Attack2", 1.0, false],
+"args": [&"AttackBow", 1.0, false],
 "method": &"play"
 }]
 }
@@ -839,10 +870,77 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_o8uxl"]
+resource_name = "SwordAttack"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeroSpirte")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Attack", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponController")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"during_attack"
+}, {
+"args": [],
+"method": &"after_attack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_w1mej"]
+resource_name = "SwordAttack2"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeroSpirte")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Attack2", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponController")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"during_attack"
+}, {
+"args": [],
+"method": &"after_attack"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b7f62"]
 _data = {
-&"Attack": SubResource("Animation_o8uxl"),
-&"Attack2": SubResource("Animation_w1mej"),
+&"BowAttack": SubResource("Animation_6lf6g"),
 &"Break": SubResource("Animation_b035h"),
 &"Climb": SubResource("Animation_pw8k8"),
 &"Death": SubResource("Animation_0gp4r"),
@@ -850,7 +948,9 @@ _data = {
 &"Idle": SubResource("Animation_6pkku"),
 &"Jump": SubResource("Animation_6w1ju"),
 &"Prejump": SubResource("Animation_8705s"),
-&"Run": SubResource("Animation_73oc2")
+&"Run": SubResource("Animation_73oc2"),
+&"SwordAttack": SubResource("Animation_o8uxl"),
+&"SwordAttack2": SubResource("Animation_w1mej")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1ih1"]
@@ -1908,29 +2008,23 @@ NextStates = {
 }
 BufferedStates = [NodePath("../Attack"), NodePath("../Run")]
 
-[node name="Interact" type="Node" parent="State" unique_id=1298160927 node_paths=PackedStringArray("Entity", "AniPlayer")]
-script = ExtResource("13_xf7nq")
+[node name="Climb" type="Node" parent="State" unique_id=1428004127 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates")]
+script = ExtResource("11_6w1ju")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../PlayerAnimations")
-
-[node name="Default" type="Node" parent="State/Interact" unique_id=2065400758 node_paths=PackedStringArray("Entity", "AniPlayer")]
-script = ExtResource("14_6j51a")
-Entity = NodePath("../../..")
-AniPlayer = NodePath("../../../PlayerAnimations")
-
-[node name="climbLadder" type="Node" parent="State/Interact" unique_id=738554418 node_paths=PackedStringArray("Entity", "AniPlayer")]
-script = ExtResource("14_dqago")
-Speed = 125
-Entity = NodePath("../../..")
-AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
+NextStates = {
+"jump_pressed": NodePath("../Jumping")
+}
 
 [node name="InputController" type="Node" parent="." unique_id=1552423710]
 script = ExtResource("14_q22w6")
 input_buffer_duration = 0.5
 
-[node name="WeaponController" type="Node2D" parent="." unique_id=486381604 node_paths=PackedStringArray("Ani", "Owner", "WeaponNode", "Hitbox", "WeaponTexture")]
+[node name="WeaponController" type="Node2D" parent="." unique_id=486381604 node_paths=PackedStringArray("Ani", "PlayerAni", "Owner", "WeaponNode", "Hitbox", "WeaponTexture")]
 script = ExtResource("15_la4fd")
 Ani = NodePath("WeaponAnimations")
+PlayerAni = NodePath("../PlayerAnimations")
 Owner = NodePath("..")
 WeaponNode = NodePath("WeaponPivot/Weapon")
 Hitbox = NodePath("WeaponPivot/Hitbox")
@@ -1941,9 +2035,10 @@ WeaponTexture = NodePath("WeaponPivot/Weapon/WeaponTexture")
 [node name="Weapon" type="Node2D" parent="WeaponController/WeaponPivot" unique_id=1195803842]
 position = Vector2(5, -8)
 rotation = -6.348665
-scale = Vector2(0.6727489, 0.6727489)
+scale = Vector2(0.5, 0.5)
 
 [node name="WeaponTexture" type="Sprite2D" parent="WeaponController/WeaponPivot/Weapon" unique_id=454955059]
+texture = ExtResource("16_8705s")
 
 [node name="Hitbox" type="Area2D" parent="WeaponController/WeaponPivot" unique_id=1022617116]
 visible = false
@@ -1966,8 +2061,9 @@ libraries/ = SubResource("AnimationLibrary_la4fd")
 position = Vector2(2.2737368e-13, -1.364242e-12)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_ay60v")
-animation = &"Attack2"
-frame = 1
+animation = &"Climb"
+frame = 3
+frame_progress = 0.24791963
 
 [node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=2091795180]
 visible = false
@@ -1990,7 +2086,6 @@ position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_v1ih1")
 
 [node name="MainCamera" type="Camera2D" parent="." unique_id=1661422779]
-visible = false
 position = Vector2(0, -127)
 scale = Vector2(1.5, 1.5)
 limit_enabled = false
@@ -2004,7 +2099,6 @@ tile_map_data = PackedByteArray("AADc/+v/AAAiACEAAADc/+z/AAAiACEAAADc/+3/AAAiACE
 tile_set = SubResource("TileSet_xf7nq")
 
 [node name="InteractBox" type="Area2D" parent="." unique_id=657202990]
-visible = false
 collision_layer = 0
 collision_mask = 256
 
@@ -2056,6 +2150,5 @@ ignore_time_scale = true
 [connection signal="switch_weapon_pressed" from="InputController" to="State/Idle" method="_on_input_controller_switch_weapon_pressed"]
 [connection signal="body_entered" from="ActiveZone" to="ActiveZone" method="_on_body_entered"]
 [connection signal="body_exited" from="ActiveZone" to="ActiveZone" method="_on_body_exited"]
-[connection signal="area_exited" from="InteractBox" to="State/Interact" method="_on_interact_box_area_exited"]
 [connection signal="timeout" from="Timers/EntryTimer" to="." method="_on_entry_timer_timeout"]
 [connection signal="timeout" from="Timers/ActiveTimer" to="ActiveZone" method="_on_active_timer_timeout"]

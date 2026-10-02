@@ -1,4 +1,4 @@
-class_name Exit
+class_name BulletExit
 extends BulletAction
 
 func execute(ctx: BulletContext):

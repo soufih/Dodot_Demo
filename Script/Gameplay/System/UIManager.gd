@@ -76,20 +76,15 @@ func use_ui_input():
 func ui_remove_from_list(ui: BaseUI) -> void:
 	if UIList.has(ui):
 		UIList.erase(ui)
-	if UIList.is_empty():
-		SignalBus.input_control.emit(false)
 
 ##UIList新增元素时调用
 func ui_add_to_list(ui: BaseUI) -> void:
 	UIList.append(ui)
-	SignalBus.input_control.emit(true)
 
 ##移除UI列表顶元素
 func ui_pop_from_list() -> void:
 	if UIList.size() > 0:
 		UIList.pop_back()
-	if UIList.is_empty():
-		SignalBus.input_control.emit(false)
 
 ##获取UI列表顶元素
 func ui_get_top() -> BaseUI:
@@ -99,7 +94,6 @@ func ui_get_top() -> BaseUI:
 
 ##清空UI列表
 func ui_clear_list() -> void:
-	SignalBus.input_control.emit(false)
 	UIList.clear()
 
 ##关闭所有UI
@@ -156,7 +150,7 @@ func ui_open_equipment_enhancement():
 
 
 func ui_open_map():
-	if !UILayer.has_node("map_ui"):
+	if !flotUIlayer.has_node("map_ui"):
 		return
 	var map_ui = flotUIlayer.get_node("map_ui") as BaseUI
 	if map_ui:

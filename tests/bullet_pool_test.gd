@@ -60,4 +60,3 @@ func _ready() -> void:
 	assert(pool.get_stats().idle == 4)
 	print("BULLET_POOL_TESTS_PASSED")
 	get_tree().quit()
-

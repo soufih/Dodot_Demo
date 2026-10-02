@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/BulletConfig/ElementaryBullet.gd" id="3_jhcmb"]
 [ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/BulletConfig/BulletAction.gd" id="3_lhiqs"]
 [ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Config/Model/DamagePorperty/DamagePorperty.gd" id="4_g2wge"]
-[ext_resource type="Script" uid="uid://dsge07ylj0eld" path="res://Script/Gameplay/Bullet/CompoundMode/Exit.gd" id="5_g2wge"]
-[ext_resource type="Script" uid="uid://dnri5pqud11xu" path="res://Script/Gameplay/Bullet/CompoundMode/PlayAni.gd" id="5_lhiqs"]
-[ext_resource type="Script" uid="uid://bp0k2t14vuk1k" path="res://Script/Gameplay/Bullet/CompoundMode/MakeDamage.gd" id="5_xqm3e"]
+[ext_resource type="Script" uid="uid://dsge07ylj0eld" path="res://Script/Gameplay/Bullet/BulletAction/BulletExit.gd" id="5_g2wge"]
+[ext_resource type="Script" uid="uid://dnri5pqud11xu" path="res://Script/Gameplay/Bullet/BulletAction/PlayAni.gd" id="5_lhiqs"]
+[ext_resource type="Script" uid="uid://bp0k2t14vuk1k" path="res://Script/Gameplay/Bullet/BulletAction/MakeDamage.gd" id="5_xqm3e"]
 
 [sub_resource type="Resource" id="Resource_1261r"]
 script = ExtResource("5_lhiqs")

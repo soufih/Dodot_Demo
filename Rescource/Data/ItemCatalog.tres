@@ -238,6 +238,8 @@ ItemID = 15
 ItemName = "Bow"
 ItemDiscription = "bow"
 IconTexture = ExtResource("19_l8dk2")
+MainItemType = 1
+ItemType = Array[int]([1])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_vflbg"]
@@ -246,6 +248,8 @@ ItemID = 16
 ItemName = "Bow2"
 ItemDiscription = "bow"
 IconTexture = ExtResource("20_gdmoy")
+MainItemType = 1
+ItemType = Array[int]([1])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [resource]

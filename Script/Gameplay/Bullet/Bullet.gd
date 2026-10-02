@@ -33,9 +33,16 @@ func activate(data: ElementaryBullet, attacker: BaseCharacter, origin: Vector2,
 	flip_v = false
 	speed_scale = 1.0
 	sprite_frames = data.AniTres
-	_shape.shape = data.CollisionShape
-	Ctx = BulletContext.new(self, data, Ani, HitBox, attacker)
+	# 命中动作可能在物理查询回调中生成弹幕，替换形状也必须延迟。
+	# 此调用先入队，确保随后启用碰撞前已经应用新形状。
+	_shape.set_deferred("shape", data.CollisionShape)
+	
+	var SubBullets:Array[ElementaryBullet] = []
+	if data.get("Subbullets"):
+		SubBullets = data.get("Subbullets")
+	Ctx = BulletContext.new(self, data, SubBullets,Ani, HitBox, attacker)
 	Ctx.Target = target
+	
 	active = true
 	end_moving = false
 	_moving_actions_running = false

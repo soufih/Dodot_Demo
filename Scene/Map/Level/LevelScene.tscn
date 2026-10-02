@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://n6ank0mm7hej" path="res://Script/Static/Level.gd" id="1_kghl0"]
 [ext_resource type="PackedScene" uid="uid://cnobpreypcfvl" path="res://Scene/Util/LevelGenerator.tscn" id="2_fnpaw"]
-[ext_resource type="Script" uid="uid://beae4cu52t85w" path="res://Script/Gameplay/Map/Template/LevelGenerator v2.gd" id="3_fnpaw"]
 
 [node name="LevelScene" type="Node2D" unique_id=70190648]
 script = ExtResource("1_kghl0")
 
 [node name="LevelGenerator" parent="." unique_id=635254476 instance=ExtResource("2_fnpaw")]
-script = ExtResource("3_fnpaw")

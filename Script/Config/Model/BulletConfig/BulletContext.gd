@@ -11,6 +11,9 @@ var BulletNode: Node2D
 ##弹幕
 var Bullet: ElementaryBullet
 
+##子弹幕
+var subBullet:Array[ElementaryBullet]
+
 ##动画
 var Ani: AnimationPlayer
 
@@ -24,12 +27,14 @@ var Attacker: BaseCharacter
 func _init(
 	node: Node2D,
 	bullet: ElementaryBullet,
+	sub: Array[ElementaryBullet],
 	ani: AnimationPlayer,
 	hitbox: Area2D,
 	attacker: BaseCharacter
 ):
 	BulletNode = node
 	Bullet = bullet
+	subBullet = sub
 	Ani = ani
 	Hitbox = hitbox
 	Attacker = attacker

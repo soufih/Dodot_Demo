@@ -7,6 +7,7 @@ class_name WeaponPorperty
 @export var BaseDamage: DamagePorperty
 @export var DamageMultipler: Dictionary[int, float]## Key: Movement, Value: Multiplier
 @export var AttackSpeed: float = 1.0
+@export var MaxCombo:int = 1
 
 @export_category("Action")
 @export var BeforeAttack:Array[WeaponAction]

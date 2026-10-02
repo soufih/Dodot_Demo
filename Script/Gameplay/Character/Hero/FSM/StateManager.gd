@@ -51,15 +51,19 @@ func _physics_process(delta: float) -> void:
 	Current.do(delta)
 
 
-func switch_state(nextState: BaseState):
+func switch_state(nextState: BaseState, allow_buffer: bool = true):
 	Current.exit()
-	for bufferedState in Current.BufferedStates:
-		if _InputController.consume_buffered_action(bufferedState.name):
+	if allow_buffer:
+		for bufferedState in Current.BufferedStates:
+			if _InputController.consume_buffered_action(bufferedState.name):
 				nextState = bufferedState
-	nextState.enter()
+				break
+	# 已用于进入状态的输入不能在状态结束时再次触发。
+	_InputController.clear_buffered_action(nextState.name)
 	Current = nextState
+	Current.enter()
 
 
 func _check(signalName:String):
 	if Current.NextStates.has(signalName):
-		switch_state(Current.NextStates.get(signalName))
+		switch_state(Current.NextStates.get(signalName), signalName != "breaked" and signalName != "death")

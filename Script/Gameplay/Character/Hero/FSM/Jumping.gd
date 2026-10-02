@@ -1,10 +1,10 @@
 extends BaseState
 
 
-
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity = DataLoader.gravity
 var holdTime: float
-var maxHoldtime: float = 0.4
+var maxHoldtime: float = 0.5
+
 
 func enter():
 	_InputController.switch_weapon_pressed.connect(_check.bind("switch_weapon_pressed"))
@@ -16,6 +16,7 @@ func enter():
 	Entity.velocity.y = -sqrt(2.0 * gravity * Entity.JumpHeight)
 	Entity.velocity.y = -sqrt(2.0 * jump_gravity * Entity.JumpHeight)
 	AniPlayer.play("Jump")
+
 
 func do(delta: float):
 	var jump_gravity := get_jump_gravity()

@@ -1,20 +1,19 @@
 extends BaseState
 
 @export var ComboCounter: Timer
-@export var maxCombo:int = 2
-@export var ComboAnimations: Array[StringName] = [&"Attack", &"Attack2"]
 
 ## 当前连击次数，可在 on_attack 的接收方读取。
 var ComboCount: int = 0
+var _attack_generation: int = 0
 
 
 func enter():
-	Entity.breaked.connect(break_attack)
+	_attack_generation += 1
+	var generation := _attack_generation
 	# 只在上一次攻击结束后的窗口内保留计数。
 	if ComboCounter.is_stopped() or ComboCounter.time_left <= 0.0:
 		ComboCount = 0
 	ComboCounter.stop()
-
 
 	if get_mouse_side() == 1:
 		Entity.WeaponPivot.scale.x = 1
@@ -26,23 +25,22 @@ func enter():
 
 	Entity.velocity.x = 0
 
-	AniPlayer.play(ComboAnimations[ComboCount])
-	
-	ComboCount = (ComboCount+1)%maxCombo
-	await AniPlayer.animation_finished
-	
+	ComboCount = ComboCount+1
+	if AniPlayer.is_playing():
+		await AniPlayer.animation_finished
+	# 离开状态后，旧等待即使被后续动画唤醒也不能结束新的攻击。
+	if generation != _attack_generation:
+		return
+
 	ComboCounter.start()
 	Entity.end_attack.emit()
 
 
-func break_attack():
-	if AniPlayer.current_animation in ComboAnimations:
-		AniPlayer.stop()
-	Entity.end_attack.emit()
-
-
 func exit():
-	Entity.breaked.disconnect(break_attack)
+	_attack_generation += 1
+	if AniPlayer.current_animation.contains("Attack"):
+		AniPlayer.stop()
+	AniPlayer.speed_scale = 1.0
 
 
 ## 鼠标在人物左侧返回 -1，右侧返回 1；横坐标相同时返回 1。

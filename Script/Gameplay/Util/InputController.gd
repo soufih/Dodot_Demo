@@ -9,6 +9,7 @@ signal move_right_released
 signal jump_pressed
 signal switch_weapon_pressed
 signal input_banned
+signal interact_pressed
 
 @export_range(0.0, 1.0, 0.01) var input_buffer_duration: float = 1
 
@@ -33,12 +34,11 @@ func _process(_delta: float) -> void:
 	clear_expired_actions()
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if is_banned:
-		input_banned.emit()
 		return
-
-	if event.is_action("Attack") && EquipmentSlotSystem.get_current_weapon() != -1:
+	
+	if event.is_action_pressed("Attack") && EquipmentSlotSystem.get_current_weapon() != -1:
 		buffer_action("Attack")
 		when_attack_tigger.emit()
 	
@@ -54,6 +54,9 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("SwitchWeapon"):
 		switch_weapon_pressed.emit()
+	
+	if event.is_action("Interact"):
+		interact_pressed.emit()
 
 
 func ban_input(state:bool):

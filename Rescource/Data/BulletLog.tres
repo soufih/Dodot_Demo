@@ -5,8 +5,12 @@
 [ext_resource type="Resource" uid="uid://butaa0i8k8mts" path="res://Rescource/Bullet/ElementaryBullet/FireBall.tres" id="2_8haec"]
 [ext_resource type="Script" uid="uid://5fur5ma33m56" path="res://Script/Config/Model/BulletConfig/BulletLog.gd" id="3_8haec"]
 [ext_resource type="Resource" uid="uid://bbdlp3w7oyci1" path="res://Rescource/Bullet/ElementaryBullet/PurpleWave.tres" id="3_y11is"]
+[ext_resource type="Resource" uid="uid://du0culh6htgg3" path="res://Rescource/Bullet/ElementaryBullet/Arrow.tres" id="4_pkwc7"]
+[ext_resource type="Resource" uid="uid://cs5jf6fgf22hx" path="res://Rescource/Bullet/SeniorBullet/FanshapedBullet.tres" id="5_y11is"]
+[ext_resource type="Resource" uid="uid://ceba4bjdgxh40" path="res://Rescource/Bullet/SeniorBullet/DoubleFan.tres" id="7_apkdd"]
 
 [resource]
 script = ExtResource("3_8haec")
-ElementaryBulletList = Array[ExtResource("1_rj06m")]([ExtResource("2_8haec"), ExtResource("3_y11is")])
+ElementaryBulletList = Array[ExtResource("1_rj06m")]([ExtResource("2_8haec"), ExtResource("3_y11is"), ExtResource("4_pkwc7")])
+SeniorBulletList = Array[ExtResource("2_4j70c")]([ExtResource("5_y11is"), ExtResource("7_apkdd")])
 metadata/_custom_type_script = "uid://5fur5ma33m56"
