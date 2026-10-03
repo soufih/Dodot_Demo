@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://brfe6k0ue62o" path="res://Script/Gameplay/Character/Hero/FSM/Climb.gd" id="11_6w1ju"]
 [ext_resource type="Script" uid="uid://cfiooc73q3kun" path="res://Script/Gameplay/Character/Hero/FSM/Break.gd" id="11_v1ih1"]
 [ext_resource type="Script" uid="uid://b136nok0ljjgi" path="res://Script/Gameplay/Character/Hero/ActiveZone.gd" id="13_8l1ja"]
-[ext_resource type="Script" uid="uid://fe5kru1uiwtf" path="res://Script/Gameplay/Character/Hero/main_camera.gd" id="13_73oc2"]
+[ext_resource type="Script" uid="uid://fe5kru1uiwtf" path="res://Script/Gameplay/Character/Hero/MainCamera.gd" id="13_73oc2"]
 [ext_resource type="Texture2D" uid="uid://ccrewiougq6ye" path="res://Rescource/Static/TileSet/PixelFantasy_Caves_1.0/mainlev_build.png" id="14_73oc2"]
 [ext_resource type="Script" uid="uid://x7acr20uawwk" path="res://Script/Gameplay/Util/InputController.gd" id="14_q22w6"]
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/PlayerUI/Player_State_UI.tscn" id="15_73oc2"]
@@ -27,6 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://c3ns7wci2s6st" path="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-04-1.3.png" id="21_w1mej"]
 [ext_resource type="Texture2D" uid="uid://bp7rpq86si5d" path="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-05-1.3.png" id="22_8mmtr"]
 [ext_resource type="Texture2D" uid="uid://djrv2vem15di7" path="res://Rescource/Static/Hero/adventurer-bow-Sheet.png" id="23_o8uxl"]
+[ext_resource type="Script" uid="uid://ccshx8mdhplma" path="res://Script/Gameplay/Character/Hero/InteractionDetector.gd" id="26_o8uxl"]
+[ext_resource type="Script" uid="uid://c0xovyrgcveff" path="res://Script/Gameplay/Character/Hero/InteractionController.gd" id="29_8705s"]
 
 [sub_resource type="Animation" id="Animation_ms1qk"]
 resource_name = "BowAttack"
@@ -1884,138 +1886,12 @@ MaxHealth = 100.0
 MaxMana = 100.0
 MaxToughness = 30.0
 ToughnessRecover = 5.0
-Speed = 250
+Speed = 300
 RecoverTimer = NodePath("Timers/RecoverTimer")
 
-[node name="State" type="Node" parent="." unique_id=248351880 node_paths=PackedStringArray("Current")]
-script = ExtResource("3_b7f62")
-Current = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="State" unique_id=1886700286 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
-script = ExtResource("5_fqamf")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
-_InputController = NodePath("../../InputController")
-NextStates = {
-"breaked": NodePath("../Break"),
-"death": NodePath("../Death"),
-"is_fall": NodePath("../Falling"),
-"jump_pressed": NodePath("../Jumping"),
-"move_left_pressed": NodePath("../Run"),
-"move_right_pressed": NodePath("../Run"),
-"when_attack_tigger": NodePath("../Attack")
-}
-Substates = {
-"switch_weapon_pressed": NodePath("SwitchWeapon")
-}
-
-[node name="SwitchWeapon" type="Node" parent="State/Idle" unique_id=449154940 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
-script = ExtResource("9_iuq1t")
-Entity = NodePath("../../..")
-AniPlayer = NodePath("../../../PlayerAnimations")
-_InputController = NodePath("../../../InputController")
-
-[node name="Run" type="Node" parent="State" unique_id=2078534470 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
-script = ExtResource("5_iuq1t")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
-_InputController = NodePath("../../InputController")
-NextStates = {
-"breaked": NodePath("../Break"),
-"death": NodePath("../Death"),
-"input_banned": NodePath("../Idle"),
-"is_fall": NodePath("../Falling"),
-"jump_pressed": NodePath("../Jumping"),
-"move_left_released": NodePath("../Idle"),
-"move_right_released": NodePath("../Idle"),
-"when_attack_tigger": NodePath("../Attack")
-}
-Substates = {
-"switch_weapon_pressed": NodePath("SwitchWeapon")
-}
-
-[node name="SwitchWeapon" type="Node" parent="State/Run" unique_id=127736914 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
-script = ExtResource("9_iuq1t")
-Entity = NodePath("../../..")
-AniPlayer = NodePath("../../../PlayerAnimations")
-_InputController = NodePath("../../../InputController")
-
-[node name="Jumping" type="Node" parent="State" unique_id=83468260 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
-script = ExtResource("6_o2ky4")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
-_InputController = NodePath("../../InputController")
-NextStates = {
-"death": NodePath("../Death"),
-"end_jump": NodePath("../Falling"),
-"switch_weapon_pressed": NodePath("SwitchWeapon")
-}
-Substates = {
-"breaked": NodePath("../Break"),
-"switch_weapon_pressed": NodePath("SwitchWeapon")
-}
-
-[node name="SwitchWeapon" type="Node" parent="State/Jumping" unique_id=1826123866 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
-script = ExtResource("9_iuq1t")
-Entity = NodePath("../../..")
-AniPlayer = NodePath("../../../PlayerAnimations")
-_InputController = NodePath("../../../InputController")
-
-[node name="Falling" type="Node" parent="State" unique_id=556262976 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
-script = ExtResource("7_pwso0")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
-_InputController = NodePath("../../InputController")
-NextStates = {
-"breaked": NodePath("../Break"),
-"death": NodePath("../Death"),
-"on_floor": NodePath("../Idle"),
-"switch_weapon_pressed": NodePath("SwitchWeapon")
-}
-Substates = {
-"switch_weapon_pressed": NodePath("SwitchWeapon")
-}
-
-[node name="SwitchWeapon" type="Node" parent="State/Falling" unique_id=618656502 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
-script = ExtResource("9_iuq1t")
-Entity = NodePath("../../..")
-AniPlayer = NodePath("../../../PlayerAnimations")
-_InputController = NodePath("../../../InputController")
-
-[node name="Attack" type="Node" parent="State" unique_id=1401270864 node_paths=PackedStringArray("ComboCounter", "Entity", "AniPlayer", "NextStates", "BufferedStates")]
-script = ExtResource("8_v1ih1")
-ComboCounter = NodePath("../../Timers/ComberTimer")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
-NextStates = {
-"breaked": NodePath("../Break"),
-"death": NodePath("../Death"),
-"end_attack": NodePath("../Idle")
-}
-BufferedStates = [NodePath(".")]
-
-[node name="Death" type="Node" parent="State" unique_id=1180608182 node_paths=PackedStringArray("Entity", "AniPlayer")]
-script = ExtResource("10_pwso0")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
-
-[node name="Break" type="Node" parent="State" unique_id=1964276792 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates", "BufferedStates")]
-script = ExtResource("11_v1ih1")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
-NextStates = {
-"end_breaked": NodePath("../Idle")
-}
-BufferedStates = [NodePath("../Attack"), NodePath("../Run")]
-
-[node name="Climb" type="Node" parent="State" unique_id=1428004127 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates")]
-script = ExtResource("11_6w1ju")
-Entity = NodePath("../..")
-AniPlayer = NodePath("../../PlayerAnimations")
-_InputController = NodePath("../../InputController")
-NextStates = {
-"jump_pressed": NodePath("../Jumping")
-}
+[node name="InteractionController" type="Node" parent="." unique_id=2096004376 node_paths=PackedStringArray("detector")]
+script = ExtResource("29_8705s")
+detector = NodePath("../InteractBox")
 
 [node name="InputController" type="Node" parent="." unique_id=1552423710]
 script = ExtResource("14_q22w6")
@@ -2056,6 +1932,146 @@ texture = ExtResource("17_8705s")
 
 [node name="WeaponAnimations" type="AnimationPlayer" parent="WeaponController" unique_id=148679039]
 libraries/ = SubResource("AnimationLibrary_la4fd")
+
+[node name="State" type="Node" parent="." unique_id=248351880 node_paths=PackedStringArray("Current")]
+script = ExtResource("3_b7f62")
+Current = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="State" unique_id=1886700286 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
+script = ExtResource("5_fqamf")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
+NextStates = {
+"breaked": NodePath("../Break"),
+"death": NodePath("../Death"),
+"is_fall": NodePath("../Falling"),
+"jump_pressed": NodePath("../Jumping"),
+"move_left_pressed": NodePath("../Run"),
+"move_right_pressed": NodePath("../Run"),
+"on_climb": NodePath("../Climb"),
+"when_attack_tigger": NodePath("../Attack")
+}
+Substates = {
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
+
+[node name="SwitchWeapon" type="Node" parent="State/Idle" unique_id=449154940 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
+script = ExtResource("9_iuq1t")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../../InputController")
+
+[node name="Run" type="Node" parent="State" unique_id=2078534470 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
+script = ExtResource("5_iuq1t")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
+NextStates = {
+"breaked": NodePath("../Break"),
+"death": NodePath("../Death"),
+"input_banned": NodePath("../Idle"),
+"is_fall": NodePath("../Falling"),
+"jump_pressed": NodePath("../Jumping"),
+"move_left_released": NodePath("../Idle"),
+"move_right_released": NodePath("../Idle"),
+"on_climb": NodePath("../Climb"),
+"when_attack_tigger": NodePath("../Attack")
+}
+Substates = {
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
+
+[node name="SwitchWeapon" type="Node" parent="State/Run" unique_id=127736914 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
+script = ExtResource("9_iuq1t")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../../InputController")
+
+[node name="Jumping" type="Node" parent="State" unique_id=83468260 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
+script = ExtResource("6_o2ky4")
+MinJumpHeight = 50.0
+MaxJumpHeight = 130.0
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
+NextStates = {
+"death": NodePath("../Death"),
+"end_jump": NodePath("../Falling"),
+"on_climb": NodePath("../Climb"),
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
+Substates = {
+"breaked": NodePath("../Break"),
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
+
+[node name="SwitchWeapon" type="Node" parent="State/Jumping" unique_id=1826123866 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
+script = ExtResource("9_iuq1t")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../../InputController")
+
+[node name="Falling" type="Node" parent="State" unique_id=556262976 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates", "Substates")]
+script = ExtResource("7_pwso0")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
+NextStates = {
+"breaked": NodePath("../Break"),
+"death": NodePath("../Death"),
+"on_climb": NodePath("../Climb"),
+"on_floor": NodePath("../Idle"),
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
+Substates = {
+"switch_weapon_pressed": NodePath("SwitchWeapon")
+}
+
+[node name="SwitchWeapon" type="Node" parent="State/Falling" unique_id=618656502 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
+script = ExtResource("9_iuq1t")
+Entity = NodePath("../../..")
+AniPlayer = NodePath("../../../PlayerAnimations")
+_InputController = NodePath("../../../InputController")
+
+[node name="Attack" type="Node" parent="State" unique_id=1401270864 node_paths=PackedStringArray("ComboCounter", "Entity", "AniPlayer", "NextStates", "BufferedStates")]
+script = ExtResource("8_v1ih1")
+ComboCounter = NodePath("../../Timers/ComberTimer")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../PlayerAnimations")
+NextStates = {
+"breaked": NodePath("../Break"),
+"death": NodePath("../Death"),
+"end_attack": NodePath("../Idle")
+}
+BufferedStates = [NodePath(".")]
+
+[node name="Death" type="Node" parent="State" unique_id=1180608182 node_paths=PackedStringArray("Entity", "AniPlayer")]
+script = ExtResource("10_pwso0")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../PlayerAnimations")
+
+[node name="Break" type="Node" parent="State" unique_id=1964276792 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates", "BufferedStates")]
+script = ExtResource("11_v1ih1")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../PlayerAnimations")
+NextStates = {
+"death": NodePath("../Death"),
+"end_breaked": NodePath("../Idle")
+}
+BufferedStates = [NodePath("../Attack"), NodePath("../Run")]
+
+[node name="Climb" type="Node" parent="State" unique_id=1428004127 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController", "NextStates")]
+script = ExtResource("11_6w1ju")
+Entity = NodePath("../..")
+AniPlayer = NodePath("../../PlayerAnimations")
+_InputController = NodePath("../../InputController")
+NextStates = {
+"breaked": NodePath("../Break"),
+"death": NodePath("../Death"),
+"end_climb": NodePath("../Idle"),
+"jump_pressed": NodePath("../Jumping")
+}
 
 [node name="HeroSpirte" type="AnimatedSprite2D" parent="." unique_id=435602746]
 position = Vector2(2.2737368e-13, -1.364242e-12)
@@ -2101,6 +2117,7 @@ tile_set = SubResource("TileSet_xf7nq")
 [node name="InteractBox" type="Area2D" parent="." unique_id=657202990]
 collision_layer = 0
 collision_mask = 256
+script = ExtResource("26_o8uxl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractBox" unique_id=445753897]
 position = Vector2(-0.99999976, 4.5)
@@ -2145,10 +2162,13 @@ ignore_time_scale = true
 [connection signal="breaked" from="." to="WeaponController" method="_on_hero_breaked"]
 [connection signal="end_attack" from="." to="WeaponController" method="_on_hero_end_attack"]
 [connection signal="on_attack" from="." to="WeaponController" method="_on_hero_on_attack"]
+[connection signal="interact_pressed" from="InputController" to="InteractionController" method="_on_input_controller_interact_pressed"]
 [connection signal="move_left_pressed" from="InputController" to="." method="_on_input_controller_move_left_pressed"]
 [connection signal="move_right_pressed" from="InputController" to="." method="_on_input_controller_move_right_pressed"]
 [connection signal="switch_weapon_pressed" from="InputController" to="State/Idle" method="_on_input_controller_switch_weapon_pressed"]
 [connection signal="body_entered" from="ActiveZone" to="ActiveZone" method="_on_body_entered"]
 [connection signal="body_exited" from="ActiveZone" to="ActiveZone" method="_on_body_exited"]
+[connection signal="area_entered" from="InteractBox" to="InteractBox" method="_on_area_entered"]
+[connection signal="area_exited" from="InteractBox" to="InteractBox" method="_on_area_exited"]
 [connection signal="timeout" from="Timers/EntryTimer" to="." method="_on_entry_timer_timeout"]
 [connection signal="timeout" from="Timers/ActiveTimer" to="ActiveZone" method="_on_active_timer_timeout"]

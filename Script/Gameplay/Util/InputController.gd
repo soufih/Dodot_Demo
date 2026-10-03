@@ -55,7 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("SwitchWeapon"):
 		switch_weapon_pressed.emit()
 	
-	if event.is_action("Interact"):
+	if event.is_action_pressed("Interact"):
 		interact_pressed.emit()
 
 
@@ -67,6 +67,16 @@ func get_move_direction() -> float:
 	if is_banned:
 		return 0
 	return Input.get_axis(&"MoveLeft", &"MoveRight")
+
+
+func get_climb_direction() -> float:
+	if is_banned:
+		return 0.0
+	return Input.get_axis(&"Up", &"Down")
+
+
+func is_jump_held() -> bool:
+	return not is_banned and Input.is_action_pressed(&"Jump")
 
 
 func buffer_action(action: StringName) -> void:

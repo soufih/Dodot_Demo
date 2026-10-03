@@ -12,6 +12,5 @@ func load_weapon():
 func get_weapon_porperty(Name:String)->WeaponPorperty:
 	if ReferWeaponPorpertyLog:
 		if ReferWeaponPorpertyLog.Weapon.get(Name):
-			print(ReferWeaponPorpertyLog.Weapon[Name].Name)
 			return ReferWeaponPorpertyLog.Weapon[Name]
 	return null

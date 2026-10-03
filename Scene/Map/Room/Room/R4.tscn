@@ -12249,3 +12249,7 @@ scale = Vector2(2.021461, 1)
 [node name="Ladder" parent="." unique_id=976586906 instance=ExtResource("8_5d7g6")]
 position = Vector2(1721, -441)
 scale = Vector2(0.075, 9)
+
+[node name="Plateform" parent="." unique_id=1277909905 instance=ExtResource("10_43je5")]
+position = Vector2(1721.0001, -730)
+scale = Vector2(0.22043481, 1)

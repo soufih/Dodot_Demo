@@ -1,5 +1,7 @@
 extends Node
 
+const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+
 @onready var startpoint:Marker2D = $Startpoint
 #UI界面
 var inventoryUI: BaseUI = null
@@ -19,7 +21,7 @@ func _enter_tree() -> void:
 	mapUI = UIManager.load_ui("uid://baysbd0v7e3fm", "flotUIlayer") #地图UI
 
 func _ready() -> void:
-	hero = load("res://Scene/Hero/Hero.tscn").instantiate()
+	hero = SceneLoading.get_scene(SceneLoading.HERO_SCENE_PATH).instantiate()
 	DataLoader.set_hero(hero)
 	startpoint.add_child(hero)
 

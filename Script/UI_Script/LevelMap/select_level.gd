@@ -1,8 +1,3 @@
 extends Node
 
-var GenerateThread:Thread = null
-static var LvGenerator:LevelGenerator = LevelGenerator.new()
-
-func _ready() -> void:
-	GenerateThread = Thread.new()
-	LvGenerator.prepare_generating()
+# 关卡选择由 LevelInformation 保存，加载界面统一预加载和生成。

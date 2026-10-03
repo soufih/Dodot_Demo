@@ -8,6 +8,8 @@ func load_enemy():
 
 #加载敌人属性列表
 func load_enemy_porperty():
+	if ReferEnemyPorpertyLog != null:
+		return
 	ReferEnemyPorpertyLog = load("uid://2srf8bdj186") as EnemyPorpertyLog
 	if !ReferEnemyPorpertyLog:
 		push_error("ERRO!WHEN LOAD ENEMY PORPERTY")

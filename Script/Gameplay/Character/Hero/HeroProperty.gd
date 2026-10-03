@@ -9,6 +9,8 @@ signal is_jump
 signal end_jump
 signal on_attack
 signal end_attack
+signal on_climb
+signal end_climb
 
 @onready var ani: AnimationPlayer = $PlayerAnimations
 @onready var Spirte: AnimatedSprite2D = $HeroSpirte
@@ -21,8 +23,6 @@ signal end_attack
 @export var GodmodeTimer: Timer
 
 @export_category("Jump")
-@export var JumpHeight: float = 20#基础跳跃高度
-@export var MaxJumpHeight: float = 30#最大跳跃高度
 @export_range(0.1, 3.0, 0.1) var JumpSpeedMultiplier: float = 1.0 #跳跃加速度
 
 @export_category("Fall")

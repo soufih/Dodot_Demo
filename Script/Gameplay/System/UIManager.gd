@@ -1,14 +1,18 @@
 extends Node
 
+const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+
 var UIList: Array[BaseUI] = []
 var tmp_slot:TmpSlot
 var UILayer: CanvasLayer
 var flotUIlayer: CanvasLayer
 var is_paused: bool = false
 var is_banned:bool = false
+var death_ui: BaseUI
 
 func _ready() -> void:
 	load_ui_layer_config()
+	SignalBus.player_death.connect(show_death_screen)
 
 ##加载UI层配置
 func load_ui_layer_config():
@@ -34,7 +38,9 @@ func load_ui_layer_config():
 func load_ui(ui_path: String, layer: String) -> BaseUI:
 	if !UILayer:
 		return null	
-	var ui_scene: PackedScene = load(ui_path)
+	var ui_scene := SceneLoading.get_scene(ui_path)
+	if ui_scene == null:
+		return null
 	var ui_instance: BaseUI = ui_scene.instantiate()
 	ui_instance.hide()
 
@@ -45,7 +51,7 @@ func load_ui(ui_path: String, layer: String) -> BaseUI:
 
 
 func _input(event: InputEvent) -> void:
-	if is_banned:
+	if is_banned or is_instance_valid(death_ui):
 		return
 	
 	if event.is_action_pressed("ui_cancel"):
@@ -98,10 +104,26 @@ func ui_clear_list() -> void:
 
 ##关闭所有UI
 func ui_close_all():
-	for ui in UIList:
+	for ui in UIList.duplicate():
 		if ui:
 			ui.hide()
 	UIList.clear()
+
+
+func show_death_screen() -> void:
+	if is_instance_valid(death_ui) or get_tree().current_scene == null:
+		return
+	ui_close_all()
+	is_paused = false
+	var scene := SceneLoading.get_scene("res://UI/Death_UI/death_ui.tscn")
+	if scene == null:
+		return
+	death_ui = scene.instantiate() as BaseUI
+	var layer := CanvasLayer.new()
+	layer.name = "DeathLayer"
+	layer.layer = 110
+	get_tree().current_scene.add_child(layer)
+	layer.add_child(death_ui)
 
 ##关闭最上层UI
 func ui_cancel():

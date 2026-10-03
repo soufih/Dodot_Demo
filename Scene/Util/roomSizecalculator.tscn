@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://brxads5maqrw8"]
 
-[ext_resource type="Script" uid="uid://bcopcmryg3ksc" path="res://Script/Gameplay/Map/roomSizecalculator.gd" id="1_rcqxv"]
+[ext_resource type="Script" uid="uid://bcopcmryg3ksc" path="res://Script/Gameplay/Map/Test/roomSizecalculator.gd" id="1_rcqxv"]
 
 [node name="RoomSizecalculator" type="Node2D" unique_id=902239590]
 script = ExtResource("1_rcqxv")

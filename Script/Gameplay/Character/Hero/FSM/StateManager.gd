@@ -4,6 +4,7 @@ extends Node
 @onready var Hero = $".."
 
 @export var Current:BaseState
+var Previous: BaseState
 
 
 func _ready() -> void:
@@ -24,6 +25,8 @@ func _ready() -> void:
 	Hero.death.connect(_check.bind("death"))
 	Hero.breaked.connect(_check.bind("breaked"))
 	Hero.end_breaked.connect(_check.bind("end_breaked"))
+	Hero.on_climb.connect(_check.bind("on_climb"))
+	Hero.end_climb.connect(_check.bind("end_climb"))
 	
 	Current.enter()
 
@@ -37,6 +40,7 @@ func _exit_tree() -> void:
 	_InputController.when_attack_tigger.disconnect(_check.bind("when_attack_tigger"))
 	_InputController.input_banned.disconnect(_check.bind("input_banned"))
 	
+	
 	Hero.is_static.disconnect(_check.bind("is_static"))
 	Hero.on_floor.disconnect(_check.bind("on_floor"))
 	Hero.is_fall.disconnect(_check.bind("is_fall"))
@@ -45,6 +49,8 @@ func _exit_tree() -> void:
 	Hero.death.disconnect(_check.bind("death"))
 	Hero.breaked.disconnect(_check.bind("breaked"))
 	Hero.end_breaked.disconnect(_check.bind("end_breaked"))
+	Hero.on_climb.disconnect(_check.bind("on_climb"))
+	Hero.end_climb.disconnect(_check.bind("end_climb"))
 
 
 func _physics_process(delta: float) -> void:
@@ -52,6 +58,7 @@ func _physics_process(delta: float) -> void:
 
 
 func switch_state(nextState: BaseState, allow_buffer: bool = true):
+	Previous = Current
 	Current.exit()
 	if allow_buffer:
 		for bufferedState in Current.BufferedStates:

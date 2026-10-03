@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://x1dfb4rvq5v"]
 
-[ext_resource type="Script" uid="uid://c7jgudape0ihu" path="res://Script/Gameplay/Map/MapComponent/Climbables/Ladder.gd" id="1_qbd2s"]
+[ext_resource type="Script" uid="uid://c7jgudape0ihu" path="res://Script/Gameplay/Interactable/Ladder.gd" id="1_qbd2s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4rh3"]
 size = Vector2(51.301605, 61.786407)

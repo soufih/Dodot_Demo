@@ -53,6 +53,8 @@ SignalBus="*uid://cj08qm13g6joy"
 
 [debug]
 
+file_logging/enable_file_logging=true
+file_logging/log_path="Log/godot.log"
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_local_constant=0
 gdscript/warnings/unused_parameter=0
@@ -72,6 +74,7 @@ enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://Log/": "gray",
 "res://Rescource/": "red",
 "res://Scene/": "yellow",
 "res://Script/": "blue",

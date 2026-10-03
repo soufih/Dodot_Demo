@@ -1,5 +1,7 @@
 extends BaseUI
 
+const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+
 @onready var start_button = $ButtonContainer/gamestart
 @onready var setting_button = $ButtonContainer/setting
 @onready var quit_button = $ButtonContainer/quit
@@ -14,10 +16,7 @@ func _ready() -> void:
 
 
 func on_start_pressed():
-	$".".visible = false
-	var loading_scene = load("res://UI/Loading_screen/loading_screen.tscn").instantiate()
-	loading_scene.set_next_scene("res://Scene/Map/Home/Home.tscn")
-	$"..".add_child(loading_scene)
+	SceneLoading.load_next_scene(SceneLoading.HOME_SCENE_PATH)
 
 
 func on_setting_pressed():
