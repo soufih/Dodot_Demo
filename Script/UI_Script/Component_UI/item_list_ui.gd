@@ -6,7 +6,7 @@ signal list_slot_mouse_enter
 signal list_slot_mouse_exit
 signal list_slot_gui_input
 
-@onready var slot_resource:PackedScene = load("uid://bmtyh6pxk6pjt")
+@onready var slot_resource:PackedScene = load(Path.ITEM_LIST_SLOT_SCENE)
 @onready var slot_VB = $MarginContainer/ScrollContainer/slot_VB
 
 var item_list:Array

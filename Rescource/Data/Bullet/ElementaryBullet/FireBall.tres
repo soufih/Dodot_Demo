@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="ElementaryBullet" format=3 uid="uid://butaa0i8k8mts"]
+
+[ext_resource type="SpriteFrames" uid="uid://bs467b57jjy8y" path="res://Rescource/Data/Animation/Bullet/FireBall.tres" id="1_wvs5r"]
+[ext_resource type="Shape2D" uid="uid://8ay1wdcqup1k" path="res://Rescource/Data/CollisionShape/Bullet/FireBall.tres" id="2_ux7ot"]
+[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/BulletConfig/BulletAction.gd" id="3_1261r"]
+[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/BulletConfig/ElementaryBullet.gd" id="3_s4t7n"]
+[ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Config/Model/DamagePorperty/DamagePorperty.gd" id="4_hbqu1"]
+[ext_resource type="Script" uid="uid://dnri5pqud11xu" path="res://Script/Gameplay/Bullet/BulletAction/PlayAni.gd" id="5_1261r"]
+[ext_resource type="Script" uid="uid://dsge07ylj0eld" path="res://Script/Gameplay/Bullet/BulletAction/BulletExit.gd" id="5_hbqu1"]
+[ext_resource type="Script" uid="uid://bp0k2t14vuk1k" path="res://Script/Gameplay/Bullet/BulletAction/MakeDamage.gd" id="5_ylndk"]
+
+[sub_resource type="Resource" id="Resource_g2wge"]
+script = ExtResource("5_1261r")
+AniName = "Boom"
+metadata/_custom_type_script = "uid://dnri5pqud11xu"
+
+[sub_resource type="Resource" id="Resource_kubfh"]
+script = ExtResource("5_ylndk")
+metadata/_custom_type_script = "uid://bp0k2t14vuk1k"
+
+[sub_resource type="Resource" id="Resource_cgolm"]
+script = ExtResource("5_hbqu1")
+metadata/_custom_type_script = "uid://dsge07ylj0eld"
+
+[sub_resource type="Resource" id="Resource_ehult"]
+script = ExtResource("5_1261r")
+AniName = "Boom"
+metadata/_custom_type_script = "uid://dnri5pqud11xu"
+
+[sub_resource type="Resource" id="Resource_4y0v7"]
+script = ExtResource("5_ylndk")
+metadata/_custom_type_script = "uid://bp0k2t14vuk1k"
+
+[sub_resource type="Resource" id="Resource_6f53m"]
+script = ExtResource("5_hbqu1")
+metadata/_custom_type_script = "uid://dsge07ylj0eld"
+
+[sub_resource type="Resource" id="Resource_5gcyl"]
+script = ExtResource("4_hbqu1")
+Damage = 10.0
+ImpactForce = 100.0
+metadata/_custom_type_script = "uid://db328o465i0bl"
+
+[resource]
+script = ExtResource("3_s4t7n")
+AniTres = ExtResource("1_wvs5r")
+CollisionShape = ExtResource("2_ux7ot")
+Porperty = SubResource("Resource_5gcyl")
+Lifecycle = 10.0
+Death = Array[ExtResource("3_1261r")]([SubResource("Resource_g2wge"), SubResource("Resource_kubfh"), SubResource("Resource_cgolm")])
+Hit = Array[ExtResource("3_1261r")]([SubResource("Resource_ehult"), SubResource("Resource_4y0v7"), SubResource("Resource_6f53m")])
+metadata/_custom_type_script = "uid://dv2mids68qkjk"

@@ -23,11 +23,11 @@ func check():
 			stateController.change_state(subState.climbLadder)
 		
 
-func do(_delta: float):
+func _on_do(_delta: float):
 	check()
 	stateController.Current.do(_delta)
 
-func exit():
+func _on_exit():
 	stateController.Current = stateController.StateArray[subState.Default]
 
 

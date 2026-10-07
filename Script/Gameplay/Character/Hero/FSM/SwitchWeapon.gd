@@ -1,7 +1,7 @@
 extends BaseState
 
 
-func enter():
+func _on_enter():
 	switch_weapon()
 	SignalBus.weapon_switch.emit()
 

@@ -1,8 +1,15 @@
 [gd_scene format=3 uid="uid://b4juvpm2bu5i8"]
 
+[ext_resource type="Script" path="res://Script/Gameplay/Interactable/EndPoint.gd" id="1"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0deq"]
+size = Vector2(48, 64)
 
 [node name="ExitPoint" type="Area2D" unique_id=138264343]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1")
+interaction_name = "完成关卡"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=755558060]
 shape = SubResource("RectangleShape2D_p0deq")

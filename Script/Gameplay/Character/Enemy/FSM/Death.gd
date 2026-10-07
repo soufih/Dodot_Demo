@@ -1,10 +1,13 @@
 extends BaseState
 
+@export var drop_component: DropComponent
+
 signal is_dead
 
-func enter():
+func _on_enter():
+	Entity.velocity = Vector2.ZERO
 	is_dead.emit()
 	AniPlayer.play("Death")
 	await AniPlayer.animation_finished
-	EnemyManager.drop(Entity.name, Entity.global_position)
+	drop_component.drop()
 	Entity.queue_free()

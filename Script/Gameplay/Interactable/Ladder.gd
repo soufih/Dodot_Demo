@@ -2,6 +2,8 @@ class_name ClimbableLadder
 extends Interactable
 
 @export_range(1.0, 1000.0, 1.0) var climb_speed: float = 120.0
+## 攀爬动画是否水平翻转，由梯子固定指定，与进入方向无关。
+@export var climb_flip_h: bool = false
 
 
 func can_interact(actor: Node) -> bool:

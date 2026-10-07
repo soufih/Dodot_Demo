@@ -4,6 +4,8 @@ class_name BaseEnemy
 var Porperty:EnemyConfig
 var Atived:bool = false
 
+@onready var drop_component: DropComponent = $DropComponent
+
 func beginning():
 	super.beginning()
 	add_to_group("Enemy")
@@ -12,6 +14,8 @@ func beginning():
 		push_warning("Can't Find Enemy Porperty")
 		return
 		
+	drop_component.items = Porperty.Drop
+
 	MaxHealth = Porperty.MaxHealth
 	CurrentHealth = MaxHealth
 	MaxToughness = Porperty.MaxToughness

@@ -11,6 +11,10 @@
 [ext_resource type="Script" uid="uid://c8ks632g6ayhg" path="res://Script/Gameplay/Character/Enemy/FSM/Death.gd" id="8_la8gj"]
 [ext_resource type="Script" uid="uid://g3r60myq5g8i" path="res://Script/Gameplay/Character/Enemy/FSM/Trace.gd" id="9_8lps2"]
 
+[ext_resource type="Script" path="res://Script/Gameplay/Character/Component/DropComponent.gd" id="drop_component_script"]
+
+[ext_resource type="PackedScene" path="res://UI/EnemyUI/EnemyHealthBar.tscn" id="enemy_health_bar_scene"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmcel"]
 size = Vector2(19.445728, 47.302544)
 
@@ -273,7 +277,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_la8gj")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Attack",
 "speed": 10.0
 }, {
@@ -293,7 +297,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3i6no")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Break",
 "speed": 10.0
 }, {
@@ -367,7 +371,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4ctl3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Death",
 "speed": 8.0
 }, {
@@ -399,7 +403,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_820dw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 8.0
 }, {
@@ -422,7 +426,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1bqsm")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Move",
 "speed": 10.0
 }]
@@ -588,67 +592,94 @@ shape = SubResource("RectangleShape2D_8lps2")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1969764904]
 libraries/ = SubResource("AnimationLibrary_la8gj")
 
-[node name="FSM" type="Node" parent="." unique_id=1216871005 node_paths=PackedStringArray("Hatebox", "HateTimer", "Entity", "Current")]
+[node name="FSM" type="Node" parent="." unique_id=1216871005 node_paths=PackedStringArray("Entity", "Current", "Hatebox", "HateTimer")]
 script = ExtResource("3_i6n7o")
-Hatebox = NodePath("../HateArea")
-HateTimer = NodePath("../Node/HateTimer")
 Entity = NodePath("..")
 Current = NodePath("Potrol")
+Hatebox = NodePath("../HateArea")
+HateTimer = NodePath("../Node/HateTimer")
 
-[node name="Break" type="Node" parent="FSM" unique_id=1314925561 node_paths=PackedStringArray("Entity", "AniPlayer")]
+[node name="Break" type="Node" parent="FSM" unique_id=1314925561 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates")]
 script = ExtResource("7_jwua4")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
+NextStates = {
+"death": NodePath("../Death"),
+"end_breaked": NodePath("../Potrol")
+}
 
-[node name="Death" type="Node" parent="FSM" unique_id=1995881864 node_paths=PackedStringArray("Entity", "AniPlayer")]
+[node name="Death" type="Node" parent="FSM" unique_id=1995881864 node_paths=PackedStringArray("Entity", "AniPlayer", "drop_component")]
+drop_component = NodePath("../../DropComponent")
 script = ExtResource("8_la8gj")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Potrol" type="Node" parent="FSM" unique_id=1954883550 node_paths=PackedStringArray("DefaultState", "RestTimer", "Entity", "AniPlayer")]
+[node name="Potrol" type="Node" parent="FSM" unique_id=1954883550 node_paths=PackedStringArray("DefaultState", "RestTimer", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("6_1pyv3")
 DefaultState = NodePath("Idle")
 RestTimer = NodePath("../../Node/RestTimer")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
+NextStates = {
+"breaked": NodePath("../Break"),
+"death": NodePath("../Death"),
+"target_found": NodePath("../Trace")
+}
 
-[node name="Idle" type="Node" parent="FSM/Potrol" unique_id=1617769245 node_paths=PackedStringArray("Entity", "AniPlayer")]
+[node name="Idle" type="Node" parent="FSM/Potrol" unique_id=1617769245 node_paths=PackedStringArray("Entity", "AniPlayer", "NextStates")]
 script = ExtResource("4_1pyv3")
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
+NextStates = {
+"rest_finished": NodePath("../Move")
+}
 
-[node name="Move" type="Node" parent="FSM/Potrol" unique_id=327126024 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer")]
+[node name="Move" type="Node" parent="FSM/Potrol" unique_id=327126024 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("5_8lps2")
 BarrierDetect = NodePath("../../../BarrierDetect")
 Spirte = NodePath("../../../AnimatedSprite2D")
-Speed = 70
+Speed = 140
 Hatebox = NodePath("../../../HateArea")
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
+NextStates = {
+"rest_finished": NodePath("../Idle")
+}
 
-[node name="Trace" type="Node" parent="FSM" unique_id=349240785 node_paths=PackedStringArray("DefaultState", "HateArea", "Hitbox", "Entity", "AniPlayer")]
+[node name="Trace" type="Node" parent="FSM" unique_id=349240785 node_paths=PackedStringArray("DefaultState", "HateArea", "Hitbox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("9_8lps2")
 DefaultState = NodePath("Move")
 HateArea = NodePath("../../HateArea")
 Hitbox = NodePath("../../AnimatedSprite2D/Hitbox")
 Entity = NodePath("../..")
 AniPlayer = NodePath("../../AnimationPlayer")
+NextStates = {
+"breaked": NodePath("../Break"),
+"death": NodePath("../Death"),
+"target_lost": NodePath("../Potrol")
+}
 
-[node name="Attack" type="Node" parent="FSM/Trace" unique_id=557217551 node_paths=PackedStringArray("Spirte", "Hitbox", "Entity", "AniPlayer")]
+[node name="Attack" type="Node" parent="FSM/Trace" unique_id=557217551 node_paths=PackedStringArray("Spirte", "Hitbox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("6_hxmcx")
 Spirte = NodePath("../../../AnimatedSprite2D")
 Hitbox = NodePath("../../../AnimatedSprite2D/Hitbox")
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
+NextStates = {
+"end_attack": NodePath("../Move")
+}
 
-[node name="Move" type="Node" parent="FSM/Trace" unique_id=763563608 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer")]
+[node name="Move" type="Node" parent="FSM/Trace" unique_id=763563608 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("5_8lps2")
 BarrierDetect = NodePath("../../../BarrierDetect")
 Spirte = NodePath("../../../AnimatedSprite2D")
-Speed = 70
+Speed = 140
 Hatebox = NodePath("../../../HateArea")
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
+NextStates = {
+"target_in_range": NodePath("../Attack")
+}
 
 [node name="Node" type="Node" parent="." unique_id=2052789158]
 
@@ -662,6 +693,9 @@ one_shot = true
 [node name="RestTimer" type="Timer" parent="Node" unique_id=1092438285]
 one_shot = true
 
-[connection signal="body_exited" from="AnimatedSprite2D/Hitbox" to="FSM/Trace/Attack" method="_on_hitbox_body_exited"]
-[connection signal="is_breaked" from="FSM/Break" to="FSM" method="_on_is_breaked"]
-[connection signal="on_attack" from="FSM/Trace/Attack" to="FSM/Trace" method="_on_attack"]
+[node name="DropComponent" type="Node2D" parent="."]
+script = ExtResource("drop_component_script")
+
+[node name="EnemyHealthBar" parent="." node_paths=PackedStringArray("target") instance=ExtResource("enemy_health_bar_scene")]
+target = NodePath("..")
+head_offset = Vector2(0, -62)

@@ -7,7 +7,7 @@ var ComboCount: int = 0
 var _attack_generation: int = 0
 
 
-func enter():
+func _on_enter():
 	_attack_generation += 1
 	var generation := _attack_generation
 	# 只在上一次攻击结束后的窗口内保留计数。
@@ -36,7 +36,7 @@ func enter():
 	Entity.end_attack.emit()
 
 
-func exit():
+func _on_exit():
 	_attack_generation += 1
 	if AniPlayer.current_animation.contains("Attack"):
 		AniPlayer.stop()

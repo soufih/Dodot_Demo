@@ -7,6 +7,7 @@ var Blackboard:Dictionary
 
 func _ready() -> void:
 	ResourceManager.load_item_catalog()
+	ResourceManager.load_skill_catalog()
 	WeaponManager.load_weapon()
 	EnemyManager.load_enemy()
 	# LevelGenerator.prepare_generating()

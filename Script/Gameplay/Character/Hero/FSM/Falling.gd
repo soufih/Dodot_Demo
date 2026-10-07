@@ -2,12 +2,12 @@ extends BaseState
 
 var fall_speed:float
 
-func enter():
+func _on_enter():
 	fall_speed = 0
 	AniPlayer.play("Falling")
 	_InputController.switch_weapon_pressed.connect(_check.bind("switch_weapon_pressed"))
 
-func do(delta):
+func _on_do(delta):
 	Entity.filp_character()
 	var direct_x = _InputController.get_move_direction()
 	Entity.velocity.x = direct_x*Entity.Speed
@@ -17,7 +17,7 @@ func do(delta):
 	Entity.move_and_slide()
 	fall_speed = max(abs(Entity.velocity.y), fall_speed)
 
-func exit():
+func _on_exit():
 	_InputController.switch_weapon_pressed.disconnect(_check.bind("switch_weapon_pressed"))
 	if !Entity.is_on_floor():
 		return

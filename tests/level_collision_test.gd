@@ -42,8 +42,8 @@ func make_room(height: int, branch: bool = false) -> PackedScene:
 
 func _ready() -> void:
 	var generator := TestGenerator.new()
-	var real_start := load("res://Scene/Map/Room/Start/S1.tscn").instantiate() as Node2D
-	var real_corridor := load("res://Scene/Map/Room/Corridor/C1.tscn").instantiate() as Node2D
+	var real_start := load(Path.S1_SCENE).instantiate() as Node2D
+	var real_corridor := load(Path.C1_SCENE).instantiate() as Node2D
 	real_corridor.position = real_start.get_node("RIGHT").position
 	var real_occupied: Array[Rect2] = [generator.room_bounds(real_start)]
 	assert(not generator.overlaps_rooms(generator.room_bounds(real_corridor), real_occupied))

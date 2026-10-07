@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="EnemyPorpertyLog" format=3 uid="uid://2srf8bdj186"]
+
+[ext_resource type="Script" uid="uid://baodf2c00ykd8" path="res://Script/Config/Model/EnemyManager/EnemyPorperty.gd" id="1_3h2yo"]
+[ext_resource type="Script" uid="uid://q5m5p1yi6dlx" path="res://Script/Config/Model/DroppedItemConfig/DroppedItemConfig.gd" id="2_c0hcj"]
+[ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Config/Model/DamagePorperty/DamagePorperty.gd" id="3_t3hbh"]
+[ext_resource type="Script" uid="uid://bi7s2odqv145" path="res://Script/Config/Model/EnemyManager/EnemyPorpertyLog.gd" id="4_2yxgq"]
+
+[sub_resource type="Resource" id="Resource_t3hbh"]
+script = ExtResource("2_c0hcj")
+id = 20
+range_x = 1
+range_y = 5
+possbility = 100.0
+metadata/_custom_type_script = "uid://q5m5p1yi6dlx"
+
+[sub_resource type="Resource" id="Resource_2yxgq"]
+script = ExtResource("2_c0hcj")
+id = 23
+range_x = 1
+range_y = 2
+possbility = 50.0
+metadata/_custom_type_script = "uid://q5m5p1yi6dlx"
+
+[sub_resource type="Resource" id="Resource_3h2yo"]
+script = ExtResource("3_t3hbh")
+Damage = 10.0
+metadata/_custom_type_script = "uid://db328o465i0bl"
+
+[sub_resource type="Resource" id="Resource_usd80"]
+script = ExtResource("1_3h2yo")
+Name = "Enemy1"
+EnemyPath = "res://Scene/Enemy/Enemy1.tscn"
+MaxHealth = 100.0
+MaxToughness = 100.0
+DamageResist = Array[float]([0.0, 0.0, 0.0])
+Drop = Array[ExtResource("2_c0hcj")]([SubResource("Resource_t3hbh"), SubResource("Resource_2yxgq")])
+Movementlist = Dictionary[String, ExtResource("3_t3hbh")]({
+"Attack": SubResource("Resource_3h2yo")
+})
+metadata/_custom_type_script = "uid://baodf2c00ykd8"
+
+[sub_resource type="Resource" id="Resource_tgs2v"]
+script = ExtResource("2_c0hcj")
+id = 21
+range_x = 3
+range_y = 8
+possbility = 100.0
+metadata/_custom_type_script = "uid://q5m5p1yi6dlx"
+
+[sub_resource type="Resource" id="Resource_kqkc1"]
+script = ExtResource("2_c0hcj")
+id = 22
+range_x = 2
+range_y = 6
+possbility = 100.0
+metadata/_custom_type_script = "uid://q5m5p1yi6dlx"
+
+[sub_resource type="Resource" id="Resource_c0hcj"]
+script = ExtResource("1_3h2yo")
+Name = "Enemy2"
+EnemyLevel = 1
+EnemyPath = "res://Scene/Enemy/Enemy2.tscn"
+MaxHealth = 100.0
+MaxToughness = 50.0
+DamageResist = Array[float]([0.0, 0.0, 0.0])
+Drop = Array[ExtResource("2_c0hcj")]([SubResource("Resource_tgs2v"), SubResource("Resource_kqkc1")])
+metadata/_custom_type_script = "uid://baodf2c00ykd8"
+
+[resource]
+script = ExtResource("4_2yxgq")
+Log = Dictionary[String, ExtResource("1_3h2yo")]({
+"Enemy1": SubResource("Resource_usd80"),
+"Enemy2": SubResource("Resource_c0hcj")
+})
+metadata/_custom_type_script = "uid://bi7s2odqv145"

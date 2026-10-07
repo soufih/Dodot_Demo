@@ -62,10 +62,28 @@ func switch_current_weapon(index:int):
 	CurrentWeapon = index
 	current_weapon_changed.emit()
 
-#更新长度数值
+#更新已占用的装备格数量，不包含类型标记和空格。
 func _on_equipment_slot_changed():
-	WeaponCurrentContianer = WeaponSlot.size()
-	RelicCurrentContianer  = RelicSlot.size()
+	WeaponCurrentContianer = 0
+	RelicCurrentContianer = 0
+	for index in range(1, WeaponSlot.size()):
+		if WeaponSlot[index] != -1:
+			WeaponCurrentContianer += 1
+	for index in range(1, RelicSlot.size()):
+		if RelicSlot[index] != -1:
+			RelicCurrentContianer += 1
+
+##原地重置装备数组，保留容量、类型标记和 UI 持有的引用。
+func clear_equipment() -> void:
+	WeaponSlot.resize(WeaponMaxContianer + 1)
+	WeaponSlot.fill(-1)
+	WeaponSlot[0] = ENUM.ItemType.Weapon
+	RelicSlot.resize(RelicMaxContianer + 1)
+	RelicSlot.fill(-1)
+	RelicSlot[0] = ENUM.ItemType.Relic
+	CurrentWeapon = 1
+	equipment_slot_changed.emit()
+	current_weapon_changed.emit()
 
 #其他栏位装备与装备栏交互时使用，如背包中装备与装备栏交互
 func interact_with_equipment_slot(id: int,amount: int,Postion: int, arr:Array)->Vector2i:

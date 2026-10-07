@@ -6,8 +6,8 @@ var pauseMenuUI: BaseUI = null
 
 func _ready() -> void:
 	EnemyManager.load_enemy()
-	inventoryUI = UIManager.load_ui("uid://m6qc3rqc8yuq", "UILayer") #背包UI
-	pauseMenuUI =  UIManager.load_ui("uid://cyy1mus77qou1", "UILayer")#暂停菜单UI
+	inventoryUI = UIManager.load_ui(Path.INVENTORY_UI_SCENE, "UILayer") #背包UI
+	pauseMenuUI =  UIManager.load_ui(Path.MENU_UI_SCENE, "UILayer")#暂停菜单UI
 
 func _exit_tree() -> void:
 	UIManager.ui_clear_list()

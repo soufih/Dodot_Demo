@@ -17,14 +17,13 @@ signal command_executed(command_line: String, result: Dictionary)
 signal console_toggle_requested
 
 const CONSOLE_TOGGLE_KEY := KEY_QUOTELEFT
-const DEBUG_CONSOLE_UI_SCENE: PackedScene = preload("res://UI/Debug_UI/debug_console_ui.tscn")
+const DEBUG_CONSOLE_UI_SCENE: PackedScene = preload(Path.DEBUG_CONSOLE_UI_SCENE)
 
 const SERVICE_AUTOLOADS := {
 	&"backpack": &"BackpackSystem",
 	&"warehouse": &"WarehouseSystem",
 	&"ui": &"UIManager",
 	&"resources": &"ResourceManager",
-	&"dropped_items": &"DroppedItemSystem",
 }
 
 

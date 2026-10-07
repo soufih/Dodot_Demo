@@ -22,6 +22,13 @@ func _ready() -> void:
 func _on_backpack_changed():
 	CurrentContianer = Backpack.size()
 
+##清空携带物品，保留背包容量并刷新格子。
+func clear_backpack() -> void:
+	Backpack.clear()
+	Amounts.clear()
+	_on_backpack_changed()
+	backpack_changed.emit()
+
 ##直接添加物品到背包中,返回溢出的物品id和数量
 func quick_add_item(id: int, amount: int)->Vector2i:
 	#检测合法性
@@ -79,7 +86,7 @@ func quick_add_item(id: int, amount: int)->Vector2i:
 	
 	backpack_changed.emit()
 	quick_add.emit()
-	DroppedItemSystem.on_pickup_items.emit({
+	SignalBus.items_picked_up.emit({
 		"id": id,
 		"amount": amount
 	})

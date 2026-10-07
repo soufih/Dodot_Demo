@@ -1,6 +1,6 @@
 extends Node
 
-const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+const SceneLoading = preload(Path.SCENE_LOADER_SCRIPT)
 
 var progress_samples: Array[float] = []
 
@@ -64,7 +64,7 @@ func _ready() -> void:
 	assert(generator.get_child_count() < 30)
 
 	# 未配置的关卡在加载界面失败，保留原场景并允许关闭覆盖层。
-	LevelInformation.Level = 999
+	CurrentLevel.CurrentLevel = 999
 	assert(SceneLoading.load_next_scene(SceneLoading.LEVEL_SCENE_PATH) == OK)
 	loading_ui = level.get_node("SceneLoadingLayer").get_child(0)
 	for frame in range(600):
@@ -75,7 +75,7 @@ func _ready() -> void:
 	loading_ui._unhandled_input(event)
 	await get_tree().process_frame
 	assert(not level.has_node("SceneLoadingLayer"))
-	LevelInformation.Level = 0
+	CurrentLevel.CurrentLevel = 0
 
 	# 返回家园也走同一入口，完成依赖预加载后才能切换。
 	assert(SceneLoading.load_next_scene(SceneLoading.HOME_SCENE_PATH) == OK)

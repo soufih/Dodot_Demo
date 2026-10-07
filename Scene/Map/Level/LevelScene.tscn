@@ -2,8 +2,26 @@
 
 [ext_resource type="Script" uid="uid://n6ank0mm7hej" path="res://Script/Static/Level.gd" id="1_kghl0"]
 [ext_resource type="PackedScene" uid="uid://cnobpreypcfvl" path="res://Scene/Util/LevelGenerator.tscn" id="2_fnpaw"]
+[ext_resource type="Script" uid="uid://cx5rqs341ykbv" path="res://Script/Gameplay/Map/LevelBackground.gd" id="3_background"]
+[ext_resource type="Script" uid="uid://cygkpn3m26k3m" path="res://Script/Gameplay/Map/LevelExploration.gd" id="4_exploration"]
+[ext_resource type="PackedScene" uid="uid://ciqka6krelgc0" path="res://UI/MiniMap_UI/mini_map_ui.tscn" id="5_minimap"]
 
 [node name="LevelScene" type="Node2D" unique_id=70190648]
 script = ExtResource("1_kghl0")
 
+[node name="LevelBackground" type="CanvasLayer" parent="." unique_id=255951689]
+layer = -100
+script = ExtResource("3_background")
+texture_scale = 2.0
+
 [node name="LevelGenerator" parent="." unique_id=635254476 instance=ExtResource("2_fnpaw")]
+
+[node name="LevelExploration" type="Node" parent="." unique_id=1105464467 node_paths=PackedStringArray("generator")]
+script = ExtResource("4_exploration")
+generator = NodePath("../LevelGenerator")
+
+[node name="LevelHUD" type="CanvasLayer" parent="." unique_id=1190431555]
+layer = 2
+
+[node name="MiniMapUI" parent="LevelHUD" unique_id=777139189 node_paths=PackedStringArray("exploration") instance=ExtResource("5_minimap")]
+exploration = NodePath("../../LevelExploration")

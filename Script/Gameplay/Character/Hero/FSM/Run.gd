@@ -2,11 +2,11 @@ extends BaseState
 
 var direct_x
 
-func enter():
+func _on_enter():
 	AniPlayer.play("Run")
 	_InputController.switch_weapon_pressed.connect(_check.bind("switch_weapon_pressed"))
 	
-func do(_delta):
+func _on_do(_delta):
 	Entity.filp_character()
 	direct_x = _InputController.get_move_direction()
 	Entity.velocity.x = direct_x*Entity.Speed
@@ -16,5 +16,5 @@ func do(_delta):
 
 	Entity.move_and_slide()
 
-func exit():
+func _on_exit():
 	_InputController.switch_weapon_pressed.disconnect(_check.bind("switch_weapon_pressed"))

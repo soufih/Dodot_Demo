@@ -1,6 +1,6 @@
 extends BaseUI
 
-const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+const SceneLoading = preload(Path.SCENE_LOADER_SCRIPT)
 
 @export_multiline var message: String = "这次旅程暂时结束。\n确认后返回家园，重新出发。"
 @export_file("*.tscn") var return_scene_path: String = SceneLoading.HOME_SCENE_PATH

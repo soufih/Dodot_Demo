@@ -11,12 +11,12 @@ func _ready() -> void:
 	begin()
 	#加载物品格子
 	var max_contianer = BackpackSystem.get_max_contianer()
-	var slot = load("uid://6oby8ergpaw7")
+	var slot = load(Path.SLOT_SCENE)
 	for i in range(0, max_contianer):
 		grid_container.add_child(slot.instantiate())
 	
 	var max_weapon_contianer = EquipmentSlotSystem.get_weapon_max_contianer()
-	var equipment_slot = load("uid://5fpsr5w83lwa")
+	var equipment_slot = load(Path.EQUIPMENT_SLOT_SCENE)
 	
 	for i in range(0, max_weapon_contianer):
 		weapon_container.add_child(equipment_slot.instantiate())
@@ -25,4 +25,3 @@ func _ready() -> void:
 	for i in range(0, max_relic_contianer):
 		relic_container.add_child(equipment_slot.instantiate())
 	BackpackSystem._on_backpack_changed()
-	BackpackSystem.quick_add_item(2, 100)

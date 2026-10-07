@@ -1,6 +1,6 @@
 extends Node
 
-const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+const SceneLoading = preload(Path.SCENE_LOADER_SCRIPT)
 
 
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 		if use_preload:
 			assert(await preloader.prepare_level_async(0))
 		var prepared := Time.get_ticks_usec()
-		var scene := load("res://Scene/Map/Level/LevelScene.tscn") as PackedScene
+		var scene := load(Path.LEVEL_SCENE) as PackedScene
 		var loaded := Time.get_ticks_usec()
 		var level := scene.instantiate()
 		var instantiated := Time.get_ticks_usec()

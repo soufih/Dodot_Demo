@@ -1,6 +1,6 @@
 extends BaseUI
 
-const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+const SceneLoading = preload(Path.SCENE_LOADER_SCRIPT)
 
 
 func _ready() -> void:

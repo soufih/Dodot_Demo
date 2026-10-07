@@ -1,6 +1,6 @@
 extends Node
 
-const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+const SceneLoading = preload(Path.SCENE_LOADER_SCRIPT)
 
 @onready var startpoint:Marker2D = $Startpoint
 #UI界面
@@ -14,11 +14,11 @@ var hero: HeroProperty
 
 
 func _enter_tree() -> void:
-	inventoryUI = UIManager.load_ui("uid://m6qc3rqc8yuq", "UILayer") #背包UI
-	warehouse = UIManager.load_ui("uid://cd2xfe7rysnxr", "UILayer") #仓库UI
-	equipmentEnhancementUI = UIManager.load_ui("uid://hmacpsbsf4q8", "UILayer") #装备强化界面
-	pauseMenuUI = UIManager.load_ui("uid://cyy1mus77qou1", "UILayer")#暂停菜单UI
-	mapUI = UIManager.load_ui("uid://baysbd0v7e3fm", "flotUIlayer") #地图UI
+	inventoryUI = UIManager.load_ui(Path.INVENTORY_UI_SCENE, "UILayer") #背包UI
+	warehouse = UIManager.load_ui(Path.WAREHOUSE_UI_SCENE, "UILayer") #仓库UI
+	equipmentEnhancementUI = UIManager.load_ui(Path.EQUIPMENT_ENHANCEMENT_UI_SCENE, "UILayer") #装备强化界面
+	pauseMenuUI = UIManager.load_ui(Path.MENU_UI_SCENE, "UILayer")#暂停菜单UI
+	mapUI = UIManager.load_ui(Path.MAP_SCENE, "flotUIlayer") #地图UI
 
 func _ready() -> void:
 	hero = SceneLoading.get_scene(SceneLoading.HERO_SCENE_PATH).instantiate()

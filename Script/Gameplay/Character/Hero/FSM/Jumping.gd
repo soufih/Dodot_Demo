@@ -1,5 +1,7 @@
 extends BaseState
 
+
+
 @export_range(0.1, 10000.0, 0.1, "or_greater") var MinJumpHeight: float = 20.0
 @export_range(0.1, 10000.0, 0.1, "or_greater") var MaxJumpHeight: float = 30.0
 
@@ -8,14 +10,11 @@ var _jump_gravity: float
 var _held_gravity: float
 
 
-func enter():
+func _on_enter():
+	# 合法跳跃输入同步进入此状态；扣除次数后再执行起跳和动画。
+	Entity.jump_count_change_requested.emit(-1)
 	_InputController.switch_weapon_pressed.connect(_check.bind("switch_weapon_pressed"))
 	_can_extend_jump = true
-	var previous_state: BaseState = get_parent().Previous
-	var jumping_from_ladder := previous_state != null and previous_state == get_parent().get_node_or_null("Climb")
-	if not Entity.is_on_floor() and not jumping_from_ladder:
-		Entity.emit_signal("end_jump")
-		return
 
 	var min_height := maxf(MinJumpHeight, 0.1)
 	var max_height := maxf(MaxJumpHeight, min_height)
@@ -26,7 +25,7 @@ func enter():
 	AniPlayer.play("Jump")
 
 
-func do(delta: float):
+func _on_do(delta: float):
 	if delta <= 0.0:
 		return
 	# 松开后本次跳跃不再增高，重新按键不会在空中再次助推。
@@ -35,7 +34,7 @@ func do(delta: float):
 	var active_gravity := _held_gravity if _can_extend_jump else _jump_gravity
 	var vertical_speed := Entity.velocity.y
 	if vertical_speed >= 0.0:
-		Entity.emit_signal("end_jump")
+		Entity.end_jump.emit()
 		return
 
 	Entity.filp_character()
@@ -48,11 +47,11 @@ func do(delta: float):
 	Entity.velocity.y = minf(vertical_speed + active_gravity * delta, 0.0)
 	if Entity.is_on_ceiling() or Entity.velocity.y >= 0.0:
 		Entity.velocity.y = 0.0
-		Entity.emit_signal("end_jump")
+		Entity.end_jump.emit()
 		return
 
 
-func exit():
+func _on_exit():
 	_InputController.switch_weapon_pressed.disconnect(_check.bind("switch_weapon_pressed"))
 	_can_extend_jump = false
 	Entity.velocity = Vector2.ZERO

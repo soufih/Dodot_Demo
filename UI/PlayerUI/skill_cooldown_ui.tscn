@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Script/UI_Script/Player_UI/SkillCooldown/skill_cooldown_ui.gd" id="1"]
+
+[node name="SkillCooldownUI" type="HBoxContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 190.0
+offset_top = -108.0
+offset_right = 258.0
+offset_bottom = -40.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 10
+script = ExtResource("1")

@@ -1,4 +1,5 @@
 extends Node
+signal state_changed(previous: BaseState, current: BaseState)
 
 @onready var _InputController = $"../InputController"
 @onready var Hero = $".."
@@ -12,7 +13,9 @@ func _ready() -> void:
 	_InputController.move_left_released.connect(_check.bind("move_left_released"))
 	_InputController.move_right_pressed.connect(_check.bind("move_right_pressed"))
 	_InputController.move_right_released.connect(_check.bind("move_right_released"))
+	Hero.skill_control_requested.connect(_on_skill_control_requested)
 	_InputController.jump_pressed.connect(_check.bind("jump_pressed"))
+	_InputController.dash_pressed.connect(_check.bind("dash_requested"))
 	_InputController.when_attack_tigger.connect(_check.bind("when_attack_tigger"))
 	_InputController.input_banned.connect(_check.bind("input_banned"))
 	
@@ -27,6 +30,8 @@ func _ready() -> void:
 	Hero.end_breaked.connect(_check.bind("end_breaked"))
 	Hero.on_climb.connect(_check.bind("on_climb"))
 	Hero.end_climb.connect(_check.bind("end_climb"))
+	Hero.end_dash_ground.connect(_check.bind("dash_ground_finished"))
+	Hero.end_dash_air.connect(_check.bind("dash_air_finished"))
 	
 	Current.enter()
 
@@ -36,7 +41,9 @@ func _exit_tree() -> void:
 	_InputController.move_left_released.disconnect(_check.bind("move_left_released"))
 	_InputController.move_right_pressed.disconnect(_check.bind("move_right_pressed"))
 	_InputController.move_right_released.disconnect(_check.bind("move_right_released"))
+	Hero.skill_control_requested.disconnect(_on_skill_control_requested)
 	_InputController.jump_pressed.disconnect(_check.bind("jump_pressed"))
+	_InputController.dash_pressed.disconnect(_check.bind("dash_requested"))
 	_InputController.when_attack_tigger.disconnect(_check.bind("when_attack_tigger"))
 	_InputController.input_banned.disconnect(_check.bind("input_banned"))
 	
@@ -51,6 +58,8 @@ func _exit_tree() -> void:
 	Hero.end_breaked.disconnect(_check.bind("end_breaked"))
 	Hero.on_climb.disconnect(_check.bind("on_climb"))
 	Hero.end_climb.disconnect(_check.bind("end_climb"))
+	Hero.end_dash_ground.disconnect(_check.bind("dash_ground_finished"))
+	Hero.end_dash_air.disconnect(_check.bind("dash_air_finished"))
 
 
 func _physics_process(delta: float) -> void:
@@ -68,7 +77,13 @@ func switch_state(nextState: BaseState, allow_buffer: bool = true):
 	# 已用于进入状态的输入不能在状态结束时再次触发。
 	_InputController.clear_buffered_action(nextState.name)
 	Current = nextState
+	state_changed.emit(Previous, Current)
 	Current.enter()
+
+## 只按事件映射转化，不检测生命、冷却、次数或技能条件。
+func _on_skill_control_requested(event: StringName) -> void:
+	if Current.NextStates.has(String(event)):
+		switch_state(Current.NextStates[String(event)], false)
 
 
 func _check(signalName:String):

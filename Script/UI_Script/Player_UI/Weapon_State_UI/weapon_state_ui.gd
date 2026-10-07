@@ -18,7 +18,7 @@ func _exit_tree() -> void:
 
 
 func _on_weapon_switch() -> void:
-	if completed:
+	if completed && EquipmentSlotSystem.get_next_weapon() != -1:
 		switch_item()
 
 

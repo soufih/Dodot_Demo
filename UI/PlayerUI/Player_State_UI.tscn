@@ -47,9 +47,9 @@ texture_progress_offset = Vector2(0.5, 0)
 
 [node name="MP" type="HBoxContainer" parent="." unique_id=1765464160]
 layout_mode = 0
-offset_top = -32.0
+offset_top = -40.0
 offset_right = 114.0
-offset_bottom = 20.0
+offset_bottom = 12.0
 scale = Vector2(5.1680574, 3.55895)
 
 [node name="Mana_bar" type="TextureProgressBar" parent="MP" unique_id=119040006]

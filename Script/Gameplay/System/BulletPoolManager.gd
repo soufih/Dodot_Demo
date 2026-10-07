@@ -4,7 +4,7 @@ extends Node
 ## 发射时直接传入 .tres 资源；不同弹幕配置共用同一批 Bullet.tscn 实例。
 
 ## 所有弹幕数据共用同一个场景池。空闲上限不限制同时发射数量。
-const BULLET_SCENE = preload("res://Scene/Bullet/Bullet.tscn")
+const BULLET_SCENE = preload(Path.BULLET_SCENE)
 ## 启动时预先创建的空闲实例数量，实际数量受 max_idle_count 限制。
 @export var prewarm_count: int = 128
 ## 最多保留的空闲实例数；并发发射不受此限制，池耗尽时按需创建。

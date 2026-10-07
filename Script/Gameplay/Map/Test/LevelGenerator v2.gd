@@ -1,21 +1,26 @@
 @tool
 extends Node
 
-static var ReferLevelRoomLog:LevelRoomLog
+static var ReferLevelCatalog: LevelCatalog
 var spaceUsage:Array[Rect2]
 var levelInformation:Dictionary[Room,Dictionary]##{room:{entrance1: room2,...}...}
 var tileMapsize:Dictionary
-var roomCache:Dictionary[String, PackedScene]
 var maxAmount:int = 0
 
 const DIRECT: Dictionary = {
-	ENUM.Location_v2.RIGHT : "RIGHT", 
-	ENUM.Location_v2.UP : "UP", 
-	ENUM.Location_v2.NONE : "NONE",
-	ENUM.Location_v2.LEFT : "LEFT", 
-	ENUM.Location_v2.BOTTOM : "BOTTOM",
-	}
-const TILE_MAP_SIZE_PATH: String = "res://Script/Gameplay/Map/tilemap_sizes.json"
+	ENUM.Location.RIGHT: "RIGHT",
+	ENUM.Location.TOP: "TOP",
+	ENUM.Location.LEFT: "LEFT",
+	ENUM.Location.BOTTOM: "BOTTOM",
+}
+# Match the next entrance to the opposite exit direction.
+const ENTRANCE_FOR_EXIT: Dictionary = {
+	ENUM.Location.RIGHT: ENUM.Location.LEFT,
+	ENUM.Location.TOP: ENUM.Location.BOTTOM,
+	ENUM.Location.LEFT: ENUM.Location.RIGHT,
+	ENUM.Location.BOTTOM: ENUM.Location.TOP,
+}
+const TILE_MAP_SIZE_PATH: String = Path.TILEMAP_SIZES_JSON
 
 class Room:
 	var roomInstance:Node2D
@@ -26,17 +31,17 @@ class Room:
 		self.roomConfig = config
 
 func _ready() -> void:
-	load_level_room_log()
+	load_level_catalog()
 	load_tilemap_size()
 	generate_map(0, 20, 10)
 
-#加载房间列表
-func load_level_room_log():
-	if ReferLevelRoomLog:
+# 加载统一关卡目录。
+func load_level_catalog() -> void:
+	if ReferLevelCatalog != null:
 		return
-	ReferLevelRoomLog = load("uid://dh3a2qfk263s4") as LevelRoomLog
-	if !ReferLevelRoomLog:
-		push_error("ERRO!WHEN LOAD ROOMS OF LEVEL")
+	ReferLevelCatalog = load(Path.LEVEL_CATALOG_RESOURCE) as LevelCatalog
+	if ReferLevelCatalog == null:
+		push_error("Failed to load LevelCatalog")
 
 func load_tilemap_size():
 	if not tileMapsize.is_empty():
@@ -48,36 +53,26 @@ func load_tilemap_size():
 	else:
 		push_error("ERROR!WHEN OPEN TILEMAP SIZE FILE")
 
-#加载房间列表
-func get_level_rooms(level:int)->LevelRoomConfig:
-	if ReferLevelRoomLog:
-		var result = ReferLevelRoomLog.LevelLog.get(level)
-		if result:
-			return result
-	return null
+# 读取当前关卡的房间配置。
+func get_level_rooms(level: int) -> LevelRoomConfig:
+	if ReferLevelCatalog == null or level < 0 or level >= ReferLevelCatalog.Log.size():
+		return null
+	var config := ReferLevelCatalog.Log[level]
+	return config.Rooms if config != null else null
 
 #实例化房间
 func instantiate_room(roomConfig:RoomConfig)->Node2D:
-	var RoomScene:PackedScene
-	if roomConfig.RoomPath in roomCache:
-		RoomScene = roomCache[roomConfig.RoomPath]
-	else:
-		RoomScene = load(roomConfig.RoomPath) as PackedScene
-		if !RoomScene:
-			push_error("ERROR!WHEN LOAD ROOM SCENE")
-			return null
-		roomCache[roomConfig.RoomPath] = RoomScene
-	
+	var RoomScene:PackedScene = roomConfig.RoomPath
+	if RoomScene == null:
+		push_error("ERROR!WHEN LOAD ROOM SCENE")
+		return null
+
 	var RoomInstance = RoomScene.instantiate() as Node2D
 	if !RoomInstance:
 		push_error("ERROR!WHEN INSTANTIATE ROOM SCENE")
 		return null
 	add_child(RoomInstance)
 	return RoomInstance
-
-#清除房间缓存
-func clear_room_cache():
-	roomCache.clear()
 
 #生成地图
 func generate_map(level: int, maxRoomAmount:int, maxDepth:int):
@@ -87,7 +82,7 @@ func generate_map(level: int, maxRoomAmount:int, maxDepth:int):
 		push_error("ERROR!NO ROOM CONFIG FOR THIS LEVEL")
 		return
 
-	var exit:ENUM.Location_v2 = ENUM.Location_v2.NONE
+	var exit:ENUM.Location = ENUM.Location.RIGHT
 	maxAmount = maxRoomAmount-maxDepth
 
 	#随机挑选开始房间
@@ -96,11 +91,11 @@ func generate_map(level: int, maxRoomAmount:int, maxDepth:int):
 	#生成主干路并记录房间连接情况
 	for i in range(maxDepth-2):
 		#随机挑选下一个房间
-		exit = lastRoom.roomConfig.Exit_v2[randi() % lastRoom.roomConfig.Exit_v2.size()]
+		exit = lastRoom.roomConfig.Exit[randi() % lastRoom.roomConfig.Exit.size()]
 		lastRoom = rand_generate_room(lastRoom, exit, [ENUM.Type.Corridor, ENUM.Type.Room], roomConfiglog)
 
 	#随机挑选结束房间
-	exit = lastRoom.roomConfig.Exit_v2[randi() % lastRoom.roomConfig.Exit_v2.size()]
+	exit = lastRoom.roomConfig.Exit[randi() % lastRoom.roomConfig.Exit.size()]
 	lastRoom = rand_generate_room(lastRoom, exit, [ENUM.Type.End], roomConfiglog)
 
 	#生成支路
@@ -110,7 +105,7 @@ func generate_map(level: int, maxRoomAmount:int, maxDepth:int):
 		roomAmount -= generate_branch(room, roomAmount, roomConfiglog)
 
 #检查房间 确定是否合适
-func check_room(roomConfig:RoomConfig, lastRoom:Room, exit:ENUM.Location_v2)->bool:
+func check_room(roomConfig:RoomConfig, lastRoom:Room, exit:ENUM.Location)->bool:
 	#检查房间空间占用情况，防止生成的房间重叠
 	if tileMapsize.is_empty():
 		return false
@@ -142,13 +137,13 @@ func check_room(roomConfig:RoomConfig, lastRoom:Room, exit:ENUM.Location_v2)->bo
 	return true
 
 #随机生成房间
-func rand_generate_room(lastRoom:Room, exit:ENUM.Location_v2, SelectroomType:Array[ENUM.Type],roomConfiglog:LevelRoomConfig)->Room:
+func rand_generate_room(lastRoom:Room, exit:ENUM.Location, SelectroomType:Array[ENUM.Type],roomConfiglog:LevelRoomConfig)->Room:
 	var candidateRooms:Array[RoomConfig] = []
 	var result:Room
 
 	#根据房间类型和入口位置筛选候选房间
 	for room:RoomConfig in roomConfiglog.RoomLog:
-		if room.RoomType in SelectroomType and (room.Entrance_v2 == -exit or !lastRoom): #匹配入口
+		if room != null and room.RoomPath != null and room.RoomType in SelectroomType and (room.Entrance == ENTRANCE_FOR_EXIT[exit] or !lastRoom): #匹配入口
 			candidateRooms.append(room)
 	
 	#如果没有符合条件的房间，返回null
@@ -175,7 +170,7 @@ func rand_generate_room(lastRoom:Room, exit:ENUM.Location_v2, SelectroomType:Arr
 
 	if not lastRoom:
 		levelInformation[result] = {}
-		for e in result.roomConfig.Exit_v2:
+		for e in result.roomConfig.Exit:
 			#if not levelInformation[lastRoom].keys().has(e):
 			levelInformation[result][e] = null
 		return result
@@ -186,7 +181,7 @@ func rand_generate_room(lastRoom:Room, exit:ENUM.Location_v2, SelectroomType:Arr
 
 	if !levelInformation.has(result):
 		levelInformation[result] = {}
-	for e in result.roomConfig.Exit_v2:
+	for e in result.roomConfig.Exit:
 		#if not levelInformation[lastRoom].keys().has(e):
 		levelInformation[result][e] = null
 
@@ -201,7 +196,7 @@ func generate_branch(room: Room, maxExtendlength:int, roomConfiglog:LevelRoomCon
 	if not room:
 		return 0
 	
-	for exit in room.roomConfig.Exit_v2:
+	for exit in room.roomConfig.Exit:
 		var exits:Dictionary = levelInformation.get(room)
 		#print(exits[exit])
 		if exits[exit] == null:

@@ -1,23 +1,29 @@
 extends BaseState
 
-signal on_attack(i:bool)
-
-@export var Spirte:AnimatedSprite2D
+@export var Spirte: AnimatedSprite2D
 @export var Hitbox: Area2D
+var _generation: int = 0
+var _active := false
 
-func do(_delta):
-	on_attack.emit(true)
+func _on_enter():
+	_generation += 1
+	var generation := _generation
+	_active = true
+	Entity.velocity.x = 0
 	AniPlayer.play("Attack")
-	await Spirte.animation_finished
+	var finished_animation: StringName = await AniPlayer.animation_finished
+	if generation == _generation and _active and finished_animation == &"Attack":
+		get_parent()._check("end_attack")
 
+func _on_exit():
+	_active = false
+	_generation += 1
+	if AniPlayer.current_animation == "Attack":
+		AniPlayer.stop()
 
-func apply_damage(Movement: String):
+func apply_damage(movement: String):
+	if not _active:
+		return
 	for body in Hitbox.get_overlapping_bodies():
-		if body.is_in_group("Hero") && Spirte.frame == 9:
-			DamageSystem.damage_assess(Entity, body, Entity.Porperty.Movementlist[Movement])
-
-
-func _on_hitbox_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Hero"):
-		await Spirte.animation_finished
-		on_attack.emit(false)
+		if body.is_in_group("Hero"):
+			DamageSystem.damage_assess(Entity, body, Entity.Porperty.Movementlist[movement])

@@ -122,7 +122,7 @@ func _path(path: String) -> String:
 		return path
 	if not TemplatePath.is_empty():
 		return TemplatePath
-	return "res://Rescource/LevelTemplate/" + str(name) + Level
+	return Path.LEVEL_TEMPLATE_DIRECTORY + str(name) + Level
 
 func _report(message: String) -> void:
 	if is_instance_valid(_status):

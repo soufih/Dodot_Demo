@@ -1,6 +1,6 @@
 extends Node
 
-const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+const SceneLoading = preload(Path.SCENE_LOADER_SCRIPT)
 
 var UIList: Array[BaseUI] = []
 var tmp_slot:TmpSlot
@@ -9,6 +9,7 @@ var flotUIlayer: CanvasLayer
 var is_paused: bool = false
 var is_banned:bool = false
 var death_ui: BaseUI
+var end_ui: BaseUI
 
 func _ready() -> void:
 	load_ui_layer_config()
@@ -31,7 +32,7 @@ func load_ui_layer_config():
 	UILayer.layer = 99
 	flotUIlayer.layer = 101
 
-	tmp_slot = preload("uid://bb4quhyltqxmu").instantiate()
+	tmp_slot = preload(Path.TMP_SLOT_SCENE).instantiate()
 	TmpSlotLayer.add_child(tmp_slot)
 
 ##加载UI
@@ -51,7 +52,7 @@ func load_ui(ui_path: String, layer: String) -> BaseUI:
 
 
 func _input(event: InputEvent) -> void:
-	if is_banned or is_instance_valid(death_ui):
+	if is_banned or is_instance_valid(death_ui) or is_instance_valid(end_ui):
 		return
 	
 	if event.is_action_pressed("ui_cancel"):
@@ -111,11 +112,11 @@ func ui_close_all():
 
 
 func show_death_screen() -> void:
-	if is_instance_valid(death_ui) or get_tree().current_scene == null:
+	if is_instance_valid(death_ui) or is_instance_valid(end_ui) or get_tree().current_scene == null:
 		return
 	ui_close_all()
 	is_paused = false
-	var scene := SceneLoading.get_scene("res://UI/Death_UI/death_ui.tscn")
+	var scene := SceneLoading.get_scene(Path.DEATH_UI_SCENE)
 	if scene == null:
 		return
 	death_ui = scene.instantiate() as BaseUI
@@ -125,8 +126,27 @@ func show_death_screen() -> void:
 	get_tree().current_scene.add_child(layer)
 	layer.add_child(death_ui)
 
+
+func show_end_screen() -> void:
+	if is_instance_valid(end_ui) or is_instance_valid(death_ui) or get_tree().current_scene == null:
+		return
+	var scene := SceneLoading.get_scene(Path.END_UI_SCENE)
+	if scene == null:
+		return
+	ui_close_all()
+	is_paused = false
+	end_ui = scene.instantiate() as BaseUI
+	var layer := CanvasLayer.new()
+	layer.name = "EndLayer"
+	layer.layer = 110
+	layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().current_scene.add_child(layer)
+	layer.add_child(end_ui)
+
 ##关闭最上层UI
 func ui_cancel():
+	if is_instance_valid(death_ui) or is_instance_valid(end_ui):
+		return
 	if UIList.size() > 0:
 		var top_ui: BaseUI = UIList[UIList.size() - 1]
 		if top_ui:

@@ -28,3 +28,8 @@ func get_tmp_item():
 
 func refresh():
 	set_icon(TmpID)
+
+##丢弃正在拖拽的物品，避免跨场景重新放回背包。
+func clear_item() -> void:
+	set_tmp_item(-1, 0)
+	refresh()

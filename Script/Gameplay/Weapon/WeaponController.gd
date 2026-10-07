@@ -23,9 +23,7 @@ const Type:Dictionary[int, String] = {
 func _ready() -> void:
 	if !EquipmentSlotSystem.current_weapon_changed.is_connected(_on_current_weapon_changed):
 		EquipmentSlotSystem.current_weapon_changed.connect(_on_current_weapon_changed)
-	var WeaponName = ResourceManager.get_item_name(EquipmentSlotSystem.CurrentWeapon)
-
-	Weapon = WeaponManager.get_weapon_porperty(WeaponName)
+	get_weapon()
 	Ani.play("Reset")
 
 
@@ -37,12 +35,16 @@ func _on_current_weapon_changed():
 	get_weapon()
 
 func get_weapon()->bool:
-	var WeaponName = ResourceManager.get_item_name(EquipmentSlotSystem.get_current_weapon())
-	Weapon = WeaponManager.get_weapon_porperty(WeaponName)
-	if Weapon == null:
-		return false
 	var WeaponId = EquipmentSlotSystem.get_current_weapon()
+	var WeaponName = ResourceManager.get_item_name(WeaponId)
+	Weapon = WeaponManager.get_weapon_porperty(WeaponName)
 	WeaponTexture.texture = ResourceManager.get_item_icon(WeaponId)
+	if Weapon == null:
+		Context = null
+		ComboCount = 0
+		Ani.play("Reset")
+		Ani.advance(0.0)
+		return false
 	return true
 
 func _on_hero_on_attack(CCount:int) -> void:
@@ -68,6 +70,8 @@ func before_attack():
 		return
 	for action:WeaponAction in Weapon.BeforeAttack:
 		await action.execute(Context)
+		if Weapon == null:
+			return
 	
 	PlayerAni.speed_scale = Weapon.AttackSpeed
 	Ani.speed_scale = Weapon.AttackSpeed
@@ -84,6 +88,8 @@ func during_attack():
 		return
 	for action:WeaponAction in Weapon.DuringAttack:
 		await action.execute(Context)
+		if Weapon == null:
+			return
 
 
 func after_attack():
@@ -91,6 +97,8 @@ func after_attack():
 		return
 	for action:WeaponAction in Weapon.AfterAttack:
 		await action.execute(Context)
+		if Weapon == null:
+			return
 
 
 ##创建上下文供每个攻击动作使用

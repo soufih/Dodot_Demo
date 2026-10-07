@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://yiyrqpaw408l"]
+
+[ext_resource type="Script" uid="uid://d2w1marsxic2m" path="res://Script/UI_Script/Enemy_UI/enemy_health_bar.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="Background"]
+bg_color = Color(0.06, 0.04, 0.05, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.34, 0.25, 1)
+
+[sub_resource type="StyleBoxEmpty" id="Empty"]
+
+[sub_resource type="StyleBoxFlat" id="DamageFill"]
+bg_color = Color(0.95, 0.68, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="HealthFill"]
+bg_color = Color(0.78, 0.15, 0.18, 1)
+
+[node name="EnemyHealthBar" type="Node2D" unique_id=1508664592]
+z_index = 20
+z_as_relative = false
+script = ExtResource("1_script")
+
+[node name="Frame" type="Panel" parent="." unique_id=1125750822]
+offset_left = -24.0
+offset_top = -4.0
+offset_right = 24.0
+offset_bottom = 4.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Background")
+
+[node name="Damage" type="ProgressBar" parent="." unique_id=332407022]
+offset_left = -22.0
+offset_top = -2.0
+offset_right = 22.0
+offset_bottom = 2.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("Empty")
+theme_override_styles/fill = SubResource("DamageFill")
+step = 0.0
+value = 100.0
+show_percentage = false
+
+[node name="Health" type="ProgressBar" parent="." unique_id=1335575331]
+offset_left = -22.0
+offset_top = -2.0
+offset_right = 22.0
+offset_bottom = 2.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("Empty")
+theme_override_styles/fill = SubResource("HealthFill")
+step = 0.0
+value = 100.0
+show_percentage = false

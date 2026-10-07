@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cmuk84c173g6p"]
 
-[ext_resource type="SpriteFrames" uid="uid://dftrbn7t4wyf3" path="res://Rescource/Animation/Bullet/Arrow.tres" id="1_lffvr"]
+[ext_resource type="SpriteFrames" uid="uid://dftrbn7t4wyf3" path="res://Rescource/Data/Animation/Bullet/Arrow.tres" id="1_lffvr"]
 [ext_resource type="Script" uid="uid://dvsxykdfksfdh" path="res://Script/Gameplay/Bullet/Bullet.gd" id="2_lffvr"]
-[ext_resource type="Shape2D" uid="uid://baxogt0gau368" path="res://Rescource/CollisionShape/Bullet/Arrow.tres" id="3_kubfh"]
+[ext_resource type="Shape2D" uid="uid://baxogt0gau368" path="res://Rescource/Data/CollisionShape/Bullet/Arrow.tres" id="3_kubfh"]
 
 [sub_resource type="Animation" id="Animation_lffvr"]
 resource_name = "Boom"

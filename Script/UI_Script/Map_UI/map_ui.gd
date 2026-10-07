@@ -23,7 +23,7 @@ func _ready() -> void:
 	
 
 func _on_level_1_button_down() -> void:
-	LevelInformation.set_level_info(0,"level1")
+	CurrentLevel.set_level_info(0,"level1")
 	level_discription.global_position = discription_pos1.global_position
 	
 	var tween:Tween = create_tween()
@@ -35,7 +35,7 @@ func _on_level_1_button_down() -> void:
 
 
 func _on_level_2_button_down() -> void:
-	LevelInformation.set_level_info(1,"level2")
+	CurrentLevel.set_level_info(1,"level2")
 	level_discription.global_position = discription_pos2.global_position
 
 	var tween:Tween = create_tween()
@@ -47,7 +47,7 @@ func _on_level_2_button_down() -> void:
 
 
 func _on_level_3_button_down() -> void:
-	LevelInformation.set_level_info(2,"level3")
+	CurrentLevel.set_level_info(2,"level3")
 	level_discription.global_position = discription_pos3.global_position
 	
 	var tween:Tween = create_tween()
@@ -59,7 +59,7 @@ func _on_level_3_button_down() -> void:
 
 
 func _on_level_4_button_down() -> void:
-	LevelInformation.set_level_info(3,"level4")
+	CurrentLevel.set_level_info(3,"level4")
 	level_discription.global_position = discription_pos4.global_position
 	
 	var tween:Tween = create_tween()
@@ -72,7 +72,7 @@ func _on_level_4_button_down() -> void:
 
 
 func _on_level_5_button_down() -> void:
-	LevelInformation.set_level_info(4,"level5")
+	CurrentLevel.set_level_info(4,"level5")
 	level_discription.global_position = discription_pos5.global_position
 
 	var tween:Tween = create_tween()

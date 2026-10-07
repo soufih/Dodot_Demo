@@ -18,7 +18,7 @@ func _scan_and_save() -> void:
 	print("开始递归扫描地图场景中的TileMapLayer...")
 	
 	# 递归扫描"res://Scene/Map/"路径及其所有子文件夹下的场景
-	var map_scenes = scan_map_scenes_recursive("res://Scene/Map/")
+	var map_scenes = scan_map_scenes_recursive(Path.MAP_DIRECTORY)
 	
 	if map_scenes.is_empty():
 		print("未找到场景文件！")
@@ -32,7 +32,7 @@ func _scan_and_save() -> void:
 	
 	for scene_path in map_scenes:
 		var scene_name = scene_path.get_file().get_basename()
-		var relative_path = scene_path.trim_prefix("res://")
+		var relative_path = scene_path.trim_prefix(Path.RESOURCE_ROOT)
 		
 		print("正在处理 [", processed + 1, "/", map_scenes.size(), "]: ", relative_path)
 		
@@ -44,7 +44,7 @@ func _scan_and_save() -> void:
 				"name": scene_name,
 				"path": scene_path,
 				"relative_path": relative_path,
-				"folder": scene_path.get_base_dir().trim_prefix("res://"),
+				"folder": scene_path.get_base_dir().trim_prefix(Path.RESOURCE_ROOT),
 				"rect_p": {"x" : rect.position.x,
 							"y": rect.position.y
 							},
@@ -56,7 +56,7 @@ func _scan_and_save() -> void:
 		processed += 1
 	
 	# 将结果保存为JSON
-	save_to_json(scene_data, "res://Script/Gameplay/Map/tilemap_sizes.json")
+	save_to_json(scene_data, Path.TILEMAP_SIZES_JSON)
 
 # 递归扫描指定路径及其所有子文件夹下的场景文件
 func scan_map_scenes_recursive(path: String) -> Array:

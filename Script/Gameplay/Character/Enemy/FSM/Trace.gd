@@ -1,35 +1,33 @@
 extends BaseState
 
-@export var DefaultState:BaseState
-@export var HateArea:Area2D
-@export var Hitbox:Area2D
+@export var DefaultState: BaseState
+@export var HateArea: Area2D
+@export var Hitbox: Area2D
+var Current: BaseState
+var Previous: BaseState
 
-var Attacking:bool = false
-var StateController = BaseStateManager.new()
+func _on_enter():
+	Current = DefaultState
+	Current.enter()
 
-func _ready() -> void:
-	StateController.set_physics_process(false)
-	StateController.StateArray = get_children()
-	StateController.Current = DefaultState
+func _on_do(delta: float):
+	for body in Hitbox.get_overlapping_bodies():
+		if body.is_in_group("Hero"):
+			_check("target_in_range")
+			break
+	Current.do(delta)
 
-
-func do(_delta: float):
-	check()
-	StateController.Current.do(_delta)
-
-func check():
-	if Attacking:
+func switch_state(next_state: BaseState):
+	if next_state == null or next_state == Current:
 		return
+	Previous = Current
+	Current.exit()
+	Current = next_state
+	Current.enter()
 
-	if Hitbox.has_overlapping_bodies():
-		for body in Hitbox.get_overlapping_bodies():
-			if body.is_in_group("Hero"):
-				Attacking = true
-				StateController.change_state(0)
-				return
+func _check(signal_name: String):
+	if Current.NextStates.has(signal_name):
+		switch_state(Current.NextStates[signal_name] as BaseState)
 
-	if StateController.Current.name != "Move":
-		StateController.change_state(1)
-
-func _on_attack(i: bool) -> void:
-	Attacking = i
+func _on_exit():
+	Current.exit()

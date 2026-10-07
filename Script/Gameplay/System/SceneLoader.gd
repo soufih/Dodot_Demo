@@ -1,12 +1,12 @@
 extends Node
 
-const LOADING_SCREEN_PATH := "res://UI/Loading_screen/loading_screen.tscn"
-const LEVEL_SCENE_PATH := "res://Scene/Map/Level/LevelScene.tscn"
-const HOME_SCENE_PATH := "res://Scene/Map/Home/Home.tscn"
-const HERO_SCENE_PATH := "res://Scene/Hero/Hero.tscn"
+const LOADING_SCREEN_PATH := Path.LOADING_SCREEN_SCENE
+const LEVEL_SCENE_PATH := Path.LEVEL_SCENE
+const HOME_SCENE_PATH := Path.HOME_SCENE
+const HERO_SCENE_PATH := Path.HERO_SCENE
 const LEVEL_UI_PATHS: Array[String] = [
-	"res://UI/Bag_UI/inventory_ui.tscn", "res://UI/Menu_ui/menu_ui.tscn",
-	"res://UI/Death_UI/death_ui.tscn"
+	Path.INVENTORY_UI_SCENE, Path.MENU_UI_SCENE,
+	Path.DEATH_UI_SCENE, Path.END_UI_SCENE
 ]
 
 # 强引用保留动态场景，避免房间实例化后 PackedScene 被释放并重新解析。
@@ -87,6 +87,7 @@ static func load_next_scene(next_scene_path: String, wait_for_input: bool = true
 	var layer := CanvasLayer.new()
 	layer.name = "SceneLoadingLayer"
 	layer.layer = 100
+	layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	# 原场景由 SceneTree 在切换成功后释放；失败时仍可返回。
 	tree.current_scene.add_child(layer)
 	layer.add_child(loading_screen)

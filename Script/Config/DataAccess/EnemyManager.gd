@@ -10,19 +10,19 @@ func load_enemy():
 func load_enemy_porperty():
 	if ReferEnemyPorpertyLog != null:
 		return
-	ReferEnemyPorpertyLog = load("uid://2srf8bdj186") as EnemyPorpertyLog
+	ReferEnemyPorpertyLog = load(Path.ENEMY_PORPERTY_CATALOG_RESOURCE) as EnemyPorpertyLog
 	if !ReferEnemyPorpertyLog:
 		push_error("ERRO!WHEN LOAD ENEMY PORPERTY")
 
 #获取敌人
-func get_enemies_of_level(Level:int)->Array:
+func get_enemies_of_level(level:int)->Array:
 	var enemies:Array = []
 	if ReferEnemyPorpertyLog:
 		var result:Dictionary = ReferEnemyPorpertyLog.Log
 		if !result:
 			return enemies
 		for enemy in result:
-			if result[enemy].Habitat == Level:
+			if result[enemy].Habitat == level:
 				enemies.append(result[enemy])
 	return enemies
 
@@ -40,29 +40,3 @@ func get_dropped_item(target:String)->Array[droppedItemConfig]:
 		if porperty:
 			return porperty.Drop
 	return []
-
-#掉落物品
-func drop(Target:String, Pos:Vector2):
-	var Items:Array[droppedItemConfig] = get_dropped_item(Target)
-	var result:Array = []
-
-	for Item:droppedItemConfig in Items:
-		
-		var id = Item.id
-		var range_x = Item.range_x
-		var range_y = Item.range_y
-		var possbility = Item.possbility
-		#判断能否掉落
-		if randf_range(0, 100) > possbility:
-			continue
-
-		var amount = randi_range(range_x, range_y)
-		result.append({
-			"id":id, 
-			"amount":amount
-		})
-
-	if result.size() == 0:
-		return
-
-	DroppedItemSystem.create_dropped_item(result, Pos)

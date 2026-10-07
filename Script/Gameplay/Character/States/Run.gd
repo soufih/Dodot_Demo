@@ -1,6 +1,6 @@
 extends BaseState
 
-func enter():
+func _on_enter():
 	AniPlayer.play("Run")
 
-func do(_delta: float):
+func _on_do(_delta: float):

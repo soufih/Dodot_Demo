@@ -26,6 +26,7 @@ func try_interact() -> void:
 	current_interactable = target
 
 	target.interact(owner)
+	detector.dismiss_interaction_prompt(target)
 
 
 func _on_input_controller_interact_pressed() -> void:

@@ -8,10 +8,10 @@ extends BaseState
 var HasBarrier:bool = false
 var Direct = Vector2i.RIGHT.x
 
-func enter():
+func _on_enter():
 	AniPlayer.play("Move")
 	
-func do(_delta):
+func _on_do(delta: float):
 	for body in Hatebox.get_overlapping_bodies():
 		if body.is_in_group("Hero"):
 			var HeroPos = body.global_position
@@ -21,7 +21,7 @@ func do(_delta):
 			else:
 				Entity.scale.x = -abs(Entity.scale.x)
 			
-			if HeroPos > SelfPos:
+			if HeroPos.x > SelfPos.x:
 				Direct = 1
 			else:
 				Direct = -1
@@ -31,6 +31,6 @@ func do(_delta):
 		Direct= -Direct
 
 	Entity.velocity.x = Direct*Speed
-	Entity.velocity.y += DataLoader.gravity
+	Entity.velocity.y += DataLoader.gravity * delta
 
 	Entity.move_and_slide()

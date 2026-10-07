@@ -4,7 +4,7 @@ signal loading_failed
 
 @export var wait_for_input: bool = true
 
-const SceneLoading = preload("res://Script/Gameplay/System/SceneLoader.gd")
+const SceneLoading = preload(Path.SCENE_LOADER_SCRIPT)
 
 @onready var Bar = $ProgressBar
 @onready var progress_number_Lb = $progress_number_Lb
@@ -21,7 +21,7 @@ var _previous_ui_ban := false
 
 
 func _ready() -> void:
-	_level_info = LevelInformation.get_level_info()
+	_level_info = CurrentLevel.get_level_info()
 	_previous_ui_ban = UIManager.is_banned
 	UIManager.ban_ui_input()
 	var paths: Array[String] = [next_scene]
@@ -38,8 +38,8 @@ func _ready() -> void:
 			return
 	elif next_scene == SceneLoading.HOME_SCENE_PATH:
 		var home_paths: Array[String] = [SceneLoading.HERO_SCENE_PATH,
-			"uid://m6qc3rqc8yuq", "uid://cyy1mus77qou1", "uid://cd2xfe7rysnxr",
-			"uid://hmacpsbsf4q8", "uid://baysbd0v7e3fm"]
+			Path.INVENTORY_UI_SCENE, Path.MENU_UI_SCENE, Path.WAREHOUSE_UI_SCENE,
+			Path.EQUIPMENT_ENHANCEMENT_UI_SCENE, Path.MAP_SCENE]
 		if not await SceneLoading.prepare_scenes(home_paths, get_tree(), _on_dependency_progress):
 			_fail("家园资源加载失败。")
 			return
@@ -77,7 +77,7 @@ func _switch_scene() -> void:
 		return
 	_switching = true
 	if next_scene == SceneLoading.LEVEL_SCENE_PATH:
-		LevelInformation.set_level_info(_level_info.level, _level_info.levelName)
+		CurrentLevel.set_level_info(_level_info.level, _level_info.levelName)
 	var error := get_tree().change_scene_to_packed(_packed_scene)
 	if error != OK:
 		_switching = false

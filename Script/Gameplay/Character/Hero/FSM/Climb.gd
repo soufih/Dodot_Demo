@@ -3,9 +3,10 @@ extends BaseState
 var ladder: ClimbableLadder
 var interaction_controller: InteractionController
 var sprite: AnimatedSprite2D
+var _previous_flip_h := false
 
 
-func enter():
+func _on_enter():
 	interaction_controller = Entity.get_node_or_null("InteractionController") as InteractionController
 	if interaction_controller == null:
 		Entity.emit_signal("end_climb")
@@ -15,17 +16,21 @@ func enter():
 		Entity.emit_signal("end_climb")
 		return
 	interaction_controller.interacting = true
+	Entity.climb_started.emit()
 	Entity.velocity = Vector2.ZERO
 	Entity.global_position.x = ladder.get_climb_axis_x()
 	sprite = Entity.get_node_or_null("HeroSpirte") as AnimatedSprite2D
+	if sprite != null:
+		_previous_flip_h = sprite.flip_h
 	AniPlayer.play("Climb")
 	# Climb 动画通过方法轨道启动 AnimatedSprite2D，先应用轨道再暂停精灵。
 	AniPlayer.advance(0.0)
 	if sprite != null:
+		sprite.flip_h = ladder.climb_flip_h
 		sprite.pause()
 
 
-func do(_delta: float):
+func _on_do(_delta: float):
 	if not is_instance_valid(ladder) or not is_instance_valid(interaction_controller) \
 		or not is_instance_valid(interaction_controller.detector) \
 		or not interaction_controller.detector.get_overlapping_areas().has(ladder):
@@ -48,12 +53,14 @@ func do(_delta: float):
 		Entity.emit_signal("end_climb")
 
 
-func exit():
+func _on_exit():
 	Entity.velocity = Vector2.ZERO
 	if sprite != null:
 		sprite.pause()
+		sprite.flip_h = _previous_flip_h
 	if is_instance_valid(interaction_controller):
 		interaction_controller.interacting = false
 		interaction_controller.current_interactable = null
 	ladder = null
 	sprite = null
+	Entity.climb_finished.emit()

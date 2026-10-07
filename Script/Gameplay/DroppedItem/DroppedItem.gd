@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name DroppedItem
 
-@onready var Spirte:Sprite2D = $Sprite2D
+@onready var Spirte:Sprite2D = $DropGlow
 @onready var PickupArea:Area2D = $PickupArea
 
 @export var min_force: float = 400
@@ -12,6 +12,8 @@ var Launched:bool = false
 
 #将掉落物弹射出去
 func _ready() -> void:
+	Spirte.set_instance_shader_parameter("phase_offset", randf_range(0.0, TAU))
+
 	var angle_deg = randf_range(60, 120)
 	var angle_rad = deg_to_rad(angle_deg)
 	
@@ -42,6 +44,9 @@ func get_items()->Array:
 
 #拾取掉落物
 func _on_pickup_area_body_entered(body: Node2D) -> void:
+	# 死亡动画期间仍可能发生重叠，遗体不能再次拾取物品。
+	if body is HeroProperty and body.CurrentHealth <= 0.0:
+		return
 	if body.is_in_group("Hero"):
 		var remain:Vector2i
 		var tmp_queue:Array

@@ -2,9 +2,9 @@ extends Resource
 class_name EnemyConfig
 
 @export var Name: String
-@export var Level:ENUM.EnemyLevel
+@export var EnemyLevel:ENUM.EnemyLevel
 @export var Habitat: int
-@export var Path:String = ""
+@export var EnemyPath:String = ""
 
 @export var MaxHealth: float
 @export var MaxToughness: float

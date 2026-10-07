@@ -1,5 +1,5 @@
 extends BaseState
 
 
-func enter():
+func _on_enter():
 	AniPlayer.play("Idle")

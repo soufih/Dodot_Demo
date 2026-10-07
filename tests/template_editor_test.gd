@@ -1,7 +1,7 @@
 extends Node
 
 func _ready() -> void:
-	var editor = load("res://Scene/Map/Template/Template1.tscn").instantiate()
+	var editor = load(Path.TEMPLATE_EDITOR_SCENE).instantiate()
 	editor.EnableDrawing = false
 	add_child(editor)
 	# 房间类型和显示颜色仅由导出字典决定。
@@ -19,7 +19,7 @@ func _ready() -> void:
 	editor.RoomTypes.erase(Color.WHITE)
 	editor._refresh_types()
 	var original_count: int = editor.get_used_cells().size()
-	var path := "res://tests/template_roundtrip.tmp.json"
+	var path := Path.TEMPLATE_ROUNDTRIP_TMP_FILE
 	assert(editor.save_level_template(path))
 	var records: Array = editor.LevelPorperty.duplicate(true)
 	editor.clear()
@@ -28,7 +28,7 @@ func _ready() -> void:
 	assert(editor.save_level_template(path))
 	assert(editor.LevelPorperty == records)
 	# 旧模板兼容。
-	assert(editor.load_level_template("res://Rescource/LevelTemplate/Level2"))
+	assert(editor.load_level_template(Path.LEVEL2_TEMPLATE))
 	# 非法文件不改变现有画布。
 	var before: Array = editor.get_used_cells()
 	var file := FileAccess.open(path, FileAccess.WRITE)

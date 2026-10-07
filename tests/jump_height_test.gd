@@ -1,7 +1,7 @@
 extends Node
 
-const HERO_SCENE = preload("res://Scene/Hero/Hero.tscn")
-const LADDER_SCENE = preload("res://Scene/Map/MapComponent/Climbables/ladder.tscn")
+const HERO_SCENE = preload(Path.HERO_SCENE)
+const LADDER_SCENE = preload(Path.LADDER_SCENE)
 
 var hero: HeroProperty
 var ladder: ClimbableLadder

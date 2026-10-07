@@ -7,15 +7,18 @@ signal move_left_released
 signal move_right_pressed
 signal move_right_released
 signal jump_pressed
+signal dash_pressed
 signal switch_weapon_pressed
 signal input_banned
 signal interact_pressed
 
 @export_range(0.0, 1.0, 0.01) var input_buffer_duration: float = 1
+@export var _hero: HeroProperty
 
 var buffered_actions: Dictionary = {}
 var move_direction := 0.0
 var is_banned:bool = false
+@onready var _skills: SkillController = get_parent().get_node("SkillController")
 
 func _ready() -> void:
 	SignalBus.input_control.connect(ban_input)
@@ -48,8 +51,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("MoveRight"):
 		move_right_released.emit()
 	
-	if event.is_action_pressed("Jump"):
-		buffer_action("Jumping")
+	if event.is_action_pressed("Dash") and not event.is_echo() and _hero.is_ability_enabled(&"dash") and _skills.is_skill_ready(&"dash"):
+		dash_pressed.emit()
+	if event.is_action_pressed("Jump") and not event.is_echo() and _hero.can_continue_jump():
 		jump_pressed.emit()
 	
 	if event.is_action_pressed("SwitchWeapon"):

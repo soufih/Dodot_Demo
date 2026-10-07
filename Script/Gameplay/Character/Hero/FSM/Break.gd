@@ -1,7 +1,7 @@
 extends BaseState
 
 
-func enter():
+func _on_enter():
 	Entity.god_mode.emit()
 	AniPlayer.play("Break")
 	await AniPlayer.animation_finished

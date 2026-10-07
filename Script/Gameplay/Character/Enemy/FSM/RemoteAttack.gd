@@ -1,47 +1,22 @@
-extends BaseState
-
-signal on_attack(i: bool)
-
-@export var Spirte:AnimatedSprite2D
-@export var Hitbox:Area2D
-var Hero
-
-func enter():
-	Hero = get_tree().get_first_node_in_group("Hero")
-
-func do(_delta):
-	#追踪玩家
-	for body in Hitbox.get_overlapping_bodies():
-		if body.is_in_group("Hero"):
-			var HeroPos = body.global_position
-			var SelfPos = Entity.global_position
-			if Entity.scale.y*(HeroPos.x-SelfPos.x) > 0:
-				Entity.scale.x = abs(Entity.scale.x)
-			else:
-				Entity.scale.x = -abs(Entity.scale.x)
-			
-			if HeroPos > SelfPos:
-				$"../Move".Direct = 1
-			else:
-				$"../Move".Direct = -1
-#
-	#获取玩家位置
-	if Hero:
-		Target = Hero.global_position
-
-	AniPlayer.play("Attack")
-	await AniPlayer.animation_finished
-
-var Target:Vector2
+extends "res://Script/Gameplay/Character/Enemy/FSM/Attack.gd"
 
 @export var BulletData: ElementaryBullet
 @export var BulletSpeed: float = 500.0
+var Target: Vector2
+
+func _on_enter():
+	var hero := get_tree().get_first_node_in_group("Hero") as Node2D
+	if is_instance_valid(hero):
+		Target = hero.global_position
+		if Entity.scale.y * (Target.x - Entity.global_position.x) > 0:
+			Entity.scale.x = abs(Entity.scale.x)
+		else:
+			Entity.scale.x = -abs(Entity.scale.x)
+	await super._on_enter()
 
 func spawn_bullet():
-	var origin: Vector2 = $"../../../BulletSpawn".global_position
+	if not _active:
+		return
+	var origin: Vector2 = Entity.get_node("BulletSpawn").global_position
 	BulletPoolManager.spawn(BulletData,
 		Entity, origin, origin.direction_to(Target), BulletSpeed, "Hero")
-func _on_hitbox_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Hero"):
-		await Spirte.animation_finished
-		get_parent().Attacking = false

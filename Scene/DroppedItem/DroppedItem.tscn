@@ -1,13 +1,30 @@
 [gd_scene format=3 uid="uid://brjmaexsiviws"]
 
 [ext_resource type="Script" uid="uid://riy0uqqdiuno" path="res://Script/Gameplay/DroppedItem/DroppedItem.gd" id="1_s7arg"]
-[ext_resource type="Texture2D" uid="uid://b4acdgasrsxit" path="res://Rescource/Static/Material/item320.png" id="2_xr2wx"]
+[ext_resource type="Shader" uid="uid://bedv4mhwj8g2g" path="res://Shader/drop_glow.gdshader" id="2_glow_shader"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5c511"]
 radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vj50y"]
 radius = 15.0
+
+[sub_resource type="ShaderMaterial" id="GlowMaterial"]
+shader = ExtResource("2_glow_shader")
+shader_parameter/glow_color = Color(1, 0.94, 0.84, 1)
+shader_parameter/pulse_speed = 1.8
+shader_parameter/brightness = 0.65
+shader_parameter/ray_strength = 0.55
+shader_parameter/contraction_speed = 0.33333333
+shader_parameter/contraction_amount = 0.8
+
+[sub_resource type="Gradient" id="WhiteGradient"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GlowTexture"]
+gradient = SubResource("WhiteGradient")
+width = 96
+height = 96
 
 [node name="DroppedItem" type="RigidBody2D" unique_id=1581359047]
 collision_layer = 0
@@ -23,13 +40,15 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2040441422]
 shape = SubResource("CircleShape2D_vj50y")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=323005834]
-texture = ExtResource("2_xr2wx")
-
 [node name="FreezeTimer" type="Timer" parent="." unique_id=200549782]
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="DropGlow" type="Sprite2D" parent="." unique_id=1574078698]
+material = SubResource("GlowMaterial")
+scale = Vector2(0.7532811, 0.7532811)
+texture = SubResource("GlowTexture")
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
 [connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]

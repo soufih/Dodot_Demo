@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://dfoj1or42e2pv"]
+
+[ext_resource type="Script" uid="uid://bs3i6q1eehym6" path="res://Script/Config/Model/Skill/SkillDefinition.gd" id="1"]
+[ext_resource type="Script" uid="uid://bjbdq32rjnneq" path="res://Script/Config/Model/Skill/SkillEffect.gd" id="2"]
+[ext_resource type="Script" uid="uid://chd4i60dewp8" path="res://Script/Gameplay/Skill/MultipleJumpEffect.gd" id="4"]
+
+[sub_resource type="Resource" id="AcquireEffect"]
+script = ExtResource("4")
+
+[resource]
+script = ExtResource("1")
+id = &"multiple_jump"
+acquire_effects = Array[ExtResource("2")]([SubResource("AcquireEffect")])

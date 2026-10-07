@@ -4,7 +4,7 @@ var ReferWeaponPorpertyLog:WeaponPorpertyLog
 
 ##加载武器属性日志
 func load_weapon():
-	ReferWeaponPorpertyLog = load("uid://btq5vs0iwj7jm") as WeaponPorpertyLog
+	ReferWeaponPorpertyLog = load(Path.WEAPON_PORPERTY_CATALOG_RESOURCE) as WeaponPorpertyLog
 	if !ReferWeaponPorpertyLog:
 		push_error("ERRO!WHEN LOADING WEAPON")
 

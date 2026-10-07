@@ -26,10 +26,10 @@ texture = ExtResource("1_ceat4")
 [node name="next_item_container" type="PanelContainer" parent="." unique_id=1817005967]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 0
-offset_left = 166.0
-offset_top = -99.0
-offset_right = 196.0
-offset_bottom = -69.0
+offset_left = 153.0
+offset_top = -98.0
+offset_right = 183.0
+offset_bottom = -68.0
 
 [node name="next_item" type="TextureRect" parent="next_item_container" unique_id=649512726]
 layout_mode = 2

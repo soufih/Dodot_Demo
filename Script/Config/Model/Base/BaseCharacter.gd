@@ -103,6 +103,7 @@ func set_character_max_health(MH:float):
 	MaxHealth = MH
 	
 	CurrentHealth = min(MaxHealth, CurrentHealth)
+	health_changed.emit()
 
 ##设置角色当前法力值
 func set_character_current_mana(CM: float):
