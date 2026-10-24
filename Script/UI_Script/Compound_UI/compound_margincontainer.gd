@@ -69,31 +69,3 @@ func _on_item_list_ui_list_slot_pressed(item:Dictionary) -> void:
 ##处理筛选信号
 func _on_item_selector_ui_selector_button_pressed(type: ENUM.ItemType) -> void:
 	item_list_ui.modify_items_list(select_displayed_items())
-
-
-##处理合成逻辑
-func _on_confirm_button_down() -> void:
-	if current_selected_item.id == -1:
-		return
-	print(compound(current_selected_item))
-
-##合成物品
-func compound(item:Dictionary) ->bool:
-	#获取配方
-	var recipe:Dictionary = ResourceManager.get_item_recipe(item.id)
-
-	if recipe.is_empty():  #没有配方
-		return false
-
-	#检查材料是否足够
-	for item_id in recipe:
-		if WarehouseSystem.get_item_amount(item_id) <= 0:
-			return false
-	
-	#扣除材料
-	for item_id in recipe:
-		WarehouseSystem.remove_item_from_warehouse(item_id, recipe[item_id])
-	var remain:Vector2i = BackpackSystem.quick_add_item(item.id, int(item.amount))
-	WarehouseSystem.add_item_to_warehouse(remain.x, remain.y)
-
-	return true

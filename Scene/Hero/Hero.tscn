@@ -2281,7 +2281,7 @@ ignore_time_scale = true
 
 [node name="DropComponent" type="Node2D" parent="." unique_id=1947057522]
 script = ExtResource("drop_component_script")
-show_pickup_mentions = true
+register_debug_drop_service = true
 
 [connection signal="breaked" from="." to="WeaponController" method="_on_hero_breaked"]
 [connection signal="end_attack" from="." to="WeaponController" method="_on_hero_end_attack"]

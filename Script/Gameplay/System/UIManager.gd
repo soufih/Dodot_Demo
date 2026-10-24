@@ -3,7 +3,6 @@ extends Node
 const SceneLoading = preload(Path.SCENE_LOADER_SCRIPT)
 
 var UIList: Array[BaseUI] = []
-var tmp_slot:TmpSlot
 var UILayer: CanvasLayer
 var flotUIlayer: CanvasLayer
 var is_paused: bool = false
@@ -17,23 +16,17 @@ func _ready() -> void:
 
 ##加载UI层配置
 func load_ui_layer_config():
-	var TmpSlotLayer = CanvasLayer.new()
 	UILayer = CanvasLayer.new()
 	UILayer.name = "UILayer"
 	flotUIlayer = CanvasLayer.new()
 	flotUIlayer.name = "flotUIlayer"
 	flotUIlayer.follow_viewport_enabled = true
 	
-	add_child(TmpSlotLayer)
 	add_child(UILayer)
 	add_child(flotUIlayer)	
 	
-	TmpSlotLayer.layer = 100
 	UILayer.layer = 99
 	flotUIlayer.layer = 101
-
-	tmp_slot = preload(Path.TMP_SLOT_SCENE).instantiate()
-	TmpSlotLayer.add_child(tmp_slot)
 
 ##加载UI
 func load_ui(ui_path: String, layer: String) -> BaseUI:
@@ -61,12 +54,6 @@ func _input(event: InputEvent) -> void:
 	if is_paused:
 		return
 
-	if event.is_action_pressed("OpenBackpack"):
-		ui_open_backpack()
-
-	if event.is_action_pressed("OpenWarehouse"):
-		ui_open_warehouse()
-	
 	if event.is_action_pressed("OpenEquipmentEnhancement"):
 		ui_open_equipment_enhancement()
 
@@ -164,23 +151,6 @@ func open_pause_menu():
 	if pause_menu:
 		pause_menu.visible = !pause_menu.visible
 		is_paused = pause_menu.visible
-
-##打开/关闭背包
-func ui_open_backpack():
-	if !UILayer.has_node("inventory_ui"):
-		return
-	var inventory_ui = UILayer.get_node("inventory_ui") as BaseUI
-
-	if inventory_ui:
-		inventory_ui.visible = !inventory_ui.visible
-
-##打开/关闭仓库
-func ui_open_warehouse():
-	if !UILayer.has_node("warehouse_ui"):
-		return
-	var warehouse_ui = UILayer.get_node("warehouse_ui") as BaseUI
-	if warehouse_ui:
-		warehouse_ui.visible = !warehouse_ui.visible
 
 ##打开/关闭装备强化界面
 func ui_open_equipment_enhancement():

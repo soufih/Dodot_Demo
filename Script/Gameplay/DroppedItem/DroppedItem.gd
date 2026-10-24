@@ -2,12 +2,10 @@ extends RigidBody2D
 class_name DroppedItem
 
 @onready var Spirte:Sprite2D = $DropGlow
-@onready var PickupArea:Area2D = $PickupArea
 
 @export var min_force: float = 400
 @export var max_force: float = 500
 
-var Items:Array
 var Launched:bool = false
 
 #将掉落物弹射出去
@@ -33,34 +31,3 @@ func _process(_delta: float) -> void:
 
 func _on_freeze_timer_timeout() -> void:
 	Launched = true
-
-#向掉落物中添加物品
-func add_item(item_list: Array):
-	Items = item_list
-
-#获取掉落物
-func get_items()->Array:
-	return Items
-
-#拾取掉落物
-func _on_pickup_area_body_entered(body: Node2D) -> void:
-	# 死亡动画期间仍可能发生重叠，遗体不能再次拾取物品。
-	if body is HeroProperty and body.CurrentHealth <= 0.0:
-		return
-	if body.is_in_group("Hero"):
-		var remain:Vector2i
-		var tmp_queue:Array
-		#将物品加入背包
-		for item in Items:
-			remain = BackpackSystem.quick_add_item(item.id, item.amount)
-			if remain.y == 0:
-				tmp_queue.append(item)#加入待移除队列
-			else:
-				Items[item.id] = remain.y
-
-		#移除标记物品
-		for i in tmp_queue:
-			Items.erase(i)
-		
-		if Items.is_empty():
-			queue_free()

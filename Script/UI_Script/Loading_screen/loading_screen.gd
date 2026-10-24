@@ -38,7 +38,7 @@ func _ready() -> void:
 			return
 	elif next_scene == SceneLoading.HOME_SCENE_PATH:
 		var home_paths: Array[String] = [SceneLoading.HERO_SCENE_PATH,
-			Path.INVENTORY_UI_SCENE, Path.MENU_UI_SCENE, Path.WAREHOUSE_UI_SCENE,
+			Path.MENU_UI_SCENE,
 			Path.EQUIPMENT_ENHANCEMENT_UI_SCENE, Path.MAP_SCENE]
 		if not await SceneLoading.prepare_scenes(home_paths, get_tree(), _on_dependency_progress):
 			_fail("家园资源加载失败。")
