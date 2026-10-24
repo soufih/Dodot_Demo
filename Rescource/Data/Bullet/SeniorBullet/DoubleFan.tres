@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="SeniorBullet" format=3 uid="uid://ceba4bjdgxh40"]
 
 [ext_resource type="SpriteFrames" uid="uid://bp80ydf070n5q" path="res://Rescource/Data/Animation/Bullet/PurpleWave.tres" id="1_nentj"]
-[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/BulletConfig/BulletAction.gd" id="2_tql7m"]
+[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/Bullet/BulletAction.gd" id="2_tql7m"]
 [ext_resource type="Script" uid="uid://d2oquc4s4g1tr" path="res://Script/Gameplay/Bullet/BulletAction/FanshapedBullet.gd" id="3_khm0d"]
 [ext_resource type="Script" uid="uid://dsge07ylj0eld" path="res://Script/Gameplay/Bullet/BulletAction/BulletExit.gd" id="5_y4ppt"]
-[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/BulletConfig/ElementaryBullet.gd" id="6_8uyg0"]
+[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/Bullet/ElementaryBullet.gd" id="6_8uyg0"]
 [ext_resource type="Resource" uid="uid://cs5jf6fgf22hx" path="res://Rescource/Data/Bullet/SeniorBullet/FanshapedBullet.tres" id="7_l7opy"]
-[ext_resource type="Script" uid="uid://dv8igopgcbupc" path="res://Script/Config/Model/BulletConfig/SeniorBullet.gd" id="8_4x4og"]
+[ext_resource type="Script" uid="uid://dv8igopgcbupc" path="res://Script/Config/Model/Bullet/SeniorBullet.gd" id="8_4x4og"]
 
 [sub_resource type="Resource" id="Resource_wlikx"]
 script = ExtResource("3_khm0d")

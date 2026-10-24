@@ -5,10 +5,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4rh3"]
 size = Vector2(51.301605, 61.786407)
 
-[node name="Ladder" type="Area2D" unique_id=1109416985]
+[node name="Ladder" type="Area2D" unique_id=1109416985 node_paths=PackedStringArray("collision")]
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_qbd2s")
+collision = NodePath("CollisionShape2D")
 interaction_name = "攀爬梯子"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1148660085]

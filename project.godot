@@ -46,7 +46,7 @@ BackpackSystem="*res://Script/Gameplay/System/BackpackSystem.gd"
 EquipmentSlotSystem="*res://Script/Gameplay/System/EquipmentSlotSystem.gd"
 WarehouseSystem="*res://Script/Gameplay/System/WarehouseSystem.gd"
 DamageSystem="*res://Script/Gameplay/System/DamageSystem.gd"
-DebugTool="*res://Script/Gameplay/Util/DebugTool.gd"
+DebugTool="*res://Script/Gameplay/Debug/DebugTool.gd"
 SignalBus="*uid://cj08qm13g6joy"
 CurrentLevel="*res://Script/Gameplay/Map/CurrentLevel.gd"
 

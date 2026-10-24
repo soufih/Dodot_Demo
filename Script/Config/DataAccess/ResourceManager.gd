@@ -5,24 +5,6 @@ var LoadedScenes: Dictionary = {}
 var loadedTextures: Dictionary = {}
 
 var ReferItemCatalog: ItemCatalog
-var SkillConfigCache: Dictionary[StringName, SkillDefinition] = {}
-
-func load_skill_catalog() -> void:
-	var catalog := load(Path.SKILL_CATALOG_RESOURCE) as SkillCatalog
-	SkillConfigCache.clear()
-	if catalog == null:
-		push_error("Failed to load SkillCatalog")
-		return
-	for definition in catalog.Skills:
-		if definition == null or definition.id == &"" or SkillConfigCache.has(definition.id):
-			push_error("Invalid or duplicate skill in SkillCatalog")
-			continue
-		SkillConfigCache[definition.id] = definition
-
-func get_skill_config(id: StringName) -> SkillDefinition:
-	if SkillConfigCache.is_empty():
-		load_skill_catalog()
-	return SkillConfigCache.get(id)
 
 ##加载物品配置表
 func load_item_catalog():

@@ -20,7 +20,6 @@ func try_interact() -> void:
 		return
 
 	if not target.can_interact(owner):
-
 		return
 
 	current_interactable = target

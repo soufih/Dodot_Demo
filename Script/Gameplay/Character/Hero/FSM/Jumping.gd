@@ -1,7 +1,5 @@
 extends BaseState
 
-
-
 @export_range(0.1, 10000.0, 0.1, "or_greater") var MinJumpHeight: float = 20.0
 @export_range(0.1, 10000.0, 0.1, "or_greater") var MaxJumpHeight: float = 30.0
 

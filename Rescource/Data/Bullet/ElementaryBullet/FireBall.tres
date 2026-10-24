@@ -2,8 +2,8 @@
 
 [ext_resource type="SpriteFrames" uid="uid://bs467b57jjy8y" path="res://Rescource/Data/Animation/Bullet/FireBall.tres" id="1_wvs5r"]
 [ext_resource type="Shape2D" uid="uid://8ay1wdcqup1k" path="res://Rescource/Data/CollisionShape/Bullet/FireBall.tres" id="2_ux7ot"]
-[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/BulletConfig/BulletAction.gd" id="3_1261r"]
-[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/BulletConfig/ElementaryBullet.gd" id="3_s4t7n"]
+[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/Bullet/BulletAction.gd" id="3_1261r"]
+[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/Bullet/ElementaryBullet.gd" id="3_s4t7n"]
 [ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Config/Model/DamagePorperty/DamagePorperty.gd" id="4_hbqu1"]
 [ext_resource type="Script" uid="uid://dnri5pqud11xu" path="res://Script/Gameplay/Bullet/BulletAction/PlayAni.gd" id="5_1261r"]
 [ext_resource type="Script" uid="uid://dsge07ylj0eld" path="res://Script/Gameplay/Bullet/BulletAction/BulletExit.gd" id="5_hbqu1"]

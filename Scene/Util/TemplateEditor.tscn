@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c5btmj4x5ov78"]
 
-[ext_resource type="Script" uid="uid://coj4te80mudld" path="res://Script/Gameplay/Util/TemplateGenerator.gd" id="1_rknsc"]
+[ext_resource type="Script" uid="uid://coj4te80mudld" path="res://Script/Gameplay/Utils/TemplateGenerator.gd" id="1_rknsc"]
 
 [node name="TileMapLayer" type="TileMapLayer" unique_id=299241852]
 script = ExtResource("1_rknsc")

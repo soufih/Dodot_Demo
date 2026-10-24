@@ -1,4 +1,6 @@
+class_name StateManager
 extends Node
+
 signal state_changed(previous: BaseState, current: BaseState)
 
 @onready var _InputController = $"../InputController"
@@ -86,6 +88,8 @@ func _on_skill_control_requested(event: StringName) -> void:
 		switch_state(Current.NextStates[String(event)], false)
 
 
-func _check(signalName:String):
+func _check(signalName:String)->bool:
 	if Current.NextStates.has(signalName):
 		switch_state(Current.NextStates.get(signalName), signalName != "breaked" and signalName != "death")
+		return true
+	return false

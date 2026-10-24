@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bvi0ayi6h1chi"]
-
-[ext_resource type="Script" uid="uid://81afhtjyhh8q" path="res://tests/bullet_pool_test.gd" id="1"]
-
-[node name="BulletPoolTest" type="Node" unique_id=1784234405]
-script = ExtResource("1")

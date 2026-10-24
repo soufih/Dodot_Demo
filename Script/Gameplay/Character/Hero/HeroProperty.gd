@@ -62,11 +62,10 @@ func _update_jump_limit() -> void:
 	MaxJumpCount = maximum
 	_set_jump_count(previous_remaining + maximum - previous_max)
 
-@onready var ani: AnimationPlayer = $PlayerAnimations
-@onready var Spirte: AnimatedSprite2D = $HeroSpirte
-@onready var WeaponPivot:Node2D = $WeaponController/WeaponPivot
-@onready var _InputController:InputController = $InputController
-
+@export var ani: AnimationPlayer
+@export var Spirte: AnimatedSprite2D
+@export var WeaponPivot:Node2D
+@export var _InputController:InputController
 @export var GodModeTimer: float
 @export var mainCamera: Camera2D
 @export var InteractBox:Area2D
@@ -88,6 +87,7 @@ var CurrentJumpCount: int = 1
 @export var safe_fall_speed = 800  # 安全下落速度
 @export var max_fall_speed = 1500  # 最大下落速度
 @export var base_damage = 10  # 基础伤害
+
 
 func _ready() -> void:
 	process_physics_priority = 90

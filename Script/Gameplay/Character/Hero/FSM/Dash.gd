@@ -1,11 +1,8 @@
 extends BaseState
 
-
-const Motion = preload(Path.MOTION_UTIL_SCRIPT)
-
-@export_range(0.1, 10000.0, 0.1, "or_greater") var speed := 900.0
+@export_range(0.1, 10000.0, 0.1, "or_greater") var speed := 900
 ## 冲刺距离（像素）；实际持续时间由距离 / 速度计算。
-@export_range(0.0, 10000.0, 0.1, "or_greater") var distance := 162.0
+@export_range(0.0, 10000.0, 0.1, "or_greater") var distance := 300
 var remaining_duration := 0.0
 var initial_velocity := Vector2.ZERO
 
@@ -25,16 +22,13 @@ func _on_enter() -> void:
 func _on_do(delta: float) -> void:
 	if delta <= 0.0:
 		return
-	if _InputController.is_banned or not Entity.is_ability_enabled(&"dash"):
-		finish()
-		return
 	# 移动后调用工具检测碰撞，由状态发出结束信号。
-	var speed := Entity.velocity.x
-	Entity.velocity.x = speed * minf(delta, remaining_duration) / delta
+	var _speed := Entity.velocity.x
+	Entity.velocity.x = _speed * minf(delta, remaining_duration) / delta
 	Entity.move_and_slide()
-	Entity.velocity.x = speed
+	Entity.velocity.x = _speed
 	remaining_duration = maxf(0.0, remaining_duration - delta)
-	if Motion.hit_wall(Entity) or remaining_duration <= 0.0:
+	if Entity.is_on_wall() or remaining_duration <= 0.0:
 		finish()
 
 func finish() -> void:

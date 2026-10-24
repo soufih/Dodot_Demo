@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dkpfad1e406sr" path="res://Scene/Map/Barrier.tscn" id="5_dkyxa"]
 [ext_resource type="PackedScene" uid="uid://x1dfb4rvq5v" path="res://Scene/Map/MapComponent/ladder.tscn" id="7_dsbgy"]
 [ext_resource type="PackedScene" path="res://Scene/Map/MapComponent/CameraBoundary.tscn" id="8_7drta"]
-[ext_resource type="PackedScene" uid="uid://debrsbk4rnn23" path="res://Scene/Enemy/Enemy2.tscn" id="9_q6y15"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0qttu"]
 texture = ExtResource("2_hly1h")
@@ -611,8 +610,6 @@ position = Vector2(-101, -173)
 scale = Vector2(0.14554232, -4.9490123)
 
 [node name="CameraBoundary" parent="." unique_id=2145323886 instance=ExtResource("8_7drta")]
+visible = false
 position = Vector2(190, -236)
 scale = Vector2(2.0569677, 1.7369456)
-
-[node name="Enemy2" parent="." unique_id=1111913208 instance=ExtResource("9_q6y15")]
-position = Vector2(170, -51)

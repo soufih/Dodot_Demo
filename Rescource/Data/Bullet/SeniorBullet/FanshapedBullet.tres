@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="SeniorBullet" format=3 uid="uid://cs5jf6fgf22hx"]
 
-[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/BulletConfig/ElementaryBullet.gd" id="1_54y0a"]
-[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/BulletConfig/BulletAction.gd" id="1_o7c3j"]
+[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/Bullet/ElementaryBullet.gd" id="1_54y0a"]
+[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/Bullet/BulletAction.gd" id="1_o7c3j"]
 [ext_resource type="SpriteFrames" uid="uid://bp80ydf070n5q" path="res://Rescource/Data/Animation/Bullet/PurpleWave.tres" id="1_wh5ea"]
 [ext_resource type="Resource" uid="uid://butaa0i8k8mts" path="res://Rescource/Data/Bullet/ElementaryBullet/FireBall.tres" id="2_3hy1d"]
-[ext_resource type="Script" uid="uid://dv8igopgcbupc" path="res://Script/Config/Model/BulletConfig/SeniorBullet.gd" id="3_w8rtq"]
+[ext_resource type="Script" uid="uid://dv8igopgcbupc" path="res://Script/Config/Model/Bullet/SeniorBullet.gd" id="3_w8rtq"]
 [ext_resource type="Script" uid="uid://d2oquc4s4g1tr" path="res://Script/Gameplay/Bullet/BulletAction/FanshapedBullet.gd" id="5_wlikx"]
 
 [sub_resource type="Resource" id="Resource_o7c3j"]

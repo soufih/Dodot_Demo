@@ -1,13 +1,14 @@
 extends BaseState
 
+@export var interaction_controller: InteractionController
+@export var spirte: AnimatedSprite2D
+
 var ladder: ClimbableLadder
-var interaction_controller: InteractionController
 var sprite: AnimatedSprite2D
 var _previous_flip_h := false
 
 
 func _on_enter():
-	interaction_controller = Entity.get_node_or_null("InteractionController") as InteractionController
 	if interaction_controller == null:
 		Entity.emit_signal("end_climb")
 		return
@@ -19,7 +20,6 @@ func _on_enter():
 	Entity.climb_started.emit()
 	Entity.velocity = Vector2.ZERO
 	Entity.global_position.x = ladder.get_climb_axis_x()
-	sprite = Entity.get_node_or_null("HeroSpirte") as AnimatedSprite2D
 	if sprite != null:
 		_previous_flip_h = sprite.flip_h
 	AniPlayer.play("Climb")

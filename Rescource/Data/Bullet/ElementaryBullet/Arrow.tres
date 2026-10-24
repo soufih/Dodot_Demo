@@ -2,10 +2,10 @@
 
 [ext_resource type="SpriteFrames" uid="uid://dftrbn7t4wyf3" path="res://Rescource/Data/Animation/Bullet/Arrow.tres" id="1_fqdq1"]
 [ext_resource type="Shape2D" uid="uid://baxogt0gau368" path="res://Rescource/Data/CollisionShape/Bullet/Arrow.tres" id="2_jui0m"]
-[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/BulletConfig/BulletAction.gd" id="3_x3bie"]
+[ext_resource type="Script" uid="uid://c6dlrugpiou4e" path="res://Script/Config/Model/Bullet/BulletAction.gd" id="3_x3bie"]
 [ext_resource type="Script" uid="uid://db328o465i0bl" path="res://Script/Config/Model/DamagePorperty/DamagePorperty.gd" id="4_b63y0"]
 [ext_resource type="Script" uid="uid://dsge07ylj0eld" path="res://Script/Gameplay/Bullet/BulletAction/BulletExit.gd" id="4_x3bie"]
-[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/BulletConfig/ElementaryBullet.gd" id="5_4uv6l"]
+[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/Bullet/ElementaryBullet.gd" id="5_4uv6l"]
 [ext_resource type="Script" uid="uid://bp0k2t14vuk1k" path="res://Script/Gameplay/Bullet/BulletAction/MakeDamage.gd" id="5_b63y0"]
 
 [sub_resource type="Resource" id="Resource_0g3qe"]

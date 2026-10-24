@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="BulletLog" format=3 uid="uid://dly6hocfxriky"]
 
-[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/BulletConfig/ElementaryBullet.gd" id="1_rj06m"]
-[ext_resource type="Script" uid="uid://dv8igopgcbupc" path="res://Script/Config/Model/BulletConfig/SeniorBullet.gd" id="2_4j70c"]
+[ext_resource type="Script" uid="uid://dv2mids68qkjk" path="res://Script/Config/Model/Bullet/ElementaryBullet.gd" id="1_rj06m"]
+[ext_resource type="Script" uid="uid://dv8igopgcbupc" path="res://Script/Config/Model/Bullet/SeniorBullet.gd" id="2_4j70c"]
 [ext_resource type="Resource" uid="uid://butaa0i8k8mts" path="res://Rescource/Data/Bullet/ElementaryBullet/FireBall.tres" id="2_8haec"]
-[ext_resource type="Script" uid="uid://5fur5ma33m56" path="res://Script/Config/Model/BulletConfig/BulletLog.gd" id="3_8haec"]
+[ext_resource type="Script" uid="uid://5fur5ma33m56" path="res://Script/Config/Model/Bullet/BulletLog.gd" id="3_8haec"]
 [ext_resource type="Resource" uid="uid://bbdlp3w7oyci1" path="res://Rescource/Data/Bullet/ElementaryBullet/PurpleWave.tres" id="3_y11is"]
 [ext_resource type="Resource" uid="uid://du0culh6htgg3" path="res://Rescource/Data/Bullet/ElementaryBullet/Arrow.tres" id="4_pkwc7"]
 [ext_resource type="Resource" uid="uid://cs5jf6fgf22hx" path="res://Rescource/Data/Bullet/SeniorBullet/FanshapedBullet.tres" id="5_y11is"]
