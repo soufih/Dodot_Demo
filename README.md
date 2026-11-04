@@ -1,0 +1,10 @@
+主要系统说明
+
+对于人物状态机：在Hero.tscn场景中，通过在检查器中人物状态的NextStates属性存储转化条件和人物状态的映射表。在StateManager中会存有当前状态的引用，StateManager作为唯一入口检测外部状态转化的请求，当收到请求时会检查当前状态的NextStates并判断是否满足条件。
+
+对于弹幕系统：在res://resource/Data/Catalog路径下，可以通过修改BulletCatalog.tres中的数据项新增弹幕种类或修改现有的弹幕在不同生命周期中的行为，其中最为关键的是Spawned，Moving，Death，Hit数组。其中记录了弹幕在对应生命周期中的行为（BulletAction）序列，注意插入的弹幕行为需要继承BulletAction类。对于Bullet场景，发射器会为Bullet填充数据，BulletController会根据自身弹幕数据，在不同的生命周期顺序执行对应的弹幕行为。
+对于弹幕的生成，采用了池化技术，减少因为生成弹幕产生的性能开销。
+
+对于武器系统：在res://resource/Data/Catalog路径下，可以通过修改WeaponPorpertyCatalog.tres中的数据项新增或修改武器，其中最为关键的是Before Attack,During Attack,After Attack数组，其中记录武器在对应生命周期中的行为（WeaponAction）序列，注意插入的武器行为需要继承WeaponAction类。在Hero场景下，WeaponController会根据当前武器的ID读取WeaponPorpertyCatalog.tres下对应的数据，在不同的生命周期顺序执行对应的武器行为。
+
+对于关卡生成器：其脚本文件位于re://Script/Gameplay/Map下，关卡生成器会读取res://resource/Data/Level/Leveltemplate路径下的模板并随机挑选一个用于生成关卡，生成过程中生成器会根据模板中记录的房间数据挑选满足条件的房间并生成拼接。关卡模板通过TemplateEditor.tscn进行生成或编辑，该场景提供了可视化的方式进行模板的编辑，在该场景的检查器中可以配置房间的种类。
