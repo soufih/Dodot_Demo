@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ckjmu6c38tya0"]
+
+[ext_resource type="Script" uid="uid://chjf8wjiriewn" path="res://tests/inventory/runner.gd" id="1_runner"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryManager.tscn" id="2_manager"]
+
+[node name="InventoryTests" type="Node" unique_id=620215503]
+script = ExtResource("1_runner")
+
+[node name="Manager" parent="." unique_id=507388514 instance=ExtResource("2_manager")]
+
+[node name="OtherManager" parent="." unique_id=2127364496 instance=ExtResource("2_manager")]

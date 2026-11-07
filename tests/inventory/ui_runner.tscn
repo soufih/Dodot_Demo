@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://tests/inventory/ui_spec.gd" id="1_spec"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryLab.tscn" id="2_lab"]
+
+[node name="InventoryUISpec" type="Node"]
+script = ExtResource("1_spec")
+
+[node name="Lab" parent="." instance=ExtResource("2_lab")]

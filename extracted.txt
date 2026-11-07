@@ -1,0 +1,114 @@
+[P:Title] 背包系统设计文档
+[P:Normal] Dodot Demo  |  架构与接口设计  |  v0.3  |  2026年11月4日
+[P:Normal] 本系统以 InventoryManager 统一接收背包操作，由 SlotService 和 GridService 分别持有并管理各自的 InventoryContainer 数据。初始化时指定服务类型，容器统一采用矩阵保存物品占位。本文面向后续开发与评审，明确八个核心类的职责、数据归属、接口语义与一致性约束，并为功能细化保留独立章节。
+[P:Heading 2] 1 设计范围与约定
+[P:Normal] 基础范围包括容器注册与查询、添加、移除、容器内移动与交换，以及跨容器转移与交换。普通背包中的每个物品栈占一个栏位；网格背包中的每个物品栈按配置占用矩形区域。堆叠、拆分、自动整理、装备限制、存档和联网作为后续功能扩展。
+[P:Normal] 本文中的“基础约束”用于保证数据正确；“建议”表示本版本推荐的落地方式；“待细化”表示玩法策略尚未确定。接口为设计签名，不代表已实现代码。
+[P:Heading 2] 2 分层与调用方向
+[TABLE]
+层级 | 组成 | 职责
+表现层 | InventoryUI | 采集输入、显示预览和操作结果，通过 Manager 读写
+应用层 | InventoryManager\nInventoryService\nSlotService 和 GridService | 注册路由、跨容器编排、规则校验、受控提交
+数据层 | InventoryContainer\nItemConfig 和 ItemInstance | 保存容器状态、静态配置和运行实例
+[/TABLE]
+[P:Normal] 调用链：InventoryUI → InventoryManager → InventoryService 的具体实例 → 该 Service 持有的 InventoryContainer。通知链：提交成功 → InventoryManager 发出变化信号 → InventoryUI 重新查询并刷新。
+[P:Heading 2] 3 核心关系
+[P:Normal] SlotService、GridService 继承 InventoryService。每个 Service 实例通过 container 字段独占持有一个 InventoryContainer，其中保存矩阵和物品记录。InventoryContainer 不引用 Service。Manager 维护 container_id → InventoryService 的注册表，通过统一契约路由操作；ItemInstance 通过配置 ID 关联已有 ItemConfig。
+[P:Normal] 持有链为 InventoryManager → InventoryService → InventoryContainer → ItemInstance。同一容器只归属一个 Service，同一 Service 只管理一个容器，禁止两个 Service 共享可写容器。Service 直接操作自己持有的数据，不保存第二份状态；容器不回指 Service 或 Manager，避免循环强引用。
+[P:Heading 1] 4 模块职责与生命周期
+[TABLE]
+模块 | 职责与边界
+InventoryUI | 将点击、拖拽、旋转意图转成 Manager 调用；只维护选中项和拖拽预览等视图状态。不得直接修改数量、坐标或占位。
+InventoryManager | 维护 container_id 到 Service 的注册表；选择服务类型并初始化；提供统一操作和只读查询，协调跨容器事务与成功通知。
+InventoryService | 抽象基类，定义并独占持有 container: InventoryContainer；提供初始化、查询及操作契约，子类覆写规则。数据状态统一保存在 container 中。
+SlotService | 实现单栏占位、栏位边界、占用检查和交换规则；忽略物品的网格尺寸，旋转不改变栏位占用。
+GridService | 计算旋转后的尺寸，校验边界、占用与冲突；维护锚点及占位索引的一致性。
+InventoryContainer | 纯容器数据，保存标识、尺寸、矩阵、物品记录及版本状态。由一个 Service 独占持有，不保存 Service 引用，不负责选择或创建服务。
+ItemConfig | 共享静态物品定义；沿用项目现有 Resource，运行时操作不得修改共享配置。
+ItemInstance | 代表物品实例；保存唯一实例 ID、配置 ID、数量及旋转状态。
+[/TABLE]
+[P:Heading 2] 4 1 生命周期与注册
+[P:Normal] 建议 InventoryManager 作为 Autoload Node；UI 采用场景节点；容器与 Service、ItemInstance 建议使用 RefCounted，具体承载类型在实现时确认。数据生命周期由玩法会话管理，关闭 UI 不应销毁背包数据。
+[P:Normal] 初始化入口建议由 Manager 提供 create_container(id: String, size: Vector2i, service_type: ServiceType) -> R，ServiceType 包含 SLOT 和 GRID。Manager 校验 ID 非空、不重复、尺寸两轴大于零且类型受支持，然后创建对应 Service。Service.initialize(id, size) 创建并持有 InventoryContainer，初始化独立矩阵行及空物品表；全部成功后才注册 Service。初始化失败不保留注册项，已绑定容器的 Service 拒绝重复初始化。注册表只接受已初始化且未被其他注册项绑定的 Service。注销未知 ID 返回 CONTAINER_NOT_FOUND；事务期间禁止注销或替换参与 Service。服务类型初始化后固定，运行时切换须另行设计数据迁移。注销后释放 Manager 对 Service 的引用；关闭 UI 不注销玩法仍需使用的 Service。
+[P:Heading 2] 4 2 查询与通知
+[P:Normal] UI 经 Manager 获取容器快照或只读 DTO，不能获得可写 Dictionary 或可写 ItemInstance。预览检查同样调用 Manager；提交时重新校验，预览通过不等于最终提交成功。
+[P:Normal] 建议提供 container_changed(container_id, revision, changed_ids) 和 operation_failed(code, message) 信号。成功事务提交全部状态后再通知；失败不发内容变化通知。单个容器在一个事务中只增加一次 revision。
+[P:Heading 1] 5 数据模型与不变量
+[P:Heading 2] 5 1 ItemConfig 与现有项目对接
+[P:Normal] 当前 Script/Config/Model/ResourceManager/ItemConfig.gd 已定义 ItemID、ItemName、ItemDiscription、IconTexture、ScenePath、MaxStack、Products、Recipe、MainItemType 和 ItemType。沿用这些字段名，避免直接破坏现有资源。
+[P:Normal] 建议新增 GridSize: Vector2i = Vector2i(1, 1) 和 CanRotate: bool = false。当前配置尚无占位大小字段，新增后需检查旧资源的默认值。基础约束为 GridSize 两轴均大于零，MaxStack 大于零。
+[P:Heading 2] 5 2 ItemInstance
+[TABLE]
+字段 | 语义与约束
+instance_id | 运行时唯一 ID；跨容器完整转移保留 ID；拆分生成新 ID
+config_id | 关联 ItemConfig.ItemID；配置缺失时拒绝写入
+quantity | 整数，1 ≤ quantity ≤ MaxStack；空栈从容器移除
+rotated | 建议使用布尔值表达 0 度和 90 度；尺寸在旋转后交换两轴
+[/TABLE]
+[P:Normal] 一个实例表示一个栈，数量不改变占位面积。位置和所属容器仅在容器记录中保存，避免与实例内的位置字段形成双重数据源。不可堆叠物品的 MaxStack 为 1。
+[P:Heading 2] 5 3 InventoryContainer 与矩阵存储
+[TABLE]
+字段名 | 类型 | 用途 | 初始值与约束
+container_id | String | 容器唯一标识，也是 Manager 注册所属 Service 的路由键。 | 初始化时传入；非空且注册表内唯一，注册后保持不变。
+size | Vector2i | 定义矩阵宽高；x 为列数，y 为行数。 | 初始化时传入，两轴均大于零；运行时扩容规则待细化。
+cells | Array | 二维占位矩阵，按 cells[y][x] 访问；每格保存 instance_id 或 null。 | 初始化为 size.y 行、size.x 列且全部为 null；各行独立。SlotService 每实例占一格，GridService 多格填写同一 ID。
+items | Dictionary | 按 instance_id 索引唯一的物品记录，保存 {instance: ItemInstance, anchor: Vector2i}。 | 初始为空；每个 ID 只对应一条记录。anchor 为左上角坐标，记录须与 cells 在同一事务内更新。
+[/TABLE]
+[P:Normal] cells 记录实际占位，items 保存实例及锚点元数据，二者共同构成容器状态，必须在同一事务内更新。SlotService 对任意 size 均按每个实例占一个格子处理；GridService 按旋转后的配置尺寸占多个格子，各格填写同一 instance_id。普通背包也使用二维坐标，不再使用 (index, 0) 约定；一维栏位可初始化为 Vector2i(capacity, 1)。
+[P:Normal] 矩阵左上角为 (0, 0)，x 向右、y 向下；访问 cells[pos.y][pos.x]。物品以左上角为锚点，GridService 的占位范围为 [x, x+w) × [y, y+h)，SlotService 则为 1×1。点击任意已占格，通过矩阵 ID 查询 items 得到同一实例及锚点；目标位置总是目标锚点。
+[P:Heading 2] 5 4 始终成立的基础约束
+[P:Normal] 同一实例最多属于一个容器；每格最多记录一个实例 ID；矩阵内所有非空 ID 都必须存在于 items。每条 items 记录在矩阵中的覆盖必须恰好符合当前 Service 的占位规则；所有占位都在边界内。操作失败时矩阵、物品记录、数量、方向、位置和版本号均保持原值。跨容器转移前后总数量守恒。
+[P:Heading 1] 6 统一接口设计
+[P:Normal] 以下为 GDScript 风格签名。容器 ID 使用 String，位置统一使用 Vector2i；R 表示统一结果 InventoryResult。抽象类的具体语法由项目引擎版本决定，契约要求保持不变。
+[P:Heading 2] 6 1 InventoryManager
+[P:Normal] create_container(id: String, size: Vector2i, service_type) -> R
+register_container(id: String, service: InventoryService) -> R
+[P:Normal] unregister_container(id:string) -> R
+[P:Normal] get_item_at(id:string, pos: Vector2i) -> Dictionary
+[P:Normal] add_to_container(id:string, item: ItemInstance, pos: Vector2i) -> R
+[P:Normal] remove_from_container(id:string, pos: Vector2i) -> R
+[P:Normal] move_in_container(id:string, from_pos, to_pos) -> R
+[P:Normal] swap_in_container(id:string, a_pos, b_pos) -> R
+[P:Normal] switch_to_container(from_id:string, to_id:string, f_pos, t_pos) -> R
+[P:Normal] swap_between_containers(a_id:string, b_id:string, a_pos, b_pos) -> R
+[P:Normal] can_place(id:string, item, pos, rotated) -> R
+[P:Normal] add_to_container 必须接收待放入的实例；仅容器 ID 和位置不足以描述添加对象。基础版本添加和移除均针对完整实例；移除成功后结果返回已脱离容器的实例，由调用方接管。已归属容器的实例不能通过 add 重复加入。
+[P:Normal] switch_to_container 明确定义为完整转移，目标被占用则失败；交换使用独立接口，不因目标占用而隐式交换或合并。同一容器 ID 的转移转发为 move_in_container。
+[P:Heading 2] 6 2 InventoryService 抽象契约
+[P:Normal] initialize(id: String, size: Vector2i) -> R
+query(pos: Vector2i) -> R
+[P:Normal] validate_add(item: ItemInstance, pos: Vector2i) -> R
+[P:Normal] add(item: ItemInstance, pos: Vector2i) -> R
+[P:Normal] remove(pos: Vector2i) -> R
+[P:Normal] move(from_pos: Vector2i, to_pos: Vector2i) -> R
+[P:Normal] swap(a_pos: Vector2i, b_pos: Vector2i) -> R
+[P:Normal] validate_plan(staged_state) -> R
+[P:Normal] InventoryService 定义 container: InventoryContainer 字段，初始化前为 null，初始化成功后固定绑定。SlotService 和 GridService 继承该字段与初始化契约。Manager 从注册表取得 Service，调用其不带 inventory 参数的操作方法；方法始终针对 self.container。Manager 不持有第二张可写容器表，UI 仅通过 Manager 获取只读结果。跨容器事务由各 Service 提供内部暂存、提交和恢复能力，Manager 负责协调，不直接修改矩阵。暂存矩阵逐行复制，实例可变字段也独立暂存，避免浅拷贝提前修改原状态。
+[P:Heading 2] 6 3 结果结构
+[P:Normal] InventoryResult 建议包含 code、message、changed、affected_ids 和 payload。成功使用 OK；相同位置的移动返回 OK 且 changed=false。查询无物品返回 ITEM_NOT_FOUND，空容器快照仍为成功。
+[P:Normal] 基础错误码：CONTAINER_NOT_FOUND、DUPLICATE_CONTAINER、ITEM_NOT_FOUND、INVALID_POSITION、INVALID_ITEM、OUT_OF_BOUNDS、OCCUPIED、RULE_REJECTED、UNSUPPORTED、STALE_STATE 和 INTERNAL_ERROR。失败结果 changed=false；UI 根据 code 显示本地化反馈。
+[P:Heading 1] 7 操作规则与事务流程
+[P:Heading 2] 7 1 普通背包与网格背包
+[P:Normal] SlotService 添加前检查二维坐标有效、目标格为空及实例有效；无论配置尺寸如何，每个实例仅填写一个 cells[y][x]。移动到空格成功，移到已占格失败；交换需两端均有物品，交换后仍各占一个格子。普通背包的 UI 布局与矩阵坐标对应。
+[P:Normal] GridService 添加前根据配置和方向计算有效宽高，逐格验证边界与矩阵占用。移动时在暂存矩阵中清空该实例旧区域，再验证新位置，因此允许新旧区域重叠。添加、移除与移动同时更新 items 和 cells，实际提交前不得提前清空原始矩阵。
+[P:Normal] 网格交换先在暂存状态中移除双方占位，将 A 放到 B 的原锚点，将 B 放到 A 的原锚点，再检查最终区域与所有其他物品，以及双方新区域是否相互重叠。任何校验失败均不改原状态。
+[P:Heading 2] 7 2 跨容器转移与交换
+[P:Normal] 1 从注册表获取源、目标 Service，分别定位其持有的容器，解析源实例与目标锚点，记录双方 revision；检查 Service 仍已注册，操作期间禁止重入。
+[P:Normal] 2 创建受影响状态的暂存副本或变更计划。转移只移除源实例；交换同时移除双方实例，再按目标 Service 的规则验证完整最终状态。
+[P:Normal] 3 全部校验通过且版本未变时，Manager 协调双方 Service 提交各自容器的矩阵、物品记录及实例方向，保证跨容器原子性。提交期间不 await，不触发 UI 回调，不运行外部玩法逻辑。
+[P:Normal] 4 若提交异常，恢复事务前快照并返回 INTERNAL_ERROR。全部提交成功后更新 revision，再发双方通知；收到任一通知时，查询双方均应看到最终状态。
+[P:Normal] Manager 管理事务锁与执行顺序，各 Service 负责自己容器的计划验证、提交及快照恢复。任一提交异常时，Manager 要求双方 Service 恢复事务前状态。不要依赖“重新调用普通添加”回滚，因为普通添加可能再次触发规则而失败。
+[P:Heading 2] 7 3 旋转与跨类型行为
+[P:Normal] 建议网格旋转保持锚点不变，校验新区域后整体提交。CanRotate 为 false 时拒绝旋转。跨服务类型的容器转移保留实例方向；目标使用 SlotService 时仅占一格，转入使用 GridService 的容器时按保存方向计算占位。是否改为自动恢复默认方向留待玩法确认。
+[P:Heading 2] 7 4 基础行为与后续策略
+[P:Normal] 基础版本对已占用目标统一返回 OCCUPIED，不自动合并、不自动寻位，不自动旋转。新增这些玩法时应使用显式命令或选项，并复用统一事务流程。拖拽取消只清理 UI 预览，因为预览阶段未改变容器数据。
+[P:Heading 2] 8 1 基础验收用例
+[P:Normal] A01 普通背包放入成功后仅目标栏发生变化；重复添加同一实例失败。A02 网格物品点击非锚点格也能正确移除全部占位。A03 网格移动允许与自身旧区域重叠，越界或撞到其他物品时保持原状态。
+[P:Normal] A04 交换不同尺寸物品时，任一方放不下则双方保持原位。A05 SlotService 和 GridService 各持有一个 InventoryContainer，双向转移遵循目标 Service 规则，数量与实例 ID 不变。A06 跨容器失败不改变任一容器 revision，成功通知回调可查询到双方最终状态。
+[P:Normal] A07 关闭再打开 UI 后 Service 及其容器数据保持。A08 注入提交异常时双方 Service 完整恢复矩阵、物品记录、数量和方向。A09 无效 ID、空位置、非法数量和缺失配置返回明确错误。A10 初始化相同 3×2 尺寸的 SlotService、GridService，2×1 物品分别占一格、两格。A11 非法尺寸、未知服务类型、重复初始化和未初始化 Service 注册均被拒绝。A12 矩阵各行独立，移除多格物品后其全部格子清空且其他实例不变。A13 容器无 Service 引用，Manager 注册项指向 Service，两个 Service 不共享同一可写容器。
+[P:Heading 2] 8 2 建议实现顺序
+[P:Normal] 先完成 ItemConfig 扩展、ItemInstance 和结果类型；再实现统一 InventoryContainer 与矩阵初始化；随后实现 InventoryService 的容器持有契约、SlotService 和 GridService；接入 Manager 的服务类型选择、注册、查询和跨容器事务；最后连接 UI 并验证上述用例，再逐项细化扩展功能。
+[P:Heading 2] 8 3 设计变更记录
+[P:Normal] v0.1  2026年11月4日  建立基础分层、接口和事务规则。
+v0.2  2026年11月4日  合并容器为 InventoryContainer，统一矩阵存储并支持初始化时选择服务类型。
+v0.3  2026年11月4日  调整为 Service 独占持有容器，Manager 注册表改为引用 Service，移除容器 service 字段，同步更新初始化、接口、事务及验收规则。
