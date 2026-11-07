@@ -76,19 +76,7 @@ static func load_next_scene(next_scene_path: String, wait_for_input: bool = true
 	var tree := Engine.get_main_loop() as SceneTree
 	if tree == null or tree.current_scene == null:
 		return ERR_UNCONFIGURED
-	if tree.current_scene.has_node("SceneLoadingLayer"):
+	if UIManager.is_open(UIId.LOADING):
 		return ERR_BUSY
-	var scene := get_scene(LOADING_SCREEN_PATH)
-	if scene == null:
-		return ERR_CANT_OPEN
-	var loading_screen := scene.instantiate()
-	loading_screen.set_next_scene(next_scene_path)
-	loading_screen.wait_for_input = wait_for_input
-	var layer := CanvasLayer.new()
-	layer.name = "SceneLoadingLayer"
-	layer.layer = 100
-	layer.process_mode = Node.PROCESS_MODE_ALWAYS
-	# 原场景由 SceneTree 在切换成功后释放；失败时仍可返回。
-	tree.current_scene.add_child(layer)
-	layer.add_child(loading_screen)
-	return OK
+	var loading_screen := UIManager.open(UIId.LOADING, {"next_scene": next_scene_path, "wait_for_input": wait_for_input})
+	return OK if loading_screen != null else ERR_CANT_OPEN

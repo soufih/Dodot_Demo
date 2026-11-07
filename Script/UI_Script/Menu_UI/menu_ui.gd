@@ -2,30 +2,29 @@ extends BaseUI
 
 var save_panel_instance: BaseUI = null
 var load_panel_instance: BaseUI = null
-var setting_panel_instance: BaseUI= null
 
 
 
 func _ready() -> void:
 	begin()
-	# 加载设置场景并实例化
-	setting_panel_instance = UIManager.load_ui(Path.SETTING_PANEL_SCENE, "UILayer") #加载设置面板
-
-func _exit_tree() -> void:
-	setting_panel_instance.queue_free()
+	# 存档功能尚未接入，避免点击空实例。
+	$PanelContainer/MarginContainer/VBoxContainer/Save_Button.disabled = true
+	$PanelContainer/MarginContainer/VBoxContainer/Load_Button.disabled = true
 
 ## 设置
 func _on_setting_pressed() -> void:	
-	setting_panel_instance.show()
+	UIManager.open(UIId.SETTINGS, {}, UIManager.scene_owner(self))
 
 ## 保存
 func _on_save_pressed() -> void:
-	save_panel_instance.show()
+	if is_instance_valid(save_panel_instance):
+		save_panel_instance.show()
 
 ## 加载
 func _on_load_pressed() -> void:
-	load_panel_instance.show()
+	if is_instance_valid(load_panel_instance):
+		load_panel_instance.show()
 
 ## 返回
 func _on_back_pressed() -> void:
-	hide()
+	request_close()

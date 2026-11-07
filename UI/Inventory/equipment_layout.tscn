@@ -1,0 +1,384 @@
+[gd_scene format=3 uid="uid://i385wid5ynd3"]
+
+[ext_resource type="Script" uid="uid://c60fg8rk48jyv" path="res://Script/UI_Script/Inventory/equipment_layout_view.gd" id="1"]
+[ext_resource type="PackedScene" path="res://UI/Inventory/equipment_group.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://UI/Inventory/equipment_slot.tscn" id="3"]
+
+[node name="EquipmentLayout" type="Control" unique_id=523685836]
+custom_minimum_size = Vector2(480, 612)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -6.0
+offset_top = -27.0
+offset_right = 474.0
+offset_bottom = 585.0
+mouse_filter = 1
+script = ExtResource("1")
+metadata/_edit_vertical_guides_ = [463.0, -102.0]
+metadata/_edit_horizontal_guides_ = [36.0, 472.0]
+
+[node name="Weapons" parent="." unique_id=467815025 instance=ExtResource("2")]
+anchors_preset = 0
+offset_right = 480.0
+offset_bottom = 190.0
+
+[node name="Frame" parent="Weapons" index="0"]
+anchors_preset = 15
+offset_right = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" parent="Weapons" index="1"]
+text = "武器 "
+
+[node name="Slots" parent="Weapons" index="2"]
+anchors_preset = 15
+offset_left = 17.0
+offset_top = 32.0
+offset_right = 17.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainWeapon" parent="Weapons/Slots" index="0" unique_id=614991698 instance=ExtResource("3")]
+anchors_preset = 0
+slot_id = &"main_hand"
+
+[node name="Frame" parent="Weapons/Slots/MainWeapon" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" parent="Weapons/Slots/MainWeapon" index="1"]
+anchors_preset = 10
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "主武器"
+
+[node name="Empty" parent="Weapons/Slots/MainWeapon" index="2"]
+anchors_preset = 15
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item" parent="Weapons/Slots/MainWeapon" index="3"]
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SecondaryWeapon" parent="Weapons/Slots" index="1" unique_id=789903317 instance=ExtResource("3")]
+anchors_preset = 0
+offset_left = 236.0
+offset_right = 432.0
+slot_id = &"off_hand"
+
+[node name="Frame" parent="Weapons/Slots/SecondaryWeapon" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" parent="Weapons/Slots/SecondaryWeapon" index="1"]
+anchors_preset = 10
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "副武器"
+
+[node name="Empty" parent="Weapons/Slots/SecondaryWeapon" index="2"]
+anchors_preset = 15
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item" parent="Weapons/Slots/SecondaryWeapon" index="3"]
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Armor" parent="." unique_id=321404730 instance=ExtResource("2")]
+anchors_preset = 0
+offset_top = 210.0
+offset_right = 220.0
+offset_bottom = 398.0
+
+[node name="Frame" parent="Armor" index="0"]
+anchors_preset = 15
+offset_right = -8.820587
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.1877131, 1.0259691)
+
+[node name="Title" parent="Armor" index="1"]
+text = "防具"
+
+[node name="Slots" parent="Armor" index="2"]
+anchors_preset = 15
+offset_left = 14.0
+offset_top = 41.0
+offset_right = 14.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Head" parent="Armor/Slots" index="0" unique_id=319211315 instance=ExtResource("3")]
+anchors_preset = 0
+offset_right = 188.0
+slot_id = &"head"
+
+[node name="Frame" parent="Armor/Slots/Head" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" parent="Armor/Slots/Head" index="1"]
+anchors_preset = 10
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "头部"
+
+[node name="Empty" parent="Armor/Slots/Head" index="2"]
+anchors_preset = 15
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item" parent="Armor/Slots/Head" index="3"]
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Body" parent="Armor/Slots" index="1" unique_id=1185075761 instance=ExtResource("3")]
+anchors_preset = 0
+offset_left = 235.0
+offset_top = 1.0
+offset_right = 431.0
+offset_bottom = 125.0
+slot_id = &"body"
+
+[node name="Frame" parent="Armor/Slots/Body" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" parent="Armor/Slots/Body" index="1"]
+anchors_preset = 10
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "身体"
+
+[node name="Empty" parent="Armor/Slots/Body" index="2"]
+anchors_preset = 15
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item" parent="Armor/Slots/Body" index="3"]
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Rings" parent="." unique_id=1357807904 instance=ExtResource("2")]
+anchors_preset = 0
+offset_top = 424.0
+offset_bottom = 612.0
+
+[node name="Frame" parent="Rings" index="0"]
+anchors_preset = 15
+offset_right = -9.158508
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.005705, 1.0806024)
+
+[node name="Title" parent="Rings" index="1"]
+text = "饰品"
+
+[node name="Slots" parent="Rings" index="2"]
+anchors_preset = 15
+offset_left = 15.0
+offset_top = 42.0
+offset_right = 15.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Relic1" parent="Rings/Slots" index="0" unique_id=321695959 instance=ExtResource("3")]
+anchors_preset = 0
+offset_right = 98.0
+slot_id = &"relic1"
+
+[node name="Frame" parent="Rings/Slots/Relic1" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" parent="Rings/Slots/Relic1" index="1"]
+anchors_preset = 10
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = ""
+
+[node name="Empty" parent="Rings/Slots/Relic1" index="2"]
+anchors_preset = 15
+offset_top = 20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item" parent="Rings/Slots/Relic1" index="3"]
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Relic2" parent="Rings/Slots" index="1" unique_id=306874786 instance=ExtResource("3")]
+anchors_preset = 0
+offset_left = 110.0
+offset_right = 208.0
+slot_id = &"relic2"
+
+[node name="Frame" parent="Rings/Slots/Relic2" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" parent="Rings/Slots/Relic2" index="1"]
+anchors_preset = 10
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = ""
+
+[node name="Empty" parent="Rings/Slots/Relic2" index="2"]
+anchors_preset = 15
+offset_top = 19.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item" parent="Rings/Slots/Relic2" index="3"]
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Relic3" parent="Rings/Slots" index="2" unique_id=278106224 instance=ExtResource("3")]
+anchors_preset = 0
+offset_left = 224.0
+offset_top = 1.0
+offset_right = 322.0
+offset_bottom = 125.0
+slot_id = &"relic3"
+
+[node name="Frame" parent="Rings/Slots/Relic3" index="0"]
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" parent="Rings/Slots/Relic3" index="1"]
+anchors_preset = 10
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = ""
+
+[node name="Empty" parent="Rings/Slots/Relic3" index="2"]
+anchors_preset = 15
+offset_top = 20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item" parent="Rings/Slots/Relic3" index="3"]
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Relic4" parent="Rings/Slots" index="3" unique_id=1814505218 instance=ExtResource("3")]
+anchors_preset = 0
+offset_left = 335.0
+offset_right = 433.0
+slot_id = &"relic4"
+
+[node name="Frame" parent="Rings/Slots/Relic4" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" parent="Rings/Slots/Relic4" index="1"]
+anchors_preset = 10
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = ""
+
+[node name="Empty" parent="Rings/Slots/Relic4" index="2"]
+anchors_preset = 15
+offset_top = 20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Item" parent="Rings/Slots/Relic4" index="3"]
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[editable path="Weapons"]
+[editable path="Weapons/Slots/MainWeapon"]
+[editable path="Weapons/Slots/SecondaryWeapon"]
+[editable path="Armor"]
+[editable path="Armor/Slots/Head"]
+[editable path="Armor/Slots/Body"]
+[editable path="Rings"]
+[editable path="Rings/Slots/Relic1"]
+[editable path="Rings/Slots/Relic2"]
+[editable path="Rings/Slots/Relic3"]
+[editable path="Rings/Slots/Relic4"]

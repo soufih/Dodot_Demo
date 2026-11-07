@@ -30,7 +30,7 @@ func _test_cancel(checks, lab, grid) -> void:
 	checks._expect(preview != null, "中键分割复用物品场景预览")
 	if preview != null:
 		checks._expect(preview.size == Vector2(52, 104), "分割预览保持旋转后的完整网格尺寸")
-		checks._expect(preview.get_node("Quantity").text == "4", "分割预览显示半栈数量")
+		checks._expect(preview.get_node("Margin/Icon/Quantity").text == "4", "分割预览显示半栈数量")
 	await _escape(checks)
 	checks._expect(not checks.get_viewport().gui_is_dragging(), "Esc 取消中键分割预览")
 	checks._expect(lab.manager.get_snapshot("分割网格").revision == before, "Esc 取消不修改版本")
@@ -77,7 +77,7 @@ func _test_invalid(checks, lab, grid, slot) -> void:
 	await checks._button(point, false, MOUSE_BUTTON_MIDDLE)
 	checks._expect(not checks.get_viewport().gui_is_dragging(), "单件物品不能中键分割")
 	checks._expect(lab.status.text.contains("失败"), "单件分割显示失败原因")
-	point = _point(grid, Vector2i(5, 3))
+	point = _point(grid, Vector2i(4, 3))
 	await checks._motion(point, 0)
 	await checks._button(point, true, MOUSE_BUTTON_MIDDLE)
 	await checks._button(point, false, MOUSE_BUTTON_MIDDLE)
@@ -86,7 +86,7 @@ func _test_invalid(checks, lab, grid, slot) -> void:
 	lab.manager.add_to_container("分割网格", 1004, 9, Vector2i.ZERO, true)
 	var before: int = lab.manager.get_snapshot("分割网格").revision
 	await _take(checks, grid, Vector2i.ZERO)
-	await _place(checks, grid, Vector2i(5, 3))
+	await _place(checks, grid, Vector2i(4, 3))
 	checks._expect(lab.manager.get_snapshot("分割网格").revision == before, "越界放置取消且不扣减原栈")
 	lab.manager.remove_from_container("分割栏位", Vector2i.ZERO)
 	lab.manager.add_to_container("分割栏位", 1004, 8, Vector2i.ZERO)
@@ -121,11 +121,11 @@ func _test_invalid(checks, lab, grid, slot) -> void:
 
 ## 滚动到矩阵末端后中键取出并放在相邻空位，坐标和滚动位置均保持正确。
 func _test_scrolled(checks, lab) -> void:
-	lab.create_container("滚动分割", Vector2i(10, 8), InventoryManager.ServiceType.GRID)
+	lab.create_container("滚动分割", Vector2i(10, 12), InventoryManager.ServiceType.GRID)
 	var window = lab.windows["滚动分割"]
 	window.position = Vector2(24, 24)
 	window.move_to_front()
-	lab.manager.add_to_container("滚动分割", 1004, 7, Vector2i(9, 6), true)
+	lab.manager.add_to_container("滚动分割", 1004, 7, Vector2i(9, 10), true)
 	var scroll: ScrollContainer = window.get_node("Body/Content/Scroll")
 	for frame in range(3):
 		await checks.get_tree().process_frame
@@ -135,10 +135,10 @@ func _test_scrolled(checks, lab) -> void:
 		await checks.get_tree().process_frame
 	var offset := Vector2i(scroll.scroll_horizontal, scroll.scroll_vertical)
 	var board = scroll.get_node("Board")
-	await _take(checks, board, Vector2i(9, 7))
-	await _place(checks, board, Vector2i(8, 6))
-	checks._expect(lab.manager.get_item_at("滚动分割", Vector2i(9, 6)).instance.quantity == 4, "滚动后分割正确定位源")
-	checks._expect(lab.manager.get_item_at("滚动分割", Vector2i(8, 7)).instance.quantity == 3, "滚动后分割正确定位新栈占位")
+	await _take(checks, board, Vector2i(9, 11))
+	await _place(checks, board, Vector2i(8, 10))
+	checks._expect(lab.manager.get_item_at("滚动分割", Vector2i(9, 10)).instance.quantity == 4, "滚动后分割正确定位源")
+	checks._expect(lab.manager.get_item_at("滚动分割", Vector2i(8, 11)).instance.quantity == 3, "滚动后分割正确定位新栈占位")
 	checks._expect(Vector2i(scroll.scroll_horizontal, scroll.scroll_vertical) == offset, "分割刷新保持滚动位置")
 
 ## 发送真实中键按下与释放，返回原生拖拽携带的数据，验证无需持续长按中键。

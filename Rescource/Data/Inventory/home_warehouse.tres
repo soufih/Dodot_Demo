@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryDefinition" format=3 uid="uid://kiygmsvmeabf"]
+
+[ext_resource type="Script" uid="uid://cqwnxbiu22b1v" path="res://Script/Config/Model/ResourceManager/InventoryDefinition.gd" id="1"]
+[ext_resource type="Script" uid="uid://de54etmunawoc" path="res://Script/Config/Model/ResourceManager/EquipmentSlotDefinition.gd" id="1_guxxm"]
+
+[resource]
+script = ExtResource("1")
+container_id = "warehouse_home"
+display_name = "仓库"
+size = Vector2i(10, 12)
+service_type = 3

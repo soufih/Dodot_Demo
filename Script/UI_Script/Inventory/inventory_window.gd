@@ -5,8 +5,10 @@ signal item_selected(container_id: String, record: Dictionary)
 signal operation_completed(result: InventoryResult)
 signal focused(container_id: String)
 
-## 内容区最大可见像素宽高；超过后出现滚动条，格子本身不缩放。
-@export var max_grid_view_size: Vector2i = Vector2i(416, 312)
+## 内容区默认显示五列、十行（每格 52 像素）；超过后出现滚动条，格子本身不缩放。
+@export var max_grid_view_size: Vector2i = Vector2i(260, 520)
+## 场景可以指定显示标题；留空时沿用容器 ID。
+@export var window_title: String = ""
 
 var container_id: String
 var dragging: bool = false
@@ -19,11 +21,17 @@ func _ready() -> void:
 	set_process_input(false)
 
 ## 绑定容器并限制可见内容尺寸；给需要的滚动条留出空间，避免单轴溢出连带产生另一轴滚动。
-func bind(manager: Node, id: String, service_type: int, lookup: Callable) -> void:
+func bind(manager: Node, id: String, service_type: int, lookup: Callable, display_name: String = "") -> InventoryResult:
+	unbind()
 	_manager = manager
 	container_id = id
 	var board = $Body/Content/Scroll/Board
 	var scroll: ScrollContainer = $Body/Content/Scroll
+	if board.has_method("validate_layout"):
+		var validation: InventoryResult = board.validate_layout(manager, id)
+		if not validation.is_ok():
+			_manager = null
+			return validation
 	board.bind(manager, id, service_type, lookup)
 	var state: Dictionary = manager.get_snapshot(id)
 	var grid_size: Vector2 = board.custom_minimum_size
@@ -33,11 +41,36 @@ func bind(manager: Node, id: String, service_type: int, lookup: Callable) -> voi
 		bar_space.y = scroll.get_h_scroll_bar().get_combined_minimum_size().y
 	if grid_size.y > visible_size.y:
 		bar_space.x = scroll.get_v_scroll_bar().get_combined_minimum_size().x
-	size = Vector2(maxf(visible_size.x + 32 + bar_space.x, 280), visible_size.y + 116 + bar_space.y)
-	$Title/Row/Name.text = id
+	# 装备窗口大小由场景作者设置，不能按 N × 1 的业务矩阵重新排列或缩放布局。
+	if service_type != InventoryManager.ServiceType.EQUIPMENT_SLOT:
+		size = Vector2(maxf(visible_size.x + 32 + bar_space.x, 280), visible_size.y + 116 + bar_space.y)
+	var default_title := window_title if not window_title.is_empty() else id
+	$Title/Row/Name.text = display_name if not display_name.is_empty() else default_title
 	$Body/Content/Type.text = "%s · %d × %d" % ["网格背包" if service_type == InventoryManager.ServiceType.GRID else "普通背包", state.size.x, state.size.y]
+	if service_type == InventoryManager.ServiceType.EQUIPMENT_SLOT:
+		$Body/Content/Type.text = "装备栏 · 拖动物品穿戴或卸下"
+	if service_type == InventoryManager.ServiceType.WAREHOUSE:
+		$Body/Content/Type.text = "仓库 · %d × %d" % [state.size.x, state.size.y]
+	$Title/Row/Organize.visible = service_type == InventoryManager.ServiceType.WAREHOUSE
+	$Title/Row/Organize.disabled = service_type != InventoryManager.ServiceType.WAREHOUSE
+	$Title/Row/Grip.visible = service_type != InventoryManager.ServiceType.WAREHOUSE
 	manager.container_changed.connect(_on_container_changed)
 	_update_summary()
+	return InventoryResult.success()
+
+
+func unbind() -> void:
+	_end_drag()
+	if is_instance_valid(_manager) and _manager.container_changed.is_connected(_on_container_changed):
+		_manager.container_changed.disconnect(_on_container_changed)
+	_manager = null
+	$Title/Row/Organize.disabled = true
+	$Body/Content/Scroll/Board.unbind()
+
+
+func cancel_interaction() -> void:
+	_end_drag()
+	$Body/Content/Scroll/Board.cancel_interaction()
 
 ## 四条边框及标题栏均可开始拖动；使用父画布坐标保留按下点偏移，避免跳动。
 func _on_border_gui_input(event: InputEvent) -> void:
@@ -65,7 +98,7 @@ func _input(event: InputEvent) -> void:
 			return
 		var desired := _start_position + _parent_point(event.position) - _start_pointer
 		var bounds: Vector2 = (get_parent() as Control).size
-		position = desired.clamp(Vector2.ZERO, (bounds - size).max(Vector2.ZERO))
+		position = desired.clamp(Vector2.ZERO, (bounds - size * scale).max(Vector2.ZERO))
 
 ## 失焦取消拖动，避免切出应用后产生粘住鼠标的窗口。
 func _notification(what: int) -> void:
@@ -90,6 +123,15 @@ func _on_item_selected(id: String, record: Dictionary) -> void:
 ## 转发画板命令结果，供测试台显示成功或失败反馈。
 func _on_operation_completed(result: InventoryResult) -> void:
 	operation_completed.emit(result)
+
+## 手动整理仅发出仓库命令，实际排序和原子提交由 Service 负责。
+func _on_organize_pressed() -> void:
+	if not is_instance_valid(_manager):
+		return
+	var result: InventoryResult = _manager.organize_warehouse(container_id)
+	operation_completed.emit(result)
+	if result.is_ok():
+		$Body/Content/Scroll/Board.refresh_selection()
 
 ## 内容变化时刷新统计，标题栏拖动不会产生该信号。
 func _on_container_changed(id: String, _revision: int, _ids: Array[int]) -> void:

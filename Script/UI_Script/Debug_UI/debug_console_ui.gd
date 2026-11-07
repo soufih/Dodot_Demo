@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends BaseUI
 class_name DebugConsoleUI
 
 ## 调试控制台的显示层。
@@ -16,9 +16,17 @@ var _history_index := -1
 
 ## 初始化 UI 节点，并连接文本输入和键盘事件。
 func _ready() -> void:
+	begin()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_input_line.text_submitted.connect(_on_command_submitted)
 	_input_line.gui_input.connect(_on_input_gui_input)
+
+
+## 输入框未聚焦时也允许 Esc 关闭控制台。
+func _unhandled_key_input(event: InputEvent) -> void:
+	if UIManager.is_open(UIId.DEBUG) and event.is_action_pressed("ui_cancel") and not event.is_echo():
+		UIManager.close(UIId.DEBUG)
+		get_viewport().set_input_as_handled()
 
 
 ## 由 DebugTool 注入命令后端，避免 UI 依赖具体的命令实现类型。
@@ -61,7 +69,7 @@ func _on_input_gui_input(event: InputEvent) -> void:
 	elif event.keycode == KEY_DOWN:
 		_navigate_history(1)
 		get_viewport().set_input_as_handled()
-	elif event.keycode == KEY_ESCAPE:
+	elif event.keycode in [KEY_ESCAPE, KEY_QUOTELEFT]:
 		_console_container.hide_console()
 		get_viewport().set_input_as_handled()
 

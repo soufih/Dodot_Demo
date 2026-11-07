@@ -12,12 +12,28 @@ func run(checks, lab) -> void:
 	await _wheel(checks, small_point, MOUSE_BUTTON_WHEEL_DOWN)
 	checks._expect(small.scroll_horizontal == 0 and small.scroll_vertical == 0, "小容器滚轮不产生无意义偏移")
 	checks._expect(lab.manager.get_snapshot("UI测试容器").revision == before, "小容器滚轮不修改数据")
+	await _test_scroll_threshold(checks, lab)
 	for scenario in [
 		["横向滚动测试", Vector2i(10, 3), true, false],
-		["纵向滚动测试", Vector2i(4, 8), false, true],
-		["双向滚动测试", Vector2i(10, 8), true, true],
+		["纵向滚动测试", Vector2i(4, 12), false, true],
+		["双向滚动测试", Vector2i(10, 12), true, true],
 	]:
 		await _test_container(checks, lab, scenario[0], scenario[1], scenario[2], scenario[3])
+
+## 检查超过五列或十行才滚动，并确认滚动条不会连带触发另一轴。
+func _test_scroll_threshold(checks, lab) -> void:
+	for scenario in [
+		["五列十行边界", Vector2i(5, 10), false, false],
+		["六列十行边界", Vector2i(6, 10), true, false],
+		["五列十一行边界", Vector2i(5, 11), false, true],
+	]:
+		var id: String = scenario[0]
+		checks._expect(lab.create_container(id, scenario[1], InventoryManager.ServiceType.GRID).is_ok(), id + " 创建成功")
+		for frame in range(3):
+			await checks.get_tree().process_frame
+		var scroll: ScrollContainer = lab.windows[id].get_node("Body/Content/Scroll")
+		checks._expect(scroll.get_h_scroll_bar().visible == scenario[2], id + " 横向滚动阈值正确")
+		checks._expect(scroll.get_v_scroll_bar().visible == scenario[3], id + " 纵向滚动阈值正确")
 
 ## 滚动到真实矩阵末端后点击、拖动物品，确认坐标包含滚动偏移且刷新不跳回顶部。
 func _test_container(checks, lab, id: String, dimensions: Vector2i, horizontal: bool, vertical: bool) -> void:

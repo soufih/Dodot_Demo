@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 func _update_look(delta: float) -> void:
 	if not _look_enabled:
 		return
-	var accepts_input := is_current() and not UIManager.is_banned and UIManager.UIList.is_empty()
+	var accepts_input := is_current() and not UIManager.has_blocking_ui()
 	var hero := get_parent() as HeroProperty
 	if hero != null:
 		accepts_input = accepts_input and hero.CurrentHealth > 0.0 and not _InputController.is_banned

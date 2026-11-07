@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3]
+
+[resource]
+default_font_size = 18
+BoxContainer/constants/separation = 8
+MarginContainer/constants/margin_left = 12
+MarginContainer/constants/margin_top = 12
+MarginContainer/constants/margin_right = 12
+MarginContainer/constants/margin_bottom = 12

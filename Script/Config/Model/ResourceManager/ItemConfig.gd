@@ -24,7 +24,11 @@ class_name ItemConfig
 ## 背包占位配置。旧资源未填写时继续使用单格、不可旋转的默认规则。
 @export_category("Inventory")
 @export var GridSize: Vector2i = Vector2i.ONE
-@export var CanRotate: bool = false
+@export var CanRotate: bool = true
+
+## 未设置时为普通物品；装备服务另行要求 MaxStack 为 1，不影响普通背包规则。
+@export_category("Equipment")
+@export var Equipment: EquipmentItemConfig
 
 ## 返回 MaxStack 与 GridSize 两轴是否均为正数；只读检查，不修改共享配置。
 func validate() -> bool:

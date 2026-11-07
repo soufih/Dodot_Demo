@@ -126,5 +126,5 @@ func _drag(checks, source: Control, from_cell: Vector2i, target: Control, to_cel
 func _quantity(board: Control, anchor: Vector2i) -> String:
 	for view in board.get_node("Items").get_children():
 		if view.position == Vector2(anchor * board.cell_size) + Vector2(3, 3):
-			return view.get_node("Quantity").text
+			return view.get_node("Margin/Icon/Quantity").text
 	return ""

@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://UI/Inventory/equipment_window.tscn" id="1"]
+
+[node name="CustomEquipmentWindow" instance=ExtResource("1")]
+offset_right = 560.0
+offset_bottom = 600.0
+
+[node name="MainWeapon" parent="Body/Content/Scroll/Board/Weapons/Slots" index="0"]
+offset_left = 236.0
+offset_right = 432.0
+
+[node name="SecondaryWeapon" parent="Body/Content/Scroll/Board/Weapons/Slots" index="1"]
+offset_left = 0.0
+offset_right = 180.0
+
+[node name="Armor" parent="Body/Content/Scroll/Board" index="1"]
+offset_left = 260.0
+offset_right = 480.0
+
+[node name="Rings" parent="Body/Content/Scroll/Board" index="2"]
+offset_left = 0.0
+offset_right = 240.0
+
+[editable path="Body/Content/Scroll/Board"]
+[editable path="Body/Content/Scroll/Board/Weapons"]
+[editable path="Body/Content/Scroll/Board/Weapons/Slots/MainWeapon"]
+[editable path="Body/Content/Scroll/Board/Weapons/Slots/SecondaryWeapon"]

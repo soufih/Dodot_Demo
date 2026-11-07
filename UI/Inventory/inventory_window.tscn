@@ -33,6 +33,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.9992965, 0.8999732)
 mouse_filter = 2
 
 [node name="Body" type="MarginContainer" parent="." unique_id=1072433439]
@@ -46,12 +47,17 @@ offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="Content" type="VBoxContainer" parent="Body" unique_id=1629323783]
 layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Type" type="Label" parent="Body/Content" unique_id=2072454721]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.52, 0.63, 0.69, 1)
 theme_override_font_sizes/font_size = 12
@@ -65,6 +71,7 @@ theme_override_styles/panel = SubResource("ScrollPanel")
 [node name="Board" parent="Body/Content/Scroll" unique_id=699966323 instance=ExtResource("2_board")]
 
 [node name="Summary" type="Label" parent="Body/Content" unique_id=445262460]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.54, 0.65, 0.65, 1)
 theme_override_font_sizes/font_size = 12
@@ -77,6 +84,7 @@ offset_left = 10.0
 offset_top = 2.0
 offset_right = -10.0
 offset_bottom = 42.0
+grow_horizontal = 2
 mouse_default_cursor_shape = 6
 theme_override_styles/panel = SubResource("Header")
 
@@ -90,6 +98,11 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 17
 text = "背包"
 
+[node name="Organize" type="Button" parent="Title/Row" unique_id=168399137]
+visible = false
+layout_mode = 2
+text = "整理"
+
 [node name="Grip" type="Label" parent="Title/Row" unique_id=1283351188]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45, 0.6, 0.6, 1)
@@ -101,6 +114,7 @@ layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 10.0
+grow_vertical = 2
 mouse_default_cursor_shape = 6
 
 [node name="RightBorder" type="Control" parent="." unique_id=1670999573]
@@ -110,6 +124,8 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -10.0
+grow_horizontal = 0
+grow_vertical = 2
 mouse_default_cursor_shape = 6
 
 [node name="TopBorder" type="Control" parent="." unique_id=1151327437]
@@ -117,6 +133,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 2.0
+grow_horizontal = 2
 mouse_default_cursor_shape = 6
 
 [node name="BottomBorder" type="Control" parent="." unique_id=1575075077]
@@ -126,11 +143,14 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -10.0
+grow_horizontal = 2
+grow_vertical = 0
 mouse_default_cursor_shape = 6
 
 [connection signal="item_selected" from="Body/Content/Scroll/Board" to="." method="_on_item_selected"]
 [connection signal="operation_completed" from="Body/Content/Scroll/Board" to="." method="_on_operation_completed"]
 [connection signal="gui_input" from="Title" to="." method="_on_border_gui_input"]
+[connection signal="pressed" from="Title/Row/Organize" to="." method="_on_organize_pressed"]
 [connection signal="gui_input" from="LeftBorder" to="." method="_on_border_gui_input"]
 [connection signal="gui_input" from="RightBorder" to="." method="_on_border_gui_input"]
 [connection signal="gui_input" from="TopBorder" to="." method="_on_border_gui_input"]

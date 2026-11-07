@@ -1,4 +1,4 @@
-extends BaseUI
+extends Control
 
 @onready var health_bar: TextureProgressBar = $HP/Health_bar
 @onready var mana_bar: TextureProgressBar = $MP/Mana_bar
@@ -15,7 +15,6 @@ var need_update_mana:bool = true
 var base_max_mana: float = 100
 
 func _ready() ->void:
-	begin()
 	if Hero:
 		Hero.mana_changed.connect(update_mana)
 		Hero.health_changed.connect(update_health)

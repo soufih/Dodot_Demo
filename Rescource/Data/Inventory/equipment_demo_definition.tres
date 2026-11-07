@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="InventoryDefinition" format=3 uid="uid://cfuvreootsy7l"]
+
+[ext_resource type="Script" uid="uid://cqwnxbiu22b1v" path="res://Script/Config/Model/ResourceManager/InventoryDefinition.gd" id="1"]
+[ext_resource type="Script" uid="uid://de54etmunawoc" path="res://Script/Config/Model/ResourceManager/EquipmentSlotDefinition.gd" id="2"]
+
+[sub_resource type="Resource" id="Main"]
+script = ExtResource("2")
+slot_id = &"main_hand"
+accepted_types = Array[int]([1, 2])
+
+[sub_resource type="Resource" id="Off"]
+script = ExtResource("2")
+slot_id = &"off_hand"
+accepted_types = Array[int]([1])
+
+[sub_resource type="Resource" id="Head"]
+script = ExtResource("2")
+slot_id = &"head"
+accepted_types = Array[int]([4])
+
+[sub_resource type="Resource" id="Body"]
+script = ExtResource("2")
+slot_id = &"body"
+accepted_types = Array[int]([5])
+
+[sub_resource type="Resource" id="Relic1"]
+script = ExtResource("2")
+slot_id = &"relic1"
+accepted_types = Array[int]([6, 7])
+
+[sub_resource type="Resource" id="Relic2"]
+script = ExtResource("2")
+slot_id = &"relic2"
+accepted_types = Array[int]([6, 7])
+
+[sub_resource type="Resource" id="Relic3"]
+script = ExtResource("2")
+slot_id = &"relic3"
+accepted_types = Array[int]([6, 7])
+
+[sub_resource type="Resource" id="Relic4"]
+script = ExtResource("2")
+slot_id = &"relic4"
+accepted_types = Array[int]([6, 7])
+
+[resource]
+script = ExtResource("1")
+container_id = "测试装备栏"
+display_name = "测试装备栏"
+size = Vector2i(8, 1)
+service_type = 2
+equipment_slots = Array[ExtResource("2")]([SubResource("Main"), SubResource("Off"), SubResource("Head"), SubResource("Body"), SubResource("Relic1"), SubResource("Relic2"), SubResource("Relic3"), SubResource("Relic4")])

@@ -17,13 +17,21 @@ var _ready_to_continue := false
 var _failed := false
 var _switching := false
 var _level_info: Dictionary
-var _previous_ui_ban := false
 
 
 func _ready() -> void:
+	begin()
+
+
+func on_open(payload: Dictionary) -> bool:
+	next_scene = payload.get("next_scene", next_scene)
+	wait_for_input = payload.get("wait_for_input", wait_for_input)
+	_start_loading.call_deferred()
+	return true
+
+
+func _start_loading() -> void:
 	_level_info = CurrentLevel.get_level_info()
-	_previous_ui_ban = UIManager.is_banned
-	UIManager.ban_ui_input()
 	var paths: Array[String] = [next_scene]
 	if next_scene.is_empty() or not await SceneLoading.prepare_scenes(paths, get_tree(), _on_scene_progress):
 		_fail("无法加载目标场景：%s" % next_scene)
@@ -62,11 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if _failed:
 		get_viewport().set_input_as_handled()
-		# 新的加载入口有独立覆盖层；原入口的 UI 也可直接关闭。
-		if get_parent().name == "SceneLoadingLayer":
-			get_parent().queue_free()
-		else:
-			queue_free()
+		UIManager.close(UIId.LOADING)
 	elif _ready_to_continue:
 		get_viewport().set_input_as_handled()
 		_switch_scene()
@@ -82,6 +86,10 @@ func _switch_scene() -> void:
 	if error != OK:
 		_switching = false
 		_fail("场景切换失败：%s" % error_string(error))
+		return
+	# 加载层归常驻管理器所有，目标场景 ready 后才释放本次输入锁。
+	await get_tree().scene_changed
+	UIManager.close(UIId.LOADING)
 
 
 func _on_scene_progress(value: float) -> void:
@@ -100,10 +108,6 @@ func _fail(message: String) -> void:
 	$progress_titiel_Lb.show()
 	set_process(false)
 	loading_failed.emit()
-
-
-func _exit_tree() -> void:
-	UIManager.is_banned = _previous_ui_ban
 
 
 func set_next_scene(scene_path:String) -> void:

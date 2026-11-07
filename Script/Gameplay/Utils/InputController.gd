@@ -14,13 +14,20 @@ signal interact_pressed
 
 @export_range(0.0, 1.0, 0.01) var input_buffer_duration: float = 1
 @export var ability_controller: AbilityController
+## 从角色装备组件查询当前武器，输入层不保存第二份装备状态。
+@export var equipment: PlayerEquipmentComponent
 
 var buffered_actions: Dictionary = {}
 var move_direction := 0.0
-var is_banned:bool = false
+var _local_ban := false
+var _was_banned := false
+var is_banned: bool:
+	get: return _local_ban or UIManager.gameplay_blocked
 
 func _ready() -> void:
 	SignalBus.input_control.connect(ban_input)
+	UIManager.state_changed.connect(_on_ui_state_changed)
+	_on_ui_state_changed()
 
 
 func _process(_delta: float) -> void:
@@ -36,11 +43,12 @@ func _process(_delta: float) -> void:
 	clear_expired_actions()
 
 
+## 未被界面处理的操作才进入游戏；空手不缓存攻击，也不发送攻击请求。
 func _unhandled_input(event: InputEvent) -> void:
 	if is_banned:
 		return
 	
-	if event.is_action_pressed("Attack") && false:
+	if event.is_action_pressed("Attack") and equipment != null and equipment.get_current_weapon() != -1:
 		buffer_action("Attack")
 		when_attack_tigger.emit()
 	
@@ -63,7 +71,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		ability_controller.request_activate("dash")
 
 func ban_input(state:bool):
-	is_banned = state
+	_local_ban = state
+	_on_ui_state_changed()
+
+
+func _on_ui_state_changed() -> void:
+	var blocked := is_banned
+	if blocked and not _was_banned:
+		buffered_actions.clear()
+		move_direction = 0.0
+		move_left_released.emit()
+		move_right_released.emit()
+		input_banned.emit()
+	_was_banned = blocked
 
 
 func get_move_direction() -> float:

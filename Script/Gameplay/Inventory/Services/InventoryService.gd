@@ -2,7 +2,7 @@
 class_name InventoryService
 extends RefCounted
 ## 背包服务的抽象契约：只声明统一接口与独占容器，不实现具体操作。
-## SlotService / GridService 必须实现全部方法，Manager 仅依赖该契约。
+## SlotService / GridService / EquipmentSlotService 必须实现全部方法，Manager 仅依赖该契约。
 
 var container: InventoryContainer
 var _config_lookup: Callable

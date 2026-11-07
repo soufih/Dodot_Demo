@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://Scene/Inventory/Warehouse.tscn" id="1"]
+[ext_resource type="Script" path="res://Script/Config/Model/ResourceManager/InventoryDefinition.gd" id="2"]
+
+[sub_resource type="Resource" id="WrongType"]
+script = ExtResource("2")
+container_id = "wrong_warehouse_role"
+size = Vector2i(2, 2)
+service_type = 1
+
+[sub_resource type="Resource" id="Collision"]
+script = ExtResource("2")
+container_id = "player_backpack"
+size = Vector2i(2, 2)
+service_type = 3
+
+[node name="InvalidWarehouseFixtures" type="Node2D"]
+position = Vector2(10000, 0)
+
+[node name="Missing" parent="." instance=ExtResource("1")]
+definition = null
+
+[node name="WrongType" parent="." instance=ExtResource("1")]
+definition = SubResource("WrongType")
+
+[node name="Collision" parent="." instance=ExtResource("1")]
+definition = SubResource("Collision")

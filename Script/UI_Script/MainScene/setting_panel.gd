@@ -10,12 +10,17 @@ extends BaseUI
 
 func _ready() -> void:
 	begin()
+	volume_slider.value_changed.connect(_on_volume_changed)
+
+
+func on_open(_payload: Dictionary) -> bool:
+	_refresh_settings()
+	return true
 
 
 ##显示设置面板时获取当前设置值
-func _on_visibility_changed():
-	super._on_visibility_changed()
-	if visible:
+func _refresh_settings() -> void:
+	if is_node_ready():
 		#获取当前设置值
 		var window_size:Vector2i = DisplayServer.window_get_size()
 		match window_size:
@@ -46,6 +51,7 @@ func _on_visibility_changed():
 			0:
 				Fps_OptionButton.selected = 2
 		Fps = Fps_OptionButton.selected
+	volume_slider.set_value_no_signal(VolumeManager.get_master_volume())
 
 
 func _on_resolution_option_button_item_selected(index: int) -> void:
@@ -80,13 +86,12 @@ func _on_save_button_pressed() -> void:
 		2:Engine.max_fps = 0#帧率无上限
 	#更新帧率
 	
-	volume_slider.value = VolumeManager.get_master_volume()
-	volume_slider.value_changed.connect(_on_volume_changed)
+	volume_slider.set_value_no_signal(VolumeManager.get_master_volume())
 	#更新音量
 
 ##返回
 func _on_back_button_pressed() -> void:
-	hide()
+	request_close()
 	
 
 func _on_volume_changed(value: float):

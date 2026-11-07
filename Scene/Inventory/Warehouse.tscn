@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://Script/Gameplay/Interactable/WarehouseInteractable.gd" id="1"]
+[ext_resource type="Resource" path="res://Rescource/Data/Inventory/home_warehouse.tres" id="2"]
+
+[sub_resource type="RectangleShape2D" id="InteractionShape"]
+size = Vector2(96, 64)
+
+[node name="Warehouse" type="Area2D"]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1")
+interaction_name = "打开家园仓库"
+dismiss_prompt_after_interact = false
+definition = ExtResource("2")
+
+[node name="InteractionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("InteractionShape")
+
+[node name="Base" type="Polygon2D" parent="."]
+color = Color(0.31, 0.19, 0.10, 1)
+polygon = PackedVector2Array(-20, -25, 20, -25, 20, 0, -20, 0)
+
+[node name="Lid" type="Polygon2D" parent="."]
+color = Color(0.56, 0.36, 0.16, 1)
+polygon = PackedVector2Array(-22, -31, 22, -31, 22, -20, -22, -20)
+
+[node name="LeftBand" type="Polygon2D" parent="."]
+color = Color(0.76, 0.65, 0.35, 1)
+polygon = PackedVector2Array(-15, -31, -11, -31, -11, 0, -15, 0)
+
+[node name="RightBand" type="Polygon2D" parent="."]
+color = Color(0.76, 0.65, 0.35, 1)
+polygon = PackedVector2Array(11, -31, 15, -31, 15, 0, 11, 0)
+
+[node name="Lock" type="Polygon2D" parent="."]
+color = Color(0.9, 0.78, 0.4, 1)
+polygon = PackedVector2Array(-3, -23, 3, -23, 3, -15, -3, -15)
+
+[node name="Name" type="Label" parent="."]
+offset_left = -48.0
+offset_top = -52.0
+offset_right = 48.0
+offset_bottom = -32.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+text = "家园仓库"
+horizontal_alignment = 1

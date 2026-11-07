@@ -3,8 +3,7 @@ extends Interactable
 
 func can_interact(actor: Node) -> bool:
 	return actor is HeroProperty and actor.CurrentHealth > 0.0 \
-		and not is_instance_valid(UIManager.end_ui) \
-		and not is_instance_valid(UIManager.death_ui) and not UIManager.is_banned
+		and not UIManager.has_blocking_ui() and not UIManager.has_result_or_loading()
 
 
 func interact(actor: Node) -> void:

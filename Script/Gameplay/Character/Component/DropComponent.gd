@@ -39,6 +39,7 @@ func create_dropped_item(item_list: Array, spawn_position: Vector2) -> DroppedIt
 		push_error("Failed to load dropped item scene")
 		return null
 	var dropped := scene.instantiate() as DroppedItem
+	dropped.configure(item_list)
 	var parent: Node = get_tree().current_scene
 	if parent == null:
 		parent = get_tree().root

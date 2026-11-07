@@ -1,0 +1,285 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://Script/UI_Script/Inventory/warehouse_lab.gd" id="1"]
+[ext_resource type="Theme" path="res://UI/Inventory/inventory_theme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryManager.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://UI/Inventory/inventory_window.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://UI/Inventory/warehouse_window.tscn" id="5"]
+[ext_resource type="Resource" path="res://Rescource/Data/Inventory/inventory_demo_catalog.tres" id="6"]
+[ext_resource type="Resource" path="res://Rescource/Data/Inventory/warehouse_demo_backpack.tres" id="7"]
+[ext_resource type="Resource" path="res://Rescource/Data/Inventory/home_warehouse.tres" id="8"]
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.055, 0.08, 0.10, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.16, 0.23, 0.25, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+
+[node name="WarehouseLab" type="Control"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("2")
+script = ExtResource("1")
+item_catalog = ExtResource("6")
+backpack_definition = ExtResource("7")
+warehouse_definition = ExtResource("8")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.025, 0.038, 0.052, 1)
+
+[node name="Eyebrow" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 18.0
+offset_right = 900.0
+offset_bottom = 36.0
+theme_override_colors/font_color = Color(0.73, 0.67, 0.46, 1)
+theme_override_font_sizes/font_size = 12
+text = "INVENTORY / STORAGE"
+
+[node name="Title" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 38.0
+offset_right = 680.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 28
+text = "仓库实验室"
+
+[node name="Summary" type="Label" parent="."]
+offset_left = 680.0
+offset_top = 46.0
+offset_right = 1668.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0.7, 0.8, 0.77, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 2
+text = "正在初始化……"
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 90.0
+offset_right = 1668.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.52, 0.65, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+text = "拖动物品存取 · 仓库一行完整显示 10 格，滚轮纵向浏览 · 标题中的「整理」重新排列物品 · 隐藏仓库后数据仍保留"
+
+[node name="Tools" type="PanelContainer" parent="."]
+offset_left = 32.0
+offset_top = 144.0
+offset_right = 328.0
+offset_bottom = 824.0
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="Margin" type="MarginContainer" parent="Tools"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="Forms" type="VBoxContainer" parent="Tools/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Tools/Margin/Forms"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "新增物品"
+
+[node name="Target" type="OptionButton" parent="Tools/Margin/Forms"]
+layout_mode = 2
+
+[node name="Item" type="OptionButton" parent="Tools/Margin/Forms"]
+layout_mode = 2
+
+[node name="Quantity" type="SpinBox" parent="Tools/Margin/Forms"]
+layout_mode = 2
+min_value = 1.0
+max_value = 20.0
+value = 1.0
+prefix = "数量"
+
+[node name="Add" type="Button" parent="Tools/Margin/Forms"]
+layout_mode = 2
+text = "添加到空位"
+
+[node name="Separator" type="HSeparator" parent="Tools/Margin/Forms"]
+layout_mode = 2
+
+[node name="SelectionTitle" type="Label" parent="Tools/Margin/Forms"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "存入 / 取回"
+
+[node name="Selection" type="Label" parent="Tools/Margin/Forms"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67, 0.78, 0.77, 1)
+theme_override_font_sizes/font_size = 14
+text = "未选择物品"
+autowrap_mode = 3
+
+[node name="DestinationLabel" type="Label" parent="Tools/Margin/Forms"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "目标容器坐标（从 0 开始）"
+
+[node name="Destination" type="HBoxContainer" parent="Tools/Margin/Forms"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="X" type="SpinBox" parent="Tools/Margin/Forms/Destination"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 9.0
+prefix = "X"
+
+[node name="Y" type="SpinBox" parent="Tools/Margin/Forms/Destination"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 11.0
+prefix = "Y"
+
+[node name="Deposit" type="Button" parent="Tools/Margin/Forms"]
+layout_mode = 2
+disabled = true
+text = "存入仓库 →"
+
+[node name="Withdraw" type="Button" parent="Tools/Margin/Forms"]
+layout_mode = 2
+disabled = true
+text = "← 取回背包"
+
+[node name="Spacer" type="Control" parent="Tools/Margin/Forms"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Toggle" type="Button" parent="Tools/Margin/Forms"]
+layout_mode = 2
+text = "隐藏仓库"
+
+[node name="Reset" type="Button" parent="Tools/Margin/Forms"]
+layout_mode = 2
+text = "重置演示物品"
+
+[node name="Workspace" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 356.0
+offset_top = 144.0
+offset_right = -24.0
+offset_bottom = -76.0
+mouse_filter = 2
+
+[node name="Bag" parent="Workspace" instance=ExtResource("4")]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 360.0
+offset_bottom = 340.0
+window_title = "随身背包"
+
+[node name="Warehouse" parent="Workspace" instance=ExtResource("5")]
+offset_left = 380.0
+offset_top = 16.0
+offset_right = 940.0
+offset_bottom = 340.0
+
+[node name="Details" type="PanelContainer" parent="."]
+offset_left = 1340.0
+offset_top = 144.0
+offset_right = 1668.0
+offset_bottom = 824.0
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="Margin" type="MarginContainer" parent="Details"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 18
+
+[node name="Rows" type="VBoxContainer" parent="Details/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Details/Margin/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "物品详情"
+
+[node name="Icon" type="TextureRect" parent="Details/Margin/Rows"]
+custom_minimum_size = Vector2(0, 144)
+layout_mode = 2
+texture_filter = 1
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Details/Margin/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "选择一个物品"
+autowrap_mode = 3
+
+[node name="Data" type="Label" parent="Details/Margin/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.78, 1)
+theme_override_font_sizes/font_size = 14
+text = "点击物品查看详细信息。"
+autowrap_mode = 3
+
+[node name="Description" type="Label" parent="Details/Margin/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.64, 0.67, 1)
+theme_override_font_sizes/font_size = 14
+autowrap_mode = 3
+
+[node name="Spacer" type="Control" parent="Details/Margin/Rows"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Help" type="Label" parent="Details/Margin/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.64, 0.67, 1)
+theme_override_font_sizes/font_size = 13
+text = "左键拖动物品\nR 旋转拖拽预览\n中键取出半栈\n同类物品默认堆叠\nShift 拖放可显式交换\n按住窗口标题或边框移动"
+autowrap_mode = 3
+
+[node name="Status" type="Label" parent="."]
+layout_mode = 1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -58.0
+offset_right = 1668.0
+offset_bottom = -22.0
+theme_override_font_sizes/font_size = 14
+text = "正在初始化……"
+autowrap_mode = 3
+
+[node name="Manager" parent="." instance=ExtResource("3")]
+
+[connection signal="item_selected" from="Tools/Margin/Forms/Target" to="." method="_on_target_changed"]
+[connection signal="item_selected" from="Tools/Margin/Forms/Item" to="." method="_on_item_changed"]
+[connection signal="pressed" from="Tools/Margin/Forms/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Tools/Margin/Forms/Deposit" to="." method="_on_deposit_pressed"]
+[connection signal="pressed" from="Tools/Margin/Forms/Withdraw" to="." method="_on_withdraw_pressed"]
+[connection signal="pressed" from="Tools/Margin/Forms/Toggle" to="." method="_on_toggle_pressed"]
+[connection signal="pressed" from="Tools/Margin/Forms/Reset" to="." method="_on_reset_pressed"]
+[connection signal="item_selected" from="Workspace/Bag" to="." method="_on_item_selected"]
+[connection signal="operation_completed" from="Workspace/Bag" to="." method="_on_operation_completed"]
+[connection signal="item_selected" from="Workspace/Warehouse" to="." method="_on_item_selected"]
+[connection signal="operation_completed" from="Workspace/Warehouse" to="." method="_on_operation_completed"]

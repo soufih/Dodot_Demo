@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/PlayerUI/Player_State_UI.tscn" id="15_73oc2"]
 [ext_resource type="Script" uid="uid://r3ieb71ndrba" path="res://Script/Gameplay/Weapon/WeaponController.gd" id="15_la4fd"]
 [ext_resource type="Texture2D" uid="uid://btw5h3a5o6ssn" path="res://Rescource/Static/Weapon/Icon9.png" id="16_8705s"]
-[ext_resource type="PackedScene" uid="uid://c6i4w1y5eednm" path="res://UI/PlayerUI/weapon_state_ui.tscn" id="16_pw8k8"]
+[ext_resource type="PackedScene" path="res://UI/PlayerUI/weapon_state_ui.tscn" id="16_pw8k8"]
 [ext_resource type="Texture2D" uid="uid://lhekrotgb7jg" path="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-03-1.3.png" id="17_8705s"]
 [ext_resource type="Texture2D" uid="uid://2kosfdwy20kh" path="res://Rescource/Static/BladeSlash/Attack1/BladeSlash-01.png" id="18_la4fd"]
 [ext_resource type="Texture2D" uid="uid://jja05y1x4t8b" path="res://Rescource/Static/BladeSlash/Attack1/BladeSlash-02.png" id="19_fmb0r"]
@@ -35,6 +35,10 @@
 [ext_resource type="Script" uid="uid://br03q5qg6pp7e" path="res://Script/Gameplay/Character/Hero/FSM/Dash.gd" id="32_dash"]
 [ext_resource type="PackedScene" uid="uid://dcub5un8kngle" path="res://UI/PlayerUI/skill_cooldown_ui.tscn" id="34_nn2wi"]
 [ext_resource type="Script" uid="uid://ckt8bltq21vpc" path="res://Script/Gameplay/Character/Component/DropComponent.gd" id="drop_component_script"]
+[ext_resource type="Script" uid="uid://cgb0r26jueh8h" path="res://Script/Gameplay/Character/Component/PlayerInventoryComponent.gd" id="inventory_component"]
+[ext_resource type="Resource" uid="uid://ds3uyaj1gkq38" path="res://Rescource/Data/Inventory/player_backpack.tres" id="player_inventory"]
+[ext_resource type="Script" path="res://Script/Gameplay/Character/Component/PlayerEquipmentComponent.gd" id="equipment_component"]
+[ext_resource type="Resource" path="res://Rescource/Data/Inventory/player_equipment.tres" id="player_equipment"]
 
 [sub_resource type="Animation" id="Animation_ms1qk"]
 resource_name = "BowAttack"
@@ -1946,14 +1950,24 @@ ToughnessRecover = 5.0
 Speed = 300
 RecoverTimer = NodePath("Timers/RecoverTimer")
 
+[node name="Equipment" type="Node" parent="."]
+script = ExtResource("equipment_component")
+definition = ExtResource("player_equipment")
+
+[node name="Inventory" type="Node" parent="." unique_id=923198455 node_paths=PackedStringArray("equipment")]
+script = ExtResource("inventory_component")
+definition = ExtResource("player_inventory")
+equipment = NodePath("../Equipment")
+
 [node name="InteractionController" type="Node" parent="." unique_id=2096004376 node_paths=PackedStringArray("detector")]
 script = ExtResource("29_8705s")
 detector = NodePath("../InteractBox")
 
-[node name="InputController" type="Node" parent="." unique_id=1552423710 node_paths=PackedStringArray("ability_controller")]
+[node name="InputController" type="Node" parent="." unique_id=1552423710 node_paths=PackedStringArray("ability_controller", "equipment")]
 script = ExtResource("14_q22w6")
 input_buffer_duration = 0.5
 ability_controller = NodePath("../AbilityController")
+equipment = NodePath("../Equipment")
 
 [node name="AbilityController" type="Node" parent="." unique_id=985379534 node_paths=PackedStringArray("input_controller", "state_machine")]
 script = ExtResource("4_ms1qk")
@@ -1961,7 +1975,7 @@ abilities_catalog = ExtResource("5_6lf6g")
 input_controller = NodePath("../InputController")
 state_machine = NodePath("../State")
 
-[node name="WeaponController" type="Node2D" parent="." unique_id=486381604 node_paths=PackedStringArray("Ani", "PlayerAni", "Owner", "WeaponNode", "Hitbox", "WeaponTexture")]
+[node name="WeaponController" type="Node2D" parent="." unique_id=486381604 node_paths=PackedStringArray("Ani", "PlayerAni", "Owner", "WeaponNode", "Hitbox", "WeaponTexture", "equipment")]
 script = ExtResource("15_la4fd")
 Ani = NodePath("WeaponAnimations")
 PlayerAni = NodePath("../PlayerAnimations")
@@ -1969,6 +1983,7 @@ Owner = NodePath("..")
 WeaponNode = NodePath("WeaponPivot/Weapon")
 Hitbox = NodePath("WeaponPivot/Hitbox")
 WeaponTexture = NodePath("WeaponPivot/Weapon/WeaponTexture")
+equipment = NodePath("../Equipment")
 
 [node name="WeaponPivot" type="Node2D" parent="WeaponController" unique_id=240119211]
 
@@ -2213,6 +2228,7 @@ scale = Vector2(1.2000005, 1.2000005)
 shape = SubResource("RectangleShape2D_dqago")
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1609103770]
+layer = 10
 
 [node name="InteractionPrompt" type="Label" parent="PlayerUI" unique_id=225609065]
 anchors_preset = 7
@@ -2235,7 +2251,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("30_prompt")
 
-[node name="weapon_state_ui" parent="PlayerUI" unique_id=1906476103 instance=ExtResource("16_pw8k8")]
+[node name="weapon_state_ui" parent="PlayerUI" unique_id=1906476103 node_paths=PackedStringArray("equipment") instance=ExtResource("16_pw8k8")]
+equipment = NodePath("../../Equipment")
 offset_left = -31.0
 offset_top = -1.0
 offset_right = -31.0

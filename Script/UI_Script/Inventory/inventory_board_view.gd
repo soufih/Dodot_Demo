@@ -8,6 +8,8 @@ signal operation_completed(result: InventoryResult)
 @export var item_scene: PackedScene
 @export var cell_size: int = 52
 
+## 默认使用画板比例；手工装备槽可指定所属布局，避免局部拉伸影响网格预览。
+var drag_preview_scale_source: Control
 var container_id: String
 var _manager: Node
 var _lookup: Callable
@@ -16,6 +18,12 @@ var _snapshot: Dictionary = {}
 var _selected_id: int = -1
 var _drag_item: ItemInstance
 var _drag_preview: Control
+var _bound_mouse_filter: MouseFilter = MOUSE_FILTER_STOP
+
+## 未绑定的视图不接收鼠标输入；成功绑定后恢复场景作者设置的过滤方式。
+func _ready() -> void:
+	_bound_mouse_filter = mouse_filter
+	mouse_filter = MOUSE_FILTER_IGNORE
 
 ## 仅拖拽来源处理 R，修改独立预览；忽略按键重复，真实状态在落地时才提交。
 func _input(event: InputEvent) -> void:
@@ -42,6 +50,23 @@ func _notification(what: int) -> void:
 		_drag_preview = null
 
 ## 绑定外部服务；不持有可写容器状态，重复绑定时移除旧信号订阅。
+func unbind() -> void:
+	cancel_interaction()
+	if is_instance_valid(_manager) and _manager.container_changed.is_connected(_on_container_changed):
+		_manager.container_changed.disconnect(_on_container_changed)
+	_manager = null
+	drag_preview_scale_source = null
+	_snapshot = {}
+	mouse_filter = MOUSE_FILTER_IGNORE
+
+
+func cancel_interaction() -> void:
+	if _drag_item != null and get_viewport().gui_is_dragging():
+		get_viewport().gui_cancel_drag()
+	_drag_item = null
+	_drag_preview = null
+
+
 func bind(manager: Node, id: String, service_type: int, lookup: Callable) -> void:
 	if _manager != null and _manager.container_changed.is_connected(_on_container_changed):
 		_manager.container_changed.disconnect(_on_container_changed)
@@ -51,6 +76,7 @@ func bind(manager: Node, id: String, service_type: int, lookup: Callable) -> voi
 	_lookup = lookup
 	_manager.container_changed.connect(_on_container_changed)
 	refresh()
+	mouse_filter = _bound_mouse_filter
 
 ## 用预制格子和物品场景渲染独立快照，物品覆盖层不拦截画板输入。
 func refresh() -> void:
@@ -85,6 +111,8 @@ func _clear_children(parent: Node) -> void:
 
 ## 按像素位置查找缓存记录，空格不调用会发失败信号的业务查询。
 func record_at(local_position: Vector2) -> Dictionary:
+	if _snapshot.is_empty():
+		return {}
 	var cell := _cell_at(local_position)
 	if cell.x < 0 or cell.y < 0 or cell.x >= _snapshot.size.x or cell.y >= _snapshot.size.y:
 		return {}
@@ -93,6 +121,8 @@ func record_at(local_position: Vector2) -> Dictionary:
 
 ## 左键选择，中键预览取出一半；分割拖放到落点确认后才修改真实数量。
 func _gui_input(event: InputEvent) -> void:
+	if not is_instance_valid(_manager):
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_MIDDLE and event.pressed:
 		_begin_split(event.position)
 		accept_event()
@@ -117,6 +147,9 @@ func _get_drag_data(at_position: Vector2) -> Variant:
 func _create_drag_preview(item: ItemInstance) -> Control:
 	var preview = item_scene.instantiate()
 	_update_drag_preview(preview, item)
+	# 原生预览脱离源窗口挂载，需显式继承所属界面的显示比例。
+	var scale_source: Control = drag_preview_scale_source if is_instance_valid(drag_preview_scale_source) else self
+	preview.scale = scale_source.get_global_transform().get_scale()
 	preview.modulate.a = 0.8
 	return preview
 
@@ -147,12 +180,20 @@ func _begin_split(at_position: Vector2) -> void:
 ## 返回占格数乘以格子大小的完整像素尺寸；网格计入旋转，普通背包始终单格。
 func _item_footprint_size(item: ItemInstance, config: ItemConfig) -> Vector2:
 	var extent := Vector2i.ONE
-	if _service_type == InventoryManager.ServiceType.GRID:
+	if _service_type in [InventoryManager.ServiceType.GRID, InventoryManager.ServiceType.WAREHOUSE]:
 		extent = item.get_effective_size(config)
 	return Vector2(extent * cell_size)
 
+## 布局整理后按实例 ID 更新选择记录，避免外部操作仍使用整理前的锚点。
+func refresh_selection() -> void:
+	refresh()
+	item_selected.emit(container_id, _snapshot.items.get(_selected_id, {}))
+
 ## 只接受本系统的拖拽数据，实际落点规则由 Manager 预览校验。
 func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+	# Godot 会在拖放期间反复询问悬停控件；解绑或绑定失败后必须明确拒绝。
+	if not is_instance_valid(_manager):
+		return false
 	if not data is Dictionary or not data.has_all(["source_id", "source_pos", "instance"]):
 		return false
 	if not data.instance is ItemInstance:
@@ -199,6 +240,8 @@ func _get_tooltip(at_position: Vector2) -> String:
 ## 释放时重新校验：同类默认堆叠，不同物品或 Shift 交换，空格移动；分割校验原栈未变化。
 ## 合并后选中保留身份的目标栈，使数量说明、旋转和移除按钮继续指向实际存在的实例。
 func _drop_data(at_position: Vector2, data: Variant) -> void:
+	if not is_instance_valid(_manager):
+		return
 	var result: InventoryResult
 	var target := record_at(at_position)
 	var selected_id: int = data.instance.instance_id

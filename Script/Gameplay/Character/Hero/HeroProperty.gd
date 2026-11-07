@@ -28,15 +28,15 @@ signal end_dash_air
 var _jump_limits: Dictionary[StringName, int] = {}
 var _base_jump_limit := 0
 var _was_on_floor := false
-## 固定能力列表；每个人物独立维护启用情况，避免多个实例共享解锁。
-var enabled_abilities: Dictionary[StringName, bool] = {&"dash": false}
-
-func is_ability_enabled(id: StringName) -> bool:
-	return enabled_abilities.get(id, false)
-
-func set_ability_enabled(id: StringName, enabled: bool) -> void:
-	if enabled_abilities.has(id):
-		enabled_abilities[id] = enabled
+### 固定能力列表；每个人物独立维护启用情况，避免多个实例共享解锁。
+#var enabled_abilities: Dictionary[StringName, bool] = {&"dash": false}
+#
+#func is_ability_enabled(id: StringName) -> bool:
+	#return enabled_abilities.get(id, false)
+#
+#func set_ability_enabled(id: StringName, enabled: bool) -> void:
+	#if enabled_abilities.has(id):
+		#enabled_abilities[id] = enabled
 
 func _enter_tree() -> void:
 	if not jump_limit_requested.is_connected(_on_jump_limit_requested):
