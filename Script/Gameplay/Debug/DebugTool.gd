@@ -20,8 +20,6 @@ const CONSOLE_TOGGLE_KEY := KEY_QUOTELEFT
 const DEBUG_CONSOLE_UI_SCENE: PackedScene = preload(Path.DEBUG_CONSOLE_UI_SCENE)
 
 const SERVICE_AUTOLOADS := {
-	&"backpack": &"BackpackSystem",
-	&"warehouse": &"WarehouseSystem",
 	&"ui": &"UIManager",
 	&"resources": &"ResourceManager",
 }
@@ -70,10 +68,8 @@ func _register_builtin_commands() -> void:
 	register_command(&"game.pause", _command_game_pause, "暂停或恢复场景树。", "game.pause [on|off|toggle]", self)
 	register_command(&"scene.current", _command_scene_current, "显示当前场景路径。", "scene.current", self)
 	register_command(&"scene.load", _command_scene_load, "切换到指定场景。", "scene.load <res://scene.tscn>", self)
-	register_command(&"ui.toggle", _command_ui_toggle, "切换游戏 UI。", "ui.toggle <backpack|warehouse|equipment|map|pause>", self)
-	register_command(&"item.give", _command_item_give, "向背包添加物品。", "item.give <item_id> [amount]", self)
+	register_command(&"ui.toggle", _command_ui_toggle, "切换游戏 UI。", "ui.toggle <equipment|map|pause>", self)
 	register_command(&"item.drop", _command_item_drop, "在玩家位置生成掉落物。", "item.drop <item_id> [amount]", self)
-	register_command(&"warehouse.give", _command_warehouse_give, "向仓库添加物品。", "warehouse.give <item_id> [amount]", self)
 	register_command(&"player.info", _command_player_info, "显示玩家生命和法力。", "player.info", self)
 	register_command(&"player.hp", _command_player_hp, "设置玩家当前生命值。", "player.hp <value>", self)
 	register_command(&"player.heal", _command_player_heal, "恢复玩家生命值。", "player.heal [amount]", self)
@@ -338,10 +334,8 @@ func _command_scene_load(arguments: PackedStringArray) -> Dictionary:
 ## 根据 UI 名称调用 UI 服务公开的开关方法。
 func _command_ui_toggle(arguments: PackedStringArray) -> Dictionary:
 	if arguments.size() != 1:
-		return _result(false, "用法：ui.toggle <backpack|warehouse|equipment|map|pause>")
+		return _result(false, "用法：ui.toggle <equipment|map|pause>")
 	var ui_methods := {
-		"backpack": &"ui_open_backpack",
-		"warehouse": &"ui_open_warehouse",
 		"equipment": &"ui_open_equipment_enhancement",
 		"map": &"ui_open_map",
 		"pause": &"open_pause_menu",
@@ -353,20 +347,6 @@ func _command_ui_toggle(arguments: PackedStringArray) -> Dictionary:
 	if not response.success:
 		return response
 	return _result(true, "已切换 UI：%s" % ui_name)
-
-
-## 解析物品参数并通过背包服务添加物品，报告无法容纳的余量。
-func _command_item_give(arguments: PackedStringArray) -> Dictionary:
-	var parsed := _parse_item_arguments(arguments, "item.give <item_id> [amount]")
-	if not parsed.success:
-		return parsed
-	var response := _call_service(&"backpack", &"quick_add_item", [parsed.item_id, parsed.amount])
-	if not response.success:
-		return response
-	var remaining: Vector2i = response.value
-	if remaining.y > 0:
-		return _result(true, "已添加物品 %s x%s，背包已满，剩余 x%s。" % [parsed.item_id, parsed.amount - remaining.y, remaining.y])
-	return _result(true, "已添加物品 %s x%s。" % [parsed.item_id, parsed.amount])
 
 
 ## 在 Hero 分组玩家的当前位置生成指定数量的掉落物。
@@ -384,19 +364,6 @@ func _command_item_drop(arguments: PackedStringArray) -> Dictionary:
 	if not response.success:
 		return response
 	return _result(true, "已在玩家位置生成物品 %s x%s。" % [parsed.item_id, parsed.amount])
-
-
-## 解析物品参数并通过仓库服务添加物品。
-func _command_warehouse_give(arguments: PackedStringArray) -> Dictionary:
-	var parsed := _parse_item_arguments(arguments, "warehouse.give <item_id> [amount]")
-	if not parsed.success:
-		return parsed
-	var response := _call_service(&"warehouse", &"add_item_to_warehouse", [parsed.item_id, parsed.amount])
-	if not response.success:
-		return response
-	if not response.value:
-		return _result(false, "无法向仓库添加物品 %s。" % parsed.item_id)
-	return _result(true, "已向仓库添加物品 %s x%s。" % [parsed.item_id, parsed.amount])
 
 
 ## 查询 Hero 分组玩家的当前/最大生命值和法力值。

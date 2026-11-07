@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="ItemCatalog" format=3 uid="uid://ktim44lsleab"]
+
+[ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Config/Model/ResourceManager/ItemCatalog.gd" id="1_catalog"]
+[ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Config/Model/ResourceManager/ItemConfig.gd" id="2_config"]
+[ext_resource type="Texture2D" uid="uid://el4rn6g3cbg8" path="res://Rescource/Static/Weapon/SwordtemberSword2.png" id="3_sword"]
+[ext_resource type="Texture2D" uid="uid://7mko7pt3q7qq" path="res://Rescource/Static/Material/item296.png" id="4_herb"]
+[ext_resource type="Texture2D" uid="uid://b4acdgasrsxit" path="res://Rescource/Static/Material/item320.png" id="5_core"]
+[ext_resource type="Texture2D" uid="uid://bquqvbrvlfr62" path="res://Rescource/Static/Material/item341.png" id="6_scroll"]
+
+[sub_resource type="Resource" id="Sword"]
+script = ExtResource("2_config")
+ItemID = 1001
+ItemName = "旅人长剑"
+ItemDiscription = "长条物品，可旋转以改变占格方向。"
+IconTexture = ExtResource("3_sword")
+GridSize = Vector2i(1, 3)
+CanRotate = true
+
+[sub_resource type="Resource" id="Herb"]
+script = ExtResource("2_config")
+ItemID = 1002
+ItemName = "回复草药"
+ItemDiscription = "单格可堆叠物品。"
+IconTexture = ExtResource("4_herb")
+MaxStack = 20
+
+[sub_resource type="Resource" id="Core"]
+script = ExtResource("2_config")
+ItemID = 1003
+ItemName = "古代核心"
+ItemDiscription = "占据四格的方形物品。"
+IconTexture = ExtResource("5_core")
+GridSize = Vector2i(2, 2)
+
+[sub_resource type="Resource" id="Scroll"]
+script = ExtResource("2_config")
+ItemID = 1004
+ItemName = "秘术卷轴"
+ItemDiscription = "横向可堆叠物品，可旋转。"
+IconTexture = ExtResource("6_scroll")
+MaxStack = 10
+GridSize = Vector2i(2, 1)
+CanRotate = true
+
+[resource]
+script = ExtResource("1_catalog")
+Item = Array[ExtResource("2_config")]([SubResource("Sword"), SubResource("Herb"), SubResource("Core"), SubResource("Scroll")])

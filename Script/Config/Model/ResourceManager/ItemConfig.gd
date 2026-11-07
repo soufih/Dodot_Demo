@@ -20,3 +20,12 @@ class_name ItemConfig
 @export var Recipe: Dictionary[int, int]
 @export var MainItemType:ENUM.ItemType = ENUM.ItemType.None
 @export var ItemType:Array[ENUM.ItemType]
+
+## 背包占位配置。旧资源未填写时继续使用单格、不可旋转的默认规则。
+@export_category("Inventory")
+@export var GridSize: Vector2i = Vector2i.ONE
+@export var CanRotate: bool = false
+
+## 返回 MaxStack 与 GridSize 两轴是否均为正数；只读检查，不修改共享配置。
+func validate() -> bool:
+	return MaxStack > 0 and GridSize.x > 0 and GridSize.y > 0

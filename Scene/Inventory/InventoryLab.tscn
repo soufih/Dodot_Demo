@@ -1,0 +1,253 @@
+[gd_scene format=3 uid="uid://w5dhskl2buo1"]
+
+[ext_resource type="Script" uid="uid://bhii3ad8pjryt" path="res://Script/UI_Script/Inventory/inventory_lab.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://c0r36axfq7dpa" path="res://UI/Inventory/inventory_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryManager.tscn" id="3_manager"]
+[ext_resource type="PackedScene" path="res://UI/Inventory/inventory_window.tscn" id="4_window"]
+[ext_resource type="Resource" uid="uid://ktim44lsleab" path="res://Rescource/Data/Inventory/inventory_demo_catalog.tres" id="5_catalog"]
+
+[node name="InventoryLab" type="Control" unique_id=644533479]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+item_catalog = ExtResource("5_catalog")
+window_scene = ExtResource("4_window")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1474388832]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.027, 0.043, 0.065, 1)
+
+[node name="Layout" type="MarginContainer" parent="." unique_id=1686408358]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 20
+
+[node name="Rows" type="VBoxContainer" parent="Layout" unique_id=1485142715]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Header" type="HBoxContainer" parent="Layout/Rows" unique_id=1075658536]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Titles" type="VBoxContainer" parent="Layout/Rows/Header" unique_id=1601859945]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="Eyebrow" type="Label" parent="Layout/Rows/Header/Titles" unique_id=614335676]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.74, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+text = "INVENTORY / SANDBOX"
+
+[node name="Title" type="Label" parent="Layout/Rows/Header/Titles" unique_id=1313846209]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.88, 1)
+theme_override_font_sizes/font_size = 28
+text = "背包实验室"
+
+[node name="Count" type="Label" parent="Layout/Rows/Header" unique_id=1158100501]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.59, 0.69, 0.72, 1)
+text = "00 个容器"
+
+[node name="Main" type="HBoxContainer" parent="Layout/Rows" unique_id=1800241224]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 22
+
+[node name="Tools" type="ScrollContainer" parent="Layout/Rows/Main" unique_id=129602094]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="Layout/Rows/Main/Tools" unique_id=1861727983]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="Forms" type="VBoxContainer" parent="Layout/Rows/Main/Tools/Margin" unique_id=1844072591]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="ContainerForm" type="VBoxContainer" parent="Layout/Rows/Main/Tools/Margin/Forms" unique_id=811841221]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Rows/Main/Tools/Margin/Forms/ContainerForm" unique_id=882742725]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.82, 0.72, 1)
+text = "01  添加容器"
+
+[node name="Name" type="LineEdit" parent="Layout/Rows/Main/Tools/Margin/Forms/ContainerForm" unique_id=210003655]
+layout_mode = 2
+text = "新背包"
+placeholder_text = "容器名称 / 唯一 ID"
+
+[node name="Type" type="OptionButton" parent="Layout/Rows/Main/Tools/Margin/Forms/ContainerForm" unique_id=1599086996]
+layout_mode = 2
+
+[node name="Dimensions" type="HBoxContainer" parent="Layout/Rows/Main/Tools/Margin/Forms/ContainerForm" unique_id=1610529007]
+layout_mode = 2
+
+[node name="Width" type="SpinBox" parent="Layout/Rows/Main/Tools/Margin/Forms/ContainerForm/Dimensions" unique_id=863096820]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 5.0
+prefix = "列"
+
+[node name="Height" type="SpinBox" parent="Layout/Rows/Main/Tools/Margin/Forms/ContainerForm/Dimensions" unique_id=1282299790]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 4.0
+prefix = "行"
+
+[node name="Create" type="Button" parent="Layout/Rows/Main/Tools/Margin/Forms/ContainerForm" unique_id=1023699697]
+layout_mode = 2
+text = "+  创建容器"
+
+[node name="Separator" type="HSeparator" parent="Layout/Rows/Main/Tools/Margin/Forms" unique_id=605937038]
+layout_mode = 2
+
+[node name="ItemForm" type="VBoxContainer" parent="Layout/Rows/Main/Tools/Margin/Forms" unique_id=1282641508]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Rows/Main/Tools/Margin/Forms/ItemForm" unique_id=292709943]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.82, 0.72, 1)
+text = "02  快速添加物品"
+
+[node name="Target" type="OptionButton" parent="Layout/Rows/Main/Tools/Margin/Forms/ItemForm" unique_id=336086897]
+layout_mode = 2
+tooltip_text = "目标容器"
+
+[node name="Config" type="OptionButton" parent="Layout/Rows/Main/Tools/Margin/Forms/ItemForm" unique_id=329261628]
+layout_mode = 2
+
+[node name="Amount" type="SpinBox" parent="Layout/Rows/Main/Tools/Margin/Forms/ItemForm" unique_id=686327158]
+layout_mode = 2
+min_value = 1.0
+max_value = 20.0
+value = 1.0
+prefix = "数量"
+
+[node name="Rotated" type="CheckBox" parent="Layout/Rows/Main/Tools/Margin/Forms/ItemForm" unique_id=1170285827]
+layout_mode = 2
+tooltip_text = "网格背包优先尝试此方向；放不下且物品允许旋转时，再尝试另一方向"
+text = "优先旋转 90° 放入"
+
+[node name="Add" type="Button" parent="Layout/Rows/Main/Tools/Margin/Forms/ItemForm" unique_id=145671]
+layout_mode = 2
+tooltip_text = "从左上角按行寻找首个能完整放入物品的位置"
+text = "+  快速添加物品"
+
+[node name="Separator2" type="HSeparator" parent="Layout/Rows/Main/Tools/Margin/Forms" unique_id=704690933]
+layout_mode = 2
+
+[node name="Selection" type="VBoxContainer" parent="Layout/Rows/Main/Tools/Margin/Forms" unique_id=1990343815]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Rows/Main/Tools/Margin/Forms/Selection" unique_id=1103763996]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.82, 0.72, 1)
+text = "03  当前选择"
+
+[node name="Description" type="Label" parent="Layout/Rows/Main/Tools/Margin/Forms/Selection" unique_id=2146145812]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.59, 0.68, 0.73, 1)
+theme_override_font_sizes/font_size = 13
+text = "未选择物品"
+autowrap_mode = 2
+
+[node name="Rotate" type="Button" parent="Layout/Rows/Main/Tools/Margin/Forms/Selection" unique_id=1654863543]
+layout_mode = 2
+disabled = true
+text = "旋转选中物品"
+
+[node name="Remove" type="Button" parent="Layout/Rows/Main/Tools/Margin/Forms/Selection" unique_id=233125975]
+layout_mode = 2
+disabled = true
+text = "移除选中物品"
+
+[node name="Workspace" type="Control" parent="Layout/Rows/Main" unique_id=720791456]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="Hint" type="VBoxContainer" parent="Layout/Rows/Main/Workspace" unique_id=1946497777]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -64.0
+offset_right = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Layout/Rows/Main/Workspace/Hint" unique_id=2011603077]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.52, 0.58, 1)
+theme_override_font_sizes/font_size = 13
+text = "自由工作区"
+
+[node name="Text" type="Label" parent="Layout/Rows/Main/Workspace/Hint" unique_id=771047741]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.34, 0.44, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "边框移动 · 滚轮浏览（Shift 横滚） · 同类堆叠 · 不同物品交换（Shift 强制）
+拖动时 R 旋转 · 中键取一半 · 左键放置 · 右键 / Esc 取消"
+
+[node name="Status" type="PanelContainer" parent="Layout/Rows" unique_id=281241152]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Layout/Rows/Status" unique_id=1224495082]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="Message" type="Label" parent="Layout/Rows/Status/Margin" unique_id=1744220591]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "就绪"
+autowrap_mode = 2
+
+[node name="Manager" parent="." unique_id=2076720932 instance=ExtResource("3_manager")]
+
+[connection signal="pressed" from="Layout/Rows/Main/Tools/Margin/Forms/ContainerForm/Create" to="." method="_on_create_container_pressed"]
+[connection signal="item_selected" from="Layout/Rows/Main/Tools/Margin/Forms/ItemForm/Config" to="." method="_on_config_selected"]
+[connection signal="pressed" from="Layout/Rows/Main/Tools/Margin/Forms/ItemForm/Add" to="." method="_on_add_item_pressed"]
+[connection signal="pressed" from="Layout/Rows/Main/Tools/Margin/Forms/Selection/Rotate" to="." method="_on_rotate_pressed"]
+[connection signal="pressed" from="Layout/Rows/Main/Tools/Margin/Forms/Selection/Remove" to="." method="_on_remove_pressed"]

@@ -60,5 +60,5 @@ theme_override_font_sizes/normal_font_size = 15
 
 [node name="Input" type="LineEdit" parent="ConsoleContainer/ConsolePanel/Layout" unique_id=1672451351]
 layout_mode = 2
-placeholder_text = "输入命令，例如：item.give 28 10"
+placeholder_text = "输入调试命令，例如：help"
 clear_button_enabled = true

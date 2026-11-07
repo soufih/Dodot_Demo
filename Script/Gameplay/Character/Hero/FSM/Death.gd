@@ -17,9 +17,7 @@ func _on_enter():
 	UIManager.ban_ui_input()
 	UIManager.ui_close_all()
 	UIManager.is_paused = false
-	BackpackSystem.clear_backpack()
 	EquipmentSlotSystem.clear_equipment()
-	UIManager.tmp_slot.clear_item()
 	AniPlayer.play("Death")
 	AniPlayer.advance(0.0)
 	# 方法轨道只启动精灵动画，等待精灵的实际死亡动画结束。

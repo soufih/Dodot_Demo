@@ -40,7 +40,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_banned:
 		return
 	
-	if event.is_action_pressed("Attack") && EquipmentSlotSystem.get_current_weapon() != -1:
+	if event.is_action_pressed("Attack") && false:
 		buffer_action("Attack")
 		when_attack_tigger.emit()
 	
