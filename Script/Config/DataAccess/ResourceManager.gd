@@ -115,22 +115,20 @@ func get_item_max_stack(id:int)->int:
 
 ##获取物品高级物品列表
 func get_item_products(id: int)->Array:
-	var Config = get_item_config(id)
-	
-	if Config:
-		if Config.Products:
-			return Config.Products
-
-	return []
+	var products: Array[int] = []
+	for recipe: CraftingRecipe in CraftingManager.list_recipes():
+		if recipe.inputs.has(id):
+			for output_id: int in recipe.outputs:
+				if not products.has(output_id):
+					products.append(output_id)
+	return products
 
 ##获取物品基础物品列表
 func get_item_recipe(id: int)->Dictionary:
-	var Config = get_item_config(id)
-	
-	if Config:
-		if Config.Recipe:
-			return Config.Recipe
-
+	# 兼容旧的按产物查询入口；正式合成应使用 recipe_id，以区分同产物的不同配方。
+	for recipe: CraftingRecipe in CraftingManager.list_recipes():
+		if recipe.outputs.has(id):
+			return recipe.inputs.duplicate()
 	return {}
 
 ##实例化物品场景

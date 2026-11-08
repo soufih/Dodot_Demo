@@ -126,7 +126,7 @@ func _test_validation(t) -> void:
 	var config := ItemConfig.new()
 	t.expect(config.validate(), "旧物品默认配置有效")
 	t.equal(config.GridSize, Vector2i.ONE, "旧资源默认单格")
-	t.expect(not config.CanRotate, "旧资源默认不可旋转")
+	t.expect(config.CanRotate, "当前物品配置默认允许旋转")
 	config.MaxStack = 0
 	t.expect(not config.validate(), "配置拒绝非正堆叠上限")
 	config.MaxStack = 1

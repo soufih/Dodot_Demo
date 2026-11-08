@@ -121,6 +121,7 @@ func _test_rotation_fallback(t) -> void:
 	var fixed_config := ItemConfig.new()
 	fixed_config.ItemID = 5
 	fixed_config.GridSize = Vector2i(2, 1)
+	fixed_config.CanRotate = false
 	var lookup := func(id: int) -> ItemConfig: return fixed_config if id == 5 else t.lookup(id)
 	var fixed_service := GridService.new(lookup)
 	fixed_service.initialize("fixed", Vector2i(1, 2))

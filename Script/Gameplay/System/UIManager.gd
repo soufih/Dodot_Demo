@@ -70,7 +70,7 @@ func _register_defaults() -> void:
 		[UIId.PAUSE, Path.MENU_UI_SCENE, UIConfig.Layer.MODAL],
 		[UIId.SETTINGS, Path.SETTING_PANEL_SCENE, UIConfig.Layer.MODAL],
 		[UIId.MAP, Path.MAP_SCENE, UIConfig.Layer.WINDOW],
-		[UIId.EQUIPMENT, Path.EQUIPMENT_ENHANCEMENT_UI_SCENE, UIConfig.Layer.WINDOW],
+		[UIId.EQUIPMENT, Path.CRAFTING_UI_SCENE, UIConfig.Layer.WINDOW],
 		[UIId.INVENTORY, "res://UI/Inventory/inventory_workspace.tscn", UIConfig.Layer.WINDOW],
 		[UIId.DEATH, Path.DEATH_UI_SCENE, UIConfig.Layer.RESULT],
 		[UIId.END, Path.END_UI_SCENE, UIConfig.Layer.RESULT],

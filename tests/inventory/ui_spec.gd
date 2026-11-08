@@ -20,6 +20,9 @@ func _ready() -> void:
 			get_tree().quit()
 			return
 	_expect(lab.windows.size() == 2, "默认场景提供两类容器")
+	# 限制用例显式声明能力，不依赖物品配置的生产默认值。
+	lab.lookup_config(1002).CanRotate = false
+	lab.lookup_config(1003).CanRotate = false
 	_expect(lab.windows["旅行背包"].position != lab.windows["储物箱"].position, "布局完成后初始窗口错开")
 	_test_forms()
 	await get_tree().process_frame

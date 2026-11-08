@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Script/UI_Script/Crafting/crafting_item.gd" id="1"]
+[ext_resource type="PackedScene" path="res://UI/Crafting/material_tooltip.tscn" id="2"]
+
+[node name="CraftingItem" type="PanelContainer"]
+mouse_filter = 1
+script = ExtResource("1")
+material_tooltip_scene = ExtResource("2")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="Row" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="Margin/Row"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 1
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Quantity" type="Label" parent="Margin/Row"]
+layout_mode = 2
+mouse_filter = 2
+text = "×1"

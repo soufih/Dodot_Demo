@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://tests/crafting/runner.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryManager.tscn" id="2"]
+[ext_resource type="Script" path="res://Script/Gameplay/Crafting/CraftingManager.gd" id="3"]
+
+[node name="CraftingTests" type="Node"]
+script = ExtResource("1")
+
+[node name="Manager" parent="." instance=ExtResource("2")]
+
+[node name="Crafting" type="Node" parent="." node_paths=PackedStringArray("inventory_manager")]
+script = ExtResource("3")
+inventory_manager = NodePath("../Manager")

@@ -55,6 +55,16 @@ func quick_add(item: ItemInstance) -> InventoryResult:
 	if container == null:
 		return StateOps.not_initialized()
 	var staged := stage_snapshot()
+	var placed := stage_quick_add(staged, item)
+	if not placed.is_ok():
+		return placed
+	var result := _commit_local(staged)
+	if result.is_ok():
+		result.payload = placed.payload
+	return result
+
+## 在调用方的暂存计划中寻找空位并尝试旋转，不提交、不分配实例 ID。
+func stage_quick_add(staged: Dictionary, item: ItemInstance) -> InventoryResult:
 	var placed := _stage_first_fit(staged, item)
 	if placed.code == InventoryResult.Code.NO_SPACE:
 		var config: ItemConfig = _config_lookup.call(item.config_id)
@@ -62,12 +72,7 @@ func quick_add(item: ItemInstance) -> InventoryResult:
 			var rotated := item.copy()
 			rotated.rotated = not rotated.rotated
 			placed = _stage_first_fit(staged, rotated)
-	if not placed.is_ok():
-		return placed
-	var result := _commit_local(staged)
-	if result.is_ok():
-		result.payload = placed.payload
-	return result
+	return placed
 
 ## 在暂存计划中按行寻找并写入第一个适配位置，不提交真实状态。
 ## 无位置时返回 NO_SPACE；非法实例或规则错误直接返回，失败候选不改变暂存状态。

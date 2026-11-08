@@ -9,25 +9,10 @@ extends Camera2D
 var active_boundary: CameraBoundary
 var _entered_boundaries: Array[CameraBoundary] = []
 
-@export_category("长按查看")
-## 长按时的镜头偏移距离（像素）：W 向上，S 向下。
-@export_range(0.0, 1000.0, 1.0, "or_greater") var look_down_distance: float = 160.0
-@export_range(0.0, 3.0, 0.05, "or_greater") var look_hold_duration: float = 0.4
-@export_range(1.0, 2000.0, 1.0, "or_greater") var look_move_speed: float = 320.0
-@export var _InputController: InputController
-
 var _base_position: Vector2
-var _up_hold_time: float = 0.0
-var _down_hold_time: float = 0.0
-var _look_displacement: float = 0.0
-var _look_enabled := true
 
 func _ready() -> void:
 	_base_position = position
-	var hero := get_parent() as HeroProperty
-	if hero != null:
-		hero.climb_started.connect(_on_climb_started)
-		hero.climb_finished.connect(_on_climb_finished)
 	add_to_group("Camera")
 	SignalBus.camera_room_entered.connect(_on_room_entered)
 	SignalBus.camera_room_exited.connect(_on_room_exited)
@@ -35,40 +20,9 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_apply_boundary_limits)
 	_apply_boundary_limits()
 
-func _process(delta: float) -> void:
-	_update_look(delta)
-
-
-func _update_look(delta: float) -> void:
-	if not _look_enabled:
-		return
-	var accepts_input := is_current() and not UIManager.has_blocking_ui()
-	var hero := get_parent() as HeroProperty
-	if hero != null:
-		accepts_input = accepts_input and hero.CurrentHealth > 0.0 and not _InputController.is_banned
-	var up_pressed := accepts_input and Input.is_action_pressed("Up")
-	var down_pressed := accepts_input and Input.is_action_pressed("Down")
-	_up_hold_time = _up_hold_time + delta if up_pressed else 0.0
-	_down_hold_time = _down_hold_time + delta if down_pressed else 0.0
-	var target: float = 0.0
-	if up_pressed and not down_pressed and _up_hold_time >= look_hold_duration:
-		target = -look_down_distance
-	elif down_pressed and not up_pressed and _down_hold_time >= look_hold_duration:
-		target = look_down_distance
-	_look_displacement = move_toward(_look_displacement, target, look_move_speed * delta)
+func set_look_displacement(displacement: float) -> void:
 	# 移动镜头节点而非 offset，保持 Camera2D 的房间边界约束有效。
-	position = _base_position + Vector2(0.0, _look_displacement)
-
-func _on_climb_started() -> void:
-	_look_enabled = false
-	_up_hold_time = 0.0
-	_down_hold_time = 0.0
-	_look_displacement = 0.0
-	position = _base_position
-
-
-func _on_climb_finished() -> void:
-	_look_enabled = true
+	position = _base_position + Vector2(0.0, displacement)
 
 
 func _on_room_entered(player: Node2D, boundary: CameraBoundary) -> void:

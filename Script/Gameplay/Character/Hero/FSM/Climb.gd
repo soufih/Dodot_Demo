@@ -20,6 +20,7 @@ func _on_enter():
 	Entity.climb_started.emit()
 	Entity.velocity = Vector2.ZERO
 	Entity.global_position.x = ladder.get_climb_axis_x()
+	sprite = spirte
 	if sprite != null:
 		_previous_flip_h = sprite.flip_h
 	AniPlayer.play("Climb")
@@ -43,12 +44,12 @@ func _on_do(_delta: float):
 		return
 	var direction := _InputController.get_climb_direction()
 	Entity.velocity = Vector2(0.0, direction * ladder.climb_speed)
+	Entity.move_and_slide()
 	if sprite != null:
-		if is_zero_approx(direction):
+		if Entity.get_position_delta().is_zero_approx():
 			sprite.pause()
 		else:
 			sprite.play("Climb")
-	Entity.move_and_slide()
 	if direction > 0.0 and Entity.is_on_floor():
 		Entity.emit_signal("end_climb")
 

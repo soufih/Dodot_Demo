@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ciank40yrwqne" path="res://Rescource/Static/BladeSlash/Attack1/BladeSlash-00.png" id="4_q22w6"]
 [ext_resource type="Resource" uid="uid://bjtqrq2pk0syi" path="res://Rescource/Data/Catalog/AbilityCatalog.tres" id="5_6lf6g"]
 [ext_resource type="Script" uid="uid://dcdupyefvr2cl" path="res://Script/Gameplay/Character/Hero/FSM/Idle.gd" id="5_fqamf"]
+[ext_resource type="Script" path="res://Script/Gameplay/Character/Hero/FSM/Look.gd" id="idle_look"]
 [ext_resource type="Script" uid="uid://de3556wyijsh0" path="res://Script/Gameplay/Character/Hero/FSM/Run.gd" id="5_iuq1t"]
 [ext_resource type="Script" uid="uid://dvbqh7m28bfnn" path="res://Script/Gameplay/Character/Hero/FSM/Jumping.gd" id="6_o2ky4"]
 [ext_resource type="Script" uid="uid://xlpd0upl7t7p" path="res://Script/Gameplay/Character/Hero/FSM/Falling.gd" id="7_pwso0"]
@@ -2034,8 +2035,15 @@ NextStates = {
 "when_dash_trigger": NodePath("../Dash")
 }
 Substates = {
+"look": NodePath("Look"),
 "switch_weapon_pressed": NodePath("SwitchWeapon")
 }
+
+[node name="Look" type="Node" parent="State/Idle" node_paths=PackedStringArray("camera", "Entity", "_InputController")]
+script = ExtResource("idle_look")
+camera = NodePath("../../../MainCamera")
+Entity = NodePath("../../..")
+_InputController = NodePath("../../../InputController")
 
 [node name="SwitchWeapon" type="Node" parent="State/Idle" unique_id=449154940 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
 script = ExtResource("9_iuq1t")
@@ -2201,14 +2209,13 @@ script = ExtResource("13_8l1ja")
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_v1ih1")
 
-[node name="MainCamera" type="Camera2D" parent="." unique_id=1661422779 node_paths=PackedStringArray("_InputController")]
+[node name="MainCamera" type="Camera2D" parent="." unique_id=1661422779]
 position = Vector2(0, -80)
 scale = Vector2(1.5, 1.5)
 zoom = Vector2(1.5, 1.5)
 limit_enabled = false
 position_smoothing_speed = 20.0
 script = ExtResource("13_73oc2")
-_InputController = NodePath("../InputController")
 
 [node name="background" type="TileMapLayer" parent="MainCamera" unique_id=1614610714]
 visible = false
