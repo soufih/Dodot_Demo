@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dkpfad1e406sr" path="res://Scene/Map/Barrier.tscn" id="5_dkyxa"]
 [ext_resource type="PackedScene" uid="uid://x1dfb4rvq5v" path="res://Scene/Map/MapComponent/ladder.tscn" id="7_dsbgy"]
 [ext_resource type="PackedScene" path="res://Scene/Map/MapComponent/CameraBoundary.tscn" id="8_7drta"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/Warehouse.tscn" id="warehouse"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0qttu"]
 texture = ExtResource("2_hly1h")
@@ -604,6 +605,9 @@ position = Vector2(-531, -34)
 
 [node name="Startpoint" type="Marker2D" parent="." unique_id=811987254]
 position = Vector2(65, -25)
+
+[node name="HomeWarehouse" parent="." instance=ExtResource("warehouse")]
+position = Vector2(150, 0)
 
 [node name="Ladder" parent="." unique_id=1109416985 instance=ExtResource("7_dsbgy")]
 position = Vector2(-101, -173)

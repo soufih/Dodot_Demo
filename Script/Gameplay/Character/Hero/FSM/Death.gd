@@ -1,23 +1,16 @@
 extends BaseState
 
 var _entry_id: int = 0
-var _previous_input_ban := false
-var _previous_ui_ban := false
-var _ui_input_locked := false
+var _input_token := 0
 
 
 func _on_enter():
 	_entry_id += 1
 	var entry_id := _entry_id
 	Entity.velocity = Vector2.ZERO
-	_previous_input_ban = Entity._InputController.is_banned
-	Entity._InputController.ban_input(true)
-	_previous_ui_ban = UIManager.is_banned
-	_ui_input_locked = true
-	UIManager.ban_ui_input()
+	_input_token = UIManager.acquire_request(self, false, true, true)
 	UIManager.ui_close_all()
-	UIManager.is_paused = false
-	EquipmentSlotSystem.clear_equipment()
+	# 死亡仅关闭界面；会话装备与背包一起保留，由新游戏明确重置。
 	AniPlayer.play("Death")
 	AniPlayer.advance(0.0)
 	# 方法轨道只启动精灵动画，等待精灵的实际死亡动画结束。
@@ -28,13 +21,12 @@ func _on_enter():
 	Entity.collision_layer = 0
 	Entity.collision_mask = 0
 	# 保留遗体和镜头，由场景切换统一释放。
-	_restore_ui_input()
 	SignalBus.player_death.emit()
+	_restore_ui_input()
 
 
 func _on_exit():
 	_entry_id += 1
-	Entity._InputController.ban_input(_previous_input_ban)
 	_restore_ui_input()
 
 
@@ -43,6 +35,5 @@ func _exit_tree() -> void:
 
 
 func _restore_ui_input() -> void:
-	if _ui_input_locked:
-		UIManager.is_banned = _previous_ui_ban
-		_ui_input_locked = false
+	UIManager.release_request(_input_token)
+	_input_token = 0

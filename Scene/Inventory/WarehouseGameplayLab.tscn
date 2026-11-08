@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryGameplayLab.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/Warehouse.tscn" id="2"]
+[ext_resource type="Script" path="res://Script/UI_Script/Inventory/warehouse_gameplay_lab.gd" id="3"]
+
+[node name="WarehouseGameplayLab" instance=ExtResource("1")]
+script = ExtResource("3")
+
+[node name="Title" parent="HUD/Panel/Margin/Rows" index="0"]
+text = "仓库 · 游戏接入测试"
+
+[node name="Instructions" parent="HUD/Panel/Margin/Rows" index="1"]
+text = "A / D 移动 · E 拾取或打开仓库\n向右靠近宝箱，按 E 打开背包、装备与仓库\nTab / Esc 关闭；物品留在会话内"
+
+[node name="Reset" parent="HUD/Panel/Margin/Rows" index="7"]
+text = "重置背包、装备与仓库"
+
+[node name="HomeWarehouse" parent="." instance=ExtResource("2")]
+position = Vector2(160, 17)

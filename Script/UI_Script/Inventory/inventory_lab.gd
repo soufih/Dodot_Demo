@@ -28,7 +28,7 @@ func _ready() -> void:
 	# 等待布局容器完成排序，窗口初始位置和边界限制才能使用真实工作区尺寸。
 	await get_tree().process_frame
 	if populate_demo:
-		create_container("旅行背包", Vector2i(6, 4), InventoryManager.ServiceType.GRID)
+		create_container("旅行背包", Vector2i(5, 4), InventoryManager.ServiceType.GRID)
 		create_container("储物箱", Vector2i(4, 3), InventoryManager.ServiceType.SLOT)
 		#manager.add_to_container("旅行背包", 1001, 1, Vector2i(0, 0))
 		#manager.add_to_container("旅行背包", 1002, 8, Vector2i(2, 0))

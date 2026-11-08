@@ -1,0 +1,99 @@
+[gd_resource type="Resource" script_class="ItemCatalog" format=3 uid="uid://chloubujstwn2"]
+
+[ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Config/Model/ResourceManager/ItemCatalog.gd" id="1"]
+[ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Config/Model/ResourceManager/ItemConfig.gd" id="2"]
+[ext_resource type="Script" uid="uid://d3834lunj43jm" path="res://Script/Config/Model/ResourceManager/EquipmentItemConfig.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://el4rn6g3cbg8" path="res://Rescource/Static/Weapon/SwordtemberSword2.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://7mko7pt3q7qq" path="res://Rescource/Static/Material/item296.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://b4acdgasrsxit" path="res://Rescource/Static/Material/item320.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bquqvbrvlfr62" path="res://Rescource/Static/Material/item341.png" id="7"]
+
+[sub_resource type="Resource" id="OneHand"]
+script = ExtResource("3")
+equipment_type = 1
+
+[sub_resource type="Resource" id="Sword"]
+script = ExtResource("2")
+ItemID = 2001
+ItemName = "旅人长剑"
+ItemDiscription = "单手武器，可以装备到主武器或副武器槽。"
+IconTexture = ExtResource("4")
+GridSize = Vector2i(1, 3)
+Equipment = SubResource("OneHand")
+
+[sub_resource type="Resource" id="Dagger"]
+script = ExtResource("2")
+ItemID = 2002
+ItemName = "备用短剑"
+ItemDiscription = "同属武器分组，也可放入主武器或副武器槽。"
+IconTexture = ExtResource("4")
+GridSize = Vector2i(1, 2)
+Equipment = SubResource("OneHand")
+
+[sub_resource type="Resource" id="TwoHand"]
+script = ExtResource("3")
+equipment_type = 2
+blocked_slot_ids = Array[StringName]([&"off_hand"])
+
+[sub_resource type="Resource" id="GreatSword"]
+script = ExtResource("2")
+ItemID = 2003
+ItemName = "双手重剑"
+ItemDiscription = "只能放在主武器槽，并要求副武器槽为空。"
+IconTexture = ExtResource("4")
+GridSize = Vector2i(1, 3)
+Equipment = SubResource("TwoHand")
+
+[sub_resource type="Resource" id="HelmetType"]
+script = ExtResource("3")
+equipment_type = 4
+
+[sub_resource type="Resource" id="Helmet"]
+script = ExtResource("2")
+ItemID = 2004
+ItemName = "古代护具"
+ItemDiscription = "演示头部装备，使用现有核心图标代替美术资源。"
+IconTexture = ExtResource("6")
+GridSize = Vector2i(2, 2)
+CanRotate = false
+Equipment = SubResource("HelmetType")
+
+[sub_resource type="Resource" id="RingType"]
+script = ExtResource("3")
+equipment_type = 6
+
+[sub_resource type="Resource" id="Ring"]
+script = ExtResource("2")
+ItemID = 2005
+ItemName = "秘术指环"
+ItemDiscription = "可以装备到四个独立的饰品槽。"
+IconTexture = ExtResource("7")
+CanRotate = false
+Equipment = SubResource("RingType")
+
+[sub_resource type="Resource" id="Herb"]
+script = ExtResource("2")
+ItemID = 2006
+ItemName = "回复草药"
+ItemDiscription = "普通物品，不能放入任何装备槽。"
+IconTexture = ExtResource("5")
+MaxStack = 20
+CanRotate = false
+
+[sub_resource type="Resource" id="BodyType"]
+script = ExtResource("3")
+equipment_type = 5
+
+[sub_resource type="Resource" id="BodyArmor"]
+script = ExtResource("2")
+ItemID = 2007
+ItemName = "古代胸甲"
+ItemDiscription = "身体装备，用于测试新增的身体槽位。"
+IconTexture = ExtResource("6")
+GridSize = Vector2i(2, 3)
+CanRotate = false
+Equipment = SubResource("BodyType")
+
+[resource]
+script = ExtResource("1")
+Item = Array[ExtResource("2")]([SubResource("Sword"), SubResource("Dagger"), SubResource("GreatSword"), SubResource("Helmet"), SubResource("Ring"), SubResource("Herb"), SubResource("BodyArmor")])

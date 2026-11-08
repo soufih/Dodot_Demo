@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://cfabxsxbg3kyx"]
+
+[ext_resource type="Script" uid="uid://c6row1v32n0hm" path="res://Script/UI_Script/Inventory/inventory_workspace.gd" id="1"]
+
+[node name="InventoryWorkspace" type="Control" unique_id=690556206 node_paths=PackedStringArray("window_positions", "warehouse_window_positions")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+window_positions = [NodePath("Workspace/WindowPositions/WithoutWarehouse/BackpackPosition"), NodePath("Workspace/WindowPositions/WithoutWarehouse/EquipmentPosition")]
+warehouse_window_positions = [NodePath("Workspace/WindowPositions/WithWarehouse/BackpackPosition"), NodePath("Workspace/WindowPositions/WithWarehouse/EquipmentPosition"), NodePath("Workspace/WindowPositions/WithWarehouse/WarehousePosition")]
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=738074613]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.03, 0.04, 0.85)
+
+[node name="Close" type="Button" parent="." unique_id=1919922565]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 16.0
+offset_right = -24.0
+offset_bottom = 56.0
+grow_horizontal = 0
+text = "关闭背包"
+
+[node name="Workspace" type="Control" parent="." unique_id=1927579850]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 64.0
+offset_right = -16.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="WindowPositions" type="Node2D" parent="Workspace" unique_id=742775711]
+
+[node name="WithoutWarehouse" type="Node2D" parent="Workspace/WindowPositions" unique_id=1781373498]
+visible = false
+
+[node name="BackpackPosition" type="Marker2D" parent="Workspace/WindowPositions/WithoutWarehouse" unique_id=1778842060]
+position = Vector2(688, 24)
+
+[node name="EquipmentPosition" type="Marker2D" parent="Workspace/WindowPositions/WithoutWarehouse" unique_id=1828165265]
+position = Vector2(240, 24)
+
+[node name="WithWarehouse" type="Node2D" parent="Workspace/WindowPositions" unique_id=260089554]
+
+[node name="BackpackPosition" type="Marker2D" parent="Workspace/WindowPositions/WithWarehouse" unique_id=1538680814]
+position = Vector2(496, 24)
+
+[node name="EquipmentPosition" type="Marker2D" parent="Workspace/WindowPositions/WithWarehouse" unique_id=543573616]
+position = Vector2(112, 24)
+
+[node name="WarehousePosition" type="Marker2D" parent="Workspace/WindowPositions/WithWarehouse" unique_id=818849079]
+position = Vector2(728, 24)
+
+[node name="Empty" type="Label" parent="." unique_id=1665059124]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -20.0
+offset_right = 140.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "暂无可显示的背包"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="." unique_id=240069920]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -48.0
+offset_right = -24.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+autowrap_mode = 2
+
+[connection signal="pressed" from="Close" to="." method="request_close"]
+[connection signal="resized" from="Workspace" to="." method="_clamp_windows"]

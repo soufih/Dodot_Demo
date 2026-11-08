@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://tests/ui/runner.gd" id="1"]
+[node name="UISpecHost" type="Node"]
+[node name="Specs" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("1")

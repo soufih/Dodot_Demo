@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ItemCatalog" format=3 uid="uid://crd3nj0t7e4d6"]
 
 [ext_resource type="Script" uid="uid://qchpvf5o4y2y" path="res://Script/Config/Model/ResourceManager/ItemConfig.gd" id="1_h6kmf"]
+[ext_resource type="Script" uid="uid://d3834lunj43jm" path="res://Script/Config/Model/ResourceManager/EquipmentItemConfig.gd" id="2_6ijaj"]
 [ext_resource type="Script" uid="uid://tr7wkpbk1gtd" path="res://Script/Config/Model/ResourceManager/ItemCatalog.gd" id="2_hcisg"]
 [ext_resource type="Texture2D" uid="uid://el4rn6g3cbg8" path="res://Rescource/Static/Weapon/SwordtemberSword2.png" id="2_l8dk2"]
 [ext_resource type="Texture2D" uid="uid://7mko7pt3q7qq" path="res://Rescource/Static/Material/item296.png" id="3_r6x5k"]
@@ -22,6 +23,11 @@
 [ext_resource type="Texture2D" uid="uid://cg77xskdxhld1" path="res://Rescource/Static/Weapon/Icon17.png" id="19_l8dk2"]
 [ext_resource type="Texture2D" uid="uid://btw5h3a5o6ssn" path="res://Rescource/Static/Weapon/Icon9.png" id="20_gdmoy"]
 
+[sub_resource type="Resource" id="Resource_cdgvv"]
+script = ExtResource("2_6ijaj")
+equipment_type = 1
+metadata/_custom_type_script = "uid://d3834lunj43jm"
+
 [sub_resource type="Resource" id="Resource_l8dk2"]
 script = ExtResource("1_h6kmf")
 ItemID = 10
@@ -36,6 +42,8 @@ Recipe = Dictionary[int, int]({
 })
 MainItemType = 1
 ItemType = Array[int]([1, 2])
+GridSize = Vector2i(4, 1)
+Equipment = SubResource("Resource_cdgvv")
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_gdmoy"]
@@ -51,6 +59,7 @@ Recipe = Dictionary[int, int]({
 })
 MainItemType = 2
 ItemType = Array[int]([2])
+GridSize = Vector2i(2, 1)
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_gtr5b"]
@@ -93,6 +102,11 @@ MainItemType = 2
 ItemType = Array[int]([2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
+[sub_resource type="Resource" id="Resource_0oh8u"]
+script = ExtResource("2_6ijaj")
+equipment_type = 1
+metadata/_custom_type_script = "uid://d3834lunj43jm"
+
 [sub_resource type="Resource" id="Resource_e72d0"]
 script = ExtResource("1_h6kmf")
 ItemID = 11
@@ -106,6 +120,8 @@ Recipe = Dictionary[int, int]({
 })
 MainItemType = 1
 ItemType = Array[int]([1])
+GridSize = Vector2i(2, 2)
+Equipment = SubResource("Resource_0oh8u")
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_smrcc"]

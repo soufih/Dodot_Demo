@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryDefinition" format=3 uid="uid://ds3uyaj1gkq38"]
+
+[ext_resource type="Script" uid="uid://cqwnxbiu22b1v" path="res://Script/Config/Model/ResourceManager/InventoryDefinition.gd" id="1_definition"]
+[ext_resource type="Script" uid="uid://de54etmunawoc" path="res://Script/Config/Model/ResourceManager/EquipmentSlotDefinition.gd" id="1_yg0xk"]
+
+[resource]
+script = ExtResource("1_definition")
+container_id = "player_backpack"
+display_name = "玩家背包"
+size = Vector2i(5, 6)

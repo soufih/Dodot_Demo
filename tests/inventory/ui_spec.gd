@@ -36,10 +36,10 @@ func _ready() -> void:
 
 ## 仅供真实渲染检查：展示大容器及滚动后的末格，交互行为仍由独立滚轮用例验证。
 func _prepare_large_preview() -> void:
-	lab.create_container("可滚动背包", Vector2i(10, 8), InventoryManager.ServiceType.GRID)
+	lab.create_container("可滚动背包", Vector2i(10, 12), InventoryManager.ServiceType.GRID)
 	var window = lab.windows["可滚动背包"]
 	window.position = Vector2(460, 24)
-	lab.manager.add_to_container("可滚动背包", 1002, 9, Vector2i(9, 7))
+	lab.manager.add_to_container("可滚动背包", 1002, 9, Vector2i(9, 11))
 	lab.manager.add_to_container("可滚动背包", 1003, 1, Vector2i(6, 4))
 	for frame in range(3):
 		await get_tree().process_frame

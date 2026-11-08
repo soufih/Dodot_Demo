@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://riy0uqqdiuno" path="res://Script/Gameplay/DroppedItem/DroppedItem.gd" id="1_s7arg"]
 [ext_resource type="Shader" uid="uid://bedv4mhwj8g2g" path="res://Shader/drop_glow.gdshader" id="2_glow_shader"]
+[ext_resource type="Script" path="res://Script/Gameplay/Interactable/PickupInteractable.gd" id="3_pickup"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5c511"]
 radius = 7.0
+
+[sub_resource type="CircleShape2D" id="PickupShape"]
+radius = 24.0
 
 [sub_resource type="ShaderMaterial" id="GlowMaterial"]
 shader = ExtResource("2_glow_shader")
@@ -39,5 +43,32 @@ autostart = true
 material = SubResource("GlowMaterial")
 scale = Vector2(0.7532811, 0.7532811)
 texture = SubResource("GlowTexture")
+
+[node name="ItemIcon" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="Amount" type="Label" parent="."]
+offset_left = -36.0
+offset_top = -30.0
+offset_right = 36.0
+offset_bottom = -12.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.75, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+
+[node name="Pickup" type="Area2D" parent="." node_paths=PackedStringArray("dropped_item")]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("3_pickup")
+interaction_name = "拾取"
+dismiss_prompt_after_interact = false
+dropped_item = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup"]
+shape = SubResource("PickupShape")
 
 [connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]

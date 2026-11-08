@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3]
+
+[sub_resource type="StyleBoxFlat" id="Group"]
+bg_color = Color(0.075, 0.11, 0.14, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+
+[node name="EquipmentGroup" type="Control"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 188.0
+mouse_filter = 1
+
+[node name="Frame" type="Panel" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Group")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 10.0
+offset_right = 224.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.76, 0.85, 0.62, 1)
+theme_override_font_sizes/font_size = 17
+text = "装备分组"
+
+[node name="Slots" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = -16.0
+offset_bottom = -16.0
+mouse_filter = 1

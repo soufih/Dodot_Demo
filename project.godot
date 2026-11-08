@@ -48,6 +48,7 @@ DebugTool="*res://Script/Gameplay/Debug/DebugTool.gd"
 SignalBus="*uid://cj08qm13g6joy"
 CurrentLevel="*res://Script/Gameplay/Map/CurrentLevel.gd"
 InventoryManager="*res://Scene/Inventory/InventoryManager.tscn"
+WarehouseManager="*res://Scene/Inventory/WarehouseManager.tscn"
 
 [debug]
 

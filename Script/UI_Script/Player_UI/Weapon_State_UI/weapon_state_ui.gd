@@ -1,4 +1,7 @@
 extends Control
+## 角色武器 HUD；读取装备组件的当前选择，所有控件仍来自原有场景。
+
+@export var equipment: PlayerEquipmentComponent
 
 @onready var current_item_container = $current_item_container
 @onready var next_item_container = $next_item_container
@@ -7,31 +10,41 @@ extends Control
 var completed:bool = true
 var is_banned:bool = false
 
+## 同时监听装备内容和当前使用武器变化，空槽会清除旧图标。
 func _ready() -> void:
 	SignalBus.weapon_switch.connect(_on_weapon_switch)
-	EquipmentSlotSystem.equipment_slot_changed.connect(_on_equipment_slot_changed)
+	if equipment != null:
+		equipment.equipment_changed.connect(_on_equipment_slot_changed)
+		equipment.weapon_changed.connect(_on_equipment_slot_changed)
 	refresh_display()
 
 
+## 解除本角色订阅，不清空跨场景保留的装备数据。
 func _exit_tree() -> void:
-	EquipmentSlotSystem.equipment_slot_changed.disconnect(_on_equipment_slot_changed)
+	if is_instance_valid(equipment):
+		equipment.equipment_changed.disconnect(_on_equipment_slot_changed)
+		equipment.weapon_changed.disconnect(_on_equipment_slot_changed)
 
 
+## 保留现有切换动画；实际武器选择已由状态机交给装备组件处理。
 func _on_weapon_switch() -> void:
-	if completed && EquipmentSlotSystem.get_next_weapon() != -1:
+	if completed and equipment != null and equipment.get_next_weapon() != -1:
 		switch_item()
 
 
+## 数据提交或选择变化后重读图标，避免维护额外的武器列表。
 func _on_equipment_slot_changed():
 	refresh_display()
 
 
+## 根据当前与备用槽位更新已有 TextureRect。
 func refresh_display():
-	var weapon_id = EquipmentSlotSystem.get_current_weapon()
+	var weapon_id = equipment.get_current_weapon() if equipment != null else -1
 	current_item.texture = ResourceManager.get_item_icon(weapon_id)
-	var next_id = EquipmentSlotSystem.get_next_weapon()
+	var next_id = equipment.get_next_weapon() if equipment != null else -1
 	next_item.texture = ResourceManager.get_item_icon(next_id)
 
+## 动画结束时重新读取真实选择，动画期间再次换装也不会恢复过期图标。
 func switch_item():
 	completed = false
 	var tween:Tween = create_tween()
@@ -61,9 +74,7 @@ func switch_item():
 
 	#交换当前武器和下一个武器
 	tween.tween_callback((func() -> void:
-		var temp = current_item.texture
-		current_item.texture = next_item.texture
-		next_item.texture = temp
+		refresh_display()
 
 		#恢复当前武器容器到初始状态
 		current_item_container.global_position = original_position

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="InventoryDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Script/Config/Model/ResourceManager/InventoryDefinition.gd" id="1"]
+[ext_resource type="Script" path="res://Script/Config/Model/ResourceManager/EquipmentSlotDefinition.gd" id="2"]
+
+[sub_resource type="Resource" id="Main"]
+script = ExtResource("2")
+slot_id = &"main_hand"
+accepted_types = Array[int]([1, 2])
+
+[sub_resource type="Resource" id="Off"]
+script = ExtResource("2")
+slot_id = &"off_hand"
+accepted_types = Array[int]([1])
+
+[sub_resource type="Resource" id="Head"]
+script = ExtResource("2")
+slot_id = &"head"
+accepted_types = Array[int]([4])
+
+[resource]
+script = ExtResource("1")
+container_id = "缺少新增槽位的装备栏"
+size = Vector2i(3, 1)
+service_type = 2
+equipment_slots = Array[ExtResource("2")]([SubResource("Main"), SubResource("Off"), SubResource("Head")])

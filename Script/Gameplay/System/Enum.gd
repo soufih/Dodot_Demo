@@ -19,6 +19,18 @@ enum ItemType {
 	Equipment
 }
 
+## 装备适配类型；数值写入资源文件，新增类型时追加编号，避免改变已有资源含义。
+enum EquipmentType {
+	NONE = 0,
+	ONE_HAND = 1,
+	TWO_HAND = 2,
+	SHIELD = 3,
+	HELMET = 4,
+	BODY_ARMOR = 5,
+	RING = 6,
+	RELIC = 7,
+}
+
 ##状态类型
 enum STATUS {
 	EnhanceHealth,

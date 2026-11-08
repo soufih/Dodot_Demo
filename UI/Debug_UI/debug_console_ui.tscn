@@ -19,15 +19,22 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[node name="DebugConsoleUI" type="CanvasLayer" unique_id=1645517596]
-layer = 200
+[node name="DebugConsoleUI" type="Control" unique_id=1645517596]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_debug_console")
 
 [node name="ConsoleContainer" type="Control" parent="." unique_id=1362780008]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_qw3t3")
 
 [node name="ConsolePanel" type="PanelContainer" parent="ConsoleContainer" unique_id=1346585979]
@@ -35,9 +42,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 116.0
+offset_left = -440.0
 offset_top = 24.0
-offset_right = 996.0
+offset_right = 440.0
 offset_bottom = 434.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_console")

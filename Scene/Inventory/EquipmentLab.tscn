@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://823vyy1hnsb7"]
+
+[ext_resource type="Script" uid="uid://btli5f06okebd" path="res://Script/UI_Script/Inventory/equipment_lab.gd" id="1"]
+[ext_resource type="Theme" uid="uid://c0r36axfq7dpa" path="res://UI/Inventory/inventory_theme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryManager.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://chea4yito4wrw" path="res://UI/Inventory/inventory_window.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://b0530a2peer2n" path="res://UI/Inventory/equipment_window.tscn" id="5"]
+[ext_resource type="Resource" uid="uid://chloubujstwn2" path="res://Rescource/Data/Inventory/equipment_demo_catalog.tres" id="6"]
+[ext_resource type="Resource" uid="uid://cfuvreootsy7l" path="res://Rescource/Data/Inventory/equipment_demo_definition.tres" id="7"]
+
+[node name="EquipmentLab" type="Control" unique_id=1266300625]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+script = ExtResource("1")
+item_catalog = ExtResource("6")
+equipment_definition = ExtResource("7")
+
+[node name="Background" type="ColorRect" parent="." unique_id=2094715062]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.027, 0.043, 0.065, 1)
+
+[node name="Title" type="Label" parent="." unique_id=545313494]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 20.0
+offset_right = 900.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 28
+text = "装备实验室 / EQUIPMENT"
+
+[node name="Hint" type="Label" parent="." unique_id=1898548345]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 66.0
+offset_right = 1380.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.6, 0.72, 0.74, 1)
+theme_override_font_sizes/font_size = 14
+text = "拖动穿戴、卸下和交换 · 同一武器分组包含主武器和副武器 · 分组与槽位布局可在场景编辑器中独立调整"
+
+[node name="Toolbar" type="HBoxContainer" parent="." unique_id=106020296]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 104.0
+offset_right = 900.0
+offset_bottom = 144.0
+theme_override_constants/separation = 12
+
+[node name="Item" type="OptionButton" parent="Toolbar" unique_id=2028476255]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+
+[node name="Add" type="Button" parent="Toolbar" unique_id=1183025013]
+layout_mode = 2
+text = "添加到背包"
+
+[node name="Reset" type="Button" parent="Toolbar" unique_id=1252395483]
+layout_mode = 2
+text = "重置演示物品"
+
+[node name="Workspace" type="Control" parent="." unique_id=999176812]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Bag" parent="Workspace" unique_id=912122848 instance=ExtResource("4")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 148.0
+offset_right = 360.0
+offset_bottom = 472.0
+
+[node name="Equipment" parent="Workspace" unique_id=235066736 instance=ExtResource("5")]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 8.0
+offset_right = 1000.0
+offset_bottom = 752.0
+
+[node name="Selection" type="Label" parent="." unique_id=291841942]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -80.0
+offset_right = 1380.0
+offset_bottom = -50.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 14
+text = "未选择物品"
+
+[node name="Status" type="Label" parent="." unique_id=1189505127]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -48.0
+offset_right = 1380.0
+offset_bottom = -18.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 14
+
+[node name="Manager" parent="." unique_id=1297295529 instance=ExtResource("3")]
+
+[connection signal="pressed" from="Toolbar/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Toolbar/Reset" to="." method="_on_reset_pressed"]
+[connection signal="item_selected" from="Workspace/Bag" to="." method="_on_item_selected"]
+[connection signal="operation_completed" from="Workspace/Bag" to="." method="_on_operation_completed"]
+[connection signal="item_selected" from="Workspace/Equipment" to="." method="_on_item_selected"]
+[connection signal="operation_completed" from="Workspace/Equipment" to="." method="_on_operation_completed"]

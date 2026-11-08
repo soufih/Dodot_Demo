@@ -4,7 +4,7 @@ extends Node
 signal container_changed(container_id: String, revision: int, changed_ids: Array[int])
 signal operation_failed(code: InventoryResult.Code, message: String)
 
-enum ServiceType { SLOT, GRID }
+enum ServiceType { SLOT, GRID, EQUIPMENT_SLOT, WAREHOUSE }
 
 # 内部注册表不对 UI 暴露；查询返回独立副本。
 var _containers: Dictionary = {}
@@ -24,17 +24,25 @@ func configure(config_lookup: Callable) -> InventoryResult:
 	return InventoryResult.success()
 
 ## 按 service_type 创建服务，以 id 和 size 初始化后注册。
+## EQUIPMENT_SLOT 必须提供 equipment_slots，size 为槽位数量 × 1；其他类型不接受装备槽配置。
 ## 全部成功才保留服务；非法尺寸、重复 ID 或不支持的类型返回错误。
-func create_container(id: String, size: Vector2i, service_type: ServiceType) -> InventoryResult:
+func create_container(id: String, size: Vector2i, service_type: ServiceType,
+		equipment_slots: Array[EquipmentSlotDefinition] = []) -> InventoryResult:
 	var available := _can_register(id)
 	if not available.is_ok():
 		return _report(available)
+	if service_type in [ServiceType.SLOT, ServiceType.GRID, ServiceType.WAREHOUSE] and not equipment_slots.is_empty():
+		return _report(InventoryResult.failure(InventoryResult.Code.RULE_REJECTED, "此类容器不接受装备槽配置"))
 	var service: InventoryService
 	match service_type:
 		ServiceType.SLOT:
 			service = SlotService.new(_config_lookup)
 		ServiceType.GRID:
 			service = GridService.new(_config_lookup)
+		ServiceType.EQUIPMENT_SLOT:
+			service = EquipmentSlotService.new(_config_lookup, equipment_slots)
+		ServiceType.WAREHOUSE:
+			service = WarehouseService.new(_config_lookup)
 		_:
 			return _report(InventoryResult.failure(InventoryResult.Code.UNSUPPORTED, "未知容器服务类型"))
 	var result := service.initialize(id, size)
@@ -74,6 +82,29 @@ func unregister_container(id: String) -> InventoryResult:
 	_containers.erase(id)
 	return InventoryResult.success()
 
+## 只读检查容器是否已注册，供角色重建时绑定既有会话，不发送失败信号。
+func has_container(id: String) -> bool:
+	return _containers.has(id)
+
+## 只读检查容器服务的具体类型，供业务管理器判断角色，不暴露可变服务实例。
+func is_container_service(id: String, service_type: Script) -> bool:
+	return _containers.has(id) and is_instance_of(_containers[id], service_type)
+
+## 为业务管理器路由只读服务查询，统一校验容器和类型并报告错误；查询不持有写锁或发出变更通知。
+## 回调遵循只读契约返回 InventoryResult，不向查询调用者暴露可变服务实例。
+func query_container_service(id: String, required_service: Script, query: Callable) -> InventoryResult:
+	if not _containers.has(id):
+		return _report(_missing())
+	if required_service != null and not is_container_service(id, required_service):
+		return _report(InventoryResult.failure(InventoryResult.Code.UNSUPPORTED, "此容器不支持该类型的查询"))
+	return _report(query.call(_containers[id]))
+
+## 返回排序后的容器 ID 副本，供调试或选择目标容器使用。
+func get_container_ids() -> PackedStringArray:
+	var ids := PackedStringArray(_containers.keys())
+	ids.sort()
+	return ids
+
 ## 查询 id 容器内 pos 的物品，返回 {instance, anchor} 隔离副本。
 ## 失败返回空字典并发送 operation_failed，不暴露内部可变实例。
 func get_item_at(id: String, pos: Vector2i) -> Dictionary:
@@ -91,6 +122,24 @@ func get_snapshot(id: String) -> Dictionary:
 		_report(_missing())
 		return {}
 	return _containers[id].stage_snapshot()
+
+## 将装备槽业务标识转换为内部坐标；只读操作，未知容器或非装备栏明确返回错误。
+func get_slot_position(id: String, slot_id: StringName) -> InventoryResult:
+	if not _containers.has(id):
+		return _report(_missing())
+	var service: InventoryService = _containers[id]
+	if not service is EquipmentSlotService:
+		return _report(InventoryResult.failure(InventoryResult.Code.UNSUPPORTED, "此容器不支持装备槽标识"))
+	return _report(service.get_slot_position(slot_id))
+
+## 将装备栏内部坐标转换为业务标识，不暴露服务实例及可变槽位配置。
+func get_slot_id(id: String, pos: Vector2i) -> InventoryResult:
+	if not _containers.has(id):
+		return _report(_missing())
+	var service: InventoryService = _containers[id]
+	if not service is EquipmentSlotService:
+		return _report(InventoryResult.failure(InventoryResult.Code.UNSUPPORTED, "此容器不支持装备槽标识"))
+	return _report(service.get_slot_id(pos))
 
 ## 按配置 ID、数量及方向创建新实例并放入 pos；成功 payload 返回实际新实例的隔离副本。
 ## 配置、数量和占位校验由 Service 执行；已有物品保留身份的移动应使用转移接口。
@@ -215,20 +264,27 @@ func _cross_container(a_id: String, b_id: String, a_pos: Vector2i,
 			container_changed.emit(notice.id, notice.revision, notice.ids)
 	return _report(result)
 
-## 将 method 和 args 路由到 id 对应服务，并在同步执行期间禁止重入。
-## 仅成功且 changed=true 时发送容器变更通知，最后返回原操作结果。
-func _operate(id: String, method: StringName, args: Array) -> InventoryResult:
+## 执行业务管理器提供的服务操作；类型校验、事务锁及成功后的单次通知由此统一处理。
+## required_service 为 null 时不限制具体类型；回调负责按服务契约返回 InventoryResult。
+func execute_container_operation(id: String, required_service: Script, operation: Callable) -> InventoryResult:
 	if _transaction_lock:
 		return _report(_locked())
 	if not _containers.has(id):
 		return _report(_missing())
+	if required_service != null and not is_container_service(id, required_service):
+		return _report(InventoryResult.failure(InventoryResult.Code.UNSUPPORTED, "此容器不支持该类型的操作"))
 	_transaction_lock = true
 	var service: InventoryService = _containers[id]
-	var result: InventoryResult = service.callv(method, args)
+	var result: InventoryResult = operation.call(service)
 	_transaction_lock = false
 	if result.is_ok() and result.changed:
 		container_changed.emit(id, service.container.revision, result.affected_ids.duplicate())
 	return _report(result)
+
+## 将统一容器操作转为同步回调，复用与业务扩展操作相同的锁和通知路径。
+func _operate(id: String, method: StringName, args: Array) -> InventoryResult:
+	return execute_container_operation(id, null,
+		func(service: InventoryService) -> InventoryResult: return service.callv(method, args))
 
 ## 检查实例 id 是否已存在于本 Manager 的任意已注册容器，用于避免重复归属。
 func _has_instance(id: int) -> bool:

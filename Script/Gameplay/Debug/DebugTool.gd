@@ -17,11 +17,11 @@ signal command_executed(command_line: String, result: Dictionary)
 signal console_toggle_requested
 
 const CONSOLE_TOGGLE_KEY := KEY_QUOTELEFT
-const DEBUG_CONSOLE_UI_SCENE: PackedScene = preload(Path.DEBUG_CONSOLE_UI_SCENE)
 
 const SERVICE_AUTOLOADS := {
 	&"ui": &"UIManager",
 	&"resources": &"ResourceManager",
+	&"inventory": &"InventoryManager",
 }
 
 
@@ -57,6 +57,7 @@ class DebugCommand extends RefCounted:
 
 var _commands: Dictionary = {}
 var _services: Dictionary = {}
+var _pause_token := 0
 
 
 ## 注册调试工具自带的帮助、场景、UI、物品和玩家命令。
@@ -70,6 +71,8 @@ func _register_builtin_commands() -> void:
 	register_command(&"scene.load", _command_scene_load, "切换到指定场景。", "scene.load <res://scene.tscn>", self)
 	register_command(&"ui.toggle", _command_ui_toggle, "切换游戏 UI。", "ui.toggle <equipment|map|pause>", self)
 	register_command(&"item.drop", _command_item_drop, "在玩家位置生成掉落物。", "item.drop <item_id> [amount]", self)
+	register_command(&"inventory.containers", _command_inventory_containers, "列出可添加物品的容器 ID。", "inventory.containers", self)
+	register_command(&"inventory.add", _command_inventory_add, "向指定容器的首个适配空位添加一栈物品，数量默认为 1。", "inventory.add <container_id> <item_id> [amount]", self)
 	register_command(&"player.info", _command_player_info, "显示玩家生命和法力。", "player.info", self)
 	register_command(&"player.hp", _command_player_hp, "设置玩家当前生命值。", "player.hp <value>", self)
 	register_command(&"player.heal", _command_player_heal, "恢复玩家生命值。", "player.heal [amount]", self)
@@ -300,11 +303,17 @@ func _command_game_pause(arguments: PackedStringArray) -> Dictionary:
 	var mode := arguments[0].to_lower() if not arguments.is_empty() else "toggle"
 	match mode:
 		"on":
-			get_tree().paused = true
+			if _pause_token == 0:
+				_pause_token = UIManager.acquire_request(self, true)
 		"off":
-			get_tree().paused = false
+			UIManager.release_request(_pause_token)
+			_pause_token = 0
 		"toggle":
-			get_tree().paused = not get_tree().paused
+			if _pause_token == 0:
+				_pause_token = UIManager.acquire_request(self, true)
+			else:
+				UIManager.release_request(_pause_token)
+				_pause_token = 0
 		_:
 			return _result(false, "用法：game.pause [on|off|toggle]")
 	return _result(true, "游戏已%s。" % ("暂停" if get_tree().paused else "恢复"))
@@ -364,6 +373,38 @@ func _command_item_drop(arguments: PackedStringArray) -> Dictionary:
 	if not response.success:
 		return response
 	return _result(true, "已在玩家位置生成物品 %s x%s。" % [parsed.item_id, parsed.amount])
+
+
+## 通过背包服务查询容器 ID，不访问内部注册表。
+func _command_inventory_containers(arguments: PackedStringArray) -> Dictionary:
+	if not arguments.is_empty():
+		return _result(false, "用法：inventory.containers")
+	var response := _call_service(&"inventory", &"get_container_ids", [])
+	if not response.success:
+		return response
+	var ids: PackedStringArray = response.value
+	return _result(true, "当前没有已注册的容器。" if ids.is_empty() else "可用容器 ID：\n  %s" % "\n  ".join(ids), ids)
+
+
+## 委托 Manager 自动放置完整栈；保留配置、容量校验和容器变更通知。
+func _command_inventory_add(arguments: PackedStringArray) -> Dictionary:
+	if arguments.size() < 2 or arguments.size() > 3 or not arguments[1].is_valid_int():
+		return _result(false, "用法：inventory.add <container_id> <item_id> [amount]")
+	var amount := 1
+	if arguments.size() == 3:
+		if not arguments[2].is_valid_int():
+			return _result(false, "数量必须是正整数。")
+		amount = arguments[2].to_int()
+	var item_id := arguments[1].to_int()
+	if item_id < 0 or amount <= 0:
+		return _result(false, "物品 ID 必须非负，数量必须是正整数。")
+	var response := _call_service(&"inventory", &"quick_add_to_container", [arguments[0], item_id, amount])
+	if not response.success:
+		return response
+	var operation: Object = response.value
+	if not operation.call(&"is_ok"):
+		return _result(false, "添加失败：%s" % operation.get("message"))
+	return _result(true, "已向容器 '%s' 添加物品 %s x%s，位置：%s。" % [arguments[0], item_id, amount, operation.get("payload")])
 
 
 ## 查询 Hero 分组玩家的当前/最大生命值和法力值。
@@ -546,8 +587,9 @@ func _write_output(message: String, level: StringName = &"info") -> void:
 
 ## 实例化独立 UI 场景并注入当前 DebugTool 作为命令后端。
 func _create_console_ui() -> void:
-	var console_ui: Node = DEBUG_CONSOLE_UI_SCENE.instantiate()
-	add_child(console_ui)
+	if not OS.is_debug_build():
+		return
+	var console_ui: Node = UIManager.prepare(UIId.DEBUG)
 	if console_ui.has_method(&"bind_debug_tool"):
 		console_ui.call(&"bind_debug_tool", self)
 	else:

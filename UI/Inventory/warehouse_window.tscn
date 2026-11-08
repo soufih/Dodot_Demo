@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://p42lfx1rkyb8"]
+
+[ext_resource type="PackedScene" uid="uid://chea4yito4wrw" path="res://UI/Inventory/inventory_window.tscn" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="WarehouseHeader"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.17, 0.15, 0.1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="WarehouseWindow" unique_id=1256241929 instance=ExtResource("1")]
+offset_right = 560.0
+max_grid_view_size = Vector2i(520, 520)
+window_title = "仓库"
+
+[node name="Frame" parent="." index="0" unique_id=901275199]
+scale = Vector2(0.99637634, 0.9991387)
+
+[node name="Title" parent="." index="2" unique_id=729101460]
+theme_override_styles/panel = SubResource("WarehouseHeader")
+
+[node name="Name" parent="Title/Row" parent_id_path=PackedInt32Array(1015258908) index="0" unique_id=864960408]
+text = "仓库"

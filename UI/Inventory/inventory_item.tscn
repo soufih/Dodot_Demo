@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://5fbckd1lecpx"]
 
-[ext_resource type="Script" path="res://Script/UI_Script/Inventory/inventory_item_view.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://d3schndc7alpy" path="res://Script/UI_Script/Inventory/inventory_item_view.gd" id="1_script"]
 
 [sub_resource type="StyleBoxFlat" id="Item"]
 bg_color = Color(0.15, 0.24, 0.25, 1)
@@ -11,8 +11,8 @@ border_width_bottom = 1
 border_color = Color(0.34, 0.5, 0.46, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
-corner_radius_bottom_left = 5
 corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="Selected"]
 bg_color = Color(0, 0, 0, 0)
@@ -23,15 +23,15 @@ border_width_bottom = 2
 border_color = Color(0.78, 0.9, 0.58, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
-corner_radius_bottom_left = 5
 corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
-[node name="Item" type="PanelContainer"]
+[node name="Item" type="PanelContainer" unique_id=224726510]
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Item")
 script = ExtResource("1_script")
 
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="." unique_id=1463321726]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 7
@@ -39,15 +39,21 @@ theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 7
 theme_override_constants/margin_bottom = 7
 
-[node name="Icon" type="TextureRect" parent="Margin"]
+[node name="Icon" type="TextureRect" parent="Margin" unique_id=123056939]
+texture_filter = 1
 layout_mode = 2
 mouse_filter = 2
-texture_filter = 1
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Quantity" type="Label" parent="."]
-layout_mode = 2
+[node name="Quantity" type="Label" parent="Margin/Icon" unique_id=1593704447]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.96, 0.77, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -57,7 +63,7 @@ theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Selection" type="Panel" parent="."]
+[node name="Selection" type="Panel" parent="." unique_id=1763357524]
 visible = false
 layout_mode = 2
 mouse_filter = 2

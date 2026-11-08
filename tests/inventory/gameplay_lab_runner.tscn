@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tests/inventory/gameplay_lab_smoke.gd" id="1_smoke"]
+
+[node name="GameplayLabSmoke" type="Node"]
+
+[node name="Spec" type="Node" parent="."]
+script = ExtResource("1_smoke")

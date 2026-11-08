@@ -80,21 +80,21 @@ func _test_cross_and_stack(checks, lab, grid, slot) -> void:
 	var item: ItemInstance
 	item = lab.manager.add_to_container(slot.container_id, 1004, 6, Vector2i.ZERO).payload
 	await _begin(checks, slot, Vector2i.ZERO)
-	await checks._motion(_point(grid, Vector2i(5, 1)), MOUSE_BUTTON_MASK_LEFT)
+	await checks._motion(_point(grid, Vector2i(4, 1)), MOUSE_BUTTON_MASK_LEFT)
 	await _key(checks, KEY_R)
 	checks._expect(_preview(checks).size == Vector2(52, 104), "普通栏位来源按 R 后预览仍为网格尺寸")
-	await _drop(checks, grid, Vector2i(5, 1), true, false)
+	await _drop(checks, grid, Vector2i(4, 1), true, false)
 	checks._expect(lab.manager.get_snapshot(slot.container_id).items.is_empty(), "旋转跨容器成功后源清空")
-	checks._expect(lab.manager.get_item_at(grid.container_id, Vector2i(5, 2)).instance.rotated, "跨容器按新方向占格")
+	checks._expect(lab.manager.get_item_at(grid.container_id, Vector2i(4, 2)).instance.rotated, "跨容器按新方向占格")
 	lab.manager.add_to_container(slot.container_id, 1004, 8, Vector2i.ZERO)
-	await _begin(checks, grid, Vector2i(5, 2))
+	await _begin(checks, grid, Vector2i(4, 2))
 	await _key(checks, KEY_R)
 	await _drop(checks, slot, Vector2i.ZERO)
 	checks._expect(lab.manager.get_item_at(slot.container_id, Vector2i.ZERO).instance.quantity == 10, "旋转预览后仍默认堆叠同类物品")
 	checks._expect(not lab.manager.get_item_at(slot.container_id, Vector2i.ZERO).instance.rotated, "堆叠保留目标方向")
-	var remaining: ItemInstance = lab.manager.get_item_at(grid.container_id, Vector2i(5, 1)).instance
+	var remaining: ItemInstance = lab.manager.get_item_at(grid.container_id, Vector2i(4, 1)).instance
 	checks._expect(remaining.quantity == 4 and remaining.rotated, "部分堆叠保留源余量及原方向")
-	await _begin(checks, grid, Vector2i(5, 1))
+	await _begin(checks, grid, Vector2i(4, 1))
 	await _key(checks, KEY_R)
 	await _drop(checks, slot, Vector2i(1, 0))
 	var stored: ItemInstance = lab.manager.get_item_at(slot.container_id, Vector2i(1, 0)).instance
@@ -120,7 +120,7 @@ func _test_split(checks, lab, grid, slot) -> void:
 	item = lab.manager.add_to_container(grid.container_id, 1004, 9, Vector2i.ZERO).payload
 	await _begin(checks, grid, Vector2i.ZERO, true)
 	await _key(checks, KEY_R)
-	checks._expect(_preview(checks).size == Vector2(52, 104) and _preview(checks).get_node("Quantity").text == "4", "R 旋转半栈预览保留半数数量")
+	checks._expect(_preview(checks).size == Vector2(52, 104) and _preview(checks).get_node("Margin/Icon/Quantity").text == "4", "R 旋转半栈预览保留半数数量")
 	await _drop(checks, grid, Vector2i(4, 1), false)
 	var source: ItemInstance = lab.manager.get_item_at(grid.container_id, Vector2i.ZERO).instance
 	var divided: ItemInstance = lab.manager.get_item_at(grid.container_id, Vector2i(4, 2)).instance
@@ -138,7 +138,7 @@ func _test_invalid(checks, lab, grid) -> void:
 	var revision: int = lab.manager.get_snapshot(grid.container_id).revision
 	await _begin(checks, grid, Vector2i.ZERO)
 	await _key(checks, KEY_R)
-	await _drop(checks, grid, Vector2i(5, 3))
+	await _drop(checks, grid, Vector2i(4, 3))
 	checks._expect(lab.manager.get_snapshot(grid.container_id).revision == revision, "旋转后非法落点不提交")
 	checks._expect(not lab.manager.get_item_at(grid.container_id, Vector2i.ZERO).instance.rotated, "非法落点保留原方向")
 	lab.manager.remove_from_container(grid.container_id, Vector2i.ZERO)
@@ -155,12 +155,12 @@ func _test_invalid(checks, lab, grid) -> void:
 
 ## 大容器滚动后，在鼠标不再移动的情况下 R 旋转并覆盖自身旧占位进行放置。
 func _test_scrolled(checks, lab) -> void:
-	lab.create_container("滚动R旋转", Vector2i(10, 8), InventoryManager.ServiceType.GRID)
+	lab.create_container("滚动R旋转", Vector2i(10, 12), InventoryManager.ServiceType.GRID)
 	var window = lab.windows["滚动R旋转"]
 	window.position = Vector2(24, 24)
 	window.move_to_front()
 	var item: ItemInstance
-	item = lab.manager.add_to_container("滚动R旋转", 1004, 7, Vector2i(9, 6), true).payload
+	item = lab.manager.add_to_container("滚动R旋转", 1004, 7, Vector2i(9, 10), true).payload
 	var scroll: ScrollContainer = window.get_node("Body/Content/Scroll")
 	for frame in range(3):
 		await checks.get_tree().process_frame
@@ -170,13 +170,13 @@ func _test_scrolled(checks, lab) -> void:
 		await checks.get_tree().process_frame
 	var offset := Vector2i(scroll.scroll_horizontal, scroll.scroll_vertical)
 	var board = scroll.get_node("Board")
-	await _begin(checks, board, Vector2i(9, 7))
-	await checks._motion(_point(board, Vector2i(8, 7)), MOUSE_BUTTON_MASK_LEFT)
+	await _begin(checks, board, Vector2i(9, 11))
+	await checks._motion(_point(board, Vector2i(8, 11)), MOUSE_BUTTON_MASK_LEFT)
 	await _key(checks, KEY_R)
-	await _drop(checks, board, Vector2i(8, 7), true, false)
+	await _drop(checks, board, Vector2i(8, 11), true, false)
 	var state: Dictionary = lab.manager.get_snapshot("滚动R旋转")
-	checks._expect(state.items[item.instance_id].anchor == Vector2i(8, 7) and not state.items[item.instance_id].instance.rotated, "滚动后 R 旋转落在真实矩阵坐标")
-	checks._expect(state.cells[6][9] == null and state.cells[7][8] == item.instance_id, "旋转新矩形可与旧占位重叠且清除旧格")
+	checks._expect(state.items[item.instance_id].anchor == Vector2i(8, 11) and not state.items[item.instance_id].instance.rotated, "滚动后 R 旋转落在真实矩阵坐标")
+	checks._expect(state.cells[10][9] == null and state.cells[11][8] == item.instance_id, "旋转新矩形可与旧占位重叠且清除旧格")
 	checks._expect(Vector2i(scroll.scroll_horizontal, scroll.scroll_vertical) == offset, "R 旋转提交后保持滚动位置")
 
 ## 复用真实键鼠管线开始左键拖动或中键半栈拖动。

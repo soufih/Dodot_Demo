@@ -41,6 +41,10 @@ func dismiss_interaction_prompt(target: Interactable) -> void:
 	_update_prompt_target()
 
 
+## 可重复交互完成后刷新同一目标的剩余数量或失败原因。
+func refresh_interaction_prompt() -> void:
+	_update_prompt_target()
+
 func _update_prompt_target() -> void:
 	var target := get_current_interactable()
 	interaction_target_changed.emit(null if _dismissed_prompts.has(target) else target)

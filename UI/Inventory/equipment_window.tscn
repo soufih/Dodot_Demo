@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://b0530a2peer2n"]
+
+[ext_resource type="Script" uid="uid://ctb7syoepcmvf" path="res://Script/UI_Script/Inventory/inventory_window.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://i385wid5ynd3" path="res://UI/Inventory/equipment_layout.tscn" id="2_board"]
+[ext_resource type="Theme" uid="uid://c0r36axfq7dpa" path="res://UI/Inventory/inventory_theme.tres" id="3_theme"]
+
+[sub_resource type="StyleBoxEmpty" id="ScrollPanel"]
+
+[sub_resource type="StyleBoxFlat" id="Header"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.09, 0.13, 0.16, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="EquipmentWindow" type="Control" unique_id=68499971]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 513.0
+offset_bottom = 740.0
+mouse_filter = 1
+theme = ExtResource("3_theme")
+script = ExtResource("1_script")
+
+[node name="Frame" type="PanelContainer" parent="." unique_id=901275199]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -12.903778
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9998102, 0.9485839)
+mouse_filter = 2
+
+[node name="Body" type="MarginContainer" parent="." unique_id=1072433439]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Content" type="VBoxContainer" parent="Body" unique_id=1629323783]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Type" type="Label" parent="Body/Content" unique_id=2072454721]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.52, 0.63, 0.69, 1)
+theme_override_font_sizes/font_size = 12
+
+[node name="Scroll" type="ScrollContainer" parent="Body/Content" unique_id=267912756]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_force_pass_scroll_events = false
+theme_override_styles/panel = SubResource("ScrollPanel")
+
+[node name="Board" parent="Body/Content/Scroll" unique_id=699966323 instance=ExtResource("2_board")]
+custom_minimum_size = Vector2(480, 612.33)
+layout_mode = 2
+
+[node name="Summary" type="Label" parent="Body/Content" unique_id=445262460]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54, 0.65, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+
+[node name="Title" type="PanelContainer" parent="." unique_id=729101460]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 2.0
+offset_right = -29.0
+offset_bottom = 42.0
+grow_horizontal = 2
+mouse_default_cursor_shape = 6
+theme_override_styles/panel = SubResource("Header")
+
+[node name="Row" type="HBoxContainer" parent="Title" unique_id=1015258908]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Name" type="Label" parent="Title/Row" unique_id=864960408]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 17
+text = "装备栏"
+
+[node name="Organize" type="Button" parent="Title/Row" unique_id=967499356]
+visible = false
+layout_mode = 2
+text = "整理"
+
+[node name="Grip" type="Label" parent="Title/Row" unique_id=1283351188]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "按住拖动  ⠿"
+
+[node name="LeftBorder" type="Control" parent="." unique_id=1684769600]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 10.0
+grow_vertical = 2
+mouse_default_cursor_shape = 6
+
+[node name="RightBorder" type="Control" parent="." unique_id=1670999573]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 6
+
+[node name="TopBorder" type="Control" parent="." unique_id=1151327437]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+mouse_default_cursor_shape = 6
+
+[node name="BottomBorder" type="Control" parent="." unique_id=1575075077]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 6
+
+[connection signal="item_selected" from="Body/Content/Scroll/Board" to="." method="_on_item_selected"]
+[connection signal="operation_completed" from="Body/Content/Scroll/Board" to="." method="_on_operation_completed"]
+[connection signal="gui_input" from="Title" to="." method="_on_border_gui_input"]
+[connection signal="pressed" from="Title/Row/Organize" to="." method="_on_organize_pressed"]
+[connection signal="gui_input" from="LeftBorder" to="." method="_on_border_gui_input"]
+[connection signal="gui_input" from="RightBorder" to="." method="_on_border_gui_input"]
+[connection signal="gui_input" from="TopBorder" to="." method="_on_border_gui_input"]
+[connection signal="gui_input" from="BottomBorder" to="." method="_on_border_gui_input"]

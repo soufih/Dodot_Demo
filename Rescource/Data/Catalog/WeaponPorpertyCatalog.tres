@@ -11,6 +11,29 @@
 [ext_resource type="Script" uid="uid://os6os7hbub0w" path="res://Script/Config/Model/WeaponConfig/WeaponPorpertyLog.gd" id="8_uxx1j"]
 [ext_resource type="Resource" uid="uid://butaa0i8k8mts" path="res://Rescource/Data/Bullet/ElementaryBullet/FireBall.tres" id="8_x8sac"]
 
+[sub_resource type="Resource" id="Resource_lxrvw"]
+script = ExtResource("3_5gcyl")
+_BulletData = ExtResource("8_g4lac")
+metadata/_custom_type_script = "uid://ceborj3mnxiyi"
+
+[sub_resource type="Resource" id="Resource_0g3qe"]
+script = ExtResource("1_q4qby")
+Name = "Bow"
+Type = 3
+DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_lxrvw")])
+metadata/_custom_type_script = "uid://byiqc24xx2v6v"
+
+[sub_resource type="Resource" id="Resource_e2rpc"]
+script = ExtResource("3_5gcyl")
+_BulletData = ExtResource("8_x8sac")
+metadata/_custom_type_script = "uid://ceborj3mnxiyi"
+
+[sub_resource type="Resource" id="Resource_fy5tq"]
+script = ExtResource("1_q4qby")
+Name = "Bow2"
+DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_e2rpc")])
+metadata/_custom_type_script = "uid://byiqc24xx2v6v"
+
 [sub_resource type="Resource" id="Resource_3sl5b"]
 script = ExtResource("1_mucyj")
 Damage = 10.0
@@ -77,29 +100,6 @@ Name = "Sword3"
 BaseDamage = SubResource("Resource_bfs86")
 MaxCombo = 2
 DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_f3k51")])
-metadata/_custom_type_script = "uid://byiqc24xx2v6v"
-
-[sub_resource type="Resource" id="Resource_lxrvw"]
-script = ExtResource("3_5gcyl")
-_BulletData = ExtResource("8_g4lac")
-metadata/_custom_type_script = "uid://ceborj3mnxiyi"
-
-[sub_resource type="Resource" id="Resource_0g3qe"]
-script = ExtResource("1_q4qby")
-Name = "Bow"
-Type = 3
-DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_lxrvw")])
-metadata/_custom_type_script = "uid://byiqc24xx2v6v"
-
-[sub_resource type="Resource" id="Resource_e2rpc"]
-script = ExtResource("3_5gcyl")
-_BulletData = ExtResource("8_x8sac")
-metadata/_custom_type_script = "uid://ceborj3mnxiyi"
-
-[sub_resource type="Resource" id="Resource_fy5tq"]
-script = ExtResource("1_q4qby")
-Name = "Bow2"
-DuringAttack = Array[ExtResource("2_x8sac")]([SubResource("Resource_e2rpc")])
 metadata/_custom_type_script = "uid://byiqc24xx2v6v"
 
 [resource]
