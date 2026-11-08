@@ -86,9 +86,18 @@ func unregister_container(id: String) -> InventoryResult:
 func has_container(id: String) -> bool:
 	return _containers.has(id)
 
-## 只读检查稳定 ID 是否绑定仓库服务，交互物不会误将同名背包当作仓库打开。
-func is_warehouse(id: String) -> bool:
-	return _containers.get(id) is WarehouseService
+## 只读检查容器服务的具体类型，供业务管理器判断角色，不暴露可变服务实例。
+func is_container_service(id: String, service_type: Script) -> bool:
+	return _containers.has(id) and is_instance_of(_containers[id], service_type)
+
+## 为业务管理器路由只读服务查询，统一校验容器和类型并报告错误；查询不持有写锁或发出变更通知。
+## 回调遵循只读契约返回 InventoryResult，不向查询调用者暴露可变服务实例。
+func query_container_service(id: String, required_service: Script, query: Callable) -> InventoryResult:
+	if not _containers.has(id):
+		return _report(_missing())
+	if required_service != null and not is_container_service(id, required_service):
+		return _report(InventoryResult.failure(InventoryResult.Code.UNSUPPORTED, "此容器不支持该类型的查询"))
+	return _report(query.call(_containers[id]))
 
 ## 返回排序后的容器 ID 副本，供调试或选择目标容器使用。
 func get_container_ids() -> PackedStringArray:
@@ -255,30 +264,27 @@ func _cross_container(a_id: String, b_id: String, a_pos: Vector2i,
 			container_changed.emit(notice.id, notice.revision, notice.ids)
 	return _report(result)
 
-## 仓库专用整理入口；沿用统一事务锁与提交后通知，其他容器明确返回不支持。
-func organize_warehouse(id: String) -> InventoryResult:
+## 执行业务管理器提供的服务操作；类型校验、事务锁及成功后的单次通知由此统一处理。
+## required_service 为 null 时不限制具体类型；回调负责按服务契约返回 InventoryResult。
+func execute_container_operation(id: String, required_service: Script, operation: Callable) -> InventoryResult:
 	if _transaction_lock:
 		return _report(_locked())
 	if not _containers.has(id):
 		return _report(_missing())
-	if not _containers[id] is WarehouseService:
-		return _report(InventoryResult.failure(InventoryResult.Code.UNSUPPORTED, "此容器不支持仓库整理"))
-	return _operate(id, &"organize", [])
-
-## 将 method 和 args 路由到 id 对应服务，并在同步执行期间禁止重入。
-## 仅成功且 changed=true 时发送容器变更通知，最后返回原操作结果。
-func _operate(id: String, method: StringName, args: Array) -> InventoryResult:
-	if _transaction_lock:
-		return _report(_locked())
-	if not _containers.has(id):
-		return _report(_missing())
+	if required_service != null and not is_container_service(id, required_service):
+		return _report(InventoryResult.failure(InventoryResult.Code.UNSUPPORTED, "此容器不支持该类型的操作"))
 	_transaction_lock = true
 	var service: InventoryService = _containers[id]
-	var result: InventoryResult = service.callv(method, args)
+	var result: InventoryResult = operation.call(service)
 	_transaction_lock = false
 	if result.is_ok() and result.changed:
 		container_changed.emit(id, service.container.revision, result.affected_ids.duplicate())
 	return _report(result)
+
+## 将统一容器操作转为同步回调，复用与业务扩展操作相同的锁和通知路径。
+func _operate(id: String, method: StringName, args: Array) -> InventoryResult:
+	return execute_container_operation(id, null,
+		func(service: InventoryService) -> InventoryResult: return service.callv(method, args))
 
 ## 检查实例 id 是否已存在于本 Manager 的任意已注册容器，用于避免重复归属。
 func _has_instance(id: int) -> bool:

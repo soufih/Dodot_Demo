@@ -1,6 +1,33 @@
 class_name WarehouseService
 extends GridService
-## 仓库复用网格背包的全部规则，仅增加保留实例、数量和方向的手动整理。
+## 仓库复用网格背包规则，增加数量统计及保留实例、数量和方向的手动整理。
+
+## 按配置 ID 汇总各实例的实际数量；每个实例只计一次，返回独立字典，不按占格或堆数计数。
+func get_item_counts() -> InventoryResult:
+	if container == null:
+		return StateOps.not_initialized()
+	var counts: Dictionary[int, int] = {}
+	for record: Dictionary in container.items.values():
+		var item: ItemInstance = record.instance
+		counts[item.config_id] = counts.get(item.config_id, 0) + item.quantity
+	return InventoryResult.success(counts)
+
+## 返回指定配置在本仓库各堆中的数量合计；未存放该配置时成功返回 0。
+func get_item_count(config_id: int) -> InventoryResult:
+	var result := get_item_counts()
+	if not result.is_ok():
+		return result
+	return InventoryResult.success(result.payload.get(config_id, 0))
+
+## 返回本仓库全部物品的数量总和，空仓库为 0；查询不改变实例、版本或布局。
+func get_total_item_count() -> InventoryResult:
+	var result := get_item_counts()
+	if not result.is_ok():
+		return result
+	var total := 0
+	for count: int in result.payload.values():
+		total += count
+	return InventoryResult.success(total)
 
 ## 按面积降序、主类型、配置 ID、实例 ID 排序并在暂存计划中重新摆放。
 ## 全部摆放成功才提交一次；装箱失败或提交失败时保留原布局，不合并或分割物品。

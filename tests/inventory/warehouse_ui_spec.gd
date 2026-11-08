@@ -75,6 +75,11 @@ func _ready() -> void:
 	checks.code(window.bind(manager, DEFINITION.container_id, DEFINITION.service_type, checks.lookup), InventoryResult.Code.OK, "仓库视图可以重新绑定同一会话")
 	checks.equal(checks.value(manager.get_snapshot(DEFINITION.container_id)), before, "关闭和重开界面不清空仓库")
 	window.unbind()
+	window.warehouse_manager = WarehouseManager
+	checks.code(window.bind(manager, DEFINITION.container_id, DEFINITION.service_type, checks.lookup), InventoryResult.Code.RULE_REJECTED, "独立 UI 不能误用全局仓库管理器")
+	checks.expect(organize.disabled, "管理器会话不匹配时整理按钮保持禁用")
+	checks.equal(checks.value(manager.get_snapshot(DEFINITION.container_id)), before, "拒绝错误管理器绑定不改变物品状态")
+	window.warehouse_manager = $WarehouseManager
 	print("WAREHOUSE_UI_TEST_RESULT assertions=%d failures=%d" % [checks.assertions, checks.failures])
 	get_tree().quit(0 if checks.failures == 0 else 1)
 

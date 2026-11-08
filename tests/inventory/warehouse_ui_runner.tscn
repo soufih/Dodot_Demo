@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://tests/inventory/warehouse_ui_spec.gd" id="1"]
 [ext_resource type="PackedScene" path="res://UI/Inventory/inventory_window.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryManager.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/WarehouseManager.tscn" id="4"]
 
 [node name="WarehouseUITests" type="Node"]
 script = ExtResource("1")
@@ -22,10 +23,14 @@ offset_top = 24.0
 offset_right = 368.0
 offset_bottom = 348.0
 
-[node name="Warehouse" parent="Workspace" instance=ExtResource("2")]
+[node name="Warehouse" parent="Workspace" node_paths=PackedStringArray("warehouse_manager") instance=ExtResource("2")]
 offset_left = 400.0
 offset_top = 24.0
 offset_right = 744.0
 offset_bottom = 348.0
+warehouse_manager = NodePath("../../WarehouseManager")
 
 [node name="Manager" parent="." instance=ExtResource("3")]
+
+[node name="WarehouseManager" parent="." node_paths=PackedStringArray("inventory_manager") instance=ExtResource("4")]
+inventory_manager = NodePath("../Manager")

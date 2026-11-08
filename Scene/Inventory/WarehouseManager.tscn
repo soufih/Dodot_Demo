@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Script/Gameplay/Inventory/WarehouseManager.gd" id="1_manager"]
+
+[node name="WarehouseManager" type="Node"]
+script = ExtResource("1_manager")

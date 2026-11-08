@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://Script/UI_Script/Inventory/warehouse_lab.gd" id="1"]
 [ext_resource type="Theme" path="res://UI/Inventory/inventory_theme.tres" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" path="res://Rescource/Data/Inventory/inventory_demo_catalog.tres" id="6"]
 [ext_resource type="Resource" path="res://Rescource/Data/Inventory/warehouse_demo_backpack.tres" id="7"]
 [ext_resource type="Resource" path="res://Rescource/Data/Inventory/home_warehouse.tres" id="8"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/WarehouseManager.tscn" id="9"]
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
 bg_color = Color(0.055, 0.08, 0.10, 1)
@@ -191,11 +192,12 @@ offset_right = 360.0
 offset_bottom = 340.0
 window_title = "随身背包"
 
-[node name="Warehouse" parent="Workspace" instance=ExtResource("5")]
+[node name="Warehouse" parent="Workspace" node_paths=PackedStringArray("warehouse_manager") instance=ExtResource("5")]
 offset_left = 380.0
 offset_top = 16.0
 offset_right = 940.0
 offset_bottom = 340.0
+warehouse_manager = NodePath("../../WarehouseManager")
 
 [node name="Details" type="PanelContainer" parent="."]
 offset_left = 1340.0
@@ -271,6 +273,9 @@ text = "正在初始化……"
 autowrap_mode = 3
 
 [node name="Manager" parent="." instance=ExtResource("3")]
+
+[node name="WarehouseManager" parent="." node_paths=PackedStringArray("inventory_manager") instance=ExtResource("9")]
+inventory_manager = NodePath("../Manager")
 
 [connection signal="item_selected" from="Tools/Margin/Forms/Target" to="." method="_on_target_changed"]
 [connection signal="item_selected" from="Tools/Margin/Forms/Item" to="." method="_on_item_changed"]

@@ -5,7 +5,7 @@ extends Node
 func _ready() -> void:
 	var checks = preload("res://tests/inventory/spec_context.gd").new()
 	if OS.get_cmdline_user_args().has("--warehouse-only"):
-		preload("res://tests/inventory/warehouse_spec.gd").new().run(checks, $Manager)
+		preload("res://tests/inventory/warehouse_spec.gd").new().run(checks, $Manager, $WarehouseManager)
 		print("WAREHOUSE_SERVICE_TEST_RESULT assertions=%d failures=%d" % [checks.assertions, checks.failures])
 		get_tree().quit(0 if checks.failures == 0 else 1)
 		return
@@ -16,7 +16,7 @@ func _ready() -> void:
 		get_tree().quit(0 if checks.failures == 0 else 1)
 		return
 	preload("res://tests/inventory/service_spec.gd").new().run(checks)
-	preload("res://tests/inventory/warehouse_spec.gd").new().run(checks, $Manager)
+	preload("res://tests/inventory/warehouse_spec.gd").new().run(checks, $Manager, $WarehouseManager)
 	preload("res://tests/inventory/equipment_spec.gd").new().run(checks, $Manager)
 	preload("res://tests/inventory/manager_spec.gd").new().run(checks, $Manager, $OtherManager)
 	preload("res://tests/inventory/stack_spec.gd").new().run(checks, $Manager)

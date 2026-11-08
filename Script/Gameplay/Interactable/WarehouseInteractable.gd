@@ -12,7 +12,7 @@ func _ready() -> void:
 	if definition == null or definition.service_type != InventoryManager.ServiceType.WAREHOUSE:
 		initialization_result = InventoryResult.failure(InventoryResult.Code.RULE_REJECTED, "交互物需要有效的仓库定义")
 	elif InventoryManager.has_container(definition.container_id):
-		initialization_result = InventoryResult.success() if InventoryManager.is_warehouse(definition.container_id) else InventoryResult.failure(InventoryResult.Code.RULE_REJECTED, "仓库标识已经被其他类型的容器使用")
+		initialization_result = InventoryResult.success() if WarehouseManager.is_warehouse(definition.container_id) else InventoryResult.failure(InventoryResult.Code.RULE_REJECTED, "仓库标识已经被其他类型的容器使用")
 	else:
 		initialization_result = InventoryManager.create_container(definition.container_id, definition.size, definition.service_type, definition.equipment_slots)
 	if not initialization_result.is_ok():

@@ -23,8 +23,9 @@ func _run() -> void:
 	checks.equal(get_tree().change_scene_to_file(LAB), OK, "加载真实仓库接入测试台")
 	await _wait_for_world(false)
 	checks.code(warehouse.initialization_result, InventoryResult.Code.OK, "世界交互物创建仓库会话")
-	checks.expect(InventoryManager.is_warehouse(_warehouse_id()), "稳定 ID 对应真实仓库服务")
-	checks.expect(not InventoryManager.is_warehouse(inventory.definition.container_id), "背包不会被识别为仓库")
+	checks.expect(WarehouseManager.is_warehouse(_warehouse_id()), "稳定 ID 对应真实仓库服务")
+	checks.equal(WarehouseManager.get_total_item_count(_warehouse_id()).payload, 0, "全局仓库管理器可查询新会话的零数量")
+	checks.expect(not WarehouseManager.is_warehouse(inventory.definition.container_id), "背包不会被识别为仓库")
 	checks.expect(not warehouse.can_interact(self), "没有背包组件的对象不能打开仓库")
 	_test_invalid_definitions()
 	await _key(KEY_E)
@@ -46,6 +47,8 @@ func _run() -> void:
 	var item_id: int = record.instance.instance_id
 	await _drag(_bag_point(record.anchor), _warehouse_point(Vector2i(3, 6)))
 	checks.equal(InventoryManager.get_item_at(_warehouse_id(), Vector2i(3, 6)).instance.instance_id, item_id, "真实背包到世界仓库拖放保留实例身份")
+	checks.equal(WarehouseManager.get_item_count(_warehouse_id(), 10).payload, 1, "真实拖放存入后通过全局接口查询指定物品数量")
+	checks.equal(WarehouseManager.get_total_item_count(_warehouse_id()).payload, 1, "世界仓库总数量按实际物品数量计算")
 	var saved := _warehouse_value()
 	await _key(KEY_ESCAPE)
 	checks.expect(not UIManager.is_open(UIId.INVENTORY) and not hero._InputController.is_banned, "Esc 关闭仓库后恢复角色输入")
@@ -58,10 +61,17 @@ func _run() -> void:
 	ui = UIManager.get_ui(UIId.INVENTORY)
 	await _click(ui.windows[2].get_node("Title/Row/Organize").get_global_rect().get_center())
 	checks.equal(InventoryManager.get_item_at(_warehouse_id(), Vector2i.ZERO).instance.instance_id, item_id, "正式仓库整理按钮通过 Manager 重新摆放")
-	await _drag(_warehouse_point(Vector2i.ZERO), _bag_point(Vector2i(4, 4)))
-	checks.equal(InventoryManager.get_item_at(inventory.definition.container_id, Vector2i(4, 4)).instance.instance_id, item_id, "世界仓库取回真实背包")
+	var stored: ItemInstance = InventoryManager.get_item_at(_warehouse_id(), Vector2i.ZERO).instance
+	var bag_target := _empty_bag_position(stored)
+	checks.expect(bag_target.x >= 0, "按正式武器当前尺寸寻找可取回的完整背包区域")
+	if bag_target.x < 0:
+		get_tree().quit(1)
+		return
+	await _drag(_warehouse_point(Vector2i.ZERO), _bag_point(bag_target))
+	checks.equal(InventoryManager.get_item_at(inventory.definition.container_id, bag_target).instance.instance_id, item_id, "世界仓库取回真实背包")
 	checks.expect(InventoryManager.get_snapshot(_warehouse_id()).items.is_empty(), "取回后仓库没有复制物品")
-	await _drag(_bag_point(Vector2i(4, 4)), _warehouse_point(Vector2i(2, 3)))
+	checks.equal(WarehouseManager.get_item_counts(_warehouse_id()).payload, {}, "真实取回后分类统计立即清空")
+	await _drag(_bag_point(bag_target), _warehouse_point(Vector2i(2, 3)))
 	saved = _warehouse_value()
 	await _key(KEY_TAB)
 	await _key(KEY_TAB)
@@ -75,6 +85,7 @@ func _run() -> void:
 	await _wait_for_world(false)
 	checks.expect(not UIManager.is_open(UIId.INVENTORY), "场景退出清理原界面")
 	checks.equal(_warehouse_value(), saved, "重载场景复用原仓库内容和版本")
+	checks.equal(WarehouseManager.get_item_count(_warehouse_id(), 10).payload, 1, "场景重载后统计仍来自保留的仓库实例")
 	await _move_to_warehouse()
 	await _key(KEY_E)
 	await _settle()
@@ -100,7 +111,8 @@ func _run() -> void:
 	checks.expect(InventoryManager.get_snapshot(_warehouse_id()).items.is_empty(), "显式新会话重置家园仓库")
 	checks.equal(InventoryManager.get_snapshot(_warehouse_id()).revision, 0, "重置后仓库版本归零")
 	checks.expect(InventoryManager.get_snapshot(inventory.definition.container_id).items.is_empty(), "同时重置玩家背包")
-	checks.expect(InventoryManager.is_warehouse(_warehouse_id()), "重置后仍是有效的仓库服务")
+	checks.expect(WarehouseManager.is_warehouse(_warehouse_id()), "重置后仍是有效的仓库服务")
+	checks.equal(WarehouseManager.get_total_item_count(_warehouse_id()).payload, 0, "新会话重置后全局数量统计归零")
 	await _test_main_menu_start()
 	print("WAREHOUSE_GAMEPLAY_TEST_RESULT assertions=%d failures=%d" % [checks.assertions, checks.failures])
 	get_tree().quit(0 if checks.failures == 0 else 1)
@@ -183,6 +195,17 @@ func _find_sword() -> Dictionary:
 		if record.instance.config_id == 10:
 			return record
 	return {}
+
+## 用当前配置与方向校验可容纳完整物品的背包区域，不假定正式武器一直是单格。
+func _empty_bag_position(item: ItemInstance) -> Vector2i:
+	var id := inventory.definition.container_id
+	var state: Dictionary = InventoryManager.get_snapshot(id)
+	for y in range(state.size.y):
+		for x in range(state.size.x):
+			var position := Vector2i(x, y)
+			if InventoryManager.can_place(id, item, position, item.rotated).is_ok():
+				return position
+	return Vector2i(-1, -1)
 
 ## 背包与仓库窗口顺序来自玩家容器列表与仓库追加规则。
 func _bag_point(cell: Vector2i) -> Vector2:

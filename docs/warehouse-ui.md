@@ -23,6 +23,8 @@
 | `Scene/Inventory/Warehouse.tscn` | 家园仓库交互场景，外观与检测区域均由场景声明 |
 | `Scene/Inventory/WarehouseGameplayLab.tscn` | 真实角色、掉落物与 E 交互的接入测试场景 |
 | `Script/Gameplay/Interactable/WarehouseInteractable.gd` | 会话仓库创建或复用、打开正式工作区与界面生命周期 |
+| `Scene/Inventory/WarehouseManager.tscn` | 全局仓库管理器场景，也供独立测试场景实例化 |
+| `Script/Gameplay/Inventory/WarehouseManager.gd` | 仓库识别与整理入口，复用统一物品注册表和事务 |
 | `Script/UI_Script/Inventory/warehouse_lab.gd` | 数据绑定、选择和详情展示、表单命令与窗口开关 |
 | `Rescource/Data/Inventory/warehouse_demo_backpack.tres` | 演示背包定义，与正式玩家容器分开 |
 | `Rescource/Data/Inventory/home_warehouse.tres` | 仓库标识、容量与服务类型 |
@@ -31,6 +33,12 @@
 脚本不使用 `Control.new()` 等方式创建 UI。网格单元、物品和拖拽预览沿用既有 PackedScene 组件。服务负责物品规则和原子提交，UI 不维护第二份可写物品状态。
 
 网格坐标标签在 `inventory_cell.tscn` 中默认隐藏。物品数量位于共用 `inventory_item.tscn` 的 `Margin/Icon/Quantity`，通过场景锚点与对齐属性固定在图标右下角；背包、仓库、装备槽和拖拽预览共用此组件。可堆叠物品显示当前数量，不可堆叠物品隐藏数量文字。
+
+仓库标题的整理按钮现在调用 `WarehouseManager.organize_warehouse()`，仓库识别使用 `WarehouseManager.is_warehouse()`。物品创建、查询、存取、交换、堆叠和分割继续由 `InventoryManager` 的通用接口处理。
+
+业务需要物品总数量时，可调用 `WarehouseManager.get_total_item_count(id)`；指定配置数量使用 `get_item_count(id, config_id)`，全部配置汇总使用 `get_item_counts(id)`。统计按各堆的实际数量合计，区别于窗口现有的实例数和占格数；结果从成功的 `InventoryResult.payload` 读取。接口、返回值和测试口径见 [warehouse-service.md](warehouse-service.md)。
+
+正式窗口默认使用全局 `WarehouseManager`。独立实验室在场景中配置了 `WarehouseManager.inventory_manager → Manager`，以及 `Workspace/Warehouse.warehouse_manager → WarehouseManager`；两个引用都在检查器中设置，不通过代码创建管理器节点。绑定到不同物品会话的管理器会被拒绝。
 
 ## 修改布局
 
@@ -70,7 +78,7 @@ UIManager.open(UIId.INVENTORY, {"containers": [
 .\tests\inventory\run-tests.ps1 -WarehouseOnly -IncludeWarehouseUI -IncludeWarehouseGameplay
 ```
 
-包含仓库服务 **85 条**、共用网格交互 **43 条**、完整仓库界面 **43 条**、世界接入 **73 条**断言，共 **244 条**，均为 0 失败。
+包含仓库服务 **169 条**、共用网格交互 **47 条**、完整仓库界面 **43 条**、世界接入 **80 条**断言，共 **339 条**，均为 0 失败。覆盖新单例、数量统计、独立会话、共享事务锁、单次通知及错误管理器绑定拒绝。
 
 完整界面测试通过实际 GUI 输入覆盖添加数量、坐标存取、占用失败后双方状态不变、整理后的选择与详情更新、隐藏重开、原生三格物品拖放，以及正式工作区的专用场景选择。同时检查实验室与正式工作区均完整显示十列、保留纵向滚动，并且实验室仓库不遮挡详情。另使用 Godot OpenGL 渲染并检查了完整界面截图。
 

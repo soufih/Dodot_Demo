@@ -9,12 +9,15 @@ signal focused(container_id: String)
 @export var max_grid_view_size: Vector2i = Vector2i(260, 520)
 ## 场景可以指定显示标题；留空时沿用容器 ID。
 @export var window_title: String = ""
+## 独立测试场景可注入对应的仓库管理器；正式工作区默认使用全局 WarehouseManager。
+@export var warehouse_manager: Node
 
 var container_id: String
 var dragging: bool = false
 var _start_pointer: Vector2
 var _start_position: Vector2
 var _manager: Node
+var _warehouse_manager: Node
 
 ## 默认不监听全局输入，仅在边框按住左键期间捕获移动与松开事件。
 func _ready() -> void:
@@ -25,6 +28,12 @@ func bind(manager: Node, id: String, service_type: int, lookup: Callable, displa
 	unbind()
 	_manager = manager
 	container_id = id
+	if service_type == InventoryManager.ServiceType.WAREHOUSE:
+		_warehouse_manager = warehouse_manager if warehouse_manager != null else WarehouseManager
+		if _warehouse_manager.inventory_manager != manager:
+			_manager = null
+			_warehouse_manager = null
+			return InventoryResult.failure(InventoryResult.Code.RULE_REJECTED, "仓库管理器与物品管理器必须属于同一会话")
 	var board = $Body/Content/Scroll/Board
 	var scroll: ScrollContainer = $Body/Content/Scroll
 	if board.has_method("validate_layout"):
@@ -64,6 +73,7 @@ func unbind() -> void:
 	if is_instance_valid(_manager) and _manager.container_changed.is_connected(_on_container_changed):
 		_manager.container_changed.disconnect(_on_container_changed)
 	_manager = null
+	_warehouse_manager = null
 	$Title/Row/Organize.disabled = true
 	$Body/Content/Scroll/Board.unbind()
 
@@ -126,9 +136,9 @@ func _on_operation_completed(result: InventoryResult) -> void:
 
 ## 手动整理仅发出仓库命令，实际排序和原子提交由 Service 负责。
 func _on_organize_pressed() -> void:
-	if not is_instance_valid(_manager):
+	if not is_instance_valid(_warehouse_manager):
 		return
-	var result: InventoryResult = _manager.organize_warehouse(container_id)
+	var result: InventoryResult = _warehouse_manager.organize_warehouse(container_id)
 	operation_completed.emit(result)
 	if result.is_ok():
 		$Body/Content/Scroll/Board.refresh_selection()
