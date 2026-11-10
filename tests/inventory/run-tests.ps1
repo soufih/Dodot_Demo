@@ -8,7 +8,8 @@ param(
     [switch]$IncludeEquipmentGameplay,
     [switch]$WarehouseOnly,
     [switch]$IncludeWarehouseUI,
-    [switch]$IncludeWarehouseGameplay
+    [switch]$IncludeWarehouseGameplay,
+    [switch]$IncludePlayerDefaults
 )
 
 $ErrorActionPreference = 'Stop'
@@ -129,6 +130,18 @@ if ($IncludeWarehouseGameplay) {
     if ($warehouseGameplayCode -ne 0 -or $warehouseGameplayContent -match '(?m)^(SCRIPT ERROR|ERROR):' -or
         $warehouseGameplayContent -notmatch 'WAREHOUSE_GAMEPLAY_TEST_RESULT assertions=\d+ failures=0') {
         throw "仓库正式接入测试失败。请检查 $warehouseGameplayLog"
+    }
+}
+
+# 新游戏默认装备、材料发放、会话复用及实际仓库合成。
+if ($IncludePlayerDefaults) {
+    $defaultsLog = Join-Path $logDir 'player-defaults-tests.log'
+    $defaultsCode = Invoke-Godot @('--headless', '--path', ('"' + $projectRoot + '"'), 'res://tests/inventory/player_defaults_runner.tscn', '--quit-after', '1800', '--log-file', ('"' + $defaultsLog + '"'))
+    $defaultsContent = Get-Content -LiteralPath $defaultsLog -Raw
+    Write-Output $defaultsContent
+    if ($defaultsCode -ne 0 -or $defaultsContent -match '(?m)^(SCRIPT ERROR|ERROR):' -or
+        $defaultsContent -notmatch 'PLAYER_DEFAULTS_TEST_RESULT assertions=\d+ failures=0') {
+        throw "玩家初始物品测试失败。请检查 $defaultsLog"
     }
 }
 

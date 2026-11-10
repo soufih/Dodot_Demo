@@ -74,6 +74,7 @@ func refresh() -> void:
 func start_new() -> InventoryResult:
 	var result := PlayerInventorySession.start_new(definition, inventory_manager)
 	if result.is_ok():
+		_active_slot = &""
 		refresh()
 	return result
 

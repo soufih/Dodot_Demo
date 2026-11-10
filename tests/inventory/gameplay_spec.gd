@@ -215,7 +215,7 @@ func _test_real_hero() -> void:
 	var inventory := PlayerInventoryComponent.find_for(hero)
 	checks.expect(inventory != null and inventory.initialization_result.is_ok(), "真实 Hero 场景已挂载背包组件")
 	checks.equal(inventory.definition.container_id, PLAYER_DEFINITION.container_id, "真实角色使用正式背包定义资源")
-	checks.equal(InventoryManager.get_snapshot(PLAYER_DEFINITION.container_id).size, Vector2i(8, 6), "正式背包尺寸取自资源")
+	checks.equal(InventoryManager.get_snapshot(PLAYER_DEFINITION.container_id).size, PLAYER_DEFINITION.size, "正式背包尺寸取自资源")
 	checks.code(inventory.receive_item(21, 2), InventoryResult.Code.OK, "真实玩家组件可接收正式材料")
 	var dropped: DroppedItem = hero.get_node("DropComponent").create_dropped_item([{"id": 10, "amount": 1}], Vector2(100, 100))
 	checks.equal(dropped.items, [{"id": 10, "amount": 1}], "真实掉落工厂将清单传入世界节点")

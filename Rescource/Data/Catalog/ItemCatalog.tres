@@ -62,6 +62,7 @@ IconTexture = ExtResource("4_hl4hp")
 MaxStack = 100
 MainItemType = 2
 ItemType = Array[int]([2])
+GridSize = Vector2i(2, 3)
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_r6x5k"]
@@ -84,6 +85,7 @@ IconTexture = ExtResource("6_hl4hp")
 MaxStack = 100
 MainItemType = 2
 ItemType = Array[int]([2])
+GridSize = Vector2i(2, 2)
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_0oh8u"]
@@ -111,6 +113,7 @@ ItemDiscription = "sword"
 IconTexture = ExtResource("8_e72d0")
 MainItemType = 1
 ItemType = Array[int]([1])
+GridSize = Vector2i(4, 2)
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
 
 [sub_resource type="Resource" id="Resource_e7byo"]

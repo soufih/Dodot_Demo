@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://tests/inventory/player_defaults_spec.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Scene/Inventory/InventoryManager.tscn" id="2"]
+
+[node name="PlayerDefaultsTests" type="Node"]
+
+[node name="Runner" type="Node" parent="."]
+script = ExtResource("1")
+
+[node name="FixtureManager" parent="Runner" instance=ExtResource("2")]

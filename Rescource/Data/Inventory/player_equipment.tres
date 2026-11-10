@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cqwnxbiu22b1v" path="res://Script/Config/Model/ResourceManager/InventoryDefinition.gd" id="1"]
 [ext_resource type="Script" uid="uid://de54etmunawoc" path="res://Script/Config/Model/ResourceManager/EquipmentSlotDefinition.gd" id="2"]
+[ext_resource type="Script" path="res://Script/Config/Model/ResourceManager/InventoryInitialItem.gd" id="3_initial"]
 
 [sub_resource type="Resource" id="Main"]
 script = ExtResource("2")
@@ -43,6 +44,16 @@ script = ExtResource("2")
 slot_id = &"relic4"
 accepted_types = Array[int]([6, 7])
 
+[sub_resource type="Resource" id="InitialMainWeapon"]
+script = ExtResource("3_initial")
+config_id = 10
+slot_id = &"main_hand"
+
+[sub_resource type="Resource" id="InitialOffWeapon"]
+script = ExtResource("3_initial")
+config_id = 11
+slot_id = &"off_hand"
+
 [resource]
 script = ExtResource("1")
 container_id = "player_equipment"
@@ -50,3 +61,4 @@ display_name = "装备栏"
 size = Vector2i(8, 1)
 service_type = 2
 equipment_slots = Array[ExtResource("2")]([SubResource("Main"), SubResource("Off"), SubResource("Head"), SubResource("Body"), SubResource("Relic1"), SubResource("Relic2"), SubResource("Relic3"), SubResource("Relic4")])
+initial_items = Array[ExtResource("3_initial")]([SubResource("InitialMainWeapon"), SubResource("InitialOffWeapon")])

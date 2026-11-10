@@ -21,9 +21,10 @@ func _run() -> void:
 	if await _capture_preview():
 		get_tree().quit()
 		return
+	_clear_items()
 	checks.expect(equipment.initialization_result.is_ok(), "真实 Hero 自动初始化装备容器")
 	checks.expect(inventory.equipment == equipment, "背包组件通过场景引用装备组件")
-	checks.equal(equipment.get_current_weapon(), -1, "新会话空手")
+	checks.equal(equipment.get_current_weapon(), -1, "显式卸下初始装备后空手")
 	checks.expect(hero.get_node("WeaponController").Weapon == null, "空手不加载攻击属性")
 	checks.expect(hero._InputController.equipment == equipment, "攻击输入通过场景引用本角色装备组件")
 	var attack_counts := {"requested": 0, "started": 0, "finished": 0}
@@ -130,14 +131,22 @@ func _run() -> void:
 	checks.equal(InventoryManager.container_changed.get_connections().size(), subscriptions, "新角色接管订阅且不泄漏旧角色")
 	_check_weapon(15)
 	lab.get_node("HUD/Panel/Margin/Rows/Reset").pressed.emit()
-	checks.expect(InventoryManager.get_snapshot(_bag_id()).items.is_empty(), "显式新会话清空背包")
-	checks.expect(InventoryManager.get_snapshot(_gear_id()).items.is_empty(), "显式新会话同时清空装备")
-	checks.equal(equipment.get_current_weapon(), -1, "重置后回到空手")
-	checks.expect(hero.get_node("WeaponController").Weapon == null and hero.get_node("WeaponController").Context == null, "重置清除武器属性及攻击上下文")
-	checks.expect(hero.get_node("PlayerUI/weapon_state_ui").current_item.texture == null, "重置清除武器 HUD")
+	checks.expect(InventoryManager.get_snapshot(_bag_id()).items.is_empty(), "显式新会话恢复空背包")
+	checks.equal(InventoryManager.get_snapshot(_gear_id()).items.size(), 2, "显式新会话恢复两把初始武器")
+	checks.equal(equipment.get_current_weapon(), 10, "重置后使用主武器 10")
+	_check_weapon(10)
+	checks.expect(hero.get_node("WeaponController").Context == null, "重置清除旧攻击上下文")
+	_clear_items()
+	checks.expect(hero.get_node("PlayerUI/weapon_state_ui").current_item.texture == null, "卸下全部装备清除武器 HUD")
 	checks.code(equipment.switch_weapon(), InventoryResult.Code.RULE_REJECTED, "没有备用武器时不能切换")
 	print("EQUIPMENT_GAMEPLAY_TEST_RESULT assertions=%d failures=%d" % [checks.assertions, checks.failures])
 	get_tree().quit(0 if checks.failures == 0 else 1)
+
+## 空手及拾取用例显式清理初始内容，避免把空手夹具与正式新游戏默认值混淆。
+func _clear_items() -> void:
+	for id in [_bag_id(), _gear_id()]:
+		for record: Dictionary in InventoryManager.get_snapshot(id).items.values():
+			InventoryManager.remove_from_container(id, record.anchor)
 
 ## 等待角色进入物理空间并结束出生输入禁用，重新获取跨场景组件引用。
 func _wait_for_hero() -> void:
@@ -292,10 +301,6 @@ func _settle() -> void:
 func _capture_preview() -> bool:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--equipment-gameplay-capture="):
-			inventory.receive_item(10, 1)
-			inventory.receive_item(11, 1)
-			InventoryManager.switch_to_container(_bag_id(), _gear_id(), _find(10).anchor, InventoryManager.get_slot_position(_gear_id(), &"main_hand").payload)
-			InventoryManager.switch_to_container(_bag_id(), _gear_id(), _find(11).anchor, InventoryManager.get_slot_position(_gear_id(), &"off_hand").payload)
 			inventory.toggle_inventory()
 			await _settle()
 			await _capture()

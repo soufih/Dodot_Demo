@@ -22,6 +22,9 @@ func _run() -> void:
 		return
 	checks.equal(get_tree().change_scene_to_file(LAB), OK, "加载真实仓库接入测试台")
 	await _wait_for_world(false)
+	# 存取交互回归使用空仓库夹具；正式初始材料由 player_defaults_spec 单独验证。
+	for record: Dictionary in InventoryManager.get_snapshot(_warehouse_id()).items.values():
+		InventoryManager.remove_from_container(_warehouse_id(), record.anchor)
 	checks.code(warehouse.initialization_result, InventoryResult.Code.OK, "世界交互物创建仓库会话")
 	checks.expect(WarehouseManager.is_warehouse(_warehouse_id()), "稳定 ID 对应真实仓库服务")
 	checks.equal(WarehouseManager.get_total_item_count(_warehouse_id()).payload, 0, "全局仓库管理器可查询新会话的零数量")
@@ -108,11 +111,11 @@ func _run() -> void:
 	checks.equal(get_tree().change_scene_to_file(LAB), OK, "返回接入测试台验证显式新会话")
 	await _wait_for_world(false)
 	scene.get_node("HUD/Panel/Margin/Rows/Reset").pressed.emit()
-	checks.expect(InventoryManager.get_snapshot(_warehouse_id()).items.is_empty(), "显式新会话重置家园仓库")
-	checks.equal(InventoryManager.get_snapshot(_warehouse_id()).revision, 0, "重置后仓库版本归零")
+	checks.equal(InventoryManager.get_snapshot(_warehouse_id()).items.size(), 10, "显式新会话恢复仓库演示材料")
+	checks.equal(InventoryManager.get_snapshot(_warehouse_id()).revision, 10, "重置后版本只包含十项初始添加")
 	checks.expect(InventoryManager.get_snapshot(inventory.definition.container_id).items.is_empty(), "同时重置玩家背包")
 	checks.expect(WarehouseManager.is_warehouse(_warehouse_id()), "重置后仍是有效的仓库服务")
-	checks.equal(WarehouseManager.get_total_item_count(_warehouse_id()).payload, 0, "新会话重置后全局数量统计归零")
+	checks.equal(WarehouseManager.get_total_item_count(_warehouse_id()).payload, 200, "新会话重置后全局统计包含演示材料")
 	await _test_main_menu_start()
 	print("WAREHOUSE_GAMEPLAY_TEST_RESULT assertions=%d failures=%d" % [checks.assertions, checks.failures])
 	get_tree().quit(0 if checks.failures == 0 else 1)
@@ -160,12 +163,12 @@ func _test_invalid_definitions() -> void:
 
 ## 从真实主菜单开始游戏，验证仓库重置与加载屏到家园的完整入口。
 func _test_main_menu_start() -> void:
-	checks.code(InventoryManager.add_to_container(_warehouse_id(), 10, 1, Vector2i.ZERO), InventoryResult.Code.OK, "新游戏前准备一件旧仓库物品")
+	checks.code(InventoryManager.quick_add_to_container(_warehouse_id(), 10, 1), InventoryResult.Code.OK, "新游戏前准备一件旧仓库物品")
 	checks.equal(get_tree().change_scene_to_file("res://Scene/Map/MainScene/MainScene.tscn"), OK, "返回真实主菜单")
 	await _settle()
 	get_tree().current_scene.get_node("CanvasLayer/Mainmenu/ButtonContainer/gamestart").pressed.emit()
 	checks.expect(UIManager.is_open(UIId.LOADING), "主菜单开始游戏进入正式加载层")
-	checks.expect(InventoryManager.get_snapshot(_warehouse_id()).items.is_empty(), "主菜单新游戏清空上一会话仓库")
+	checks.equal(WarehouseManager.get_total_item_count(_warehouse_id()).payload, 200, "主菜单新游戏替换旧库存为演示材料")
 	var loading: LoadingScreenUI = UIManager.get_ui(UIId.LOADING)
 	for frame in range(300):
 		if loading._ready_to_continue or loading._failed:
@@ -177,9 +180,9 @@ func _test_main_menu_start() -> void:
 	await _wait_for_world(true)
 	checks.equal(get_tree().current_scene.scene_file_path, HOME, "加载屏任意键继续后进入正式家园")
 	checks.expect(not UIManager.is_open(UIId.LOADING), "进入家园后释放加载层输入锁")
-	checks.expect(InventoryManager.get_snapshot(_warehouse_id()).items.is_empty(), "新家园绑定重置后的仓库")
-	checks.expect(InventoryManager.get_snapshot(inventory.definition.container_id).items.is_empty(), "新游戏同时清空背包")
-	checks.expect(InventoryManager.get_snapshot(inventory.equipment.definition.container_id).items.is_empty(), "新游戏同时清空装备")
+	checks.equal(WarehouseManager.get_item_count(_warehouse_id(), 10).payload, 0, "新家园仓库不保留旧武器")
+	checks.expect(InventoryManager.get_snapshot(inventory.definition.container_id).items.is_empty(), "新游戏恢复空背包")
+	checks.equal(InventoryManager.get_snapshot(inventory.equipment.definition.container_id).items.size(), 2, "新游戏恢复两把初始武器")
 
 ## 保存规范化仓库快照，包含实例、数量、方向、矩阵和版本。
 func _warehouse_value() -> Dictionary:

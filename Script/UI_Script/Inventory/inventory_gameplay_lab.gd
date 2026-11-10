@@ -51,7 +51,7 @@ func _on_two_hand_pressed() -> void:
 func _on_inventory_pressed() -> void:
 	inventory.toggle_inventory()
 
-## 显式新会话用于重复测试；先关闭旧视图，再清空背包、装备与测试掉落。
+## 显式新会话用于重复测试；关闭旧视图，恢复背包和装备的初始配置并清理测试掉落。
 func _on_reset_pressed() -> void:
 	UIManager.close(UIId.INVENTORY)
 	var result := inventory.start_new()

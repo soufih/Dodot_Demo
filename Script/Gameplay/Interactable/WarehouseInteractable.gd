@@ -7,14 +7,14 @@ var initialization_result: InventoryResult
 var _feedback: String = ""
 var _owns_open_view: bool = false
 
-## 创建或复用稳定 ID 的仓库；场景重载不清空仓库，不持有独立容器副本。
+## 创建时按资源发放初始物品，复用稳定 ID 的仓库；场景重载不补发或清空库存。
 func _ready() -> void:
 	if definition == null or definition.service_type != InventoryManager.ServiceType.WAREHOUSE:
 		initialization_result = InventoryResult.failure(InventoryResult.Code.RULE_REJECTED, "交互物需要有效的仓库定义")
 	elif InventoryManager.has_container(definition.container_id):
 		initialization_result = InventoryResult.success() if WarehouseManager.is_warehouse(definition.container_id) else InventoryResult.failure(InventoryResult.Code.RULE_REJECTED, "仓库标识已经被其他类型的容器使用")
 	else:
-		initialization_result = InventoryManager.create_container(definition.container_id, definition.size, definition.service_type, definition.equipment_slots)
+		initialization_result = PlayerInventorySession.ensure(definition, InventoryManager)
 	if not initialization_result.is_ok():
 		_feedback = initialization_result.message
 

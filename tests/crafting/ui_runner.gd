@@ -162,9 +162,12 @@ func _test_material_navigation() -> void:
 	t.equal(view.selected_recipe, &"material_21", "原材料没有配方时点击不跳转")
 	t.equal(t.value(InventoryManager.get_snapshot(ID)), before, "浏览与点击材料不消耗或生成物品")
 	# 仓库只有成品材料时，武器可合成，而材料自身的配方被材料筛选隐藏。
-	InventoryManager.add_to_container(ID, 21, 1, Vector2i(2, 0))
-	InventoryManager.add_to_container(ID, 22, 2, Vector2i(4, 0))
-	InventoryManager.add_to_container(ID, 23, 4, Vector2i(5, 0))
+	# 正式材料允许修改尺寸，使用服务寻找位置并保存锚点，避免边缘坐标导致测试布置失败。
+	var anchors := {}
+	for entry in [[21, 1], [22, 2], [23, 4]]:
+		var added: InventoryResult = InventoryManager.quick_add_to_container(ID, entry[0], entry[1])
+		t.code(added, InventoryResult.Code.OK, "按实际尺寸准备导航材料 %d" % entry[0])
+		anchors[entry[0]] = added.payload
 	InventoryManager.remove_from_container(ID, Vector2i.ZERO)
 	view.available_only.button_pressed = true
 	view.available_only.toggled.emit(true)
@@ -180,9 +183,8 @@ func _test_material_navigation() -> void:
 	t.equal(view.selected_recipe, &"material_23", "点击另一种材料跳转到对应配方")
 	await _click(view.materials.get_child(0).get_global_rect().get_center())
 	t.equal(view.selected_recipe, &"material_23", "下一层没有配方的材料仍保持当前页面")
-	InventoryManager.remove_from_container(ID, Vector2i(2, 0))
-	InventoryManager.remove_from_container(ID, Vector2i(4, 0))
-	InventoryManager.remove_from_container(ID, Vector2i(5, 0))
+	for anchor: Vector2i in anchors.values():
+		InventoryManager.remove_from_container(ID, anchor)
 	InventoryManager.add_to_container(ID, 20, 15, Vector2i.ZERO)
 	_select(&"material_21")
 	view.times.value = 2

@@ -2,6 +2,57 @@
 
 [ext_resource type="Script" uid="uid://cqwnxbiu22b1v" path="res://Script/Config/Model/ResourceManager/InventoryDefinition.gd" id="1"]
 [ext_resource type="Script" uid="uid://de54etmunawoc" path="res://Script/Config/Model/ResourceManager/EquipmentSlotDefinition.gd" id="1_guxxm"]
+[ext_resource type="Script" path="res://Script/Config/Model/ResourceManager/InventoryInitialItem.gd" id="2_initial"]
+
+[sub_resource type="Resource" id="Material20"]
+script = ExtResource("2_initial")
+config_id = 20
+quantity = 20
+
+[sub_resource type="Resource" id="Material21"]
+script = ExtResource("2_initial")
+config_id = 21
+quantity = 20
+
+[sub_resource type="Resource" id="Material22"]
+script = ExtResource("2_initial")
+config_id = 22
+quantity = 20
+
+[sub_resource type="Resource" id="Material23"]
+script = ExtResource("2_initial")
+config_id = 23
+quantity = 20
+
+[sub_resource type="Resource" id="Material24"]
+script = ExtResource("2_initial")
+config_id = 24
+quantity = 20
+
+[sub_resource type="Resource" id="Material26"]
+script = ExtResource("2_initial")
+config_id = 26
+quantity = 20
+
+[sub_resource type="Resource" id="Material28"]
+script = ExtResource("2_initial")
+config_id = 28
+quantity = 20
+
+[sub_resource type="Resource" id="Material29"]
+script = ExtResource("2_initial")
+config_id = 29
+quantity = 20
+
+[sub_resource type="Resource" id="Material210"]
+script = ExtResource("2_initial")
+config_id = 210
+quantity = 20
+
+[sub_resource type="Resource" id="Material211"]
+script = ExtResource("2_initial")
+config_id = 211
+quantity = 20
 
 [resource]
 script = ExtResource("1")
@@ -9,3 +60,4 @@ container_id = "warehouse_home"
 display_name = "仓库"
 size = Vector2i(10, 12)
 service_type = 3
+initial_items = Array[ExtResource("2_initial")]([SubResource("Material20"), SubResource("Material21"), SubResource("Material22"), SubResource("Material23"), SubResource("Material24"), SubResource("Material26"), SubResource("Material28"), SubResource("Material29"), SubResource("Material210"), SubResource("Material211")])
