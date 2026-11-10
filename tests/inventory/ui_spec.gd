@@ -113,7 +113,13 @@ func _test_forms() -> void:
 	_expect(lab.manager.get_item_at("快速添加容量测试", Vector2i.ZERO).instance.quantity == 5, "小容器首次快速添加成功")
 	revision = lab.manager.get_snapshot("快速添加容量测试").revision
 	items.get_node("Add").pressed.emit()
+	_expect(lab.manager.get_item_at("快速添加容量测试", Vector2i.ZERO).instance.quantity == 10, "无空格时快速添加仍能补同类物品堆")
+	_expect(lab.manager.get_snapshot("快速添加容量测试").revision == revision + 1, "快速补堆只递增一次版本")
+	revision = lab.manager.get_snapshot("快速添加容量测试").revision
+	items.get_node("Amount").value = 15
+	items.get_node("Add").pressed.emit()
 	_expect(lab.manager.get_snapshot("快速添加容量测试").revision == revision, "无适配位置时快速添加保持版本")
+	_expect(lab.manager.get_item_at("快速添加容量测试", Vector2i.ZERO).instance.quantity == 10, "余量放不下时原有物品堆也不提前增加")
 	_expect(lab.status.text.contains("失败") and lab.status.text.contains("没有可容纳"), "无适配位置时显示失败原因")
 	lab.create_container("快速添加旋转测试", Vector2i(3, 1), InventoryManager.ServiceType.GRID)
 	items.get_node("Config").select(0)

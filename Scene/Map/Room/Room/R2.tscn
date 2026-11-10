@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://x1dfb4rvq5v" path="res://Scene/Map/MapComponent/ladder.tscn" id="2_ebm3h"]
 [ext_resource type="PackedScene" uid="uid://cli20mnfoahgl" path="res://Scene/Map/MapComponent/Platform.tscn" id="3_ksheo"]
 [ext_resource type="PackedScene" path="res://Scene/Map/MapComponent/CameraBoundary.tscn" id="4_lnrr5"]
+[ext_resource type="PackedScene" uid="uid://dkpfad1e406sr" path="res://Scene/Map/MapComponent/Barrier.tscn" id="4_um4p4"]
+[ext_resource type="PackedScene" uid="uid://mt20og0r4ley" path="res://Scene/Map/MapComponent/Harvestable.tscn" id="5_ebm3h"]
 
 [node name="Entrance" type="Marker2D" unique_id=1462261286]
 metadata/_edit_horizontal_guides_ = [640.0]
@@ -14,6 +16,57 @@ tile_map_data = PackedByteArray("AAAAAPb/AAAiACEAAAAAAPf/AAAiACEAAAAAAPj/AAAiACE
 tile_set = ExtResource("1_um4p4")
 
 [node name="EnemySpawnPoint" type="Marker2D" parent="." unique_id=551825229]
+
+[node name="Marker2D" type="Marker2D" parent="EnemySpawnPoint" unique_id=500349701]
+position = Vector2(784, 6)
+
+[node name="Marker2D2" type="Marker2D" parent="EnemySpawnPoint" unique_id=1761963139]
+position = Vector2(1030, -342)
+
+[node name="Marker2D3" type="Marker2D" parent="EnemySpawnPoint" unique_id=1775923989]
+position = Vector2(1389, -353)
+
+[node name="Marker2D4" type="Marker2D" parent="EnemySpawnPoint" unique_id=374957595]
+position = Vector2(1379, 12)
+
+[node name="Marker2D5" type="Marker2D" parent="EnemySpawnPoint" unique_id=1335956575]
+position = Vector2(1552, 5)
+
+[node name="Marker2D6" type="Marker2D" parent="EnemySpawnPoint" unique_id=551895323]
+position = Vector2(1675, 5)
+
+[node name="Marker2D7" type="Marker2D" parent="EnemySpawnPoint" unique_id=1080947323]
+position = Vector2(931, -623)
+
+[node name="Marker2D9" type="Marker2D" parent="EnemySpawnPoint" unique_id=2117637446]
+position = Vector2(1115, -1000)
+
+[node name="Marker2D10" type="Marker2D" parent="EnemySpawnPoint" unique_id=1790950563]
+position = Vector2(2229, -998)
+
+[node name="Marker2D11" type="Marker2D" parent="EnemySpawnPoint" unique_id=1175613429]
+position = Vector2(2071, -1002)
+
+[node name="Marker2D12" type="Marker2D" parent="EnemySpawnPoint" unique_id=718090440]
+position = Vector2(2379, -1001)
+
+[node name="Marker2D13" type="Marker2D" parent="EnemySpawnPoint" unique_id=1106530162]
+position = Vector2(2575, -995)
+
+[node name="Marker2D14" type="Marker2D" parent="EnemySpawnPoint" unique_id=569915680]
+position = Vector2(1275, -999)
+
+[node name="Marker2D15" type="Marker2D" parent="EnemySpawnPoint" unique_id=585959211]
+position = Vector2(2215, -333)
+
+[node name="Marker2D16" type="Marker2D" parent="EnemySpawnPoint" unique_id=379381289]
+position = Vector2(1935, -331)
+
+[node name="Marker2D17" type="Marker2D" parent="EnemySpawnPoint" unique_id=529376832]
+position = Vector2(2152, -20)
+
+[node name="Marker2D18" type="Marker2D" parent="EnemySpawnPoint" unique_id=1360653219]
+position = Vector2(1874, -18)
 
 [node name="Barriers" type="Marker2D" parent="." unique_id=1904714810]
 position = Vector2(1, 1)
@@ -27,61 +80,106 @@ position = Vector2(1656, -1368)
 position = Vector2(1699.0001, -373)
 scale = Vector2(0.18583992, 6.5282593)
 
-[node name="Plateform" parent="MapComonent" unique_id=112102110 instance=ExtResource("3_ksheo")]
+[node name="Plateforms" type="Node2D" parent="MapComonent" unique_id=1080899175]
+
+[node name="Plateform" parent="MapComonent/Plateforms" unique_id=112102110 instance=ExtResource("3_ksheo")]
 position = Vector2(814, -153)
 scale = Vector2(1.6799952, 1)
 
-[node name="Plateform2" parent="MapComonent" unique_id=846024846 instance=ExtResource("3_ksheo")]
+[node name="Plateform2" parent="MapComonent/Plateforms" unique_id=846024846 instance=ExtResource("3_ksheo")]
 position = Vector2(692, -249)
 scale = Vector2(1.6799952, 1)
 
-[node name="Plateform5" parent="MapComonent" unique_id=545991738 instance=ExtResource("3_ksheo")]
+[node name="Plateform5" parent="MapComonent/Plateforms" unique_id=545991738 instance=ExtResource("3_ksheo")]
 position = Vector2(2000, -56)
 scale = Vector2(1.1779468, 0.68359923)
 
-[node name="Plateform6" parent="MapComonent" unique_id=1355288828 instance=ExtResource("3_ksheo")]
+[node name="Plateform6" parent="MapComonent/Plateforms" unique_id=1355288828 instance=ExtResource("3_ksheo")]
 position = Vector2(1495.9999, -680)
 scale = Vector2(2.021461, 1)
 
-[node name="Plateform7" parent="MapComonent" unique_id=1180042553 instance=ExtResource("3_ksheo")]
+[node name="Plateform7" parent="MapComonent/Plateforms" unique_id=1180042553 instance=ExtResource("3_ksheo")]
 position = Vector2(744, -776.00006)
 scale = Vector2(0.7575041, 0.97752345)
 
-[node name="Plateform3" parent="MapComonent" unique_id=1277909905 instance=ExtResource("3_ksheo")]
+[node name="Plateform3" parent="MapComonent/Plateforms" unique_id=1277909905 instance=ExtResource("3_ksheo")]
 position = Vector2(1710, -586.00006)
 scale = Vector2(0.5746343, 0.95371383)
 
-[node name="Plateform9" parent="MapComonent" unique_id=717152974 instance=ExtResource("3_ksheo")]
+[node name="Plateform9" parent="MapComonent/Plateforms" unique_id=717152974 instance=ExtResource("3_ksheo")]
 position = Vector2(864, -872.00006)
 scale = Vector2(0.7575041, 0.97752345)
 
-[node name="Plateform10" parent="MapComonent" unique_id=1851777095 instance=ExtResource("3_ksheo")]
+[node name="Plateform10" parent="MapComonent/Plateforms" unique_id=1851777095 instance=ExtResource("3_ksheo")]
 position = Vector2(1847.9999, -872)
 scale = Vector2(0.7575041, 0.97752345)
 
-[node name="Plateform8" parent="MapComonent" unique_id=824135332 instance=ExtResource("3_ksheo")]
+[node name="Plateform8" parent="MapComonent/Plateforms" unique_id=824135332 instance=ExtResource("3_ksheo")]
 position = Vector2(688, -1096)
 scale = Vector2(2.5079987, 1.2832404)
 
-[node name="Plateform11" parent="MapComonent" unique_id=1843532 instance=ExtResource("3_ksheo")]
+[node name="Plateform11" parent="MapComonent/Plateforms" unique_id=1843532 instance=ExtResource("3_ksheo")]
 position = Vector2(1248, -632.00006)
 scale = Vector2(0.7575041, 0.97752345)
 
-[node name="Plateform4" parent="MapComonent" unique_id=1859563891 instance=ExtResource("3_ksheo")]
+[node name="Plateform4" parent="MapComonent/Plateforms" unique_id=1859563891 instance=ExtResource("3_ksheo")]
 position = Vector2(1656.0001, -1376)
 scale = Vector2(1.6799952, 1)
 
-[node name="Plateform12" parent="MapComonent" unique_id=2027246855 instance=ExtResource("3_ksheo")]
+[node name="Plateform12" parent="MapComonent/Plateforms" unique_id=2027246855 instance=ExtResource("3_ksheo")]
 position = Vector2(1656.0001, -1184)
 scale = Vector2(1.6799952, 1)
 
-[node name="Plateform13" parent="MapComonent" unique_id=1515957555 instance=ExtResource("3_ksheo")]
+[node name="Plateform13" parent="MapComonent/Plateforms" unique_id=1515957555 instance=ExtResource("3_ksheo")]
 position = Vector2(1607.9999, -1280.0001)
 scale = Vector2(0.7575041, 0.97752345)
 
-[node name="Plateform14" parent="MapComonent" unique_id=1629553768 instance=ExtResource("3_ksheo")]
+[node name="Plateform14" parent="MapComonent/Plateforms" unique_id=1629553768 instance=ExtResource("3_ksheo")]
 position = Vector2(1704, -1280.0001)
 scale = Vector2(0.7575041, 0.97752345)
+
+[node name="Barriers" type="Node2D" parent="MapComonent" unique_id=1854302760]
+
+[node name="Barrier" parent="MapComonent/Barriers" unique_id=157799873 instance=ExtResource("4_um4p4")]
+position = Vector2(891, -316)
+
+[node name="Barrier2" parent="MapComonent/Barriers" unique_id=2056426023 instance=ExtResource("4_um4p4")]
+position = Vector2(1582, -314)
+
+[node name="Barrier3" parent="MapComonent/Barriers" unique_id=1412691060 instance=ExtResource("4_um4p4")]
+position = Vector2(1150, -576)
+
+[node name="Barrier4" parent="MapComonent/Barriers" unique_id=798758843 instance=ExtResource("4_um4p4")]
+position = Vector2(892, -961)
+
+[node name="Barrier5" parent="MapComonent/Barriers" unique_id=1535863409 instance=ExtResource("4_um4p4")]
+position = Vector2(1413, -964)
+
+[node name="Barrier6" parent="MapComonent/Barriers" unique_id=644546061 instance=ExtResource("4_um4p4")]
+position = Vector2(1884, -961)
+
+[node name="Barrier7" parent="MapComonent/Barriers" unique_id=733827488 instance=ExtResource("4_um4p4")]
+position = Vector2(1874, -311)
+
+[node name="Harvestables" type="Node2D" parent="MapComonent" unique_id=398266408]
+
+[node name="Harvestable" parent="MapComonent/Harvestables" unique_id=1411256343 instance=ExtResource("5_ebm3h")]
+position = Vector2(2542, -948)
+
+[node name="Harvestable2" parent="MapComonent/Harvestables" unique_id=1392058274 instance=ExtResource("5_ebm3h")]
+position = Vector2(2254, -944)
+
+[node name="Harvestable3" parent="MapComonent/Harvestables" unique_id=866642859 instance=ExtResource("5_ebm3h")]
+position = Vector2(1528, 64)
+
+[node name="Harvestable4" parent="MapComonent/Harvestables" unique_id=1992084578 instance=ExtResource("5_ebm3h")]
+position = Vector2(1149, -946)
+
+[node name="Harvestable5" parent="MapComonent/Harvestables" unique_id=605207325 instance=ExtResource("5_ebm3h")]
+position = Vector2(906, -562)
+
+[node name="Harvestable6" parent="MapComonent/Harvestables" unique_id=971042984 instance=ExtResource("5_ebm3h")]
+position = Vector2(1881, 66)
 
 [node name="CameraBoundary" parent="." unique_id=1767280821 instance=ExtResource("4_lnrr5")]
 visible = false

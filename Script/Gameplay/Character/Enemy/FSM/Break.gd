@@ -5,7 +5,7 @@ var _generation: int = 0
 func _on_enter():
 	_generation += 1
 	var generation := _generation
-	Entity.velocity.x = 0
+	(Entity as BaseEnemy).set_move_direction(0, 0.0)
 	AniPlayer.play("Break")
 	var finished_animation: StringName = await AniPlayer.animation_finished
 	if generation != _generation or finished_animation != &"Break":

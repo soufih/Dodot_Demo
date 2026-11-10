@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cx5rqs341ykbv" path="res://Script/Gameplay/Map/LevelBackground.gd" id="3_background"]
 [ext_resource type="Script" uid="uid://cygkpn3m26k3m" path="res://Script/Gameplay/Map/LevelExploration.gd" id="4_exploration"]
 [ext_resource type="PackedScene" uid="uid://ciqka6krelgc0" path="res://UI/MiniMap_UI/mini_map_ui.tscn" id="5_minimap"]
+[ext_resource type="Script" path="res://Script/Gameplay/Map/LevelStatistics.gd" id="6_statistics"]
 
 [node name="LevelScene" type="Node2D" unique_id=70190648]
 script = ExtResource("1_kghl0")
@@ -15,6 +16,10 @@ script = ExtResource("3_background")
 texture_scale = 2.0
 
 [node name="LevelGenerator" parent="." unique_id=635254476 instance=ExtResource("2_fnpaw")]
+
+[node name="LevelStatistics" type="Node" parent="." node_paths=PackedStringArray("generator")]
+script = ExtResource("6_statistics")
+generator = NodePath("../LevelGenerator")
 
 [node name="LevelExploration" type="Node" parent="." unique_id=1105464467 node_paths=PackedStringArray("generator")]
 script = ExtResource("4_exploration")

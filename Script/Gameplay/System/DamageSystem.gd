@@ -13,7 +13,10 @@ func apply_damage(Source:BaseCharacter,Target:BaseCharacter, Attack:DamagePorper
 		var Damage = calculate_damage(Source, Target, Attack)
 		if Damage == -1:
 			return
+		var actual_damage := clampf(Damage, 0.0, maxf(Target.get_character_current_health(), 0.0))
 		Target.set_character_current_health(Target.get_character_current_health()-Damage)
+		if actual_damage > 0.0:
+			SignalBus.character_damaged.emit(Source, Target, actual_damage)
 
 
 ##计算最终伤害值

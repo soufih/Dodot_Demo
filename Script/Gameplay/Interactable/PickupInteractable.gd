@@ -15,8 +15,15 @@ func interact(actor: Node) -> void:
 	if not can_interact(actor):
 		return
 	var inventory := PlayerInventoryComponent.find_for(actor)
-	var result := dropped_item.collect(inventory.receive_item)
+	var result := dropped_item.collect(_receive_item.bind(inventory, actor))
 	_feedback = result.message
+
+## 按每种物品实际入包的数量发布事件，部分拾取及重试不会重复计数。
+func _receive_item(config_id: int, quantity: int, inventory: PlayerInventoryComponent, actor: Node) -> InventoryResult:
+	var result := inventory.receive_item(config_id, quantity)
+	if result.is_ok() and int(result.payload) > 0:
+		SignalBus.item_picked_up.emit(actor, config_id, int(result.payload))
+	return result
 
 ## 提示始终读取当前剩余清单，背包满时继续显示可重试的反馈。
 func get_interaction_text() -> String:

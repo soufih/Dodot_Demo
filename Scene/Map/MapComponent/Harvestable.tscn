@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://mt20og0r4ley"]
+
+[ext_resource type="Script" uid="uid://bsitbe1ad3osr" path="res://Script/Gameplay/Interactable/Harvestable.gd" id="1_harvest"]
+[ext_resource type="Texture2D" uid="uid://bsm8v7x2d2or2" path="res://Rescource/Static/Mines/mine_item301.png" id="2_ore"]
+[ext_resource type="Script" uid="uid://ckt8bltq21vpc" path="res://Script/Gameplay/Character/Component/DropComponent.gd" id="3_drops"]
+[ext_resource type="Script" uid="uid://q5m5p1yi6dlx" path="res://Script/Config/Model/DroppedItemConfig/DroppedItemConfig.gd" id="4_drop_config"]
+
+[sub_resource type="Resource" id="DefaultDrop"]
+script = ExtResource("4_drop_config")
+id = 24
+range_x = 1
+range_y = 3
+possbility = 100.0
+
+[sub_resource type="RectangleShape2D" id="InteractionShape"]
+size = Vector2(64, 64)
+
+[node name="Harvestable" type="Area2D" unique_id=1411256343 node_paths=PackedStringArray("sprite")]
+texture_filter = 1
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_harvest")
+sprite = NodePath("Sprite2D")
+drop_list = Array[ExtResource("4_drop_config")]([SubResource("DefaultDrop")])
+interaction_name = "采集"
+dismiss_prompt_after_interact = false
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1703617254]
+position = Vector2(0, -22)
+scale = Vector2(2.5344357, 2.5344357)
+texture = ExtResource("2_ore")
+
+[node name="InteractionShape" type="CollisionShape2D" parent="." unique_id=724999975]
+position = Vector2(0, -16)
+shape = SubResource("InteractionShape")
+
+[node name="DropOrigin" type="Marker2D" parent="." unique_id=1061685685]
+position = Vector2(0, -28)
+
+[node name="Drops" type="Node2D" parent="." unique_id=899876501]
+script = ExtResource("3_drops")
