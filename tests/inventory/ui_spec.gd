@@ -20,6 +20,9 @@ func _ready() -> void:
 			get_tree().quit()
 			return
 	_expect(lab.windows.size() == 2, "默认场景提供两类容器")
+	# 限制用例显式声明能力，不依赖物品配置的生产默认值。
+	lab.lookup_config(1002).CanRotate = false
+	lab.lookup_config(1003).CanRotate = false
 	_expect(lab.windows["旅行背包"].position != lab.windows["储物箱"].position, "布局完成后初始窗口错开")
 	_test_forms()
 	await get_tree().process_frame
@@ -110,7 +113,13 @@ func _test_forms() -> void:
 	_expect(lab.manager.get_item_at("快速添加容量测试", Vector2i.ZERO).instance.quantity == 5, "小容器首次快速添加成功")
 	revision = lab.manager.get_snapshot("快速添加容量测试").revision
 	items.get_node("Add").pressed.emit()
+	_expect(lab.manager.get_item_at("快速添加容量测试", Vector2i.ZERO).instance.quantity == 10, "无空格时快速添加仍能补同类物品堆")
+	_expect(lab.manager.get_snapshot("快速添加容量测试").revision == revision + 1, "快速补堆只递增一次版本")
+	revision = lab.manager.get_snapshot("快速添加容量测试").revision
+	items.get_node("Amount").value = 15
+	items.get_node("Add").pressed.emit()
 	_expect(lab.manager.get_snapshot("快速添加容量测试").revision == revision, "无适配位置时快速添加保持版本")
+	_expect(lab.manager.get_item_at("快速添加容量测试", Vector2i.ZERO).instance.quantity == 10, "余量放不下时原有物品堆也不提前增加")
 	_expect(lab.status.text.contains("失败") and lab.status.text.contains("没有可容纳"), "无适配位置时显示失败原因")
 	lab.create_container("快速添加旋转测试", Vector2i(3, 1), InventoryManager.ServiceType.GRID)
 	items.get_node("Config").select(0)

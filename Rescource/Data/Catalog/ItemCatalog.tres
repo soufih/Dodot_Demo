@@ -35,11 +35,6 @@ ItemName = "Sword"
 ItemDiscription = "sword"
 IconTexture = ExtResource("2_l8dk2")
 ScenePath = "uid://dt0bj2ejimup4"
-Recipe = Dictionary[int, int]({
-21: 1,
-22: 2,
-23: 4
-})
 MainItemType = 1
 ItemType = Array[int]([1, 2])
 GridSize = Vector2i(4, 1)
@@ -53,10 +48,6 @@ ItemName = "Material1"
 ItemDiscription = "material"
 IconTexture = ExtResource("3_r6x5k")
 MaxStack = 100
-Products = Array[int]([11])
-Recipe = Dictionary[int, int]({
-20: 5
-})
 MainItemType = 2
 ItemType = Array[int]([2])
 GridSize = Vector2i(2, 1)
@@ -69,11 +60,6 @@ ItemName = "Material3"
 ItemDiscription = "material"
 IconTexture = ExtResource("4_hl4hp")
 MaxStack = 100
-Products = Array[int]([11])
-Recipe = Dictionary[int, int]({
-22: 2,
-24: 5
-})
 MainItemType = 2
 ItemType = Array[int]([2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
@@ -85,7 +71,6 @@ ItemName = "Material2"
 ItemDiscription = "material"
 IconTexture = ExtResource("5_n3iav")
 MaxStack = 100
-Products = Array[int]([11, 22, 23])
 MainItemType = 2
 ItemType = Array[int]([2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
@@ -97,7 +82,6 @@ ItemName = "Material"
 ItemDiscription = "material"
 IconTexture = ExtResource("6_hl4hp")
 MaxStack = 100
-Products = Array[int]([23])
 MainItemType = 2
 ItemType = Array[int]([2])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"
@@ -113,11 +97,6 @@ ItemID = 11
 ItemName = "Sword2"
 ItemDiscription = "sword"
 IconTexture = ExtResource("7_ffxe5")
-Recipe = Dictionary[int, int]({
-24: 3,
-26: 1,
-28: 5
-})
 MainItemType = 1
 ItemType = Array[int]([1])
 GridSize = Vector2i(2, 2)
@@ -130,12 +109,6 @@ ItemID = 12
 ItemName = "Sword3"
 ItemDiscription = "sword"
 IconTexture = ExtResource("8_e72d0")
-Recipe = Dictionary[int, int]({
-28: 5,
-29: 5,
-210: 5,
-211: 5
-})
 MainItemType = 1
 ItemType = Array[int]([1])
 metadata/_custom_type_script = "uid://qchpvf5o4y2y"

@@ -33,12 +33,12 @@ func _ready() -> void:
 	_choose_item(1002)
 	forms.get_node("Quantity").value = 4
 	await _click(forms.get_node("Add").get_global_rect().get_center())
-	checks.equal(lab.manager.get_snapshot(_bag_id()).items.size(), 5, "新增物品表单生成新实例")
+	checks.equal(lab.manager.get_snapshot(_bag_id()).items.size(), 4, "新增同类物品时优先堆叠，不额外创建新堆")
 	var quantities: Array = []
 	for record: Dictionary in lab.manager.get_snapshot(_bag_id()).items.values():
 		if record.instance.config_id == 1002:
 			quantities.append(record.instance.quantity)
-	checks.expect(quantities.has(4) and quantities.has(8), "表单新增数量正确且不改变原有物品栈")
+	checks.expect(quantities == [12], "表单新增数量合并到已有草药堆")
 	var herb := _find(_bag_id(), 1002)
 	await _click(_point(bag_board, herb.anchor))
 	checks.equal(lab._selected_instance_id, herb.instance.instance_id, "真实点击更新选中身份")
@@ -83,8 +83,10 @@ func _ready() -> void:
 	checks.equal(checks.value(lab.manager.get_snapshot(_warehouse_id())), warehouse_before, "关闭重开不清空仓库")
 	checks.expect(not forms.get_node("Add").disabled, "打开后恢复仓库新增操作")
 	forms.get_node("Quantity").value = 2
+	var previous_quantity: int = $Lab/WarehouseManager.get_item_count(_warehouse_id(), 1002).payload
 	await _click(forms.get_node("Add").get_global_rect().get_center())
-	checks.equal(lab.manager.get_snapshot(_warehouse_id()).items.size(), 5, "新增目标选择仓库时实际加入仓库")
+	checks.equal(lab.manager.get_snapshot(_warehouse_id()).items.size(), 4, "向仓库快速添加同类物品时补已有堆")
+	checks.equal($Lab/WarehouseManager.get_item_count(_warehouse_id(), 1002).payload, previous_quantity + 2, "仓库数量统计同步快速堆叠后的新增数量")
 	var carried := _find(_bag_id(), 1001)
 	var from := _point(bag_board, carried.anchor)
 	await _motion(from, 0)

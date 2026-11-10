@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bd2erf76jvubl" path="res://UI/PlayerUI/Player_State_UI.tscn" id="15_73oc2"]
 [ext_resource type="Script" uid="uid://r3ieb71ndrba" path="res://Script/Gameplay/Weapon/WeaponController.gd" id="15_la4fd"]
 [ext_resource type="Texture2D" uid="uid://btw5h3a5o6ssn" path="res://Rescource/Static/Weapon/Icon9.png" id="16_8705s"]
-[ext_resource type="PackedScene" path="res://UI/PlayerUI/weapon_state_ui.tscn" id="16_pw8k8"]
+[ext_resource type="PackedScene" uid="uid://c6i4w1y5eednm" path="res://UI/PlayerUI/weapon_state_ui.tscn" id="16_pw8k8"]
 [ext_resource type="Texture2D" uid="uid://lhekrotgb7jg" path="res://Rescource/Static/BladeSlash/Attack2/adventurer-attack2-03-1.3.png" id="17_8705s"]
 [ext_resource type="Texture2D" uid="uid://2kosfdwy20kh" path="res://Rescource/Static/BladeSlash/Attack1/BladeSlash-01.png" id="18_la4fd"]
 [ext_resource type="Texture2D" uid="uid://jja05y1x4t8b" path="res://Rescource/Static/BladeSlash/Attack1/BladeSlash-02.png" id="19_fmb0r"]
@@ -35,10 +35,11 @@
 [ext_resource type="Script" uid="uid://br03q5qg6pp7e" path="res://Script/Gameplay/Character/Hero/FSM/Dash.gd" id="32_dash"]
 [ext_resource type="PackedScene" uid="uid://dcub5un8kngle" path="res://UI/PlayerUI/skill_cooldown_ui.tscn" id="34_nn2wi"]
 [ext_resource type="Script" uid="uid://ckt8bltq21vpc" path="res://Script/Gameplay/Character/Component/DropComponent.gd" id="drop_component_script"]
+[ext_resource type="Script" uid="uid://bqmq428qouidn" path="res://Script/Gameplay/Character/Component/PlayerEquipmentComponent.gd" id="equipment_component"]
+[ext_resource type="Script" uid="uid://x555hehoba1g" path="res://Script/Gameplay/Character/Hero/FSM/Look.gd" id="idle_look"]
 [ext_resource type="Script" uid="uid://cgb0r26jueh8h" path="res://Script/Gameplay/Character/Component/PlayerInventoryComponent.gd" id="inventory_component"]
+[ext_resource type="Resource" uid="uid://ch08fiq1p5evm" path="res://Rescource/Data/Inventory/player_equipment.tres" id="player_equipment"]
 [ext_resource type="Resource" uid="uid://ds3uyaj1gkq38" path="res://Rescource/Data/Inventory/player_backpack.tres" id="player_inventory"]
-[ext_resource type="Script" path="res://Script/Gameplay/Character/Component/PlayerEquipmentComponent.gd" id="equipment_component"]
-[ext_resource type="Resource" path="res://Rescource/Data/Inventory/player_equipment.tres" id="player_equipment"]
 
 [sub_resource type="Animation" id="Animation_ms1qk"]
 resource_name = "BowAttack"
@@ -1950,7 +1951,7 @@ ToughnessRecover = 5.0
 Speed = 300
 RecoverTimer = NodePath("Timers/RecoverTimer")
 
-[node name="Equipment" type="Node" parent="."]
+[node name="Equipment" type="Node" parent="." unique_id=1755894002]
 script = ExtResource("equipment_component")
 definition = ExtResource("player_equipment")
 
@@ -2034,8 +2035,15 @@ NextStates = {
 "when_dash_trigger": NodePath("../Dash")
 }
 Substates = {
+"look": NodePath("Look"),
 "switch_weapon_pressed": NodePath("SwitchWeapon")
 }
+
+[node name="Look" type="Node" parent="State/Idle" unique_id=7018982 node_paths=PackedStringArray("camera", "Entity", "_InputController")]
+script = ExtResource("idle_look")
+camera = NodePath("../../../MainCamera")
+Entity = NodePath("../../..")
+_InputController = NodePath("../../../InputController")
 
 [node name="SwitchWeapon" type="Node" parent="State/Idle" unique_id=449154940 node_paths=PackedStringArray("Entity", "AniPlayer", "_InputController")]
 script = ExtResource("9_iuq1t")
@@ -2201,14 +2209,13 @@ script = ExtResource("13_8l1ja")
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_v1ih1")
 
-[node name="MainCamera" type="Camera2D" parent="." unique_id=1661422779 node_paths=PackedStringArray("_InputController")]
+[node name="MainCamera" type="Camera2D" parent="." unique_id=1661422779]
 position = Vector2(0, -80)
 scale = Vector2(1.5, 1.5)
 zoom = Vector2(1.5, 1.5)
 limit_enabled = false
 position_smoothing_speed = 20.0
 script = ExtResource("13_73oc2")
-_InputController = NodePath("../InputController")
 
 [node name="background" type="TileMapLayer" parent="MainCamera" unique_id=1614610714]
 visible = false
@@ -2252,11 +2259,11 @@ vertical_alignment = 1
 script = ExtResource("30_prompt")
 
 [node name="weapon_state_ui" parent="PlayerUI" unique_id=1906476103 node_paths=PackedStringArray("equipment") instance=ExtResource("16_pw8k8")]
-equipment = NodePath("../../Equipment")
 offset_left = -31.0
 offset_top = -1.0
 offset_right = -31.0
 offset_bottom = -1.0
+equipment = NodePath("../../Equipment")
 
 [node name="Player_State_UI" parent="PlayerUI" unique_id=1229242046 node_paths=PackedStringArray("Hero") instance=ExtResource("15_73oc2")]
 offset_left = 39.0

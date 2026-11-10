@@ -72,7 +72,7 @@ func _on_create_container_pressed() -> void:
 	var dimensions := Vector2i(int(container_form.get_node("Dimensions/Width").value), int(container_form.get_node("Dimensions/Height").value))
 	create_container(id, dimensions, container_form.get_node("Type").get_selected_id())
 
-## 从表单构造实例，由 Manager 快速添加至首个适配位置，位置由具体服务选择。
+## 从表单读取数量，由 Manager 优先补同类堆，再为余量选择空位。
 func _on_add_item_pressed() -> void:
 	var target = item_form.get_node("Target")
 	if target.selected < 0:

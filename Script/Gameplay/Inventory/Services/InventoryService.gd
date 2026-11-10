@@ -28,9 +28,9 @@ var _registered_owner: WeakRef
 ## 成功提交一次版本变更；失败保持原状态，禁止重复加入同一实例。
 @abstract func add(item: ItemInstance, pos: Vector2i) -> InventoryResult
 
-## 按从上到下、从左到右的顺序寻找首个可容纳完整 item 的位置并添加。
-## 网格优先当前方向，无位置且配置允许时尝试旋转；不修改输入实例，成功 payload 为锚点 Vector2i。
-## 无合适位置返回 NO_SPACE，不提交状态。
+## 普通、网格背包先补同类堆，再按行寻找余量位置；装备栏按槽位规则自动穿戴。
+## 网格余量优先当前方向，无位置且配置允许时尝试旋转；不修改输入实例，成功 payload 为实际接收锚点。
+## 无法完整接收时返回 NO_SPACE，补堆与新增均不提交。
 @abstract func quick_add(item: ItemInstance) -> InventoryResult
 
 ## 移除 pos 对应的完整实例及其全部占位格。

@@ -49,6 +49,7 @@ SignalBus="*uid://cj08qm13g6joy"
 CurrentLevel="*res://Script/Gameplay/Map/CurrentLevel.gd"
 InventoryManager="*res://Scene/Inventory/InventoryManager.tscn"
 WarehouseManager="*res://Scene/Inventory/WarehouseManager.tscn"
+CraftingManager="*res://Script/Gameplay/Crafting/CraftingManager.gd"
 
 [debug]
 

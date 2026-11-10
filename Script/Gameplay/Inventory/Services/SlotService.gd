@@ -49,20 +49,45 @@ func add(item: ItemInstance, pos: Vector2i) -> InventoryResult:
 	var result := stage_add(staged, item, pos)
 	return _commit_local(staged) if result.is_ok() else result
 
-## 按行扫描首个完整适配的空位，沿用添加规则并一次提交，返回实际锚点。
-## 单次扫描复用暂存快照；失败候选不写入，实例非法时直接返回原校验错误。
+## 优先补满同类物品堆，余量放入首个空格；完整接收后一次提交，失败不保留部分堆叠。
+## 返回余量新堆的锚点，完全合并时返回首个补堆锚点，输入实例保持不变。
 func quick_add(item: ItemInstance) -> InventoryResult:
 	if container == null:
 		return StateOps.not_initialized()
 	var staged := stage_snapshot()
+	var placed := stage_quick_add(staged, item)
+	if not placed.is_ok():
+		return placed
+	var result := _commit_local(staged)
+	if result.is_ok():
+		result.payload = placed.payload
+	return result
+
+## 在暂存状态中完整规划补堆和余量位置；失败不修改传入计划，不提交或分配实例 ID。
+func stage_quick_add(staged: Dictionary, item: ItemInstance) -> InventoryResult:
+	var checked := StateOps.validate_item(item, _config_lookup)
+	if not checked.is_ok():
+		return checked
+	if staged.items.has(item.instance_id):
+		return InventoryResult.failure(InventoryResult.Code.INVALID_ITEM, "实例已经属于此容器")
+	var config: ItemConfig = _config_lookup.call(item.config_id)
+	var plan := StateOps.plan_stack_fill(staged, item, config.MaxStack)
+	var remaining: ItemInstance = plan.remaining
+	var placed := InventoryResult.success(plan.anchor)
+	if remaining.quantity > 0:
+		placed = _stage_first_fit(staged, remaining)
+	if placed.is_ok():
+		StateOps.apply_stack_fill(staged, plan)
+	return placed
+
+## 按行寻找并写入第一个空格；失败候选不改变暂存状态。
+func _stage_first_fit(staged: Dictionary, item: ItemInstance) -> InventoryResult:
 	for y in range(staged.size.y):
 		for x in range(staged.size.x):
 			var pos := Vector2i(x, y)
 			var result := stage_add(staged, item, pos)
 			if result.is_ok():
-				result = _commit_local(staged)
-				if result.is_ok():
-					result.payload = pos
+				result.payload = pos
 				return result
 			if result.code != InventoryResult.Code.OCCUPIED and result.code != InventoryResult.Code.OUT_OF_BOUNDS:
 				return result

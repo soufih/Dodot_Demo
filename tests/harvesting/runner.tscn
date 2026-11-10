@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://tests/inventory/gameplay_actor.tscn" id="1_actor"]
+[ext_resource type="Script" path="res://tests/harvesting/harvesting_spec.gd" id="2_spec"]
+
+[node name="HarvestingTests" type="Node2D"]
+
+[node name="Actor" parent="." instance=ExtResource("1_actor")]
+
+[node name="Transformed" type="Node2D" parent="."]
+position = Vector2(700, 140)
+rotation = 0.3
+scale = Vector2(2, 2)
+
+[node name="Spec" type="Node" parent="."]
+script = ExtResource("2_spec")

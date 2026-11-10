@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bnkas8f1buei8" path="res://Rescource/Static/Background/background3.png" id="3_37yot"]
 [ext_resource type="Texture2D" uid="uid://duyrtxyknc2s2" path="res://Rescource/Static/Background/background2.png" id="4_b0yla"]
 [ext_resource type="Texture2D" uid="uid://d0sggcuateqqq" path="res://Rescource/Static/Background/background1.png" id="5_u2kc0"]
+[ext_resource type="PackedScene" uid="uid://bypx21g3ybla0" path="res://Scene/Map/Room/Room/R8.tscn" id="18_uuer7"]
+[ext_resource type="PackedScene" uid="uid://bn5vmigkb77eu" path="res://Scene/Map/Room/End/E2.tscn" id="19_37yot"]
+[ext_resource type="PackedScene" uid="uid://dcllnvuuwc6dq" path="res://Scene/Map/Room/Start/S2.tscn" id="20_b0yla"]
 [ext_resource type="Script" uid="uid://cibp2p6od548j" path="res://Script/Config/Model/LevelManager/LevelLog.gd" id="catalog_script"]
 [ext_resource type="Script" uid="uid://bu2wfpdc1jctc" path="res://Script/Config/Model/LevelManager/LevelInformation.gd" id="level_3_3hpdb"]
 [ext_resource type="Script" uid="uid://ko0l7vp356nm" path="res://Script/Config/Model/LevelManager/Level.gd" id="level_6_sih73"]
@@ -16,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://bx6og5tjba7lp" path="res://Scene/Map/Room/Corridor/C3.tscn" id="rooms_7_4fnfv"]
 [ext_resource type="PackedScene" uid="uid://umasvyl80cyn" path="res://Scene/Map/Room/Room/R4.tscn" id="rooms_8_d3asb"]
 [ext_resource type="PackedScene" uid="uid://st38toceke0r" path="res://Scene/Map/Room/Room/R5.tscn" id="rooms_9_f1f7j"]
-[ext_resource type="PackedScene" uid="uid://3gkycdqer3c4" path="res://Scene/Map/Room/Room/R6.tscn" id="rooms_10_uiqjr"]
 [ext_resource type="PackedScene" uid="uid://cwucs4mhfujsg" path="res://Scene/Map/Room/Room/R1.tscn" id="rooms_11_0kooc"]
 [ext_resource type="PackedScene" uid="uid://cijicny2kfggi" path="res://Scene/Map/Room/Room/R3.tscn" id="rooms_12_l8p86"]
 [ext_resource type="PackedScene" uid="uid://cetlh4gmncvaj" path="res://Scene/Map/Room/Room/R7.tscn" id="rooms_13_7sjm7"]
@@ -84,15 +86,6 @@ Exit = Array[int]([1])
 RoomPath = ExtResource("rooms_9_f1f7j")
 metadata/_custom_type_script = "uid://dxvktdhmsuboy"
 
-[sub_resource type="Resource" id="rooms_Resource_opy7d"]
-script = ExtResource("rooms_2_4choe")
-Name = "R6"
-RoomType = 2
-Entrance = 2
-Exit = Array[int]([3])
-RoomPath = ExtResource("rooms_10_uiqjr")
-metadata/_custom_type_script = "uid://dxvktdhmsuboy"
-
 [sub_resource type="Resource" id="rooms_Resource_iqb3w"]
 script = ExtResource("rooms_2_4choe")
 Name = "R2"
@@ -126,9 +119,32 @@ Exit = Array[int]([1])
 RoomPath = ExtResource("rooms_13_7sjm7")
 metadata/_custom_type_script = "uid://dxvktdhmsuboy"
 
+[sub_resource type="Resource" id="Resource_23t4r"]
+script = ExtResource("rooms_2_4choe")
+Name = "R8"
+RoomType = 2
+Exit = Array[int]([3])
+RoomPath = ExtResource("18_uuer7")
+metadata/_custom_type_script = "uid://dxvktdhmsuboy"
+
+[sub_resource type="Resource" id="Resource_sc3oi"]
+script = ExtResource("rooms_2_4choe")
+Name = "E2"
+RoomType = 3
+Entrance = 2
+RoomPath = ExtResource("19_37yot")
+metadata/_custom_type_script = "uid://dxvktdhmsuboy"
+
+[sub_resource type="Resource" id="Resource_qln4p"]
+script = ExtResource("rooms_2_4choe")
+Name = "S2"
+Exit = Array[int]([3])
+RoomPath = ExtResource("20_b0yla")
+metadata/_custom_type_script = "uid://dxvktdhmsuboy"
+
 [sub_resource type="Resource" id="rooms_Resource_to31a"]
 script = ExtResource("rooms_1_xujgq")
-RoomLog = Array[ExtResource("rooms_2_4choe")]([SubResource("rooms_Resource_xqdc7"), SubResource("rooms_Resource_xagui"), SubResource("rooms_Resource_j2d22"), SubResource("rooms_Resource_0mdvf"), SubResource("rooms_Resource_aqgqe"), SubResource("rooms_Resource_82qac"), SubResource("rooms_Resource_uebvj"), SubResource("rooms_Resource_opy7d"), SubResource("rooms_Resource_iqb3w"), SubResource("rooms_Resource_tgpl5"), SubResource("rooms_Resource_ooid0"), SubResource("rooms_Resource_f3t3t")])
+RoomLog = Array[ExtResource("rooms_2_4choe")]([SubResource("rooms_Resource_xqdc7"), SubResource("rooms_Resource_xagui"), SubResource("rooms_Resource_j2d22"), SubResource("rooms_Resource_0mdvf"), SubResource("rooms_Resource_aqgqe"), SubResource("rooms_Resource_82qac"), SubResource("rooms_Resource_uebvj"), SubResource("rooms_Resource_iqb3w"), SubResource("rooms_Resource_tgpl5"), SubResource("rooms_Resource_ooid0"), SubResource("rooms_Resource_f3t3t"), SubResource("Resource_23t4r"), SubResource("Resource_sc3oi"), SubResource("Resource_qln4p")])
 metadata/_custom_type_script = "uid://cwo4e54lv8500"
 
 [sub_resource type="Resource" id="template_Resource_x8v2j"]

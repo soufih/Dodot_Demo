@@ -16,12 +16,10 @@ class_name ItemConfig
 #物品属性
 @export_category("Porperty")
 @export var MaxStack: int = 1
-@export var Products: Array[int]
-@export var Recipe: Dictionary[int, int]
 @export var MainItemType:ENUM.ItemType = ENUM.ItemType.None
 @export var ItemType:Array[ENUM.ItemType]
 
-## 背包占位配置。旧资源未填写时继续使用单格、不可旋转的默认规则。
+## 背包占位配置。未填写时使用单格、可旋转的默认规则。
 @export_category("Inventory")
 @export var GridSize: Vector2i = Vector2i.ONE
 @export var CanRotate: bool = true

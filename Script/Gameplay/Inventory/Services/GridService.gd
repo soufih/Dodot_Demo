@@ -49,25 +49,41 @@ func add(item: ItemInstance, pos: Vector2i) -> InventoryResult:
 	var result := stage_add(staged, item, pos)
 	return _commit_local(staged) if result.is_ok() else result
 
-## 优先按当前方向完整扫描；无适配位置时，仅为可旋转的非方形物品翻转方向再扫描。
-## 使用实例副本尝试旋转，输入 item 不变；找到位置后只提交一次，返回实际锚点。
+## 优先补满同类堆，余量按当前方向寻找空位，必要时尝试旋转；全部接收后只提交一次。
+## 返回余量新堆的锚点，完全合并时返回首个补堆锚点；失败和输入实例均保持不变。
 func quick_add(item: ItemInstance) -> InventoryResult:
 	if container == null:
 		return StateOps.not_initialized()
 	var staged := stage_snapshot()
-	var placed := _stage_first_fit(staged, item)
-	if placed.code == InventoryResult.Code.NO_SPACE:
-		var config: ItemConfig = _config_lookup.call(item.config_id)
-		if config.CanRotate and config.GridSize.x != config.GridSize.y:
-			var rotated := item.copy()
-			rotated.rotated = not rotated.rotated
-			placed = _stage_first_fit(staged, rotated)
+	var placed := stage_quick_add(staged, item)
 	if not placed.is_ok():
 		return placed
 	var result := _commit_local(staged)
 	if result.is_ok():
 		result.payload = placed.payload
 	return result
+
+## 先规划补堆，再确认余量位置；失败不改调用方计划，成功才一起写入，不提交或分配实例 ID。
+func stage_quick_add(staged: Dictionary, item: ItemInstance) -> InventoryResult:
+	var checked := _validate_item(item)
+	if not checked.is_ok():
+		return checked
+	if staged.items.has(item.instance_id):
+		return InventoryResult.failure(InventoryResult.Code.INVALID_ITEM, "实例已经属于此容器")
+	var config: ItemConfig = _config_lookup.call(item.config_id)
+	var plan := StateOps.plan_stack_fill(staged, item, config.MaxStack)
+	var remaining: ItemInstance = plan.remaining
+	var placed := InventoryResult.success(plan.anchor)
+	if remaining.quantity > 0:
+		placed = _stage_first_fit(staged, remaining)
+	if placed.code == InventoryResult.Code.NO_SPACE:
+		if config.CanRotate and config.GridSize.x != config.GridSize.y:
+			var rotated := remaining.copy()
+			rotated.rotated = not rotated.rotated
+			placed = _stage_first_fit(staged, rotated)
+	if placed.is_ok():
+		StateOps.apply_stack_fill(staged, plan)
+	return placed
 
 ## 在暂存计划中按行寻找并写入第一个适配位置，不提交真实状态。
 ## 无位置时返回 NO_SPACE；非法实例或规则错误直接返回，失败候选不改变暂存状态。

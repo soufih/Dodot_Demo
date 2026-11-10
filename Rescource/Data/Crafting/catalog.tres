@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="CraftingCatalog" format=3 uid="uid://vip1i6ihxj8q"]
+
+[ext_resource type="Script" uid="uid://b4yyryn7hboby" path="res://Script/Config/Model/Crafting/CraftingCatalog.gd" id="1"]
+[ext_resource type="Script" uid="uid://bknf5g2rafs38" path="res://Script/Config/Model/Crafting/CraftingRecipe.gd" id="2"]
+
+[sub_resource type="Resource" id="Sword"]
+script = ExtResource("2")
+recipe_id = &"sword_10"
+inputs = Dictionary[int, int]({
+21: 1,
+22: 2,
+23: 4
+})
+outputs = Dictionary[int, int]({
+10: 1
+})
+
+[sub_resource type="Resource" id="Material1"]
+script = ExtResource("2")
+recipe_id = &"material_21"
+inputs = Dictionary[int, int]({
+20: 5
+})
+outputs = Dictionary[int, int]({
+21: 1
+})
+
+[sub_resource type="Resource" id="Material3"]
+script = ExtResource("2")
+recipe_id = &"material_23"
+inputs = Dictionary[int, int]({
+22: 2,
+24: 5
+})
+outputs = Dictionary[int, int]({
+23: 1
+})
+
+[sub_resource type="Resource" id="Sword2"]
+script = ExtResource("2")
+recipe_id = &"sword_11"
+inputs = Dictionary[int, int]({
+24: 3,
+26: 1,
+28: 5
+})
+outputs = Dictionary[int, int]({
+11: 1
+})
+
+[sub_resource type="Resource" id="Sword3"]
+script = ExtResource("2")
+recipe_id = &"sword_12"
+inputs = Dictionary[int, int]({
+28: 5,
+29: 5,
+210: 5,
+211: 5
+})
+outputs = Dictionary[int, int]({
+12: 1
+})
+
+[resource]
+script = ExtResource("1")
+recipes = Array[ExtResource("2")]([SubResource("Sword"), SubResource("Material1"), SubResource("Material3"), SubResource("Sword2"), SubResource("Sword3")])

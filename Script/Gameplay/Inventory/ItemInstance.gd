@@ -11,9 +11,11 @@ var rotated: bool
 
 ## 创建配置为 config、数量为 amount、方向为 rotation 的物品栈。
 ## id=0 时分配运行期 ID；显式 ID 用于复制/接管，实例合法性由写入服务校验。
-func _init(config: int = 0, amount: int = 1, rotation: bool = false, id: int = 0) -> void:
+func _init(config: int = 0, amount: int = 1, rotation: bool = false, id: int = 0, reserve_id: bool = true) -> void:
 	instance_id = id if id != 0 else _next_id
-	_next_id = maxi(_next_id, instance_id + 1)
+	# 只读规划使用显式临时 ID，不消耗真实 ID；临时实例禁止写入真实容器。
+	if reserve_id:
+		_next_id = maxi(_next_id, instance_id + 1)
 	config_id = config
 	quantity = amount
 	rotated = rotation
@@ -29,4 +31,4 @@ func get_effective_size(config: ItemConfig) -> Vector2i:
 
 ## 复制实例的 ID、配置、数量和方向；保留身份，但可变字段与原对象独立。
 func copy() -> ItemInstance:
-	return ItemInstance.new(config_id, quantity, rotated, instance_id)
+	return ItemInstance.new(config_id, quantity, rotated, instance_id, false)

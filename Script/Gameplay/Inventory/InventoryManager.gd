@@ -154,7 +154,8 @@ func add_to_container(id: String, config_id: int, quantity: int, pos: Vector2i, 
 		result.payload = item.copy()
 	return result
 
-## 按配置 ID、数量及首选方向创建新实例，由具体服务快速添加；成功 payload 为实际锚点。
+## 按配置 ID、数量及首选方向新增物品，由服务优先补堆再放置余量；装备服务仍按槽位规则处理。
+## 成功 payload 为余量新堆锚点，完全合并时为首个补堆锚点；单次完整接收，失败不部分扣量。
 ## 不接收外部实例或实例 ID，沿用统一事务锁、提交和变更通知。
 func quick_add_to_container(id: String, config_id: int, quantity: int = 1, rotated: bool = false) -> InventoryResult:
 	if _transaction_lock:

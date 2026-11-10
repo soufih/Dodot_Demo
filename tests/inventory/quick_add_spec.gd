@@ -7,14 +7,19 @@ const FaultService = preload("res://tests/inventory/fault_service.gd")
 func run(t, manager) -> void:
 	_test_slot(t)
 	_test_grid(t)
+	_test_fill_existing(t)
+	_test_stacking_remainder(t)
+	_test_stacking_no_space(t)
+	_test_stacking_rotation(t)
 	_test_rotation_fallback(t)
 	_test_no_fit(t)
 	_test_invalid(t)
 	_test_manager(t, manager)
 	_test_commit_failures(t, manager)
 	_test_rotation_failures(t, manager)
+	_test_stacking_commit_failures(t, manager)
 
-## 普通背包按行优先选择空格，完整栈独立占一格，保留 ID、数量与方向。
+## 普通背包优先补堆，新堆按行选择空格，保留实际实例的 ID、数量与方向。
 func _test_slot(t) -> void:
 	var service: InventoryService = t.service(false, Vector2i(3, 2))
 	var existing := ItemInstance.new(1, 2)
@@ -33,13 +38,13 @@ func _test_slot(t) -> void:
 	item.quantity = 0
 	t.equal(service.query(Vector2i(1, 0)).payload.instance.quantity, 4, "快速添加复制输入实例")
 	result = service.quick_add(ItemInstance.new(1, 4))
-	t.code(result, InventoryResult.Code.OK, "第一行已满后填下一行")
-	t.equal(result.payload, Vector2i(0, 1), "下一行从最左侧开始")
-	t.equal(service.query(Vector2i.ZERO).payload.instance.quantity, 2, "整栈添加不改变已有栈数量")
-	service.quick_add(ItemInstance.new(3))
-	service.quick_add(ItemInstance.new(1))
+	t.code(result, InventoryResult.Code.OK, "同类已有物品优先堆叠")
+	t.equal(result.payload, Vector2i.ZERO, "完全合并返回第一个接收物品的锚点")
+	t.equal(service.query(Vector2i.ZERO).payload.instance.quantity, 6, "快速添加累计到已有物品堆")
+	for x in range(3):
+		service.add(ItemInstance.new(3), Vector2i(x, 1))
 	var before: Dictionary = t.value(service.stage_snapshot())
-	t.code(service.quick_add(ItemInstance.new(1)), InventoryResult.Code.NO_SPACE, "满背包返回无空间")
+	t.code(service.quick_add(ItemInstance.new(3)), InventoryResult.Code.NO_SPACE, "满背包且不能堆叠时返回无空间")
 	t.equal(t.value(service.stage_snapshot()), before, "无空间保持完整状态")
 	t.code(service.quick_add(existing), InventoryResult.Code.INVALID_ITEM, "满背包也准确报告重复实例")
 
@@ -64,9 +69,107 @@ func _test_grid(t) -> void:
 	t.code(result, InventoryResult.Code.OK, "跳过前两行零散空位")
 	t.equal(result.payload, Vector2i(0, 2), "先上后下找到第一条完整横向区域")
 	result = service.quick_add(ItemInstance.new(2, 3))
-	t.code(result, InventoryResult.Code.OK, "靠右边界恰好适配")
-	t.equal(result.payload, Vector2i(3, 2), "优先填当前行右侧而非下一行左侧")
+	t.code(result, InventoryResult.Code.OK, "多格物品优先合并到已有栈")
+	t.equal(result.payload, Vector2i.ZERO, "空位之前先补已有同类物品堆")
+	t.equal(service.query(Vector2i.ZERO).payload.instance.quantity, 10, "合并数量保持物品上限")
+	result = service.quick_add(ItemInstance.new(2))
+	t.code(result, InventoryResult.Code.OK, "同类堆已满后再寻找空位")
+	t.equal(result.payload, Vector2i(3, 2), "新堆靠右边界恰好适配时优先填当前行")
 	t.code(service.validate_plan(service.stage_snapshot()), InventoryResult.Code.OK, "快速添加后矩阵和记录一致")
+
+## 普通背包、网格和仓库共享同一补堆语义，测试节点仍全部来自既有场景。
+func _stacking_services(t, dimensions: Vector2i) -> Array[InventoryService]:
+	var services: Array[InventoryService] = [SlotService.new(t.lookup), GridService.new(t.lookup), WarehouseService.new(t.lookup)]
+	for service in services:
+		service.initialize("stacking", dimensions)
+	return services
+
+## 满背包仍可补堆，按锚点而非字典插入顺序补满多个目标，保留目标身份和输入副本。
+func _test_fill_existing(t) -> void:
+	for service in _stacking_services(t, Vector2i(2, 1)):
+		var later := ItemInstance.new(1, 8)
+		var earlier := ItemInstance.new(1, 9)
+		service.add(later, Vector2i(1, 0))
+		service.add(earlier, Vector2i.ZERO)
+		var item := ItemInstance.new(1, 3)
+		var before := service.stage_snapshot()
+		var result := service.quick_add(item)
+		t.code(result, InventoryResult.Code.OK, "无空格但已有堆容量足够时快速添加成功")
+		t.equal(result.payload, Vector2i.ZERO, "多个目标按场景锚点从左到右补堆")
+		t.equal(service.query(Vector2i.ZERO).payload.instance.quantity, 10, "先补满左侧物品堆")
+		t.equal(service.query(Vector2i(1, 0)).payload.instance.quantity, 10, "剩余数量继续补到下一堆")
+		t.equal(service.container.cells, before.cells, "完全合并不改变物品占位和已有身份")
+		t.expect(not service.container.items.has(item.instance_id), "完全合并不残留空的新实例")
+		t.equal(item.quantity, 3, "补堆不扣减调用方传入的实例")
+		t.equal(service.container.revision, before.revision + 1, "同时补多个堆也只提交一次版本")
+		t.expect(result.affected_ids.size() == 2 and result.affected_ids.has(earlier.instance_id) and result.affected_ids.has(later.instance_id), "补堆结果包含所有变化目标而不包含已合并的新身份")
+		before = service.stage_snapshot()
+		t.code(service.quick_add(earlier), InventoryResult.Code.INVALID_ITEM, "已属于容器的实例不能再次快速添加或堆叠自身")
+		t.equal(t.value(service.stage_snapshot()), t.value(before), "重复实例失败保持全部状态")
+
+## 先补堆再放置余量；暂存规划不改真实状态，真实提交只更新一次且返回新堆锚点。
+func _test_stacking_remainder(t) -> void:
+	for service in _stacking_services(t, Vector2i(4, 2)):
+		var target := ItemInstance.new(2, 8)
+		service.add(target, Vector2i(2, 0))
+		var item := ItemInstance.new(2, 5)
+		var before := service.stage_snapshot()
+		var staged := service.stage_snapshot()
+		var planned: InventoryResult = service.call("stage_quick_add", staged, item)
+		t.code(planned, InventoryResult.Code.OK, "暂存快速添加支持补堆和余量放置")
+		t.equal(staged.items[target.instance_id].instance.quantity, 10, "暂存计划补满已有堆")
+		t.equal(staged.items[item.instance_id].instance.quantity, 3, "暂存新堆只保存尚未接收的余量")
+		t.equal(t.value(service.stage_snapshot()), t.value(before), "暂存规划不提交或修改真实容器")
+		var result := service.quick_add(item)
+		t.code(result, InventoryResult.Code.OK, "部分合并后余量可放入空位")
+		t.equal(result.payload, Vector2i.ZERO, "存在余量新堆时返回其实际锚点")
+		t.equal(service.query(Vector2i.ZERO).payload.instance.quantity, 3, "余量数量准确")
+		t.equal(service.query(Vector2i.ZERO).payload.instance.instance_id, item.instance_id, "余量保留新实例身份")
+		t.equal(service.query(Vector2i(2, 0)).payload.instance.quantity, 10, "已有堆身份、锚点和上限不变")
+		t.equal(item.quantity, 5, "拆分接收不修改传入数量")
+		t.equal(service.container.revision, before.revision + 1, "补堆和新增合为一次提交")
+		t.code(service.validate_plan(service.stage_snapshot()), InventoryResult.Code.OK, "补堆后记录和占位矩阵一致")
+
+## 多个目标有部分容量但仍接收不完整时，真实容器和调用方暂存计划均不能留下部分堆叠。
+func _test_stacking_no_space(t) -> void:
+	for service in _stacking_services(t, Vector2i(2, 1)):
+		service.add(ItemInstance.new(1, 9), Vector2i.ZERO)
+		service.add(ItemInstance.new(1, 8), Vector2i(1, 0))
+		var item := ItemInstance.new(1, 4)
+		var before := service.stage_snapshot()
+		var staged := service.stage_snapshot()
+		t.code(service.call("stage_quick_add", staged, item), InventoryResult.Code.NO_SPACE, "暂存补堆后余量没有空位时失败")
+		t.equal(t.value(staged), t.value(before), "暂存失败不提前补满任何目标堆")
+		t.code(service.quick_add(item), InventoryResult.Code.NO_SPACE, "真实快速添加必须完整接收请求数量")
+		t.equal(t.value(service.stage_snapshot()), t.value(before), "无空间回滚所有计划中的补堆和占位")
+		t.equal(item.quantity, 4, "失败不扣减调用方数量")
+
+## 同类不同方向可合并，余量可以旋转适配；没有足够完整区域时连同补堆一起回滚。
+func _test_stacking_rotation(t) -> void:
+	for warehouse in [false, true]:
+		var service: GridService = WarehouseService.new(t.lookup) if warehouse else GridService.new(t.lookup)
+		service.initialize("rotation_stacking", Vector2i(1, 4))
+		var target := ItemInstance.new(2, 8, true)
+		service.add(target, Vector2i.ZERO)
+		var item := ItemInstance.new(2, 5)
+		var result := service.quick_add(item)
+		t.code(result, InventoryResult.Code.OK, "补堆后的多格余量可自动旋转放入")
+		t.equal(result.payload, Vector2i(0, 2), "旋转余量放入首个完整区域")
+		t.expect(service.query(Vector2i.ZERO).payload.instance.rotated, "原目标堆保持原有方向")
+		t.equal(service.query(Vector2i.ZERO).payload.instance.quantity, 10, "不同方向也可向同类物品堆补满")
+		t.expect(service.query(Vector2i(0, 2)).payload.instance.rotated, "新余量保存实际放置方向")
+		t.equal(service.query(Vector2i(0, 2)).payload.instance.quantity, 3, "自动旋转后余量数量不变")
+		t.expect(not item.rotated and item.quantity == 5, "补堆与旋转均不修改调用方实例")
+		service = WarehouseService.new(t.lookup) if warehouse else GridService.new(t.lookup)
+		service.initialize("rotation_no_space", Vector2i(1, 3))
+		service.add(ItemInstance.new(2, 8, true), Vector2i.ZERO)
+		var before := service.stage_snapshot()
+		t.code(service.quick_add(ItemInstance.new(2, 5)), InventoryResult.Code.NO_SPACE, "余量两种方向都放不下时失败")
+		t.equal(t.value(service.stage_snapshot()), t.value(before), "多格无空间失败不会提前增加已有堆数量")
+		service = WarehouseService.new(t.lookup) if warehouse else GridService.new(t.lookup)
+		service.initialize("invalid_rotation", Vector2i.ONE)
+		service.add(ItemInstance.new(1, 9), Vector2i.ZERO)
+		t.code(service.quick_add(ItemInstance.new(1, 1, true)), InventoryResult.Code.RULE_REJECTED, "优先补堆也不能绕过禁止旋转的输入校验")
 
 ## 总空格数足够但没有连续矩形，或两个方向均过大时，无变化地报告无空间。
 func _test_no_fit(t) -> void:
@@ -121,6 +224,7 @@ func _test_rotation_fallback(t) -> void:
 	var fixed_config := ItemConfig.new()
 	fixed_config.ItemID = 5
 	fixed_config.GridSize = Vector2i(2, 1)
+	fixed_config.CanRotate = false
 	var lookup := func(id: int) -> ItemConfig: return fixed_config if id == 5 else t.lookup(id)
 	var fixed_service := GridService.new(lookup)
 	fixed_service.initialize("fixed", Vector2i(1, 2))
@@ -230,3 +334,33 @@ func _test_commit_failures(t, m) -> void:
 	t.equal(changes.size(), 1, "重试成功只通知一次")
 	m.container_changed.disconnect(on_change)
 	m.unregister_container("quick_fault")
+
+## 同时补堆与新增余量时，真实写入后故障或版本冲突都恢复原数量，成功只发一次完整通知。
+func _test_stacking_commit_failures(t, m) -> void:
+	var service = FaultService.new(t.lookup)
+	service.initialize("stacking_fault", Vector2i(4, 2))
+	var target := ItemInstance.new(2, 8)
+	service.add(target, Vector2i(2, 0))
+	m.register_container("stacking_fault", service)
+	var changes: Array = []
+	var on_change := func(_id, _revision, ids): changes.append(ids)
+	m.container_changed.connect(on_change)
+	var before := service.stage_snapshot()
+	service.fail_commit = true
+	t.code(m.quick_add_to_container("stacking_fault", 2, 5), InventoryResult.Code.INTERNAL_ERROR, "补堆与新增写入后模拟提交失败")
+	t.equal(t.value(service.stage_snapshot()), t.value(before), "提交故障同时恢复已有堆和新堆占位")
+	t.equal(changes.size(), 0, "失败补堆不通知成功")
+	service.fail_commit = false
+	service.stale_on_validate = true
+	t.code(m.quick_add_to_container("stacking_fault", 2, 5), InventoryResult.Code.STALE_STATE, "补堆计划仍检查原始版本")
+	before.revision += 1
+	t.equal(t.value(service.stage_snapshot()), t.value(before), "过期补堆计划保留外部版本而不写入数量")
+	var result: InventoryResult = m.quick_add_to_container("stacking_fault", 2, 5)
+	t.code(result, InventoryResult.Code.OK, "补堆故障后可正常重试")
+	t.equal(result.payload, Vector2i.ZERO, "补堆后返回余量新堆的锚点")
+	t.equal(service.query(Vector2i.ZERO).payload.instance.quantity, 3, "重试后新堆只保存余量")
+	t.equal(service.query(Vector2i(2, 0)).payload.instance.quantity, 10, "重试后目标堆恰好填满")
+	t.equal(changes.size(), 1, "同时补堆与新增只通知一次")
+	t.expect(changes[0].size() == 2 and changes[0].has(target.instance_id) and changes[0].has(service.query(Vector2i.ZERO).payload.instance.instance_id), "成功通知包含所有数量变化的实例")
+	m.container_changed.disconnect(on_change)
+	m.unregister_container("stacking_fault")

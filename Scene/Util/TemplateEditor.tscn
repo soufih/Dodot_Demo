@@ -4,4 +4,4 @@
 
 [node name="TileMapLayer" type="TileMapLayer" unique_id=299241852]
 script = ExtResource("1_rknsc")
-TemplatePath = "res://Rescource/LevelTemplate/Level1"
+TemplatePath = "res://Rescource/Data/Level/LevelTemplate/Level1"

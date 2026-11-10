@@ -455,9 +455,10 @@ size = Vector2(24.06813, 62)
 [sub_resource type="CircleShape2D" id="CircleShape2D_usd1x"]
 radius = 181.04419
 
-[node name="Enemy2" type="CharacterBody2D" unique_id=1111913208 node_paths=PackedStringArray("RecoverTimer")]
+[node name="Enemy2" type="CharacterBody2D" unique_id=1111913208 node_paths=PackedStringArray("facing_nodes", "RecoverTimer")]
 collision_layer = 2
 script = ExtResource("1_1gu6a")
+facing_nodes = [NodePath("BulletSpawn")]
 MaxHealth = 100.0
 MaxMana = 100.0
 MaxToughness = 50.0
@@ -521,10 +522,10 @@ NextStates = {
 "rest_finished": NodePath("../Move")
 }
 
-[node name="Move" type="Node" parent="FSM/Potrol" unique_id=929456106 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer", "NextStates")]
+[node name="Move" type="Node" parent="FSM/Potrol" unique_id=929456106 node_paths=PackedStringArray("BarrierDetectLeft", "BarrierDetectRight", "Hatebox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("5_6rl24")
-BarrierDetect = NodePath("../../../BarrierDetect")
-Spirte = NodePath("../../../AnimatedSprite2D")
+BarrierDetectLeft = NodePath("../../../BarrierDetectLeft")
+BarrierDetectRight = NodePath("../../../BarrierDetectRight")
 Speed = 70
 Hatebox = NodePath("../../../HateArea")
 Entity = NodePath("../../..")
@@ -546,10 +547,9 @@ NextStates = {
 "target_lost": NodePath("../Potrol")
 }
 
-[node name="Attack" type="Node" parent="FSM/Trace" unique_id=311259675 node_paths=PackedStringArray("Spirte", "Hitbox", "Entity", "AniPlayer", "NextStates")]
+[node name="Attack" type="Node" parent="FSM/Trace" unique_id=311259675 node_paths=PackedStringArray("Hitbox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("6_2y6po")
 BulletData = ExtResource("10_bullet")
-Spirte = NodePath("../../../AnimatedSprite2D")
 Hitbox = NodePath("../../../HateArea")
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
@@ -557,12 +557,13 @@ NextStates = {
 "end_attack": NodePath("../Move")
 }
 
-[node name="Move" type="Node" parent="FSM/Trace" unique_id=1648810153 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer", "NextStates")]
+[node name="Move" type="Node" parent="FSM/Trace" unique_id=1648810153 node_paths=PackedStringArray("BarrierDetectLeft", "BarrierDetectRight", "Hatebox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("5_6rl24")
-BarrierDetect = NodePath("../../../BarrierDetect")
-Spirte = NodePath("../../../AnimatedSprite2D")
+BarrierDetectLeft = NodePath("../../../BarrierDetectLeft")
+BarrierDetectRight = NodePath("../../../BarrierDetectRight")
 Speed = 70
 Hatebox = NodePath("../../../HateArea")
+ChaseTarget = true
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
 NextStates = {
@@ -573,13 +574,22 @@ NextStates = {
 root_node = NodePath("../AnimatedSprite2D")
 libraries/ = SubResource("AnimationLibrary_mk86p")
 
-[node name="BarrierDetect" type="Area2D" parent="." unique_id=1658640768]
+[node name="BarrierDetectRight" type="Area2D" parent="." unique_id=1658640768]
 position = Vector2(0, -25)
 collision_layer = 16
 collision_mask = 9
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetect" unique_id=139437589]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetectRight" unique_id=139437589]
 position = Vector2(22, 34)
+shape = SubResource("RectangleShape2D_qm5lr")
+
+[node name="BarrierDetectLeft" type="Area2D" parent="." unique_id=1043999951]
+position = Vector2(0, -25)
+collision_layer = 16
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetectLeft" unique_id=591098646]
+position = Vector2(-22, 34)
 shape = SubResource("RectangleShape2D_qm5lr")
 
 [node name="HateArea" type="Area2D" parent="." unique_id=1988141487]

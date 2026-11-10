@@ -546,10 +546,11 @@ _data = {
 &"Move": SubResource("Animation_1pyv3")
 }
 
-[node name="Enemy1" type="CharacterBody2D" unique_id=804942941 node_paths=PackedStringArray("RecoverTimer")]
+[node name="Enemy1" type="CharacterBody2D" unique_id=804942941 node_paths=PackedStringArray("facing_nodes", "RecoverTimer")]
 scale = Vector2(1.0358851, 1.0358851)
 collision_layer = 2
 script = ExtResource("1_sm4r0")
+facing_nodes = [NodePath("CollisionShape2D"), NodePath("AnimatedSprite2D/Hitbox")]
 RecoverTimer = NodePath("Node/RecoverTimer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1020700334]
@@ -572,12 +573,20 @@ collision_mask = 2
 position = Vector2(0.73903006, 0)
 polygon = PackedVector2Array(-14.041572, -30.300232, -1.3018594, -3.0538197, -2.2170901, 28.083141, 22.909931, 27.344112, 36.951504, 15.51963, 36.951504, -11.824481, 8.8683605, -30.300232)
 
-[node name="BarrierDetect" type="Area2D" parent="." unique_id=588118250]
+[node name="BarrierDetectRight" type="Area2D" parent="." unique_id=588118250]
 collision_layer = 16
 collision_mask = 9
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetect" unique_id=1618287131]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetectRight" unique_id=1618287131]
 position = Vector2(25.581991, -3.450346)
+shape = SubResource("RectangleShape2D_i6n7o")
+
+[node name="BarrierDetectLeft" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierDetectLeft"]
+position = Vector2(-25.581991, -3.450346)
 shape = SubResource("RectangleShape2D_i6n7o")
 
 [node name="HateArea" type="Area2D" parent="." unique_id=850736334]
@@ -634,10 +643,10 @@ NextStates = {
 "rest_finished": NodePath("../Move")
 }
 
-[node name="Move" type="Node" parent="FSM/Potrol" unique_id=327126024 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer", "NextStates")]
+[node name="Move" type="Node" parent="FSM/Potrol" unique_id=327126024 node_paths=PackedStringArray("BarrierDetectLeft", "BarrierDetectRight", "Hatebox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("5_8lps2")
-BarrierDetect = NodePath("../../../BarrierDetect")
-Spirte = NodePath("../../../AnimatedSprite2D")
+BarrierDetectLeft = NodePath("../../../BarrierDetectLeft")
+BarrierDetectRight = NodePath("../../../BarrierDetectRight")
 Speed = 140
 Hatebox = NodePath("../../../HateArea")
 Entity = NodePath("../../..")
@@ -659,9 +668,8 @@ NextStates = {
 "target_lost": NodePath("../Potrol")
 }
 
-[node name="Attack" type="Node" parent="FSM/Trace" unique_id=557217551 node_paths=PackedStringArray("Spirte", "Hitbox", "Entity", "AniPlayer", "NextStates")]
+[node name="Attack" type="Node" parent="FSM/Trace" unique_id=557217551 node_paths=PackedStringArray("Hitbox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("6_hxmcx")
-Spirte = NodePath("../../../AnimatedSprite2D")
 Hitbox = NodePath("../../../AnimatedSprite2D/Hitbox")
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
@@ -669,12 +677,13 @@ NextStates = {
 "end_attack": NodePath("../Move")
 }
 
-[node name="Move" type="Node" parent="FSM/Trace" unique_id=763563608 node_paths=PackedStringArray("BarrierDetect", "Spirte", "Hatebox", "Entity", "AniPlayer", "NextStates")]
+[node name="Move" type="Node" parent="FSM/Trace" unique_id=763563608 node_paths=PackedStringArray("BarrierDetectLeft", "BarrierDetectRight", "Hatebox", "Entity", "AniPlayer", "NextStates")]
 script = ExtResource("5_8lps2")
-BarrierDetect = NodePath("../../../BarrierDetect")
-Spirte = NodePath("../../../AnimatedSprite2D")
+BarrierDetectLeft = NodePath("../../../BarrierDetectLeft")
+BarrierDetectRight = NodePath("../../../BarrierDetectRight")
 Speed = 140
 Hatebox = NodePath("../../../HateArea")
+ChaseTarget = true
 Entity = NodePath("../../..")
 AniPlayer = NodePath("../../../AnimationPlayer")
 NextStates = {

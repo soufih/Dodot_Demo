@@ -33,6 +33,32 @@ static func validate_stack(item: ItemInstance, target: ItemInstance, config_look
 		return InventoryResult.failure(InventoryResult.Code.RULE_REJECTED, "目标物品栈已满")
 	return InventoryResult.success(amount)
 
+## 为已验证的新物品规划补堆数量，按锚点从上到下、从左到右选择；不修改计划或输入实例。
+static func plan_stack_fill(staged: Dictionary, item: ItemInstance, max_stack: int) -> Dictionary:
+	var remaining := item.copy()
+	var amounts: Dictionary[int, int] = {}
+	var first_anchor := Vector2i(-1, -1)
+	var records: Array = staged.items.values()
+	records.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return a.anchor.x < b.anchor.x if a.anchor.y == b.anchor.y else a.anchor.y < b.anchor.y)
+	for record: Dictionary in records:
+		if remaining.quantity == 0:
+			break
+		var target: ItemInstance = record.instance
+		if target.config_id != item.config_id or target.quantity >= max_stack:
+			continue
+		var amount := mini(remaining.quantity, max_stack - target.quantity)
+		amounts[target.instance_id] = amount
+		remaining.quantity -= amount
+		if first_anchor.x < 0:
+			first_anchor = record.anchor
+	return {"remaining": remaining, "amounts": amounts, "anchor": first_anchor}
+
+## 余量已确认能完整放置后，才将补堆计划写入暂存状态；不提交、不改变目标方向或身份。
+static func apply_stack_fill(staged: Dictionary, plan: Dictionary) -> void:
+	for id: int in plan.amounts:
+		staged.items[id].instance.quantity += plan.amounts[id]
+
 ## 只读校验分割数量，quantity=0 时取一半向下取整，禁止取空源栈。
 static func validate_split(item: ItemInstance, quantity: int, config_lookup: Callable) -> InventoryResult:
 	var result := validate_item(item, config_lookup)
