@@ -65,15 +65,6 @@ tests/        功能与界面回归测试
 docs/         系统设计文档与调试说明
 ```
 
-## 测试
-
-项目包含背包、装备、仓库、合成及 UI 等测试。在项目根目录使用 PowerShell 运行，`-GodotPath` 替换为本机 Godot 可执行文件路径：
-
-```powershell
-.\tests\inventory\run-tests.ps1 -GodotPath "C:\Godot\Godot.exe" -Import -IncludeUI -IncludeGameplay
-.\tests\crafting\run-tests.ps1 -GodotPath "C:\Godot\Godot.exe" -IncludeUI
-```
-
 测试日志输出到 `Log/`。系统设计资料见 [docs](docs/)，调试命令见 [调试控制台说明](docs/debug控制台命令说明.md)。
 =======
 
