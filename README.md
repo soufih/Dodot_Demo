@@ -1,10 +1,76 @@
-主要系统说明
+# Dodot Demo
 
-对于人物状态机：在Hero.tscn场景中，通过在检查器中人物状态的NextStates属性存储转化条件和人物状态的映射表。在StateManager中会存有当前状态的引用，StateManager作为唯一入口检测外部状态转化的请求，当收到请求时会检查当前状态的NextStates并判断是否满足条件。
+基于 **Godot 4 与 GDScript** 独立开发的 2D 动作冒险游戏原型，围绕关卡探索、角色战斗、资源收集与合成制作实现核心玩法。项目用于实践游戏系统设计与工具开发，使用 Codex 辅助功能开发，目前仍在持续迭代。
 
-对于弹幕系统：在res://resource/Data/Catalog路径下，可以通过修改BulletCatalog.tres中的数据项新增弹幕种类或修改现有的弹幕在不同生命周期中的行为，其中最为关键的是Spawned，Moving，Death，Hit数组。其中记录了弹幕在对应生命周期中的行为（BulletAction）序列，注意插入的弹幕行为需要继承BulletAction类。对于Bullet场景，发射器会为Bullet填充数据，BulletController会根据自身弹幕数据，在不同的生命周期顺序执行对应的弹幕行为。
-对于弹幕的生成，采用了池化技术，减少因为生成弹幕产生的性能开销。
+## 主要功能
 
-对于武器系统：在res://resource/Data/Catalog路径下，可以通过修改WeaponPorpertyCatalog.tres中的数据项新增或修改武器，其中最为关键的是Before Attack,During Attack,After Attack数组，其中记录武器在对应生命周期中的行为（WeaponAction）序列，注意插入的武器行为需要继承WeaponAction类。在Hero场景下，WeaponController会根据当前武器的ID读取WeaponPorpertyCatalog.tres下对应的数据，在不同的生命周期顺序执行对应的武器行为。
+- **角色与敌人行为**：通过有限状态机和信号机制组织角色行为，支持移动、跳跃、冲刺、连击、受击，以及敌人的追击与攻击。
+- **武器与弹幕**：使用资源配置与动作组合描述攻击行为，支持不同武器和弹幕形态，并通过对象池复用弹幕节点。
+- **关卡生成**：根据模板、房间类型与出入口匹配场景并进行拼接，支持房间重叠检测、走廊补接和可视化模板编辑。
+- **物品与装备**：实现网格背包、装备栏和仓库，支持物品拾取、拖拽旋转、堆叠拆分、跨容器转移与装备穿脱。
+- **采集与合成**：支持采集物交互及仓库材料合成，校验材料数量与产物容量，操作失败时恢复原有库存。
+- **界面与反馈**：包含主菜单、设置、地图、小地图、技能冷却、死亡与关卡结算界面，以及调试控制台。
 
-对于关卡生成器：其脚本文件位于re://Script/Gameplay/Map下，关卡生成器会读取res://resource/Data/Level/Leveltemplate路径下的模板并随机挑选一个用于生成关卡，生成过程中生成器会根据模板中记录的房间数据挑选满足条件的房间并生成拼接。关卡模板通过TemplateEditor.tscn进行生成或编辑，该场景提供了可视化的方式进行模板的编辑，在该场景的检查器中可以配置房间的种类。
+## 运行方式
+
+项目配置使用 **Godot 4.7**，渲染模式为 **Forward Plus**。
+
+1. 在 Godot 项目管理器中导入根目录的 `project.godot`。
+2. 打开项目，等待首次资源导入完成。
+3. 按 **F5** 运行项目，在主菜单中开始游戏。
+
+也可打开下列场景，按 **F6** 单独运行：
+
+- [背包交互测试场景](Scene/Inventory/InventoryGameplayLab.tscn)：体验真实角色拾取、背包与装备交互。
+- [仓库交互测试场景](Scene/Inventory/WarehouseGameplayLab.tscn)：体验玩家与世界仓库之间的物品操作。
+- [关卡模板编辑器](Scene/Util/TemplateEditor.tscn)：绘制、编辑和保存关卡模板。
+
+## 基本操作
+
+| 按键 | 操作 |
+| --- | --- |
+| A / D | 左右移动 |
+| W / S | 攀爬时上下移动 |
+| 空格 | 跳跃 |
+| Shift | 冲刺 |
+| 鼠标左键 | 攻击，需先装备武器 |
+| Q | 切换当前使用的武器 |
+| E | 拾取物品、采集或与仓库等对象交互 |
+| Tab | 打开 / 关闭背包与装备栏 |
+| K | 打开 / 关闭仓库合成界面 |
+| M | 打开 / 关闭地图 |
+| Esc | 关闭当前界面或切换暂停菜单 |
+
+在背包界面中，左键拖动物品，拖动时按 **R** 旋转允许旋转的物品；中键拖出半栈，拖到同类物品上默认堆叠，按住 **Shift** 拖放可执行交换。
+
+## 核心系统说明
+
+- **人物状态机**：在 [Hero.tscn](Scene/Hero/Hero.tscn) 中通过各状态的 `NextStates` 属性配置事件与目标状态的映射，由 `StateManager` 统一接收事件并执行状态切换。
+- **弹幕系统**：在 [BulletCatalog.tres](Rescource/Data/Catalog/BulletCatalog.tres) 中配置弹幕。`Spawned`、`Moving`、`Death`、`Hit` 数组分别保存对应生命周期的动作序列，扩展动作需继承 `BulletAction`。弹幕实例由 `BulletPoolManager` 统一复用与回收。
+- **武器系统**：在 [WeaponPorpertyCatalog.tres](Rescource/Data/Catalog/WeaponPorpertyCatalog.tres) 中配置武器，使用 `BeforeAttack`、`DuringAttack`、`AfterAttack` 动作序列组织攻击过程，扩展动作需继承 `WeaponAction`。
+- **关卡生成器**：实现位于 `Script/Gameplay/Map/`，从 `Rescource/Data/Level/LevelTemplate/` 读取模板并选择匹配的房间进行拼接。模板通过 `TemplateEditor.tscn` 编辑，可在检查器中配置房间类型。
+- **背包与合成**：通过 `InventoryManager` 统一管理物品状态，由不同 Service 执行容器规则；跨容器操作与合成使用暂存、校验、提交和失败回滚流程维护数据一致性。
+
+## 目录结构
+
+```text
+Script/       游戏逻辑、配置模型与界面脚本
+Scene/        角色、敌人、关卡、交互物与工具场景
+UI/           界面场景与主题
+Rescource/    玩法配置、贴图及其他资源
+Shader/       着色器
+addons/       编辑器插件
+tests/        功能与界面回归测试
+docs/         系统设计文档与调试说明
+```
+
+## 测试
+
+项目包含背包、装备、仓库、合成及 UI 等测试。在项目根目录使用 PowerShell 运行，`-GodotPath` 替换为本机 Godot 可执行文件路径：
+
+```powershell
+.\tests\inventory\run-tests.ps1 -GodotPath "C:\Godot\Godot.exe" -Import -IncludeUI -IncludeGameplay
+.\tests\crafting\run-tests.ps1 -GodotPath "C:\Godot\Godot.exe" -IncludeUI
+```
+
+测试日志输出到 `Log/`。系统设计资料见 [docs](docs/)，调试命令见 [调试控制台说明](docs/debug控制台命令说明.md)。
